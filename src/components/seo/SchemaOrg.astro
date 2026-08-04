@@ -1,0 +1,208 @@
+---
+// JSON-LD emitter per Build Spec Section 7. Every node that represents the
+// business reuses the same @id (site.canonicalOrigin + "/#business") —
+// never a new node per page — per the SEO doc's schema plan ("Do not
+// duplicate competing business nodes with different @id values").
+import { site } from '../../data/site';
+
+type SchemaType = 'organization' | 'localBusiness' | 'service' | 'city' | 'faqPage' | 'person';
+
+interface ServiceProps {
+  name: string;
+  description: string;
+  serviceType: string;
+  url: string;
+  areaServed?: string;
+  audience?: string;
+  // Only rendered once site.offersConfirmed is true AND an offer is
+  // supplied. Do not populate until payment/insurance policy is confirmed
+  // (SEO doc Wave 0 blocker) — this keeps `offers` a one-line flip later
+  // rather than a re-implementation.
+  offer?: { price?: string; priceCurrency?: string };
+}
+
+interface CityProps {
+  name: string;
+  url: string;
+  areaServed: string;
+}
+
+interface FaqItem {
+  q: string;
+  a: string;
+}
+
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
+interface Props {
+  type: SchemaType;
+  service?: ServiceProps;
+  city?: CityProps;
+  faqItems?: FaqItem[];
+  breadcrumb?: BreadcrumbItem[];
+}
+
+const { type, service, city, faqItems, breadcrumb } = Astro.props;
+
+const businessId = `${site.canonicalOrigin}/#business`;
+const personId = `${site.canonicalOrigin}/#kristin`;
+
+function businessRef() {
+  return { '@id': businessId };
+}
+
+function breadcrumbList(items: BreadcrumbItem[]) {
+  return {
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  };
+}
+
+function buildOrganization() {
+  return {
+    '@context': 'https://schema.org',
+    // CONFIRM: LocalBusiness vs MedicalBusiness (or a more specific medical
+    // subtype) needs a legal-appropriateness confirmation per the SEO doc's
+    // schema plan before this is treated as final.
+    '@type': ['Organization', 'LocalBusiness'],
+    '@id': businessId,
+    name: site.name,
+    url: site.canonicalOrigin,
+    telephone: site.phone.tel,
+    email: site.email,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: site.address.street,
+      addressLocality: site.address.city,
+      addressRegion: site.address.region,
+      postalCode: site.address.postalCode,
+      addressCountry: site.address.country,
+    },
+    sameAs: Object.values(site.social),
+    ...(site.hours
+      ? {
+          openingHoursSpecification: site.hours.map((h) => ({
+            '@type': 'OpeningHoursSpecification',
+            dayOfWeek: h.day,
+            opens: h.open,
+            closes: h.close,
+          })),
+        }
+      : {}),
+  };
+}
+
+function buildLocalBusinessReference() {
+  // A reference node only — reuses the business @id, does not redeclare
+  // the full Organization/LocalBusiness node. For use on pages other than
+  // the homepage (e.g. city pages), per Build Spec Section 7.
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    ...businessRef(),
+  };
+}
+
+function buildPerson() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': personId,
+    name: site.practitioner.name,
+    honorificSuffix: site.practitioner.credential,
+    jobTitle: 'Licensed Marriage and Family Therapist',
+    // CONFIRM: license number sourced from existing bio copy, pending
+    // Kristin's direct confirmation (site.practitioner.licenseConfirmRequired).
+    identifier: `CA LIC# ${site.practitioner.licenseNumber}`,
+    worksFor: businessRef(),
+  };
+}
+
+function buildService() {
+  if (!service) return null;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': `${service.url}#service`,
+    name: service.name,
+    description: service.description,
+    serviceType: service.serviceType,
+    url: service.url,
+    provider: businessRef(),
+    ...(service.areaServed ? { areaServed: service.areaServed } : {}),
+    ...(service.audience
+      ? { audience: { '@type': 'Audience', audienceType: service.audience } }
+      : {}),
+    ...(site.offersConfirmed && service.offer
+      ? {
+          offers: {
+            '@type': 'Offer',
+            price: service.offer.price,
+            priceCurrency: service.offer.priceCurrency,
+          },
+        }
+      : {}),
+  };
+}
+
+function buildCity() {
+  if (!city) return null;
+  // Doc requirement: never fabricate a branch address for a city without
+  // an office — this node intentionally carries no PostalAddress of its
+  // own, only a reference to the single business node.
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        '@id': `${city.url}#webpage`,
+        name: city.name,
+        url: city.url,
+        about: businessRef(),
+        ...(breadcrumb ? { breadcrumb: breadcrumbList(breadcrumb) } : {}),
+      },
+      ...(breadcrumb ? [{ '@id': `${city.url}#breadcrumb`, ...breadcrumbList(breadcrumb) }] : []),
+      {
+        '@type': 'LocalBusiness',
+        ...businessRef(),
+        areaServed: { '@type': 'City', name: city.areaServed },
+      },
+    ],
+  };
+}
+
+function buildFaqPage() {
+  if (!faqItems || faqItems.length === 0) return null;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.a,
+      },
+    })),
+  };
+}
+
+const schema = {
+  organization: buildOrganization,
+  localBusiness: buildLocalBusinessReference,
+  service: buildService,
+  city: buildCity,
+  faqPage: buildFaqPage,
+  person: buildPerson,
+}[type]();
+---
+
+{schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
