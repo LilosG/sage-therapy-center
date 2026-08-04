@@ -1,0 +1,19 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'services'>;
+}
+
+const { entry } = Astro.props;
+const { title, description } = entry.data;
+---
+
+<BaseLayout title={title} description={description}>
+  <nav aria-label="breadcrumb">
+    <!-- CONFIRM: breadcrumbs stub. Full trail (Home / Services / {title}) is
+         a Wave 1 concern per the SEO doc's internal link plan, not built here. -->
+  </nav>
+  <slot />
+</BaseLayout>
