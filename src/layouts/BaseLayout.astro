@@ -1,5 +1,10 @@
 ---
 import '../styles/global.css';
+import '@fontsource-variable/fraunces';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
 import { site } from '../data/site';
 
 interface Props {
@@ -20,7 +25,7 @@ const canonicalURL = new URL(Astro.url.pathname, site.canonicalOrigin);
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
   </head>
-  <body>
+  <body class="font-sans text-foreground bg-background">
     <slot />
   </body>
 </html>

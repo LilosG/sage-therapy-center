@@ -1,26 +1,39 @@
 @import "tailwindcss";
 
 /*
- * Design tokens per Build Spec Section 2. Tailwind v4 CSS-first convention
- * — no tailwind.config.mjs.
- *
- * Every value below is a placeholder read, not a final brand value — see
- * CONFIRM comment on each token. Build Spec Section 2 says these are
- * "close reads" pending sampling from final brand assets; no V4 visual
- * screenshot was available in this session to sample from, so these are
- * reasonable placeholders for a sage/therapy palette, not extracted hex
- * codes. Confirm all of them against the client's actual brand assets
- * before Wave 1 visual work.
+ * Design tokens sourced directly from the V4 Lovable project (the actual
+ * design source, not a screenshot approximation) — confirmed authoritative
+ * by the client Aug 4, 2026. Token names match Lovable's own vocabulary
+ * intentionally, so there's no translation layer between the design tool
+ * and the codebase.
  */
 @theme {
-  --color-sage-900: #33422f; /* CONFIRM: deep sage/olive, dark full-bleed sections (quote block, footer) */
-  --color-sage-600: #6b8256; /* CONFIRM: mid sage, accents/icons/labels */
-  --color-sage-100: #e8ece1; /* CONFIRM: pale sage-tinted secondary section background */
-  --color-cream: #faf7f0; /* CONFIRM: warm off-white base background */
-  --color-charcoal: #2b2824; /* CONFIRM: primary text color, not pure black */
-  --color-rose-dust: #c9a29a; /* CONFIRM: photography accent tone, sparing use only */
-  --color-gold-hairline: #b8a369; /* CONFIRM: thin accent rule under eyebrow labels */
+  /* Core brand */
+  --color-background: #FAF9F7;        /* Warm off-white page base */
+  --color-surface: #FFFFFF;           /* Content cards, dropdowns */
+  --color-primary: #4A4761;           /* Deep slate-violet — headings, nav, text CTAs */
+  --color-primary-foreground: #FAF9F7; /* Text on primary/sage-deep */
+  --color-sage: #9DB8A6;              /* Buttons, logo mark, focus ring */
+  --color-sage-deep: #6D8A78;         /* Button hover, eyebrow labels, icons */
+  --color-lavender: #B8B5CC;          /* Dusty lavender accent */
+  --color-lavender-soft: #ECEBF2;     /* Page hero backgrounds, hover fills */
 
-  --font-display: "Fraunces", serif; /* CONFIRM: display/headline serif family */
-  --font-body: "Inter", sans-serif; /* CONFIRM: body sans-serif family */
+  /* Neutrals & text */
+  --color-foreground: #3A3844;        /* Body copy */
+  --color-ink: #2A2833;               /* Deepest text */
+  --color-muted-foreground: #6B6878;  /* Captions, breadcrumbs, meta */
+  --color-secondary: #EEECE7;         /* Warm neutral panels, footer */
+  --color-muted: #F2F0EC;             /* Subtle fills */
+  --color-border: #E6E2DA;            /* Hairlines, dividers, field outlines */
+
+  /* Supporting */
+  --color-accent-foreground: #2A3D31; /* Deep green text on sage */
+  --color-destructive: #B0413E;       /* Errors */
+  --color-ring: #9DB8A6;              /* Focus outlines */
+
+  /* Typography — Fraunces (serif) for all headings/display, Inter (sans) for
+     body/UI. Weights per Lovable spec: Fraunces 300/400/500/600, optical
+     sizing 9–144; Inter 400/500/600/700. */
+  --font-serif: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 }
