@@ -1,17 +1,148 @@
 ---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import TrustStrip from '../components/sections/TrustStrip.astro';
+import ReassuranceGrid from '../components/sections/ReassuranceGrid.astro';
+import MeetKristin from '../components/sections/MeetKristin.astro';
+import ProcessSteps from '../components/sections/ProcessSteps.astro';
+import ServiceGrid from '../components/sections/ServiceGrid.astro';
+import QuoteBlock from '../components/sections/QuoteBlock.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import SchemaOrg from '../components/seo/SchemaOrg.astro';
+import { site } from '../data/site';
 
+// Data-driven rather than a hardcoded 6/8 list: only individual-therapy
+// and couples-counseling exist as real content this wave, and only
+// Carlsbad/Encinitas/San Marcos have real city entries. Linking to routes
+// that don't exist yet would 404; full link-quota coverage (Build Spec
+// Section C: 6 core services, 8 cities) arrives naturally as later waves
+// add the remaining content entries.
+const services = await getCollection('services');
+const cities = await getCollection('cities');
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="S.A.G.E. Therapy Center | Therapist in Carlsbad, CA"
+  description="Individual and couples therapy in Carlsbad, CA with Kristin Moorehead-Malley, LMFT. Request a session to discuss fit and availability."
+>
+  <Hero
+    eyebrow="S.A.G.E. Therapy Center"
+    headline="Support for whatever you're carrying — anxiety, trauma, or life's harder chapters."
+    emphasis="anxiety, trauma"
+    subhead="Individual and couples therapy in Carlsbad, CA, drawing on a range of therapeutic approaches to help you feel more like yourself."
+    primaryCta={{ label: 'Schedule a Session', href: '/schedule-a-session/' }}
+    secondaryCta={{ label: 'Meet Kristin', href: '/about/' }}
+  />
+
+  <TrustStrip
+    items={[
+      `${site.practitioner.name}, ${site.practitioner.credential}`,
+      'Serving Carlsbad & North County San Diego',
+      `In-person sessions at our ${site.address.city} office`,
+    ]}
+  />
+
+  <ReassuranceGrid
+    eyebrow="You're In The Right Place If..."
+    heading="You're in the right place if..."
+    items={[
+      {
+        title: 'Feeling anxious or overwhelmed',
+        body: 'Sessions may explore what’s driving anxiety and overwhelm, and ways to feel more grounded.',
+      },
+      {
+        title: 'Stuck in patterns you want to change',
+        body: 'An approach can include exploring patterns in how you think, feel, and relate to others.',
+      },
+      {
+        title: 'Navigating grief or a hard transition',
+        body: 'Some people seek therapy when they’re grieving a loss or moving through a major life change.',
+      },
+      {
+        title: 'Working through it with a partner',
+        body: 'Couples counseling offers support for communication, connection, and relationship challenges.',
+      },
+    ]}
+  />
+
+  <MeetKristin
+    name={site.practitioner.name}
+    credential={site.practitioner.credential}
+    bio={[
+      `${site.practitioner.name} is a Licensed Marriage and Family Therapist based in ${site.address.city}, ${site.address.region}, offering individual and couples therapy at ${site.name}.`,
+      'Sessions draw on a range of approaches, matched to what fits each person or couple rather than a one-size-fits-all method.',
+    ]}
+    modalities={['EMDR', 'Lifespan Integration', 'CBT', 'IMAGO', 'Psychodynamic', 'Attachment-Based']}
+    ctaLabel="Learn More About Kristin"
+    ctaHref="/about/"
+  />
+
+  <ProcessSteps
+    eyebrow="How It Works"
+    heading="How therapy works"
+    steps={[
+      { title: 'Reach out', body: 'Request a session to discuss fit and availability, by phone or email.' },
+      {
+        title: 'First session',
+        body: 'Meet with Kristin to talk through what brought you in and what you’re hoping for.',
+      },
+      { title: 'Ongoing sessions', body: 'Continue at a pace and with an approach that fits your goals.' },
+    ]}
+  />
+
+  <ServiceGrid
+    eyebrow="What We Offer"
+    heading="How we can help"
+    services={services.map((s) => ({
+      title: s.data.title,
+      description: s.data.description,
+      href: `/services/${s.data.slug}/`,
+    }))}
+  />
+
+  <QuoteBlock
+    quote="Therapy is a lot like climbing Everest."
+    attribution={`${site.practitioner.name}, ${site.practitioner.credential}`}
+  />
+
+  <section class="bg-background">
+    <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="eyebrow-label">Areas We Serve</p>
+        <h2 class="mt-4 font-serif text-3xl text-ink sm:text-4xl">Serving Carlsbad and North County San Diego</h2>
+      </div>
+      <ul class="mt-8 flex flex-wrap justify-center gap-3">
+        {
+          cities.map((c) => (
+            <li>
+              <a
+                href={`/${c.data.slug}/`}
+                class="rounded-full border border-border bg-surface px-5 py-2 font-sans text-sm text-foreground hover:border-sage-deep hover:text-sage-deep"
+              >
+                {c.data.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="mt-6 text-center">
+        <a href="/areas-we-serve/" class="font-sans text-sm font-medium text-sage-deep hover:text-primary">
+          See all areas we serve &rarr;
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <CTASection
+    heading="Ready to take the first step?"
+    subhead="Request a session to discuss fit and availability."
+    ctaLabel="Schedule a Session"
+    ctaHref="/schedule-a-session/"
+    phoneDisplay={site.phone.display}
+    phoneHref={`tel:${site.phone.tel}`}
+  />
+</BaseLayout>
+
+<SchemaOrg type="organization" />
+<SchemaOrg type="person" />
