@@ -1,0 +1,64 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/sections/Breadcrumbs.astro';
+import Card from '../../components/ui/Card.astro';
+import CTASection from '../../components/sections/CTASection.astro';
+import SchemaOrg from '../../components/seo/SchemaOrg.astro';
+import { site } from '../../data/site';
+
+// Data-driven: only shows cities that exist as real content entries.
+// Full 8-city coverage (SEO doc launch architecture) arrives in Wave 3 —
+// see Wave 1 report.
+const cities = await getCollection('cities');
+---
+
+<BaseLayout
+  title="Areas We Serve | S.A.G.E. Therapy Center"
+  description="S.A.G.E. Therapy Center is based in Carlsbad, CA and serves clients throughout North County San Diego."
+>
+  <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'Areas We Serve', url: '/areas-we-serve/' }]} />
+
+  <div class="mx-auto max-w-3xl px-6 pb-4 pt-8 text-center">
+    <p class="eyebrow-label">Areas We Serve</p>
+    <h1 class="mt-4 font-serif text-4xl text-ink sm:text-5xl">North County San Diego</h1>
+    <p class="mx-auto mt-4 max-w-2xl font-sans text-lg text-foreground">
+      S.A.G.E. Therapy Center's office is in Carlsbad, CA. Clients from the following areas are welcome at the
+      Carlsbad office.
+    </p>
+  </div>
+
+  <section class="bg-background">
+    <div class="mx-auto max-w-6xl px-6 py-10 sm:py-14">
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          cities.map((c) => (
+            <Card>
+              <p class="font-serif text-lg text-ink">{c.data.name}</p>
+              <p class="mt-2 font-sans text-sm text-muted-foreground">
+                {c.data.hasOffice ? 'Our office is located here.' : 'Sessions are held at our Carlsbad office.'}
+              </p>
+              <a
+                href={`/${c.data.slug}/`}
+                class="mt-4 inline-block font-sans text-sm font-medium text-sage-deep hover:text-primary"
+              >
+                Learn more &rarr;
+              </a>
+            </Card>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CTASection
+    heading="Don't see your area listed?"
+    subhead="Reach out — we may still be able to help."
+    ctaLabel="Contact Us"
+    ctaHref="/contact/"
+    phoneDisplay={site.phone.display}
+    phoneHref={`tel:${site.phone.tel}`}
+  />
+</BaseLayout>
+
+<SchemaOrg type="localBusiness" />

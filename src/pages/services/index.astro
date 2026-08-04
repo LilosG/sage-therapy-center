@@ -1,0 +1,50 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/sections/Breadcrumbs.astro';
+import ServiceGrid from '../../components/sections/ServiceGrid.astro';
+import CTASection from '../../components/sections/CTASection.astro';
+import SchemaOrg from '../../components/seo/SchemaOrg.astro';
+import { site } from '../../data/site';
+
+// Data-driven: only shows services that exist as real content entries.
+// Full 20-page coverage (SEO doc launch architecture) arrives as later
+// waves add the remaining service entries — see Wave 1 report.
+const services = await getCollection('services');
+---
+
+<BaseLayout
+  title="Our Services | S.A.G.E. Therapy Center"
+  description="Individual and couples therapy services offered at S.A.G.E. Therapy Center in Carlsbad, CA."
+>
+  <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'Services', url: '/services/' }]} />
+
+  <div class="mx-auto max-w-3xl px-6 pb-4 pt-8 text-center">
+    <p class="eyebrow-label">Services</p>
+    <h1 class="mt-4 font-serif text-4xl text-ink sm:text-5xl">How we can help</h1>
+    <p class="mx-auto mt-4 max-w-2xl font-sans text-lg text-foreground">
+      S.A.G.E. Therapy Center offers individual and couples therapy at the Carlsbad office, drawing on a range of
+      approaches matched to what fits each person or couple.
+    </p>
+  </div>
+
+  <ServiceGrid
+    heading="Current services"
+    services={services.map((s) => ({
+      title: s.data.title,
+      description: s.data.description,
+      href: `/services/${s.data.slug}/`,
+    }))}
+  />
+
+  <CTASection
+    heading="Not sure which service fits?"
+    subhead="Request a session to discuss fit and availability."
+    ctaLabel="Schedule a Session"
+    ctaHref="/schedule-a-session/"
+    phoneDisplay={site.phone.display}
+    phoneHref={`tel:${site.phone.tel}`}
+  />
+</BaseLayout>
+
+<SchemaOrg type="localBusiness" />
