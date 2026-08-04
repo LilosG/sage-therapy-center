@@ -119,9 +119,14 @@ function buildPerson() {
     name: site.practitioner.name,
     honorificSuffix: site.practitioner.credential,
     jobTitle: 'Licensed Marriage and Family Therapist',
-    // CONFIRM: license number sourced from existing bio copy, pending
-    // Kristin's direct confirmation (site.practitioner.licenseConfirmRequired).
-    identifier: `CA LIC# ${site.practitioner.licenseNumber}`,
+    // Gated the same way `offers` is gated behind offersConfirmed: the SEO
+    // doc's Wave 0 blocker list says the license number needs Kristin's
+    // direct confirmation before it "goes live in schema," despite being
+    // sourced from her own existing bio copy. Do not emit it here until
+    // site.practitioner.licenseConfirmRequired is flipped to false.
+    ...(site.practitioner.licenseConfirmRequired
+      ? {}
+      : { identifier: `CA LIC# ${site.practitioner.licenseNumber}` }),
     worksFor: businessRef(),
   };
 }
