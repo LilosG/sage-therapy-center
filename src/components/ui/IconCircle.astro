@@ -1,0 +1,17 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+const classes = [
+  'inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-lavender-soft text-sage-deep',
+  className,
+]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<div class={classes} aria-hidden="true">
+  <slot />
+</div>

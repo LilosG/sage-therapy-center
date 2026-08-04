@@ -1,0 +1,17 @@
+---
+// .section-card pattern per Build Spec Section 2: rounded, soft border,
+// generous padding, icon-in-circle header (the icon itself is composed by
+// the caller via IconCircle inside the default slot).
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+const classes = ['rounded-2xl border border-border bg-surface p-6 sm:p-8', className]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<div class={classes}>
+  <slot />
+</div>
