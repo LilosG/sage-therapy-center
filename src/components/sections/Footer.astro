@@ -1,0 +1,102 @@
+---
+// Layout-level component — see Header.astro for the folder-placement note.
+import { site } from '../../data/site';
+import { footerCityNav, footerCoreServiceNav, footerLegalNav } from '../../data/nav';
+---
+
+<footer class="bg-secondary">
+  <div class="mx-auto max-w-6xl px-6 py-12">
+    <div class="grid grid-cols-2 gap-8 sm:grid-cols-4">
+      <div class="col-span-2 sm:col-span-1">
+        <p class="font-serif text-lg text-primary">{site.name}</p>
+        <address class="mt-3 not-italic font-sans text-sm text-muted-foreground">
+          {site.address.street}<br />
+          {site.address.city}, {site.address.region} {site.address.postalCode}
+        </address>
+        <p class="mt-3 font-sans text-sm">
+          <a href={`tel:${site.phone.tel}`} class="text-primary hover:text-sage-deep">{site.phone.display}</a>
+        </p>
+        <p class="font-sans text-sm">
+          <a href={`mailto:${site.email}`} class="text-primary hover:text-sage-deep">{site.email}</a>
+        </p>
+        <p class="mt-3 font-sans text-sm text-muted-foreground">
+          {site.practitioner.name}, {site.practitioner.credential}
+          <!-- CONFIRM: display site.practitioner.licenseNumber here once
+               Kristin confirms it (site.practitioner.licenseConfirmRequired
+               is currently true) — SEO doc Wave 0 blocker 7. -->
+        </p>
+        <div class="mt-3 flex gap-4">
+          <a href={site.social.facebook} class="font-sans text-sm text-primary hover:text-sage-deep">Facebook</a>
+          <a href={site.social.instagram} class="font-sans text-sm text-primary hover:text-sage-deep">Instagram</a>
+        </div>
+      </div>
+
+      <div>
+        <p class="font-sans text-sm font-semibold text-ink">Areas We Serve</p>
+        <ul class="mt-3 space-y-2">
+          {
+            footerCityNav.map((item) => (
+              <li>
+                <a href={item.href} class="font-sans text-sm text-muted-foreground hover:text-sage-deep">
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <p class="font-sans text-sm font-semibold text-ink">Services</p>
+        <ul class="mt-3 space-y-2">
+          {
+            footerCoreServiceNav.map((item) => (
+              <li>
+                <a href={item.href} class="font-sans text-sm text-muted-foreground hover:text-sage-deep">
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <p class="font-sans text-sm font-semibold text-ink">Practice</p>
+        <ul class="mt-3 space-y-2">
+          <li>
+            <a href="/about/" class="font-sans text-sm text-muted-foreground hover:text-sage-deep">About</a>
+          </li>
+          <li>
+            <a href="/faq/" class="font-sans text-sm text-muted-foreground hover:text-sage-deep">FAQ</a>
+          </li>
+          <li>
+            <a href="/contact/" class="font-sans text-sm text-muted-foreground hover:text-sage-deep">Contact</a>
+          </li>
+          <li>
+            <a href="/schedule-a-session/" class="font-sans text-sm text-muted-foreground hover:text-sage-deep">
+              Schedule a Session
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-10 flex flex-col gap-2 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
+      <p class="font-sans text-xs text-muted-foreground">
+        &copy; {new Date().getFullYear()} {site.name}. All rights reserved.
+      </p>
+      <ul class="flex gap-4">
+        {
+          footerLegalNav.map((item) => (
+            <li>
+              <a href={item.href} class="font-sans text-xs text-muted-foreground hover:text-sage-deep">
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</footer>

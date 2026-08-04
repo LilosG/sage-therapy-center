@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/sections/Breadcrumbs.astro';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -7,13 +8,15 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const { name, primaryTarget } = entry.data;
+const { name, primaryTarget, slug } = entry.data;
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Areas We Serve', url: '/areas-we-serve/' },
+  { name, url: `/${slug}/` },
+];
 ---
 
 <BaseLayout title={name} description={primaryTarget}>
-  <nav aria-label="breadcrumb">
-    <!-- CONFIRM: breadcrumbs stub. Full trail (Home / Areas We Serve / {name})
-         is a Wave 1 concern per the SEO doc's internal link plan, not built here. -->
-  </nav>
+  <Breadcrumbs items={breadcrumbItems} />
   <slot />
 </BaseLayout>

@@ -1,0 +1,75 @@
+---
+// Layout-level component (per Build Spec Section 6, layout-level
+// components are the exception allowed to import site.ts/nav.ts
+// directly). Placed in components/sections/ per the Wave 1 prompt's
+// explicit folder instruction, which supersedes Build Spec Section 3's
+// original components/layout/ split for this build.
+import { site } from '../../data/site';
+import { headerNav } from '../../data/nav';
+import Button from '../ui/Button.astro';
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="border-b border-border bg-surface">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-4">
+    <a href="/" class="font-serif text-xl font-medium text-primary">
+      {site.name}
+    </a>
+
+    <nav aria-label="Primary" class="hidden items-center gap-6 lg:flex">
+      {
+        headerNav.map((item) => (
+          <a
+            href={item.href}
+            class={`font-sans text-sm transition-colors ${
+              currentPath === item.href
+                ? 'text-sage-deep font-medium'
+                : 'text-foreground hover:text-sage-deep'
+            }`}
+            aria-current={currentPath === item.href ? 'page' : undefined}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="hidden items-center gap-4 lg:flex">
+      <a href={`tel:${site.phone.tel}`} class="font-sans text-sm text-primary hover:text-sage-deep">
+        {site.phone.display}
+      </a>
+      <Button href="/schedule-a-session/">Schedule a Session</Button>
+    </div>
+
+    <details class="relative lg:hidden">
+      <summary
+        class="flex cursor-pointer list-none items-center justify-center rounded-full border border-border p-2 marker:content-none"
+        aria-label="Open menu"
+      >
+        <span aria-hidden="true">Menu</span>
+      </summary>
+      <nav
+        aria-label="Primary"
+        class="absolute right-0 z-10 mt-2 w-56 rounded-2xl border border-border bg-surface p-4 shadow-lg"
+      >
+        <ul class="flex flex-col gap-3">
+          {
+            headerNav.map((item) => (
+              <li>
+                <a href={item.href} class="block font-sans text-sm text-foreground hover:text-sage-deep">
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+          <li>
+            <a href={`tel:${site.phone.tel}`} class="block font-sans text-sm text-primary">
+              {site.phone.display}
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </details>
+  </div>
+</header>

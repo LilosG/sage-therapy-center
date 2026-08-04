@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/sections/Breadcrumbs.astro';
 import { getEntry } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 
@@ -10,12 +11,14 @@ interface Props {
 const { entry } = Astro.props;
 const city = await getEntry(entry.data.city);
 const service = await getEntry(entry.data.service);
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: city.data.name, url: `/${city.data.slug}/` },
+  { name: service.data.title, url: `/${city.data.slug}/${service.data.slug}/` },
+];
 ---
 
 <BaseLayout title={`${service.data.title} in ${city.data.name}`} description={service.data.description}>
-  <nav aria-label="breadcrumb">
-    <!-- CONFIRM: breadcrumbs stub. Full trail (Home / {city.data.name} / {service.data.title})
-         is a Wave 1 concern per the SEO doc's internal link plan, not built here. -->
-  </nav>
+  <Breadcrumbs items={breadcrumbItems} />
   <slot />
 </BaseLayout>
