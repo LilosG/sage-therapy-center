@@ -1,0 +1,20 @@
+---
+// Minimal route wiring only, to prove the services collection schema
+// validates and getStaticPaths() renders — not a Wave 1 content page.
+import { getCollection } from 'astro:content';
+import ServiceLayout from '../../layouts/ServiceLayout.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('services');
+  return entries.map((entry) => ({
+    params: { service: entry.data.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+---
+
+<ServiceLayout entry={entry}>
+  <h1>{entry.data.title}</h1>
+</ServiceLayout>

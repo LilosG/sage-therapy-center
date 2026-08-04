@@ -1,0 +1,34 @@
+---
+// Minimal route wiring only, to prove the city-services collection schema
+// validates and renders — not a Wave 1 content page.
+//
+// Critical guardrail (Build Spec Section 5): getStaticPaths() sources
+// ONLY from existing `city-services` content entries, never from a
+// cross-product of all cities x all services. A research-gated
+// city/service combination gets a live route only when someone adds a
+// content entry for it — never by editing this file.
+import { getCollection, getEntry } from 'astro:content';
+import CityServiceLayout from '../../layouts/CityServiceLayout.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('city-services');
+  return Promise.all(
+    entries.map(async (entry) => {
+      const city = await getEntry(entry.data.city);
+      const service = await getEntry(entry.data.service);
+      return {
+        params: { city: city.data.slug, service: service.data.slug },
+        props: { entry },
+      };
+    })
+  );
+}
+
+const { entry } = Astro.props;
+const city = await getEntry(entry.data.city);
+const service = await getEntry(entry.data.service);
+---
+
+<CityServiceLayout entry={entry}>
+  <h1>{service.data.title} in {city.data.name}</h1>
+</CityServiceLayout>
