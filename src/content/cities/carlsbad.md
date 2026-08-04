@@ -1,4 +1,7 @@
 ---
+entryId:
+  name: "[PLACEHOLDER] Carlsbad"
+  slug: carlsbad
 name: "[PLACEHOLDER] Carlsbad"
 slug: carlsbad
 hasOffice: true

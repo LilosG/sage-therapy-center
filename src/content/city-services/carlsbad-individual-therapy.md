@@ -1,4 +1,7 @@
 ---
+entryId:
+  name: "[PLACEHOLDER] Carlsbad — Individual Therapy"
+  slug: carlsbad-individual-therapy
 city: carlsbad
 service: individual-therapy
 minWordCount: 600

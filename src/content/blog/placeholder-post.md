@@ -1,4 +1,7 @@
 ---
+entryId:
+  name: "[PLACEHOLDER] Sample Blog Post"
+  slug: placeholder-sample-post
 title: "[PLACEHOLDER] Sample Blog Post"
 slug: placeholder-sample-post
 publishDate: 2026-08-04

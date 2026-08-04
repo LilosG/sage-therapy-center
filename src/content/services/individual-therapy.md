@@ -1,4 +1,7 @@
 ---
+entryId:
+  name: "[PLACEHOLDER] Individual Therapy"
+  slug: individual-therapy
 title: "[PLACEHOLDER] Individual Therapy"
 slug: individual-therapy
 category: core
