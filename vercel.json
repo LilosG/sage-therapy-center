@@ -1,0 +1,33 @@
+{
+  "redirects": [
+    { "source": "/mental-health-therapy-counseling-encinitas", "destination": "/encinitas/", "permanent": true },
+    { "source": "/mental-health-therapy-counseling-encinitas/", "destination": "/encinitas/", "permanent": true },
+    { "source": "/mental-health-therapy-counseling-san-marcos", "destination": "/san-marcos/", "permanent": true },
+    { "source": "/mental-health-therapy-counseling-san-marcos/", "destination": "/san-marcos/", "permanent": true },
+    { "source": "/mental-health-therapy-counseling-san-diego", "destination": "/carlsbad/", "permanent": true },
+    { "source": "/mental-health-therapy-counseling-san-diego/", "destination": "/carlsbad/", "permanent": true },
+    { "source": "/mental-health-therapy-counseling-oceanside", "destination": "/oceanside/", "permanent": true },
+    { "source": "/mental-health-therapy-counseling-oceanside/", "destination": "/oceanside/", "permanent": true },
+    { "source": "/mental-health-therapy-counseling-vista", "destination": "/vista/", "permanent": true },
+    { "source": "/mental-health-therapy-counseling-vista/", "destination": "/vista/", "permanent": true },
+    { "source": "/mental-health-therapy-counseling-del-mar", "destination": "/del-mar/", "permanent": true },
+    { "source": "/mental-health-therapy-counseling-solana-beach", "destination": "/solana-beach/", "permanent": true },
+    { "source": "/mental-health-therapy-counseling-san-clemente", "destination": "/", "permanent": true },
+    { "source": "/mental-health-therapy-counseling-carmel-valley", "destination": "/carlsbad/", "permanent": true },
+    { "source": "/mental-health-therapy-counseling-escondido", "destination": "/carlsbad/", "permanent": true },
+    { "source": "/services/individual-therapy", "destination": "/services/individual-therapy/", "permanent": true },
+    { "source": "/services/teen-counseling", "destination": "/services/teen-counseling/", "permanent": true },
+    { "source": "/services/pre-marital-marriage-counseling", "destination": "/services/premarital-marriage-counseling/", "permanent": true },
+    { "source": "/services/parenting-family-therapy", "destination": "/services/family-therapy/", "permanent": true },
+    { "source": "/specialties", "destination": "/services/", "permanent": true },
+    { "source": "/meet-kristin", "destination": "/about/", "permanent": true },
+    { "source": "/therapists-of-san-diego-kristin-mooreheadmalley", "destination": "/about/", "permanent": true },
+    { "source": "/schedule-a-session", "destination": "/schedule-a-session/", "permanent": true },
+    { "source": "/testimonials", "destination": "/about/#testimonials", "permanent": true },
+    { "source": "/office-pics", "destination": "/contact/", "permanent": true },
+    { "source": "/sage-therapy-center-office-pics", "destination": "/contact/", "permanent": true },
+    { "source": "/sage-therapy-center-blog", "destination": "/blog/", "permanent": true },
+    { "source": "/therapists-of-san-diego-approach", "destination": "/about/", "permanent": true },
+    { "source": "/28daysofselflove", "destination": "/resources/28-days-of-self-love/", "permanent": true }
+  ]
+}
