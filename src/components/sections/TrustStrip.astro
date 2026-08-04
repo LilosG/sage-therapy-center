@@ -1,0 +1,17 @@
+---
+// Deliberately data-free beyond typed props: the SEO doc's .trust-strip
+// pattern calls for "license / years / areas / availability," but no
+// years-of-experience figure or confirmed telehealth/in-person
+// availability exists in either source document, and the license number
+// itself is still confirm-gated (site.ts). Rather than invent any of
+// those, the caller supplies only the items that are actually sourced.
+interface Props {
+  items: string[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="trust-strip">
+  {items.map((item) => <span>{item}</span>)}
+</div>

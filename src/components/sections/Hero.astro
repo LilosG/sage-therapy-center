@@ -1,0 +1,51 @@
+---
+import Button from '../ui/Button.astro';
+
+interface CTA {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  eyebrow: string;
+  headline: string;
+  // Optional exact substring of `headline` to render in italic, per Build
+  // Spec Section 2 ("italic used selectively for emphasis words within
+  // headlines").
+  emphasis?: string;
+  subhead: string;
+  primaryCta: CTA;
+  secondaryCta?: CTA;
+}
+
+const { eyebrow, headline, emphasis, subhead, primaryCta, secondaryCta } = Astro.props;
+const parts = emphasis && headline.includes(emphasis) ? headline.split(emphasis) : null;
+---
+
+<section class="bg-lavender-soft">
+  <div class="mx-auto max-w-3xl px-6 py-20 text-center sm:py-28">
+    <p class="eyebrow-label">{eyebrow}</p>
+    <h1 class="mt-4 font-serif text-4xl leading-tight text-ink sm:text-5xl">
+      {
+        parts ? (
+          <Fragment>
+            {parts[0]}
+            <em class="italic text-primary">{emphasis}</em>
+            {parts[1]}
+          </Fragment>
+        ) : (
+          headline
+        )
+      }
+    </h1>
+    <p class="mx-auto mt-6 max-w-2xl font-sans text-lg text-foreground">{subhead}</p>
+    <div class="mt-8 flex flex-wrap justify-center gap-4">
+      <Button href={primaryCta.href}>{primaryCta.label}</Button>
+      {secondaryCta && (
+        <Button href={secondaryCta.href} variant="secondary">
+          {secondaryCta.label}
+        </Button>
+      )}
+    </div>
+  </div>
+</section>

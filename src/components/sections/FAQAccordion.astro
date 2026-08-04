@@ -1,0 +1,30 @@
+---
+import Accordion from '../ui/Accordion.astro';
+import SchemaOrg from '../seo/SchemaOrg.astro';
+
+interface FaqItem {
+  q: string;
+  a: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  items: FaqItem[];
+}
+
+const { eyebrow, heading, items } = Astro.props;
+---
+
+<section class="bg-background">
+  <div class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+    <div class="text-center">
+      {eyebrow && <p class="eyebrow-label">{eyebrow}</p>}
+      <h2 class="mt-4 font-serif text-3xl text-ink sm:text-4xl">{heading}</h2>
+    </div>
+    <div class="mt-10">
+      <Accordion items={items} />
+    </div>
+  </div>
+</section>
+<SchemaOrg type="faqPage" faqItems={items} />

@@ -1,0 +1,31 @@
+---
+import Button from '../ui/Button.astro';
+
+interface Props {
+  heading: string;
+  subhead?: string;
+  ctaLabel: string;
+  ctaHref: string;
+  phoneDisplay?: string;
+  phoneHref?: string;
+}
+
+const { heading, subhead, ctaLabel, ctaHref, phoneDisplay, phoneHref } = Astro.props;
+---
+
+<section class="bg-primary">
+  <div class="mx-auto max-w-3xl px-6 py-16 text-center sm:py-20">
+    <h2 class="font-serif text-3xl text-primary-foreground sm:text-4xl">{heading}</h2>
+    {subhead && <p class="mt-4 font-sans text-lg text-primary-foreground/80">{subhead}</p>}
+    <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+      <Button href={ctaHref}>{ctaLabel}</Button>
+      {
+        phoneDisplay && phoneHref && (
+          <a href={phoneHref} class="font-sans text-sm text-primary-foreground underline underline-offset-4">
+            Or call {phoneDisplay}
+          </a>
+        )
+      }
+    </div>
+  </div>
+</section>

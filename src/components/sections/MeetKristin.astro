@@ -1,0 +1,43 @@
+---
+import Button from '../ui/Button.astro';
+
+interface Props {
+  name: string;
+  credential: string;
+  bio: string[];
+  modalities: string[];
+  ctaLabel: string;
+  ctaHref: string;
+}
+
+const { name, credential, bio, modalities, ctaLabel, ctaHref } = Astro.props;
+---
+
+<section class="bg-lavender-soft">
+  <div class="mx-auto grid max-w-6xl gap-10 px-6 py-16 sm:py-20 lg:grid-cols-2 lg:items-center">
+    <div>
+      <p class="eyebrow-label">Meet Your Therapist</p>
+      <h2 class="mt-4 font-serif text-3xl text-ink sm:text-4xl">
+        {name}, {credential}
+      </h2>
+      <div class="mt-4 space-y-4 font-sans text-foreground">
+        {bio.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+      <Button href={ctaHref} class="mt-6">
+        {ctaLabel}
+      </Button>
+    </div>
+    <div>
+      <p class="font-sans text-sm font-semibold text-ink">Approaches Kristin draws on</p>
+      <ul class="mt-4 flex flex-wrap gap-2">
+        {
+          modalities.map((modality) => (
+            <li class="rounded-full border border-border bg-surface px-4 py-2 font-sans text-sm text-foreground">
+              {modality}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
