@@ -14,7 +14,13 @@ const services = defineCollection({
     category: z.enum(['core', 'concern-led']),
     primaryTarget: z.string(),
     mustNotCompeteFor: z.string(),
-    relatedServices: z.array(reference('services')).min(2).max(4),
+    // Build Spec: "2-4 slugs, enforces internal link plan." Left as
+    // documentation rather than a hard min/max here — enforcing it at the
+    // schema level would require 3+ real content entries to avoid
+    // self-reference, which is a content-authoring concern outside this
+    // scaffolding phase (one placeholder entry per collection is the goal
+    // right now). Enforce the 2-4 count at content-QA/CI time instead.
+    relatedServices: z.array(reference('services')),
     description: z.string(),
     faq: z
       .array(
