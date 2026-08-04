@@ -1,8 +1,10 @@
 ---
-// Minimal route wiring only, to prove the services collection schema
-// validates and getStaticPaths() renders — not a Wave 1 content page.
-import { getCollection } from 'astro:content';
+import { getCollection, getEntries, render } from 'astro:content';
 import ServiceLayout from '../../layouts/ServiceLayout.astro';
+import FAQAccordion from '../../components/sections/FAQAccordion.astro';
+import CTASection from '../../components/sections/CTASection.astro';
+import SchemaOrg from '../../components/seo/SchemaOrg.astro';
+import { site } from '../../data/site';
 
 export async function getStaticPaths() {
   const entries = await getCollection('services');
@@ -13,8 +15,59 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
+const { Content } = await render(entry);
+const related = entry.data.relatedServices.length ? await getEntries(entry.data.relatedServices) : [];
+const pageUrl = `${site.canonicalOrigin}/services/${entry.data.slug}/`;
 ---
 
 <ServiceLayout entry={entry}>
-  <h1>{entry.data.title}</h1>
+  <div class="mx-auto max-w-3xl px-6 pb-4 pt-8">
+    <p class="eyebrow-label">{entry.data.category === 'core' ? 'Core Service' : 'Concern-Led Service'}</p>
+    <h1 class="mt-4 font-serif text-4xl text-ink sm:text-5xl">{entry.data.title}</h1>
+    <div class="prose mt-6 max-w-none font-sans text-foreground">
+      <Content />
+    </div>
+
+    {
+      related.length > 0 && (
+        <div class="mt-10 border-t border-border pt-6">
+          <p class="font-sans text-sm font-semibold text-ink">Related services</p>
+          <ul class="mt-3 flex flex-wrap gap-2">
+            {related.map((r) => (
+              <li>
+                <a
+                  href={`/services/${r.data.slug}/`}
+                  class="rounded-full border border-border bg-surface px-4 py-2 font-sans text-sm text-foreground hover:border-sage-deep hover:text-sage-deep"
+                >
+                  {r.data.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+  </div>
+
+  {entry.data.faq && entry.data.faq.length > 0 && <FAQAccordion heading="Frequently asked questions" items={entry.data.faq} />}
+
+  <CTASection
+    heading={`Ready to talk about ${entry.data.title.toLowerCase()}?`}
+    subhead="Request a session to discuss fit and availability."
+    ctaLabel="Schedule a Session"
+    ctaHref="/schedule-a-session/"
+    phoneDisplay={site.phone.display}
+    phoneHref={`tel:${site.phone.tel}`}
+  />
 </ServiceLayout>
+
+<SchemaOrg
+  type="service"
+  service={{
+    name: entry.data.title,
+    description: entry.data.description,
+    serviceType: entry.data.primaryTarget,
+    url: pageUrl,
+    areaServed: site.address.city,
+  }}
+/>
