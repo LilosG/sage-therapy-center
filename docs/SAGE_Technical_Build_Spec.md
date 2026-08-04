@@ -20,9 +20,10 @@ editing a data entry — never touching a `.astro` template.
 | Framework | Astro (latest stable) | Matches existing Lilos Growth stack |
 | Styling | Tailwind CSS v4 + `@tailwindcss/vite` | Current Astro default as of `astro add tailwind`. Deliberate deviation from your other repos (which run v3 + `@astrojs/tailwind`) — this is a fresh build with nothing to migrate, so it takes the current-best-practice path rather than matching legacy convention. v4's native Vite plugin avoids the `@astrojs/tailwind`/v3 peer-dep conflict you hit on lilos-growth, so the `.npmrc` legacy-peer-deps line is likely unnecessary here (keep it anyway — harmless, and cheap insurance) |
 | Package manager | npm | Confirmed pattern across your repos (`package-lock.json`) |
+| **Known accepted risk** | `path-to-regexp@6.1.0` (high severity, ReDoS via backtracking regex, [GHSA-9wv6-86v2-598j](https://github.com/advisories/GHSA-9wv6-86v2-598j)) | Transitive dependency via `@vercel/routing-utils@5.3.3` → `@astrojs/vercel@11.0.4`, the only adapter version compatible with `astro@^7.0.0`. Verified Aug 2026: no published version of `@vercel/routing-utils` (checked through `6.4.1`) resolves this — it still pins `path-to-regexp@6.1.0` directly. `npm overrides` was evaluated and rejected — forcing the version doesn't change what's actually loaded. Risk is confined to Vercel's internal request-routing layer (ReDoS on request parsing), not exploitable through site content, Keystatic admin, or user input on this site. Re-check `npm audit` when `@astrojs/vercel` or `@vercel/routing-utils` next release, and when the project eventually upgrades to Astro 8+ (which may unlock a newer adapter major). Do not re-attempt the same `npm audit fix --force` → check → override chain without new upstream releases — this was already run to ground. |
 | Hosting | Vercel | Auto-deploy from `main` |
 | Repo | GitHub, org `LilosG`, repo `sage-therapy-center` (confirm) | Matches org convention |
-| CMS | Keystatic | Matches your standardized pattern across all 6 GPH sites + BET — do not introduce Tina or another CMS for this client |
+| CMS | Keystatic | Matches your standardized pattern across all 6 GPH sites + BET — do not introduce Tina or another CMS for this client. Requires `@astrojs/react` (Keystatic's admin UI is React-based) and `@astrojs/vercel` as adapter (Keystatic injects on-demand `/keystatic/**` admin routes, which need an adapter present even though all public content pages still prerender statically — confirmed via Phase B build: `output` stays unset/`static` by default, only Keystatic's internally-injected routes go server-rendered, nothing in `src/pages` opts out of prerendering) |
 | Content modeling | Astro Content Collections (`src/content/`) + Keystatic schema bound to those collections | Collections give you type-safe frontmatter; Keystatic gives Kristin a real editing UI without touching code |
 | Image handling | Astro's built-in `<Image />` / `astro:assets`, WebP/AVIF output | Matches doc's image optimization requirement |
 | Node | LTS matching Vercel's default | Avoid pinning unless a dependency forces it |
@@ -93,8 +94,10 @@ src/
                      TestimonialGrid, FAQAccordion, LocationBlock, CTASection
     ui/              Card, IconCircle, Button, Accordion (primitives)
     seo/             SchemaOrg.astro (JSON-LD emitter, see Section 8)
+  content.config.ts   collection schemas (Section 5) — NOTE: Astro 7 requires this
+                       file at src/content.config.ts, NOT src/content/config.ts as
+                       older Astro docs/examples show. Verified during Phase B build.
   content/
-    config.ts        collection schemas (Section 5)
     services/         20 markdown/mdx entries
     cities/            8 entries
     city-services/     launch-matrix entries only (see Section 6 — gated pages
@@ -176,6 +179,21 @@ Build-time check: refuse to render any testimonial where `permissioned !== true`
 
 **`faq`** — global FAQ pool (cost, process, fit) referenced by `/faq/` and pulled selectively
 into service/city pages.
+```ts
+{ q: string, a: string }
+```
+(Same shape as the inline `faq` arrays on `services` and `city-services` — this is the only
+FAQ field vocabulary defined anywhere in project docs, confirmed during Phase B.)
+
+**Keystatic binding note (Phase B finding):** Keystatic's `collection()` requires a
+`slugField` built with `fields.slug()`, which stores `{ name, slug }` — a shape none of the
+Zod schemas above define. Fix: add a Keystatic-only `entryId` field (`fields.slug()`) to
+each collection purely to drive the admin UI's filename/slug behavior. Since the Zod
+schemas use plain `z.object()` (not `.strict()`), the extra frontmatter key is silently
+dropped on parse and never reaches validated content data — Keystatic and the content
+layer stay decoupled. One side effect: Keystatic writes `entryId: {name, slug}` into the
+actual `.md` frontmatter on disk, so raw files will show that extra field — harmless, but
+expected, not a bug if you see it.
 
 **`blog`**
 ```ts
