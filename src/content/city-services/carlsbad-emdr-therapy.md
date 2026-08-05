@@ -23,9 +23,6 @@ EMDR is closely related to individual therapy, also offered at the Carlsbad offi
 
 Clients tend to arrive at EMDR from one of two directions: either they've read about it or heard about it specifically and want to know if it's a fit, or they're already in individual or couples work and EMDR comes up partway through as something that might help with what they're processing. Neither path is more "correct" than the other, and neither locks you in — because EMDR is one approach among several Kristin offers, it's possible to start with it and shift to something else, or the reverse, as the work continues.
 
-<!-- CONFIRM: once the trauma-ptsd-therapy service page exists (Wave 4),
-     add a direct cross-link/mention here per the SEO doc's
-     cannibalization table note that EMDR should be cross-linked to
-     trauma content. -->
+EMDR is often associated with trauma-informed work specifically — Carlsbad clients working through trauma or PTSD may want to look at the trauma & PTSD therapy page as well, since EMDR is one approach used there. EMDR itself isn't limited to trauma, though.
 
 Request a session to discuss fit and availability for Carlsbad EMDR therapy.

@@ -9,6 +9,7 @@ primaryTarget: "EMDR therapy"
 mustNotCompeteFor: "broad trauma therapy"
 relatedServices:
   - individual-therapy
+  - trauma-ptsd-therapy
 description: "EMDR (Eye Movement Desensitization and Reprocessing) therapy, one of the approaches Kristin Moorehead-Malley, LMFT draws on, offered at the Carlsbad office."
 faq:
   - q: "What is EMDR?"
@@ -21,9 +22,6 @@ EMDR (Eye Movement Desensitization and Reprocessing) is one of the therapeutic a
 
 EMDR is offered as part of a broader range of approaches — including Lifespan Integration, CBT, IMAGO, psychodynamic, and attachment-based work — matched to what fits each person. Some people seek EMDR specifically; others find it introduced as part of individual or couples work once it's clear it may help.
 
-<!-- CONFIRM: SEO doc's cannibalization table notes EMDR should be
-     "cross-linked to trauma" (the trauma-ptsd-therapy service page).
-     That page doesn't exist yet (Wave 4 concern-led service) — add the
-     cross-link once it's built. -->
+EMDR is often associated with trauma-informed work specifically — see the trauma & PTSD therapy page if that's what brought you here. EMDR itself isn't limited to trauma, though; it's used for a range of concerns depending on what fits.
 
 Request a session to discuss fit and availability.
