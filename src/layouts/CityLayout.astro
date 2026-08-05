@@ -2,6 +2,8 @@
 import BaseLayout from './BaseLayout.astro';
 import Breadcrumbs from '../components/sections/Breadcrumbs.astro';
 import FAQAccordion from '../components/sections/FAQAccordion.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import { site } from '../data/site';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -21,4 +23,15 @@ const breadcrumbItems = [
   <Breadcrumbs items={breadcrumbItems} />
   <slot />
   {faq && faq.length > 0 && <FAQAccordion heading={`${name} FAQs`} items={faq} />}
+  <!-- Every city hub is a money page per Build Spec link quotas — the CTA
+       is structural here (guaranteed by the layout) rather than left to
+       each page to remember, same fix as the Wave 1 Footer bug. -->
+  <CTASection
+    heading={`Ready to schedule as a ${name} client?`}
+    subhead="Request a session to discuss fit and availability."
+    ctaLabel="Schedule a Session"
+    ctaHref="/schedule-a-session/"
+    phoneDisplay={site.phone.display}
+    phoneHref={`tel:${site.phone.tel}`}
+  />
 </BaseLayout>

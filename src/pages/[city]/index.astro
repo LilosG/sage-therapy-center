@@ -2,7 +2,6 @@
 import { getCollection, getEntries, render } from 'astro:content';
 import CityLayout from '../../layouts/CityLayout.astro';
 import ServiceGrid from '../../components/sections/ServiceGrid.astro';
-import CTASection from '../../components/sections/CTASection.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
 
@@ -50,15 +49,6 @@ const breadcrumbItems = [
       />
     )
   }
-
-  <CTASection
-    heading={`Ready to schedule as a ${entry.data.name} client?`}
-    subhead="Request a session to discuss fit and availability."
-    ctaLabel="Schedule a Session"
-    ctaHref="/schedule-a-session/"
-    phoneDisplay={site.phone.display}
-    phoneHref={`tel:${site.phone.tel}`}
-  />
 </CityLayout>
 
 <SchemaOrg
