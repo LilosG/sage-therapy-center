@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { Icon } from 'astro-icon/components';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/sections/Breadcrumbs.astro';
 import ServiceGrid from '../../components/sections/ServiceGrid.astro';
@@ -9,9 +10,9 @@ import { site } from '../../data/site';
 import { serviceIcons, defaultServiceIcon } from '../../data/serviceIcons';
 
 // Data-driven: only shows services that exist as real content entries.
-// Full 20-page coverage (SEO doc launch architecture) arrives as later
-// waves add the remaining service entries — see Wave 1 report.
 const services = await getCollection('services');
+const coreServices = services.filter((s) => s.data.category === 'core');
+const concernLedServices = services.filter((s) => s.data.category === 'concern-led');
 ---
 
 <BaseLayout
@@ -30,14 +31,42 @@ const services = await getCollection('services');
   </div>
 
   <ServiceGrid
-    heading="Current services"
-    services={services.map((s) => ({
+    eyebrow="Core Services"
+    heading="Where most people start"
+    services={coreServices.map((s) => ({
       title: s.data.title,
       description: s.data.description,
       href: `/services/${s.data.slug}/`,
       icon: serviceIcons[s.data.slug] ?? defaultServiceIcon,
     }))}
   />
+
+  <section class="bg-secondary">
+    <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="eyebrow-label">Areas of Focus</p>
+        <h2 class="mt-4 font-serif text-3xl text-ink sm:text-4xl">More ways we can help</h2>
+        <p class="mt-4 font-sans text-foreground">
+          Beyond the core services above, sessions can also focus on any of the following.
+        </p>
+      </div>
+      <ul class="mt-10 flex flex-wrap justify-center gap-3">
+        {
+          concernLedServices.map((s) => (
+            <li>
+              <a
+                href={`/services/${s.data.slug}/`}
+                class="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-2 font-sans text-sm text-foreground hover:border-sage-deep hover:text-sage-deep"
+              >
+                <Icon name={serviceIcons[s.data.slug] ?? defaultServiceIcon} width={16} height={16} class="text-sage-deep" />
+                {s.data.title}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
 
   <CTASection
     heading="Not sure which service fits?"
