@@ -1,6 +1,8 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import Breadcrumbs from '../components/sections/Breadcrumbs.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import { site } from '../data/site';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -19,4 +21,15 @@ const breadcrumbItems = [
 <BaseLayout title={title} description={description}>
   <Breadcrumbs items={breadcrumbItems} />
   <slot />
+  <!-- Every service pillar is a money page per Build Spec link quotas —
+       structural here (guaranteed by the layout), matching the
+       CityLayout/CityServiceLayout/Footer fix pattern from prior waves. -->
+  <CTASection
+    heading={`Ready to talk about ${title.toLowerCase()}?`}
+    subhead="Request a session to discuss fit and availability."
+    ctaLabel="Schedule a Session"
+    ctaHref="/schedule-a-session/"
+    phoneDisplay={site.phone.display}
+    phoneHref={`tel:${site.phone.tel}`}
+  />
 </BaseLayout>

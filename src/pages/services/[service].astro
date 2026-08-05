@@ -2,7 +2,6 @@
 import { getCollection, getEntries, render } from 'astro:content';
 import ServiceLayout from '../../layouts/ServiceLayout.astro';
 import FAQAccordion from '../../components/sections/FAQAccordion.astro';
-import CTASection from '../../components/sections/CTASection.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
 
@@ -50,15 +49,6 @@ const pageUrl = `${site.canonicalOrigin}/services/${entry.data.slug}/`;
   </div>
 
   {entry.data.faq && entry.data.faq.length > 0 && <FAQAccordion heading="Frequently asked questions" items={entry.data.faq} />}
-
-  <CTASection
-    heading={`Ready to talk about ${entry.data.title.toLowerCase()}?`}
-    subhead="Request a session to discuss fit and availability."
-    ctaLabel="Schedule a Session"
-    ctaHref="/schedule-a-session/"
-    phoneDisplay={site.phone.display}
-    phoneHref={`tel:${site.phone.tel}`}
-  />
 </ServiceLayout>
 
 <SchemaOrg
