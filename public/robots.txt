@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sagetherapycenter.com/sitemap-index.xml

@@ -1,4 +1,5 @@
 ---
+import { getImage } from 'astro:assets';
 import '../styles/global.css';
 import '@fontsource-variable/fraunces';
 import '@fontsource/inter/400.css';
@@ -8,14 +9,33 @@ import '@fontsource/inter/700.css';
 import { site } from '../data/site';
 import Header from '../components/sections/Header.astro';
 import Footer from '../components/sections/Footer.astro';
+import defaultOgImageSource from '../assets/images/kristin-moorehead-malley.webp';
 
 interface Props {
   title: string;
   description: string;
+  // Per-page override arrives later (Wave 10 doc: "a real default now is
+  // the priority") — every page falls back to Kristin's headshot until
+  // then.
+  image?: ImageMetadata;
 }
 
-const { title, description } = Astro.props;
+const { title, description, image } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, site.canonicalOrigin);
+
+// A real, properly sized static OG asset (not the raw source file),
+// cover-cropped to the 1200x630 og:image aspect ratio (1200/630). Capped
+// to the source's native width rather than the full 1200px so Astro's
+// image service never has to upscale — Kristin's headshot is 400px wide,
+// so this renders a real (if modest) 400x210 crop instead of silently
+// returning the untouched original at the wrong aspect ratio, which is
+// what asking for 1200x630 outright against a 400px-wide source does.
+const OG_ASPECT_RATIO = 1200 / 630;
+const ogSource = image ?? defaultOgImageSource;
+const ogWidth = Math.min(1200, ogSource.width);
+const ogHeight = Math.round(ogWidth / OG_ASPECT_RATIO);
+const ogImage = await getImage({ src: ogSource, width: ogWidth, height: ogHeight, format: 'webp' });
+const ogImageURL = new URL(ogImage.src, site.canonicalOrigin).toString();
 ---
 
 <!doctype html>
@@ -26,6 +46,19 @@ const canonicalURL = new URL(Astro.url.pathname, site.canonicalOrigin);
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:width" content={ogWidth.toString()} />
+    <meta property="og:image:height" content={ogHeight.toString()} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
   </head>
   <body class="font-sans text-foreground bg-background">
     <Header />

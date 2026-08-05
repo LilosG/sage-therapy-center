@@ -9,8 +9,15 @@ import keystatic from '@keystatic/astro';
 import vercel from '@astrojs/vercel';
 import icon from 'astro-icon';
 
+import sitemap from '@astrojs/sitemap';
+
 // https://astro.build/config
 export default defineConfig({
+  // Confirmed production domain (matches site.canonicalOrigin in
+  // src/data/site.ts) — required for the sitemap integration to emit
+  // absolute URLs, and a real fallback for Astro.site elsewhere.
+  site: 'https://sagetherapycenter.com',
+
   vite: {
     plugins: [tailwindcss()]
   },
@@ -21,5 +28,5 @@ export default defineConfig({
   // Vercel is the confirmed hosting target (Build Spec Section 1).
   adapter: vercel(),
 
-  integrations: [mdx(), react(), keystatic(), icon()]
+  integrations: [mdx(), react(), keystatic(), icon(), sitemap()]
 });
