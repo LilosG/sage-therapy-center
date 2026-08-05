@@ -1,0 +1,65 @@
+---
+// Structural trust/reviews section. The SEO doc explicitly forbids
+// unverified review claims and hardcoded review counts ("Review count
+// not hard-coded in evergreen copy — it will go stale"; "Review
+// integrity: Pass if schema stays disabled until reviews are verified").
+// No caller currently passes rating/reviewCount/reviewUrl — none of that
+// data is confirmed yet — so this renders its honest empty state. Once
+// real numbers exist, passing them in is a one-line change at the call
+// site; nothing here needs to change.
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  platformName?: string;
+  rating?: number;
+  reviewCount?: number;
+  reviewUrl?: string;
+}
+
+const { platformName = 'Google', rating, reviewCount, reviewUrl } = Astro.props;
+const hasRealData = typeof rating === 'number' && typeof reviewCount === 'number';
+---
+
+<section class="bg-secondary">
+  <div class="mx-auto max-w-3xl px-6 py-16 text-center sm:py-20">
+    <p class="eyebrow-label">Trust &amp; Reviews</p>
+    {
+      hasRealData ? (
+        <Fragment>
+          <div class="mt-4 flex items-center justify-center gap-2">
+            <span class="font-serif text-4xl text-ink">{rating.toFixed(1)}</span>
+            <div class="flex" aria-hidden="true">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Icon
+                  name="lucide:star"
+                  width={20}
+                  height={20}
+                  class={i < Math.round(rating) ? 'fill-sage-deep text-sage-deep' : 'text-border'}
+                />
+              ))}
+            </div>
+          </div>
+          <p class="mt-2 font-sans text-sm text-muted-foreground">
+            Based on {reviewCount} {platformName} reviews
+          </p>
+          {reviewUrl && (
+            <a
+              href={reviewUrl}
+              class="mt-4 inline-block font-sans text-sm font-medium text-sage-deep hover:text-primary"
+            >
+              Read our reviews &rarr;
+            </a>
+          )}
+        </Fragment>
+      ) : (
+        <Fragment>
+          <h2 class="mt-4 font-serif text-2xl text-ink sm:text-3xl">{platformName} reviews coming soon</h2>
+          <p class="mx-auto mt-3 max-w-xl font-sans text-foreground">
+            We're in the process of building out our {platformName} review presence. In the meantime, reach out
+            directly with any questions about fit or availability.
+          </p>
+        </Fragment>
+      )
+    }
+  </div>
+</section>
