@@ -77,3 +77,38 @@ well inside Google's 30-day ceiling. Set up a scheduled rebuild:
   (`grep -r "GOOGLE_PLACES_API_KEY" dist/` should return nothing outside build logs).
 - The scheduled rebuild (Cron Job or Action) actually configured and documented, not
   just described.
+
+## Implementation (as built)
+
+- **Fetch:** `scripts/fetch-google-reviews.mjs`, run via the `prebuild` npm script
+  (`package.json`) so it runs automatically before every `astro build` — including
+  Vercel's default `npm run build`. Writes `src/data/google-reviews.json`.
+- **Failure handling:** option (b) — the script never throws and never exits non-zero.
+  On any fetch failure (missing key, network error, non-2xx response) it logs a warning
+  and leaves the last committed `google-reviews.json` untouched, so the site falls back
+  to the last successfully-fetched data rather than failing the build.
+- **Display:** `src/components/sections/ReviewsSection.astro`, fed from
+  `google-reviews.json` via `src/pages/index.astro`. Shows the real aggregate
+  rating/count, up to 5 reviews (author avatar/name/profile link, star rating, text,
+  relative time, and a "View on Google" link to the individual source review via
+  `googleMapsUri`), a "Reviews last updated [date]" note from the JSON's `fetchedAt`,
+  and a "Reviews via Google Maps" attribution link to the place page — text attribution
+  per the Places API policy's "text 'Google Maps' is acceptable when space is limited"
+  allowance, rather than shipping Google's logo asset as a binary dependency.
+- **Schema:** `src/components/seo/SchemaOrg.astro`'s `organization` builder accepts an
+  optional `reviewsData` prop (rating/reviewCount/reviews) and emits `aggregateRating`
+  + `review` nodes from the same JSON — passed in from `index.astro`.
+- **Rebuild cadence — GitHub Action, not a Vercel Cron Job:** a Vercel Cron Job invokes
+  a path within the deployed app itself, which would have meant adding a serverless API
+  route just to relay the trigger. A GitHub Action can hit the Deploy Hook directly on a
+  schedule with no extra app surface, so that's what's configured:
+  - Deploy Hook `wave9-daily-reviews-rebuild` (id `7Yo5LSSurr`), created via
+    `vercel deploy-hooks create wave9-daily-reviews-rebuild --ref main`, targeting the
+    `main` branch.
+  - The hook URL is stored as the `VERCEL_DEPLOY_HOOK_URL` secret on the
+    `LilosG/sage-therapy-center` GitHub repo (`gh secret set`) — never committed in
+    plaintext.
+  - `.github/workflows/daily-reviews-rebuild.yml` runs daily at `17 13 * * *` (13:17
+    UTC) plus `workflow_dispatch` for manual triggers, and `curl -X POST`s the hook.
+  - This is comfortably inside Google's 30-day ceiling; if the daily schedule is ever
+    changed, keep it well under 30 days and update this section.

@@ -37,15 +37,33 @@ interface BreadcrumbItem {
   url: string;
 }
 
+interface ReviewData {
+  authorName: string;
+  rating: number | null;
+  text: string;
+  publishTime: string | null;
+}
+
+interface ReviewsProps {
+  rating: number;
+  reviewCount: number;
+  reviews: ReviewData[];
+}
+
 interface Props {
   type: SchemaType;
   service?: ServiceProps;
   city?: CityProps;
   faqItems?: FaqItem[];
   breadcrumb?: BreadcrumbItem[];
+  // Populated from the same live Places API data as ReviewsSection (Wave
+  // 9 — docs/WAVE_9_LIVE_REVIEWS.md) — only ever passed when every
+  // underlying review is genuine and currently live, per the SEO doc's
+  // review-schema condition.
+  reviewsData?: ReviewsProps;
 }
 
-const { type, service, city, faqItems, breadcrumb } = Astro.props;
+const { type, service, city, faqItems, breadcrumb, reviewsData } = Astro.props;
 
 const businessId = `${site.canonicalOrigin}/#business`;
 const personId = `${site.canonicalOrigin}/#kristin`;
@@ -94,6 +112,22 @@ function buildOrganization() {
             dayOfWeek: h.day,
             opens: h.open,
             closes: h.close,
+          })),
+        }
+      : {}),
+    ...(reviewsData
+      ? {
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: reviewsData.rating,
+            reviewCount: reviewsData.reviewCount,
+          },
+          review: reviewsData.reviews.map((r) => ({
+            '@type': 'Review',
+            author: { '@type': 'Person', name: r.authorName },
+            reviewRating: { '@type': 'Rating', ratingValue: r.rating },
+            reviewBody: r.text,
+            ...(r.publishTime ? { datePublished: r.publishTime } : {}),
           })),
         }
       : {}),

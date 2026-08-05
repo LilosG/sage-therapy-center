@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import Button from '../ui/Button.astro';
 import ImagePlaceholder from '../ui/ImagePlaceholder.astro';
 
@@ -9,19 +10,33 @@ interface Props {
   modalities: string[];
   ctaLabel: string;
   ctaHref: string;
+  image?: ImageMetadata;
 }
 
-const { name, credential, bio, modalities, ctaLabel, ctaHref } = Astro.props;
+const { name, credential, bio, modalities, ctaLabel, ctaHref, image } = Astro.props;
 ---
 
 <section class="bg-lavender-soft">
   <div class="mx-auto grid max-w-6xl gap-10 px-6 py-16 sm:py-20 lg:grid-cols-2 lg:items-center">
-    <!-- PLACEHOLDER: headshot of Kristin Moorehead-Malley, LMFT, arriving Wave 6 -->
-    <ImagePlaceholder
-      alt={`Headshot of ${name}, ${credential} — placeholder, real photography arriving Wave 6`}
-      icon="lucide:user-round"
-      class="aspect-[4/5] w-full shadow-sm"
-    />
+    {
+      image ? (
+        <Image
+          src={image}
+          alt={`Professional headshot of ${name}, ${credential}`}
+          widths={[400, 600, 800]}
+          sizes="(min-width: 1024px) 500px, 90vw"
+          class="aspect-[4/5] w-full rounded-3xl object-cover shadow-sm"
+        />
+      ) : (
+        // PLACEHOLDER: headshot arriving when photography is confirmed for
+        // this page — see the `image` prop on this component.
+        <ImagePlaceholder
+          alt={`Headshot of ${name}, ${credential} — placeholder, real photography pending`}
+          icon="lucide:user-round"
+          class="aspect-[4/5] w-full shadow-sm"
+        />
+      )
+    }
 
     <div>
       <p class="eyebrow-label">Meet Your Therapist</p>

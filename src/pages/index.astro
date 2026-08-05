@@ -13,6 +13,8 @@ import CTASection from '../components/sections/CTASection.astro';
 import SchemaOrg from '../components/seo/SchemaOrg.astro';
 import { site } from '../data/site';
 import { serviceIcons, defaultServiceIcon } from '../data/serviceIcons';
+import kristinPhoto from '../assets/images/kristin-moorehead-malley.webp';
+import googleReviews from '../data/google-reviews.json';
 
 // Data-driven rather than a hardcoded 6/8 list: only individual-therapy
 // and couples-counseling exist as real content this wave, and only
@@ -22,6 +24,18 @@ import { serviceIcons, defaultServiceIcon } from '../data/serviceIcons';
 // add the remaining content entries.
 const services = await getCollection('services');
 const cities = await getCollection('cities');
+
+const coreServices = services.filter((s) => s.data.category === 'core');
+
+// Insurance against a silent zero-render: a schema/content regression that
+// drops every core service or city would otherwise ship an empty homepage
+// grid with no build-time signal (see Wave 7 audit).
+if (coreServices.length === 0) {
+  throw new Error('Homepage core services resolved to zero entries — check category filter/schema.');
+}
+if (cities.length === 0) {
+  throw new Error('Homepage cities resolved to zero entries — check cities collection.');
+}
 ---
 
 <BaseLayout
@@ -84,6 +98,7 @@ const cities = await getCollection('cities');
     modalities={['EMDR', 'Lifespan Integration', 'CBT', 'IMAGO', 'Psychodynamic', 'Attachment-Based']}
     ctaLabel="Learn More About Kristin"
     ctaHref="/about/"
+    image={kristinPhoto}
   />
 
   <ProcessSteps
@@ -102,8 +117,7 @@ const cities = await getCollection('cities');
   <ServiceGrid
     eyebrow="What We Offer"
     heading="How we can help"
-    services={services
-      .filter((s) => s.data.category === 'core')
+    services={coreServices
       .map((s) => ({
         title: s.data.title,
         description: s.data.description,
@@ -120,7 +134,13 @@ const cities = await getCollection('cities');
     attribution={`${site.practitioner.name}, ${site.practitioner.credential}`}
   />
 
-  <ReviewsSection />
+  <ReviewsSection
+    rating={googleReviews.rating}
+    reviewCount={googleReviews.userRatingCount}
+    reviews={googleReviews.reviews}
+    placeUrl={`https://www.google.com/maps/place/?q=place_id:${googleReviews.placeId}`}
+    lastUpdated={googleReviews.fetchedAt}
+  />
 
   <section class="bg-background">
     <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
@@ -160,4 +180,15 @@ const cities = await getCollection('cities');
   />
 </BaseLayout>
 
-<SchemaOrg type="organization" />
+<SchemaOrg
+  type="organization"
+  reviewsData={
+    typeof googleReviews.rating === 'number' && typeof googleReviews.userRatingCount === 'number'
+      ? {
+          rating: googleReviews.rating,
+          reviewCount: googleReviews.userRatingCount,
+          reviews: googleReviews.reviews,
+        }
+      : undefined
+  }
+/>

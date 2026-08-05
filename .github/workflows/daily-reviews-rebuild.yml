@@ -1,0 +1,20 @@
+name: Daily reviews rebuild
+
+# Wave 9 — docs/WAVE_9_LIVE_REVIEWS.md "Rebuild cadence": reviews get baked
+# into static HTML at build time, which is functionally a cache of Google
+# Places API data. Google's terms cap that cache at 30 days; rebuilding
+# daily keeps it nowhere near that ceiling. This just triggers a normal
+# Vercel deploy — the actual Places API fetch happens in that build's
+# `prebuild` step (scripts/fetch-google-reviews.mjs).
+on:
+  schedule:
+    - cron: '17 13 * * *' # 13:17 UTC daily (05:17/06:17 Pacific depending on DST) — arbitrary off-the-hour minute to avoid GitHub's peak cron load
+  workflow_dispatch: {} # allows manually triggering a rebuild from the Actions tab
+
+jobs:
+  trigger-deploy-hook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Vercel Deploy Hook
+        run: |
+          curl -fsS -X POST "${{ secrets.VERCEL_DEPLOY_HOOK_URL }}"

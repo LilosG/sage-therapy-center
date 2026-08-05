@@ -10,6 +10,20 @@ import { site } from '../../data/site';
 // Wave 0 blockers say payment/insurance policy must be confirmed before
 // any fee-related FAQ content is published.
 const faqs = await getCollection('faq');
+
+// The telehealth question's answer must stay in sync with TrustStrip's
+// telehealth stat — both read site.telehealth.confirmRequired rather than
+// asserting a coverage claim independently (see src/data/site.ts).
+const faqItems = faqs.map((f) =>
+  f.id === 'session-format'
+    ? {
+        q: f.data.q,
+        a: site.telehealth.confirmRequired
+          ? f.data.a
+          : `Yes — telehealth is available across ${site.telehealth.coverageArea}, alongside in-person sessions.`,
+      }
+    : { q: f.data.q, a: f.data.a }
+);
 ---
 
 <BaseLayout
@@ -22,7 +36,7 @@ const faqs = await getCollection('faq');
     breadcrumbItems={[{ name: 'Home', url: '/' }, { name: 'FAQ', url: '/faq/' }]}
   />
 
-  <FAQAccordion heading="Common questions" items={faqs.map((f) => ({ q: f.data.q, a: f.data.a }))} />
+  <FAQAccordion heading="Common questions" items={faqItems} />
 
   <CTASection
     heading="Still have questions?"
