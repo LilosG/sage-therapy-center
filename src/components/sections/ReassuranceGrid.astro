@@ -29,7 +29,7 @@ const { eyebrow, heading, items } = Astro.props;
     <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {
         items.map((item) => (
-          <Card class="shadow-sm transition-shadow hover:shadow-md">
+          <Card>
             <IconCircle>
               <Icon name={item.icon} width={22} height={22} />
             </IconCircle>
