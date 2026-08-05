@@ -1,10 +1,14 @@
 ---
+import { Icon } from 'astro-icon/components';
 import Card from '../ui/Card.astro';
 import IconCircle from '../ui/IconCircle.astro';
 
 interface ReassuranceItem {
   title: string;
   body: string;
+  // Lucide icon name (e.g. "lucide:wind"), chosen per card's subject —
+  // see astro-icon usage in ServiceGrid.astro for the same pattern.
+  icon: string;
 }
 
 interface Props {
@@ -25,11 +29,9 @@ const { eyebrow, heading, items } = Astro.props;
     <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {
         items.map((item) => (
-          <Card>
+          <Card class="shadow-sm transition-shadow hover:shadow-md">
             <IconCircle>
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                <circle cx="10" cy="10" r="6" stroke="currentColor" stroke-width="1.5" />
-              </svg>
+              <Icon name={item.icon} width={22} height={22} />
             </IconCircle>
             <p class="mt-4 font-serif text-lg text-ink">{item.title}</p>
             <p class="mt-2 font-sans text-sm text-muted-foreground">{item.body}</p>

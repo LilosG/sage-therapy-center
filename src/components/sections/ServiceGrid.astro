@@ -2,12 +2,17 @@
 // Purely presentational — the calling page queries the services
 // collection and passes plain data, per the "section components don't
 // reach into content collections directly" rule (Build Spec Section 6).
+import { Icon } from 'astro-icon/components';
 import Card from '../ui/Card.astro';
+import IconCircle from '../ui/IconCircle.astro';
 
 interface ServiceItem {
   title: string;
   description: string;
   href: string;
+  // Lucide icon name (e.g. "lucide:heart") — callers look this up from
+  // src/data/serviceIcons.ts by slug, keeping icon choice centralized.
+  icon: string;
 }
 
 interface Props {
@@ -28,8 +33,11 @@ const { eyebrow, heading, services } = Astro.props;
     <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {
         services.map((service) => (
-          <Card class="flex flex-col">
-            <p class="font-serif text-lg text-ink">{service.title}</p>
+          <Card class="flex flex-col shadow-sm transition-shadow hover:shadow-md">
+            <IconCircle>
+              <Icon name={service.icon} width={22} height={22} />
+            </IconCircle>
+            <p class="mt-4 font-serif text-lg text-ink">{service.title}</p>
             <p class="mt-2 flex-1 font-sans text-sm text-muted-foreground">{service.description}</p>
             <a href={service.href} class="mt-4 font-sans text-sm font-medium text-sage-deep hover:text-primary">
               Learn more &rarr;

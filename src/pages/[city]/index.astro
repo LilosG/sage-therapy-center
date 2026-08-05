@@ -4,6 +4,7 @@ import CityLayout from '../../layouts/CityLayout.astro';
 import ServiceGrid from '../../components/sections/ServiceGrid.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
+import { serviceIcons, defaultServiceIcon } from '../../data/serviceIcons';
 
 export async function getStaticPaths() {
   const entries = await getCollection('cities');
@@ -56,6 +57,7 @@ const breadcrumbItems = [
           href: localComboSlugs.has(s.id)
             ? `/${entry.data.slug}/${s.data.slug}/`
             : `/services/${s.data.slug}/`,
+          icon: serviceIcons[s.data.slug] ?? defaultServiceIcon,
         }))}
       />
     )

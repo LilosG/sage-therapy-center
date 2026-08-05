@@ -7,6 +7,7 @@ import mdx from '@astrojs/mdx';
 import react from '@astrojs/react';
 import keystatic from '@keystatic/astro';
 import vercel from '@astrojs/vercel';
+import icon from 'astro-icon';
 
 // https://astro.build/config
 export default defineConfig({
@@ -20,5 +21,5 @@ export default defineConfig({
   // Vercel is the confirmed hosting target (Build Spec Section 1).
   adapter: vercel(),
 
-  integrations: [mdx(), react(), keystatic()]
+  integrations: [mdx(), react(), keystatic(), icon()]
 });
