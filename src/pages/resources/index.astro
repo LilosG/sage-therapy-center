@@ -1,0 +1,41 @@
+---
+// No `resources` content collection is defined in Build Spec Section 4 —
+// only services/cities/city-services/testimonials/faq/blog exist there.
+// This page (and 28-days-of-self-love/index.astro) are hand-written
+// static pages, same pattern as /about/, /contact/, /faq/, rather than
+// an unrequested new collection invented to fit the folder listing in
+// Build Spec Section 3. Flagged in the Wave 4 report.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/sections/Breadcrumbs.astro';
+import Card from '../../components/ui/Card.astro';
+import SchemaOrg from '../../components/seo/SchemaOrg.astro';
+---
+
+<BaseLayout
+  title="Resources | S.A.G.E. Therapy Center"
+  description="Resources from S.A.G.E. Therapy Center in Carlsbad, CA."
+>
+  <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'Resources', url: '/resources/' }]} />
+
+  <div class="mx-auto max-w-3xl px-6 pb-4 pt-8 text-center">
+    <p class="eyebrow-label">Resources</p>
+    <h1 class="mt-4 font-serif text-4xl text-ink sm:text-5xl">Resources</h1>
+  </div>
+
+  <section class="bg-background">
+    <div class="mx-auto max-w-3xl px-6 py-10">
+      <Card>
+        <a href="/resources/28-days-of-self-love/" class="font-serif text-xl text-ink hover:text-sage-deep">
+          28 Days of Self-Love
+        </a>
+        <p class="mt-2 font-sans text-sm text-muted-foreground">
+          <!-- CONFIRM: placeholder pending real content recovery, see the
+               resource page itself for detail. -->
+          Content pending — see the page for details.
+        </p>
+      </Card>
+    </div>
+  </section>
+</BaseLayout>
+
+<SchemaOrg type="localBusiness" />

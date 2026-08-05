@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/sections/Breadcrumbs.astro';
+import CTASection from '../../../components/sections/CTASection.astro';
+import SchemaOrg from '../../../components/seo/SchemaOrg.astro';
+import { site } from '../../../data/site';
+---
+
+<BaseLayout
+  title="28 Days of Self-Love | S.A.G.E. Therapy Center"
+  description="A self-love resource series from S.A.G.E. Therapy Center — full content pending recovery from the practice's legacy site."
+>
+  <Breadcrumbs
+    items={[
+      { name: 'Home', url: '/' },
+      { name: 'Resources', url: '/resources/' },
+      { name: '28 Days of Self-Love', url: '/resources/28-days-of-self-love/' },
+    ]}
+  />
+
+  <div class="mx-auto max-w-3xl px-6 py-10">
+    <p class="eyebrow-label">Resources</p>
+    <h1 class="mt-4 font-serif text-4xl text-ink sm:text-5xl">28 Days of Self-Love</h1>
+
+    <div class="mt-6 space-y-4 font-sans text-foreground">
+      <p>
+        [PLACEHOLDER] This page exists to preserve a legacy URL from the practice's previous site — the SEO
+        architecture doc notes that S.A.G.E. Therapy Center's earlier site included a real "28 Days of
+        Self-Love" series with genuine topical depth, but that content isn't available in this project's
+        source documents and this session has no web access to recover it from the legacy site directly.
+      </p>
+      <p>
+        <!-- CONFIRM: recover the real "28 Days of Self-Love" series content
+             from the legacy site (sagetherapycenter.com, prior to migration)
+             before this page is considered launch-ready. Do not publish
+             invented self-love content in its place. -->
+        The real content for this series needs to be sourced from the legacy site before this page is
+        launch-ready. In the meantime, this page keeps the URL live so the redirect from the old site has a
+        real destination rather than a dead link.
+      </p>
+    </div>
+  </div>
+
+  <CTASection
+    heading="Looking for support in the meantime?"
+    subhead="Request a session to discuss fit and availability."
+    ctaLabel="Schedule a Session"
+    ctaHref="/schedule-a-session/"
+    phoneDisplay={site.phone.display}
+    phoneHref={`tel:${site.phone.tel}`}
+  />
+</BaseLayout>
+
+<SchemaOrg type="localBusiness" />
