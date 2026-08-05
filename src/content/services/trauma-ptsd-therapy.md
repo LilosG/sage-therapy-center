@@ -18,9 +18,9 @@ faq:
     a: "No — sessions move at a pace that feels safe, and there's no requirement to relive details before you're ready."
 ---
 
-S.A.G.E. Therapy Center offers trauma-informed therapy for people navigating trauma or PTSD, at the Carlsbad office with Kristin Moorehead-Malley, LMFT. Sessions may explore what you're carrying at a pace that feels safe, without requiring you to relive it before you're ready.
+Trauma or PTSD, and what you're carrying from it, can be explored at a pace that feels safe with Kristin Moorehead-Malley, LMFT, at the Carlsbad office — nothing here requires you to relive it before you're ready.
 
-An approach can include EMDR, Lifespan Integration, psychodynamic, and attachment-based work, chosen based on what fits your situation. EMDR in particular is offered as its own dedicated approach — see the EMDR therapy page for more on that specific method and how it relates to trauma-informed work.
+EMDR, Lifespan Integration, psychodynamic work, and attachment-based approaches are all part of what's available; EMDR specifically is offered as its own dedicated method — see the EMDR therapy page for more on how it relates to trauma-informed work.
 
 This is psychotherapy, not emergency care. If you're in crisis or immediate danger, please contact 911 or a crisis line.
 

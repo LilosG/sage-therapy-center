@@ -17,9 +17,9 @@ faq:
     a: "Either — sex therapy here is offered for both individuals and couples."
 ---
 
-S.A.G.E. Therapy Center offers sex therapy for individuals and couples navigating intimacy or sexual concerns, at the Carlsbad office with Kristin Moorehead-Malley, LMFT. Sessions may explore communication, connection, and the specific concerns you're bringing in.
+Intimacy or sexual concerns, whether you're coming in alone or with a partner, are what sex therapy at the Carlsbad office addresses — Kristin Moorehead-Malley, LMFT, works through communication, connection, and whatever specific concerns you bring in.
 
-An approach can include IMAGO, psychodynamic, and attachment-based work, chosen based on what fits your situation.
+IMAGO tends to be especially useful here, often alongside psychodynamic or attachment-based work.
 
 This is not medical sexual-health treatment. For concerns with a medical component, a physician is the right first resource — sex therapy here focuses on the emotional and relational side.
 

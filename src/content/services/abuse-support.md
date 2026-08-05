@@ -18,9 +18,9 @@ faq:
     a: "No — sessions may explore this at whatever pace feels safe, and there's no requirement to have it sorted out beforehand."
 ---
 
-S.A.G.E. Therapy Center offers support for people who have experienced abuse, at the Carlsbad office with Kristin Moorehead-Malley, LMFT. Sessions may explore what you're carrying from that experience, at a pace that feels safe for you.
+People who have experienced abuse can find support at S.A.G.E. Therapy Center's Carlsbad office, working with Kristin Moorehead-Malley, LMFT. What you're carrying from that experience is something sessions can explore at whatever pace feels safe — there's no set order or timeline you're expected to follow.
 
-An approach can include EMDR, psychodynamic, and attachment-based work, chosen based on what fits your situation.
+EMDR is one approach that's often relevant here, alongside psychodynamic and attachment-based work; which one fits depends on you.
 
 This is not legal advice or crisis intervention. If you're in immediate danger, please call 911. For confidential support related to domestic violence, the National Domestic Violence Hotline (1-800-799-7233) is available 24/7.
 

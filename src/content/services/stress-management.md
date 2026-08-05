@@ -15,8 +15,8 @@ faq:
     a: "Sessions may explore stress from work, but also from family, health, or daily life more broadly — it's not limited to one source."
 ---
 
-S.A.G.E. Therapy Center offers stress-management counseling, at the Carlsbad office with Kristin Moorehead-Malley, LMFT. Sessions may explore what's driving ongoing stress — work, family, daily demands — and ways to build more sustainable patterns.
+Work, family, daily demands — whatever's driving ongoing stress is where stress-management counseling at the Carlsbad office starts, working with Kristin Moorehead-Malley, LMFT, toward more sustainable patterns.
 
-An approach can include CBT and attachment-based work, chosen based on what fits your situation.
+CBT and attachment-based work are the two approaches most often used here.
 
 Request a session to discuss fit and availability.

@@ -18,9 +18,9 @@ faq:
     a: "No — some people reach out while still deciding, others during the process, and others well after it's final."
 ---
 
-S.A.G.E. Therapy Center offers support for people navigating separation or divorce, at the Carlsbad office with Kristin Moorehead-Malley, LMFT. Sessions may explore the emotional side of the transition — grief, uncertainty, co-parenting adjustments, or simply figuring out what's next.
+Separation and divorce bring their own kind of transition — grief, uncertainty, co-parenting adjustments, or simply figuring out what's next — and it's the emotional side of that transition Kristin Moorehead-Malley, LMFT, works through with clients at the Carlsbad office.
 
-An approach can include psychodynamic and attachment-based work, chosen based on what fits your situation.
+Psychodynamic and attachment-based work are the approaches most often used here, adapted to your specific situation.
 
 This is not legal mediation. For legal matters related to separation or divorce, a family law attorney or mediator is the right resource — therapy here focuses on the emotional and personal side of the transition.
 

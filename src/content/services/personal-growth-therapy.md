@@ -17,9 +17,9 @@ faq:
     a: "No — some people seek personal growth therapy simply wanting to understand themselves and their patterns more clearly."
 ---
 
-S.A.G.E. Therapy Center offers personal growth-focused therapy, at the Carlsbad office with Kristin Moorehead-Malley, LMFT. Sessions may explore patterns in how you think, feel, and relate to others, for people who aren't necessarily in crisis but want to understand themselves more clearly.
+Not everyone who works with Kristin Moorehead-Malley, LMFT, at the Carlsbad office is in crisis — some simply want to understand patterns in how they think, feel, and relate to others more clearly, and personal growth therapy is built for that.
 
-An approach can include psychodynamic and attachment-based work, chosen based on what fits your situation.
+Psychodynamic and attachment-based work tend to anchor this kind of work, adjusted to what you're exploring.
 
 This is psychotherapy, not life coaching — the focus is on deeper patterns and emotional understanding, not goal-setting or accountability structures.
 

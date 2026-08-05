@@ -17,9 +17,9 @@ faq:
     a: "Some people seek counseling before they've fully decided what they want to change. Sessions may explore that directly."
 ---
 
-S.A.G.E. Therapy Center offers support for people navigating substance or behavioral concerns, at the Carlsbad office with Kristin Moorehead-Malley, LMFT. Sessions may explore what's driving the pattern and what support looks like going forward.
+Kristin Moorehead-Malley, LMFT, offers counseling support for people navigating substance or behavioral concerns at the Carlsbad office. What's driving the pattern, and what ongoing support could look like, is something to work through together rather than figure out alone first.
 
-An approach can include CBT, psychodynamic, and attachment-based work, chosen based on what fits your situation.
+Depending on what fits, sessions might draw on CBT, psychodynamic work, or an attachment-based approach.
 
 This is not detox or medical treatment. If you're experiencing a medical emergency related to substance use, call 911. Counseling here can be part of ongoing support alongside medical care, not a replacement for it.
 

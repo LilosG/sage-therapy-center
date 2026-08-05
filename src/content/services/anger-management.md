@@ -18,9 +18,9 @@ faq:
     a: "Sessions may explore what's underneath the anger and how it shows up in daily life and relationships, with an approach chosen to fit your situation."
 ---
 
-S.A.G.E. Therapy Center offers anger management counseling for people working through patterns of anger and reactivity, at the Carlsbad office with Kristin Moorehead-Malley, LMFT. Sessions may explore what's underneath the anger and how it shows up in daily life and relationships.
+Patterns of anger and reactivity are something Kristin Moorehead-Malley, LMFT, works through with clients at the Carlsbad office — not just the moments themselves, but what's underneath them and how they show up in daily life and relationships.
 
-An approach can include CBT, psychodynamic, and attachment-based work, chosen based on what fits your situation.
+The approach varies by person: CBT, psychodynamic work, and attachment-based approaches are all part of what's available here.
 
 <!-- CONFIRM: whether this counseling meets any court-mandated or
      certified program requirement is not documented anywhere in project

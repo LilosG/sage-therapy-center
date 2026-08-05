@@ -17,9 +17,9 @@ faq:
     a: "No — some people seek support soon after a loss, others much later. Both are reasonable times to reach out."
 ---
 
-S.A.G.E. Therapy Center offers grief and loss counseling, at the Carlsbad office with Kristin Moorehead-Malley, LMFT. Sessions may explore the loss of a loved one or another significant loss, at whatever pace feels right.
+Grief and loss counseling at the Carlsbad office gives space to sit with the loss of a loved one, or another significant loss, at whatever pace feels right — Kristin Moorehead-Malley, LMFT, doesn't push a timeline onto that process.
 
-An approach can include psychodynamic and attachment-based work, chosen based on what fits your situation.
+Psychodynamic and attachment-based work tend to be the approaches that fit grief work best, though what's used varies session to session.
 
 Some people seek grief counseling soon after a loss; others come in months or years later, when grief resurfaces in a new way. There's no timeline that makes it too early or too late to reach out.
 

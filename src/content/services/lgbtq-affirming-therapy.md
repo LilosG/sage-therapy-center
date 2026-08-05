@@ -16,9 +16,9 @@ faq:
     a: "No. Sessions are shaped around what you want to work on — identity may or may not be part of that."
 ---
 
-S.A.G.E. Therapy Center offers LGBTQ-affirming therapy for individuals and couples, at the Carlsbad office with Kristin Moorehead-Malley, LMFT. Sessions are shaped around you, without assumptions about your identity or relationships.
+LGBTQ-affirming therapy for individuals and couples at the Carlsbad office means sessions with Kristin Moorehead-Malley, LMFT, are shaped around you specifically — no assumptions made about your identity or relationships going in.
 
-An approach can include EMDR, psychodynamic, and attachment-based work, chosen based on what fits your situation.
+EMDR, psychodynamic work, and attachment-based approaches are all options here, whichever fits what you're bringing in.
 
 Whether you're navigating something related to identity, or working through something unrelated to it entirely, sessions offer support for people navigating life as who they are.
 

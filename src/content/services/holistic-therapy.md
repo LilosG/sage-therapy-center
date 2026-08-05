@@ -15,9 +15,9 @@ faq:
     a: "It means sessions may consider how different parts of your life connect to what you're working through, rather than a single narrow focus — not an alternative-medicine treatment."
 ---
 
-S.A.G.E. Therapy Center offers a holistic, integrative approach to therapy, at the Carlsbad office with Kristin Moorehead-Malley, LMFT. Sessions may explore how different parts of your life — mind, body, relationships, environment — connect to what you're working through.
+Mind, body, relationships, environment — a holistic, integrative approach to therapy at the Carlsbad office means Kristin Moorehead-Malley, LMFT, considers how these different parts of your life connect to what you're working through, rather than isolating one piece.
 
-An approach can include psychodynamic and attachment-based work, integrated with attention to the broader context of your life rather than a single narrow focus.
+That integration is built on psychodynamic and attachment-based work, held with attention to the wider context of your life.
 
 This is psychotherapy, not alternative medicine, and it doesn't come with outcome guarantees — sessions are shaped around what fits your situation.
 

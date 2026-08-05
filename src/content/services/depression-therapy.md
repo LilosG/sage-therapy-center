@@ -18,9 +18,9 @@ faq:
     a: "Low motivation is one of the more common reasons people delay reaching out. It's a reasonable place to start from, not a barrier."
 ---
 
-S.A.G.E. Therapy Center offers therapy for depression, at the Carlsbad office with Kristin Moorehead-Malley, LMFT. Sessions may explore low mood, low motivation, or a general sense of heaviness that's been hard to shift.
+Low mood, low motivation, or a general sense of heaviness that's been hard to shift are common reasons people work with Kristin Moorehead-Malley, LMFT, at the Carlsbad office — therapy for depression here starts with whatever that looks like for you specifically.
 
-An approach can include CBT, psychodynamic, and attachment-based work, chosen based on what fits your situation.
+CBT tends to be a strong fit for depression, often alongside psychodynamic or attachment-based work depending on the person.
 
 This is not a substitute for psychiatric medication or medical care — some people work with therapy alongside medication managed by a physician or psychiatrist, and some don't. That's a conversation to have with your medical provider, separate from therapy sessions here.
 

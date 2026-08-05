@@ -17,9 +17,9 @@ faq:
     a: "No. Sessions may explore a range of eating concerns without requiring a specific diagnosis to start."
 ---
 
-S.A.G.E. Therapy Center offers support for people navigating eating concerns, at the Carlsbad office with Kristin Moorehead-Malley, LMFT. Sessions may explore the emotional patterns connected to eating, body image, and control, at a pace that feels safe.
+The emotional patterns connected to eating, body image, and control are what sessions with Kristin Moorehead-Malley, LMFT, at the Carlsbad office may explore — at a pace that feels safe, not one dictated by the page you're reading.
 
-An approach can include CBT, psychodynamic, and attachment-based work, chosen based on what fits your situation.
+CBT, psychodynamic work, and attachment-based approaches are all part of what's available, matched to what fits.
 
 This is not medical or nutritional treatment. Eating concerns can involve real medical risk, and therapy here is meant to work alongside, not instead of, medical and nutritional care. If you're in crisis, please call 911 or a crisis line.
 

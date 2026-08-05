@@ -17,9 +17,9 @@ faq:
     a: "No approach can guarantee a specific outcome. Sessions focus on support and tools that fit your situation."
 ---
 
-S.A.G.E. Therapy Center offers therapy for anxiety, at the Carlsbad office with Kristin Moorehead-Malley, LMFT. Sessions may explore what's driving ongoing worry or overwhelm and ways to feel more grounded.
+Ongoing worry or overwhelm is one of the more common reasons people reach out to Kristin Moorehead-Malley, LMFT, at the Carlsbad office — sessions may explore what's driving it and ways to feel more grounded day to day.
 
-An approach can include CBT, EMDR, psychodynamic, and attachment-based work, chosen based on what fits your situation.
+CBT and EMDR tend to be especially relevant for anxiety specifically, though psychodynamic and attachment-based work can factor in too, depending on what fits.
 
 Some people seek anxiety therapy when worry feels constant or hard to manage on their own; others want support navigating a specific stressor. There's no requirement to have a diagnosis to reach out.
 
