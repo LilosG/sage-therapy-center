@@ -107,12 +107,16 @@ const cities = await getCollection('cities');
   <ServiceGrid
     eyebrow="What We Offer"
     heading="How we can help"
-    services={services.map((s) => ({
-      title: s.data.title,
-      description: s.data.description,
-      href: `/services/${s.data.slug}/`,
-      icon: serviceIcons[s.data.slug] ?? defaultServiceIcon,
-    }))}
+    services={services
+      .filter((s) => s.data.category === 'core')
+      .map((s) => ({
+        title: s.data.title,
+        description: s.data.description,
+        href: `/services/${s.data.slug}/`,
+        icon: serviceIcons[s.data.slug] ?? defaultServiceIcon,
+      }))}
+    viewAllHref="/services/"
+    viewAllLabel="View all services"
   />
 
   <QuoteBlock

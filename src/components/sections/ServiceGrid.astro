@@ -19,9 +19,11 @@ interface Props {
   eyebrow?: string;
   heading: string;
   services: ServiceItem[];
+  viewAllHref?: string;
+  viewAllLabel?: string;
 }
 
-const { eyebrow, heading, services } = Astro.props;
+const { eyebrow, heading, services, viewAllHref, viewAllLabel = 'View all services' } = Astro.props;
 ---
 
 <section class="bg-background">
@@ -46,5 +48,15 @@ const { eyebrow, heading, services } = Astro.props;
         ))
       }
     </div>
+    {viewAllHref && (
+      <p class="mt-10 text-center">
+        <a
+          href={viewAllHref}
+          class="font-sans text-sm font-medium text-sage-deep hover:text-primary"
+        >
+          {viewAllLabel} &rarr;
+        </a>
+      </p>
+    )}
   </div>
 </section>
