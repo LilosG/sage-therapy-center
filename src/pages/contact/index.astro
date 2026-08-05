@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/sections/Breadcrumbs.astro';
+import Card from '../../components/ui/Card.astro';
+import Button from '../../components/ui/Button.astro';
+import SchemaOrg from '../../components/seo/SchemaOrg.astro';
+import { site } from '../../data/site';
+
+const mapQuery = encodeURIComponent(
+  `${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}`
+);
+const mapUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
+---
+
+<BaseLayout
+  title="Contact | S.A.G.E. Therapy Center"
+  description={`Contact S.A.G.E. Therapy Center in ${site.address.city}, ${site.address.region} — phone, email, and office location.`}
+>
+  <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'Contact', url: '/contact/' }]} />
+
+  <div class="mx-auto max-w-3xl px-6 pb-12 pt-8">
+    <p class="eyebrow-label">Contact</p>
+    <h1 class="mt-4 font-serif text-4xl text-ink sm:text-5xl">Get in touch</h1>
+    <p class="mt-4 font-sans text-lg text-foreground">
+      Request a session to discuss fit and availability, or reach out with any questions.
+    </p>
+
+    <div class="mt-8 grid gap-6 sm:grid-cols-2">
+      <Card>
+        <p class="font-sans text-sm font-semibold text-ink">Phone</p>
+        <a href={`tel:${site.phone.tel}`} class="mt-2 block font-serif text-2xl text-primary hover:text-sage-deep">
+          {site.phone.display}
+        </a>
+      </Card>
+      <Card>
+        <p class="font-sans text-sm font-semibold text-ink">Email</p>
+        <a href={`mailto:${site.email}`} class="mt-2 block font-serif text-xl text-primary hover:text-sage-deep">
+          {site.email}
+        </a>
+      </Card>
+    </div>
+
+    <Card class="mt-6">
+      <p class="font-sans text-sm font-semibold text-ink">Office</p>
+      <address class="mt-2 not-italic font-sans text-foreground">
+        {site.address.street}<br />
+        {site.address.city}, {site.address.region} {site.address.postalCode}
+      </address>
+      <p class="mt-3 font-sans text-sm text-muted-foreground">
+        <!-- CONFIRM: office hours are not documented anywhere in project
+             sources (site.ts hours is null) — populate from the live
+             Google Business Profile before this is considered
+             launch-ready. -->
+         Hours available upon request.
+      </p>
+      <a href={mapUrl} target="_blank" rel="noopener noreferrer" class="mt-4 inline-block">
+        <Button variant="secondary">Get Directions</Button>
+      </a>
+    </Card>
+
+    <div class="mt-8">
+      <Button href="/schedule-a-session/">Schedule a Session</Button>
+    </div>
+  </div>
+</BaseLayout>
+
+<SchemaOrg type="localBusiness" />

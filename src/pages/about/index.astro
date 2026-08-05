@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/sections/Breadcrumbs.astro';
+import TrustStrip from '../../components/sections/TrustStrip.astro';
+import CTASection from '../../components/sections/CTASection.astro';
+import SchemaOrg from '../../components/seo/SchemaOrg.astro';
+import { site } from '../../data/site';
+
+const modalities = ['EMDR', 'Lifespan Integration', 'CBT', 'IMAGO', 'Psychodynamic', 'Attachment-Based'];
+---
+
+<BaseLayout
+  title={`About ${site.practitioner.name}, ${site.practitioner.credential} | S.A.G.E. Therapy Center`}
+  description={`Meet ${site.practitioner.name}, ${site.practitioner.credential}, and learn about the approach behind S.A.G.E. Therapy Center in Carlsbad, CA.`}
+>
+  <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'About', url: '/about/' }]} />
+
+  <div class="mx-auto max-w-3xl px-6 pb-4 pt-8">
+    <p class="eyebrow-label">About</p>
+    <h1 class="mt-4 font-serif text-4xl text-ink sm:text-5xl">
+      {site.practitioner.name}, {site.practitioner.credential}
+    </h1>
+
+    <div class="mt-6 space-y-4 font-sans text-lg text-foreground">
+      <p>
+        {site.practitioner.name} is a Licensed Marriage and Family Therapist based in {site.address.city}, {
+          site.address.region
+        }, offering individual and couples therapy at {site.name}.
+      </p>
+      <p>
+        Sessions draw on a range of approaches — including EMDR, Lifespan Integration, CBT, IMAGO, psychodynamic,
+        and attachment-based work — matched to what fits each person or couple, rather than a single fixed method.
+        This breadth means the approach can be adapted as the work together evolves.
+      </p>
+      <p>
+        {site.practitioner.name} works with individuals and couples navigating anxiety, grief, life transitions,
+        and relationship challenges, offering support for people at whatever stage they're starting from.
+      </p>
+      <p class="text-sm text-muted-foreground">
+        {site.practitioner.name}, {site.practitioner.credential}
+        <!-- CONFIRM: display site.practitioner.licenseNumber (CA license
+             number) here once Kristin confirms it — SEO doc Wave 0
+             blocker 7. site.practitioner.licenseConfirmRequired is
+             currently true. -->
+      </p>
+    </div>
+
+    <div class="mt-8">
+      <p class="font-sans text-sm font-semibold text-ink">Approaches Kristin draws on</p>
+      <ul class="mt-3 flex flex-wrap gap-2">
+        {
+          modalities.map((modality) => (
+            <li class="rounded-full border border-border bg-surface px-4 py-2 font-sans text-sm text-foreground">
+              {modality}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+
+  <div class="mt-12">
+    <TrustStrip
+      items={[
+        `${site.practitioner.name}, ${site.practitioner.credential}`,
+        'Serving Carlsbad & North County San Diego',
+        `In-person sessions at our ${site.address.city} office`,
+      ]}
+    />
+  </div>
+
+  <CTASection
+    heading="Ready to take the first step?"
+    subhead="Request a session to discuss fit and availability."
+    ctaLabel="Schedule a Session"
+    ctaHref="/schedule-a-session/"
+    phoneDisplay={site.phone.display}
+    phoneHref={`tel:${site.phone.tel}`}
+  />
+</BaseLayout>
+
+<SchemaOrg type="person" />

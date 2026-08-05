@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/sections/Breadcrumbs.astro';
+import FAQAccordion from '../../components/sections/FAQAccordion.astro';
+import CTASection from '../../components/sections/CTASection.astro';
+import { site } from '../../data/site';
+
+// Fee/insurance questions are intentionally not included: the SEO doc's
+// Wave 0 blockers say payment/insurance policy must be confirmed before
+// any fee-related FAQ content is published.
+const faqs = await getCollection('faq');
+---
+
+<BaseLayout
+  title="FAQ | S.A.G.E. Therapy Center"
+  description="Answers to common questions about starting therapy with S.A.G.E. Therapy Center in Carlsbad, CA."
+>
+  <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'FAQ', url: '/faq/' }]} />
+
+  <div class="mx-auto max-w-3xl px-6 pb-4 pt-8 text-center">
+    <p class="eyebrow-label">FAQ</p>
+    <h1 class="mt-4 font-serif text-4xl text-ink sm:text-5xl">Frequently asked questions</h1>
+  </div>
+
+  <FAQAccordion heading="Common questions" items={faqs.map((f) => ({ q: f.data.q, a: f.data.a }))} />
+
+  <CTASection
+    heading="Still have questions?"
+    subhead="Reach out — we're happy to help."
+    ctaLabel="Contact Us"
+    ctaHref="/contact/"
+    phoneDisplay={site.phone.display}
+    phoneHref={`tel:${site.phone.tel}`}
+  />
+</BaseLayout>
