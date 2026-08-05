@@ -19,9 +19,9 @@ Kristin Moorehead-Malley, LMFT, works with partners on communication, connection
 
 For couples split between Encinitas and a neighboring city, or for Encinitas couples simply looking for a therapist with broader training than a single-focus local practice offers, the drive to Carlsbad is often a reasonable trade-off. It's worth knowing upfront, though, that sessions are in person at the Carlsbad address — there isn't a closer satellite option for Encinitas clients right now.
 
-A first session is a chance for both partners to talk through what's bringing you in, without needing to agree in advance on what the "real issue" is. Encinitas couples come to counseling for the same range of reasons as couples anywhere else — a specific conflict that keeps recurring, a slower drift toward distance, or wanting to strengthen the relationship proactively rather than waiting for a problem.
+Encinitas is a coastal surf town, built around Highway 101 and known for landmarks like Moonlight Beach — a laid-back, beach-town pace that's genuinely different from the day-to-day rhythm many couples are managing around work and family. Some Encinitas couples find that pace works in their favor when it comes to making time for counseling; others find that even a relaxed setting doesn't make room for something that keeps getting deprioritized, which is itself often part of what brings a couple in.
 
-If one partner is more hesitant than the other about starting, that's worth naming directly when you reach out rather than working around it — it's a common enough starting point that it doesn't need to be resolved before the first session.
+If one partner is more hesitant than the other about starting, naming that directly when you reach out tends to work better than trying to work around it quietly — it's common enough that it doesn't need to be resolved before a first session.
 
 Couples counseling is closely related to premarital and marriage counseling, which isn't yet offered specifically to Encinitas clients as its own local page — Encinitas currently has access to individual therapy and couples counseling, both at the Carlsbad office.
 

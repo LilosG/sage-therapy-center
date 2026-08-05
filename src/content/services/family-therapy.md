@@ -22,4 +22,6 @@ Family therapy at S.A.G.E. Therapy Center offers support for households navigati
 
 An approach can include psychodynamic and attachment-based work, chosen based on what fits the family. Some families seek therapy when they're feeling stuck in recurring conflict, navigating a change like a move or a new family structure, or want support building healthier communication patterns at home.
 
+Family therapy recognizes that everyone in a household is also their own person — with individual perspectives, pressures, and experiences that extend beyond the family itself. A parent's stress at work, a sibling's friendships and pressures outside the home, or one family member's own history can all shape what's happening inside the family, even when the work is focused on the family as a whole.
+
 Request a session to discuss fit and availability.

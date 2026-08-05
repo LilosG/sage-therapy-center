@@ -12,9 +12,6 @@
 //
 // - /mental-health-therapy-counseling-san-bernardino — source has
 //   "to": null, an unusable redirect target.
-// - /carole-patterson — doc's own Wave-0 blocker list (item 4) says this
-//   URL's disposition "needs Kristin's direct input, not an SEO default";
-//   the note field is also truncated.
 // - /therapists-of-san-diego-blog/ptsd and
 //   /sage-therapy-center-recent-updates/ptsd — both destinations truncate
 //   to "/blog/coping-with-" with no way to recover the exact slug. The
@@ -22,8 +19,8 @@
 //   content that must resolve to ONE canonical /blog/{slug}/ — same
 //   category of unresolved gap, same treatment.
 //
-// All four are tracked as CONFIRM items in the Phase B report, not
-// silently dropped.
+// All three URLs above are tracked as CONFIRM items in the Phase B
+// report, not silently dropped.
 
 export interface LegacyRedirect {
   source: string;

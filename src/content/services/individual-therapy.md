@@ -22,4 +22,6 @@ Individual therapy at S.A.G.E. Therapy Center offers support for adults navigati
 
 An approach can include EMDR, Lifespan Integration, CBT, IMAGO, psychodynamic, and attachment-based work — the specific approach depends on what fits your situation and goals. Some people seek individual therapy when they're feeling anxious, stuck in patterns they want to understand, or working through grief or a difficult transition. Others simply want dedicated space to reflect and grow.
 
+People come to individual therapy for a wide range of reasons — feeling overwhelmed or stuck, anxiety, depression, anger, or ongoing stress, low self-worth or self-sabotaging patterns, relationship challenges or difficulty setting boundaries, trauma, abuse, or PTSD, and concerns like sleep issues, addiction, or disordered eating. Individual therapy isn't a substitute for emergency or crisis care — if you're in crisis, please reach out to 911 or a crisis line first, and therapy can be part of the support that follows.
+
 Request a session to discuss fit and availability.

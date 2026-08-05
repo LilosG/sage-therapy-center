@@ -23,7 +23,7 @@ Family therapy is closely related to teen counseling, also offered at the Carlsb
 
 Parenting support is part of what family therapy can offer, whether that means working through disagreements between parents about how to handle a specific situation, or helping a family adjust its overall patterns of communication. This isn't limited to families with teenagers — younger children and adult children can be part of the picture too, depending on what the family is navigating.
 
-A first family session is a chance to talk through what's happening and who's affected, so the approach can be shaped around your actual situation rather than a generic template. Some Carlsbad families come in after a specific event brought tension to a head; others have felt a slower build-up of distance or friction and want support addressing it directly.
+Every person in a household is also their own individual — a parent carrying stress from work, a teenager navigating friendships and pressures outside the home, a sibling working through something entirely their own. Family therapy holds space for the family as a whole while still recognizing that what's happening for each person individually shapes what's happening at home.
 
 There's no single format every family follows. Some sessions include the whole household; others focus on a specific relationship within the family. What that looks like for you is something to work out together, starting with a first conversation.
 

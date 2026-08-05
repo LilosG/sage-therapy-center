@@ -21,9 +21,9 @@ Some San Marcos clients come to S.A.G.E. Therapy Center after comparing options 
 
 Because there's no San Marcos office, it's worth being upfront: sessions are in person, at the Carlsbad address, not remote and not at a location closer to San Marcos. That's a real consideration for some clients and not for others, depending on your schedule and how far you're coming from within San Marcos.
 
-A first session is a chance to talk through what brought you in, whether that's a clear focus or just a general sense that something needs attention. San Marcos clients come to individual therapy for a wide range of reasons — work stress, a relationship or life change, anxiety that's become harder to manage on your own, or simply wanting consistent space to reflect and process.
+Individual therapy can help with a wide range of concerns: feeling overwhelmed or stuck, anxiety, depression, anger, or chronic stress, low self-worth or self-sabotaging patterns, relationship or boundary struggles, trauma, abuse, or PTSD, and issues like sleep, addiction, or disordered eating. Whatever brought you to this page is a reasonable starting point — and if you're in crisis right now, individual therapy is not an emergency service; please contact 911 or a crisis line first.
 
-If you're weighing a local option against the drive to Carlsbad, it's a reasonable thing to bring up directly when you reach out — logistics and fit are both part of that first conversation, not something to sort out entirely on your own beforehand.
+San Marcos itself has a genuinely different feel than the coastal cities S.A.G.E. Therapy Center also serves. It's an inland university town — home to California State University San Marcos, with around 17,000 students — and known for being family-oriented, with residential areas like San Elijo Hills. There's no pretending it's a beach town; it's its own kind of North County community, and the drive to the Carlsbad office reflects that inland-to-coast trip.
 
 Individual therapy is one of two services currently available to San Marcos clients, alongside couples counseling — both held at the same Carlsbad office.
 

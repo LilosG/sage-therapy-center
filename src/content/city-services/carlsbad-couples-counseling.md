@@ -21,9 +21,7 @@ Sessions can draw on EMDR, IMAGO, psychodynamic, and attachment-based approaches
 
 One thing that comes up often: one partner is more ready than the other to start counseling. That's not unusual, and it doesn't need to be resolved before you reach out — it's something sessions can work through directly, at whatever pace makes sense for both of you.
 
-A first session is a chance for both partners to talk through what's bringing you in and what you're each hoping for — not a test of who's "right," and not a session built around assigning blame. From there, ongoing sessions are shaped by what the two of you are working through, whether that's a specific recurring conflict or a broader sense of drifting apart.
-
-Carlsbad couples come to counseling from a range of starting points: some after a specific incident or disagreement that made the pattern impossible to ignore, others after a slower build-up of distance or miscommunication. Some couples come in during a good stretch, wanting to strengthen the relationship before a big life change rather than waiting for a crisis.
+Not every couple arrives at the same starting point. Some come in after a specific disagreement made a pattern impossible to keep ignoring. Others have felt a slower drift toward distance or miscommunication without one clear triggering event. And some come in during a genuinely good stretch, wanting to build a stronger foundation ahead of a big change rather than waiting until something breaks. None of these needs to look like a crisis to be worth bringing to a first session — the goal isn't to assign blame or determine who's "right," but to understand what's happening between you and where you'd both like things to go.
 
 Couples counseling is closely related to premarital and marriage counseling, also offered at the Carlsbad office, for couples specifically preparing for marriage or navigating a marriage-specific stage. If you're not sure which one fits, that's worth mentioning when you request a session.
 
