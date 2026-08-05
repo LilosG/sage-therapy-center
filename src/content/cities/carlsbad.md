@@ -19,6 +19,8 @@ approvedCityServices:
 nearbyCities:
   - encinitas
   - san-marcos
+  - oceanside
+  - vista
 neighborhoods:
   - name: La Costa
     blurb: "One of the Carlsbad neighborhoods we serve, a short drive from our Avenida Encinas office."

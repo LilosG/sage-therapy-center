@@ -15,6 +15,8 @@ approvedCityServices:
   - teen-counseling
 nearbyCities:
   - carlsbad
+  - solana-beach
+  - rancho-santa-fe
 neighborhoods:
   - name: Old Encinitas
     blurb: "The historic heart of Encinitas, along Highway 101 near the pier and Moonlight Beach — walkable, downtown, and close to the coast."
