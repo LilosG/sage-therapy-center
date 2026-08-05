@@ -18,6 +18,15 @@ const { Content } = await render(entry);
 const approvedServices = entry.data.approvedCityServices.length
   ? await getEntries(entry.data.approvedCityServices)
   : [];
+
+// Prefer a local city/service combo page over the general service pillar
+// when one exists for this city — it has real, city-specific content
+// (per Wave 2), so it's a better link target than the generic pillar.
+const cityServiceEntries = await getCollection('city-services');
+const localComboSlugs = new Set(
+  cityServiceEntries.filter((cs) => cs.data.city.id === entry.id).map((cs) => cs.data.service.id)
+);
+
 const pageUrl = `${site.canonicalOrigin}/${entry.data.slug}/`;
 const breadcrumbItems = [
   { name: 'Home', url: '/' },
@@ -44,7 +53,9 @@ const breadcrumbItems = [
         services={approvedServices.map((s) => ({
           title: s.data.title,
           description: s.data.description,
-          href: `/services/${s.data.slug}/`,
+          href: localComboSlugs.has(s.id)
+            ? `/${entry.data.slug}/${s.data.slug}/`
+            : `/services/${s.data.slug}/`,
         }))}
       />
     )

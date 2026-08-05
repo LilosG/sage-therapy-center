@@ -12,6 +12,10 @@ secondaryTargets:
 approvedCityServices:
   - individual-therapy
   - couples-counseling
+  - family-therapy
+  - teen-counseling
+  - premarital-marriage-counseling
+  - emdr-therapy
 nearbyCities:
   - encinitas
   - san-marcos
