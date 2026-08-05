@@ -11,12 +11,15 @@ interface Props {
   eyebrow?: string;
   heading: string;
   items: FaqItem[];
+  // Section-rhythm control (Wave 6, item 7) — lets callers alternate
+  // backgrounds against whatever section sits above this one.
+  background?: 'background' | 'secondary';
 }
 
-const { eyebrow, heading, items } = Astro.props;
+const { eyebrow, heading, items, background = 'background' } = Astro.props;
 ---
 
-<section class="bg-background">
+<section class={background === 'secondary' ? 'bg-secondary' : 'bg-background'}>
   <div class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
     <div class="text-center">
       {eyebrow && <p class="eyebrow-label">{eyebrow}</p>}

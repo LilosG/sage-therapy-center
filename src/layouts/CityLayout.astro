@@ -11,7 +11,13 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const { name, hasOffice, primaryTarget, slug, faq } = entry.data;
+const { name, hasOffice, primaryTarget, slug, faq, approvedCityServices } = entry.data;
+// Section-rhythm (Wave 6, item 7): the page slot renders a ServiceGrid
+// (background="secondary") only when this city has approved services.
+// When it does, FAQ should sit on "background" to alternate against it;
+// when it doesn't, FAQ directly follows the slot's plain background
+// content, so it needs "secondary" itself.
+const faqBackground = approvedCityServices.length > 0 ? 'background' : 'secondary';
 const breadcrumbItems = [
   { name: 'Home', url: '/' },
   { name: 'Areas We Serve', url: '/areas-we-serve/' },
@@ -26,7 +32,7 @@ const breadcrumbItems = [
     breadcrumbItems={breadcrumbItems}
   />
   <slot />
-  {faq && faq.length > 0 && <FAQAccordion heading={`${name} FAQs`} items={faq} />}
+  {faq && faq.length > 0 && <FAQAccordion heading={`${name} FAQs`} items={faq} background={faqBackground} />}
   <!-- Every city hub is a money page per Build Spec link quotas — the CTA
        is structural here (guaranteed by the layout) rather than left to
        each page to remember, same fix as the Wave 1 Footer bug. -->

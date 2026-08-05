@@ -25,7 +25,11 @@ const breadcrumbItems = [
   <PageHero eyebrow={city.data.name} title={`${service.data.title} in ${city.data.name}, CA`} breadcrumbItems={breadcrumbItems} />
   <slot />
   {entry.data.faq && entry.data.faq.length > 0 && (
-    <FAQAccordion heading={`${service.data.title} in ${city.data.name}: FAQs`} items={entry.data.faq} />
+    <FAQAccordion
+      heading={`${service.data.title} in ${city.data.name}: FAQs`}
+      items={entry.data.faq}
+      background="secondary"
+    />
   )}
   <!-- Every city/service page is a money page per Build Spec link quotas —
        structural here (guaranteed by the layout), same fix pattern as

@@ -46,7 +46,9 @@ const pageUrl = `${site.canonicalOrigin}/services/${entry.data.slug}/`;
     }
   </div>
 
-  {entry.data.faq && entry.data.faq.length > 0 && <FAQAccordion heading="Frequently asked questions" items={entry.data.faq} />}
+  {entry.data.faq && entry.data.faq.length > 0 && (
+    <FAQAccordion heading="Frequently asked questions" items={entry.data.faq} background="secondary" />
+  )}
 </ServiceLayout>
 
 <SchemaOrg
