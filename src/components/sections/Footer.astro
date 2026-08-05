@@ -1,7 +1,17 @@
 ---
-// Layout-level component — see Header.astro for the folder-placement note.
+// Layout-level component — see Header.astro for the folder-placement
+// note. Cities/services are pulled from the content collections rather
+// than nav.ts's full 8-city/6-service lists: only 3 cities and 2
+// services exist as real routes this wave, and nav.ts's static lists
+// would otherwise 404 on every entry that isn't built yet (caught during
+// Wave 1 verification). Legal nav (privacy/accessibility) is left out
+// entirely for the same reason — neither page exists yet; nav.ts still
+// documents the intended footer shape for when a later wave adds them.
+import { getCollection } from 'astro:content';
 import { site } from '../../data/site';
-import { footerCityNav, footerCoreServiceNav, footerLegalNav } from '../../data/nav';
+
+const cities = await getCollection('cities');
+const services = await getCollection('services');
 ---
 
 <footer class="bg-secondary">
@@ -35,10 +45,10 @@ import { footerCityNav, footerCoreServiceNav, footerLegalNav } from '../../data/
         <p class="font-sans text-sm font-semibold text-ink">Areas We Serve</p>
         <ul class="mt-3 space-y-2">
           {
-            footerCityNav.map((item) => (
+            cities.map((c) => (
               <li>
-                <a href={item.href} class="font-sans text-sm text-muted-foreground hover:text-sage-deep">
-                  {item.label}
+                <a href={`/${c.data.slug}/`} class="font-sans text-sm text-muted-foreground hover:text-sage-deep">
+                  {c.data.name}
                 </a>
               </li>
             ))
@@ -50,10 +60,13 @@ import { footerCityNav, footerCoreServiceNav, footerLegalNav } from '../../data/
         <p class="font-sans text-sm font-semibold text-ink">Services</p>
         <ul class="mt-3 space-y-2">
           {
-            footerCoreServiceNav.map((item) => (
+            services.map((s) => (
               <li>
-                <a href={item.href} class="font-sans text-sm text-muted-foreground hover:text-sage-deep">
-                  {item.label}
+                <a
+                  href={`/services/${s.data.slug}/`}
+                  class="font-sans text-sm text-muted-foreground hover:text-sage-deep"
+                >
+                  {s.data.title}
                 </a>
               </li>
             ))
@@ -86,17 +99,6 @@ import { footerCityNav, footerCoreServiceNav, footerLegalNav } from '../../data/
       <p class="font-sans text-xs text-muted-foreground">
         &copy; {new Date().getFullYear()} {site.name}. All rights reserved.
       </p>
-      <ul class="flex gap-4">
-        {
-          footerLegalNav.map((item) => (
-            <li>
-              <a href={item.href} class="font-sans text-xs text-muted-foreground hover:text-sage-deep">
-                {item.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
     </div>
   </div>
 </footer>
