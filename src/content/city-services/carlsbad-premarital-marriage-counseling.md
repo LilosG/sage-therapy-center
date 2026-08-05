@@ -4,7 +4,7 @@ entryId:
   slug: carlsbad-premarital-marriage-counseling
 city: carlsbad
 service: premarital-marriage-counseling
-minWordCount: 600
+minWordCount: 400
 uniqueContentPercent: 35
 faq:
   - q: "Where do Carlsbad premarital and marriage counseling sessions take place?"

@@ -165,11 +165,20 @@ hardcoded values" — if a field isn't in the schema, it doesn't get invented in
 ```ts
 {
   city: string, service: string,        // reference slugs
-  minWordCount: 600,                     // enforced at build/CI, not just convention
+  minWordCount: 400,                     // see revision note below
   uniqueContentPercent: 35,              // documented requirement, manual QA gate
   body, faq: { q, a }[]
 }
 ```
+
+**Revised after Wave 2 (word-count gate):** the original 600-900 word target for
+city/service pages assumed a volume of client-specific detail this practice doesn't
+have. With every combo page grounded in real, non-overlapping content (no filler,
+no repeated boilerplate across pages), Wave 2's actual ceiling landed at 350-450
+words per page. That's the realistic minimum for a solo-practitioner site without
+page-to-page content overlap — treat 350-450 as the real target, not 600-900, and
+never treat the number itself as a padding target. If a page falls short of even
+that, the fix is more real content (client-sourced specifics), not filler.
 
 **`testimonials`**
 ```ts

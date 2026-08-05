@@ -4,7 +4,7 @@ entryId:
   slug: encinitas-couples-counseling
 city: encinitas
 service: couples-counseling
-minWordCount: 600
+minWordCount: 400
 uniqueContentPercent: 35
 faq:
   - q: "Is there an S.A.G.E. Therapy Center office in Encinitas?"

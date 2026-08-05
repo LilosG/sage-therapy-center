@@ -4,7 +4,7 @@ entryId:
   slug: san-marcos-couples-counseling
 city: san-marcos
 service: couples-counseling
-minWordCount: 600
+minWordCount: 400
 uniqueContentPercent: 35
 faq:
   - q: "Is there an S.A.G.E. Therapy Center office in San Marcos?"

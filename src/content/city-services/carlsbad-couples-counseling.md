@@ -4,7 +4,7 @@ entryId:
   slug: carlsbad-couples-counseling
 city: carlsbad
 service: couples-counseling
-minWordCount: 600
+minWordCount: 400
 uniqueContentPercent: 35
 faq:
   - q: "Where do Carlsbad couples counseling sessions take place?"

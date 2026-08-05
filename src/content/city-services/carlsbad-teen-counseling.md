@@ -4,7 +4,7 @@ entryId:
   slug: carlsbad-teen-counseling
 city: carlsbad
 service: teen-counseling
-minWordCount: 600
+minWordCount: 400
 uniqueContentPercent: 35
 faq:
   - q: "Where do Carlsbad teen counseling sessions take place?"

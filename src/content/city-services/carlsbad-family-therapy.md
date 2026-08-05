@@ -4,7 +4,7 @@ entryId:
   slug: carlsbad-family-therapy
 city: carlsbad
 service: family-therapy
-minWordCount: 600
+minWordCount: 400
 uniqueContentPercent: 35
 faq:
   - q: "Where do Carlsbad family therapy sessions take place?"

@@ -4,7 +4,7 @@ entryId:
   slug: carlsbad-individual-therapy
 city: carlsbad
 service: individual-therapy
-minWordCount: 600
+minWordCount: 400
 uniqueContentPercent: 35
 faq:
   - q: "Where do Carlsbad individual therapy sessions take place?"

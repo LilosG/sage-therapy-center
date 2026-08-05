@@ -4,7 +4,7 @@ entryId:
   slug: carlsbad-emdr-therapy
 city: carlsbad
 service: emdr-therapy
-minWordCount: 600
+minWordCount: 400
 uniqueContentPercent: 35
 faq:
   - q: "Where do Carlsbad EMDR sessions take place?"

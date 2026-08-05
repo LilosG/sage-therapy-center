@@ -69,7 +69,10 @@ const cityServices = defineCollection({
   schema: z.object({
     city: reference('cities'),
     service: reference('services'),
-    minWordCount: z.number().default(600),
+    // Revised from 600 after Wave 2 (see Build Spec Section 4) — 350-450
+    // words is the realistic ceiling for genuine, non-overlapping
+    // per-page content on a solo-practitioner site. Not a padding target.
+    minWordCount: z.number().default(400),
     uniqueContentPercent: z.number().default(35),
     faq: z
       .array(
