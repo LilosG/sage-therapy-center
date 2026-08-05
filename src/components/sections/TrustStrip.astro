@@ -5,6 +5,8 @@
 // availability exists in either source document, and the license number
 // itself is still confirm-gated (site.ts). Rather than invent any of
 // those, the caller supplies only the items that are actually sourced.
+import { Icon } from 'astro-icon/components';
+
 interface Props {
   items: string[];
 }
@@ -13,5 +15,12 @@ const { items } = Astro.props;
 ---
 
 <div class="trust-strip">
-  {items.map((item) => <span>{item}</span>)}
+  {
+    items.map((item) => (
+      <span class="inline-flex items-center gap-1.5 rounded-full border border-border bg-lavender-soft/60 px-3.5 py-1.5 text-foreground">
+        <Icon name="lucide:check" width={14} height={14} class="text-sage-deep" aria-hidden="true" />
+        {item}
+      </span>
+    ))
+  }
 </div>
