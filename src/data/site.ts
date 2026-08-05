@@ -49,14 +49,11 @@ export const site = {
     licenseConfirmRequired: true,
   },
 
-  // CONFIRM: neither source document states whether telehealth is offered
-  // alongside in-person sessions. TrustStrip previously asserted
-  // "All of California" as a confirmed fact while the FAQ answer
-  // deliberately hedged (src/content/faq/session-format.md) — this is the
-  // single source both now read from so they can't drift out of sync.
+  // Confirmed: telehealth is offered alongside in-person sessions, available
+  // to clients anywhere in California (V4 source doc, Areas Served section).
+  // Single source for TrustStrip and the FAQ so they can't drift out of sync.
   telehealth: {
     coverageArea: 'All of California',
-    confirmRequired: true,
   },
 
   primaryConversionPath: '/schedule-a-session/',

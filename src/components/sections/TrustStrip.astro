@@ -17,10 +17,7 @@ const stats = [
       : `License #${site.practitioner.licenseNumber}`,
   },
   { label: 'Practicing', value: '15+ years' },
-  {
-    label: 'Telehealth',
-    value: site.telehealth.confirmRequired ? 'Available by request' : site.telehealth.coverageArea,
-  },
+  { label: 'Telehealth', value: site.telehealth.coverageArea },
   { label: 'Insurance', value: 'Out-of-network, superbills provided' },
 ];
 ---
