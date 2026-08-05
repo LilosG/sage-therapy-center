@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import Breadcrumbs from '../components/sections/Breadcrumbs.astro';
+import FAQAccordion from '../components/sections/FAQAccordion.astro';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -8,7 +9,7 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const { name, primaryTarget, slug } = entry.data;
+const { name, primaryTarget, slug, faq } = entry.data;
 const breadcrumbItems = [
   { name: 'Home', url: '/' },
   { name: 'Areas We Serve', url: '/areas-we-serve/' },
@@ -19,4 +20,5 @@ const breadcrumbItems = [
 <BaseLayout title={name} description={primaryTarget}>
   <Breadcrumbs items={breadcrumbItems} />
   <slot />
+  {faq && faq.length > 0 && <FAQAccordion heading={`${name} FAQs`} items={faq} />}
 </BaseLayout>

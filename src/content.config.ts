@@ -49,6 +49,14 @@ const cities = defineCollection({
         blurb: z.string(),
       })
     ),
+    faq: z
+      .array(
+        z.object({
+          q: z.string(),
+          a: z.string(),
+        })
+      )
+      .optional(),
   }),
 });
 
@@ -87,8 +95,8 @@ const testimonials = defineCollection({
 // The Build Spec describes this collection in prose only ("global FAQ pool
 // ... referenced by /faq/ and pulled selectively into service/city pages")
 // without an explicit field list. The q/a shape is reused from the inline
-// faq arrays on `services` and `cityServices` since that's the only FAQ
-// field vocabulary either source document defines — see Phase B report.
+// faq arrays on `services`, `cities`, and `cityServices` since that's the
+// only FAQ field vocabulary either source document defines.
 const faq = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/faq' }),
   schema: z.object({
