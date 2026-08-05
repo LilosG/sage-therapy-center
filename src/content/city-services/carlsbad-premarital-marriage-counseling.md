@@ -21,4 +21,8 @@ Sessions can draw on IMAGO, psychodynamic, and attachment-based approaches, chos
 
 Premarital and marriage counseling is closely related to general couples counseling, also offered at the Carlsbad office, for relationship work that isn't tied to marriage specifically. If you're not sure which one describes where you are, that's a reasonable thing to bring up when you reach out — it doesn't need to be sorted out in advance.
 
+A first session is a chance to talk through where you are as a couple and what you're hoping to get out of premarital or marriage counseling specifically. For engaged couples, that might mean structured conversations about finances, family, or expectations going into marriage. For married couples, it's more often shaped around whatever stage-specific challenge brought you in.
+
+Some Carlsbad couples come to premarital counseling proactively, wanting a strong foundation rather than waiting for a problem to appear. Others come to marriage counseling after noticing a specific shift — less connection, more friction, a transition like a move or a new child — and want support navigating it together rather than letting it settle into a longer-term pattern.
+
 Every couple starts from a different place, whether that's early engagement, a wedding a few months out, or several years into a marriage. Request a session to discuss fit and availability for Carlsbad premarital and marriage counseling.

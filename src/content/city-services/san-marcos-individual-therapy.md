@@ -21,6 +21,10 @@ Some San Marcos clients come to S.A.G.E. Therapy Center after comparing options 
 
 Because there's no San Marcos office, it's worth being upfront: sessions are in person, at the Carlsbad address, not remote and not at a location closer to San Marcos. That's a real consideration for some clients and not for others, depending on your schedule and how far you're coming from within San Marcos.
 
+A first session is a chance to talk through what brought you in, whether that's a clear focus or just a general sense that something needs attention. San Marcos clients come to individual therapy for a wide range of reasons — work stress, a relationship or life change, anxiety that's become harder to manage on your own, or simply wanting consistent space to reflect and process.
+
+If you're weighing a local option against the drive to Carlsbad, it's a reasonable thing to bring up directly when you reach out — logistics and fit are both part of that first conversation, not something to sort out entirely on your own beforehand.
+
 Individual therapy is one of two services currently available to San Marcos clients, alongside couples counseling — both held at the same Carlsbad office.
 
 Request a session to discuss fit and availability for individual therapy as a San Marcos client.

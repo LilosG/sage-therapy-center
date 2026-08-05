@@ -19,6 +19,10 @@ Kristin Moorehead-Malley, LMFT, works with partners on communication, connection
 
 For San Marcos couples weighing a local option against a short drive to Carlsbad, the range of approaches available — six or more, depending on what's needed — is often part of the decision. It's worth knowing upfront that sessions are in person at the Carlsbad address; there isn't a closer satellite option for San Marcos clients right now.
 
+A first session is a chance for both partners to talk through what's bringing you in, without needing to agree in advance on what the issue is. San Marcos couples come to counseling for a range of reasons — a specific recurring conflict, a slower drift toward distance, or wanting to strengthen the relationship proactively rather than waiting for a problem to grow.
+
+If one partner is more hesitant than the other about starting, that's a common enough starting point that it doesn't need to be resolved before you reach out — it's something sessions can address directly, at a pace that works for both of you.
+
 Couples counseling is closely related to premarital and marriage counseling, which isn't yet offered specifically to San Marcos clients as its own local page — San Marcos currently has access to individual therapy and couples counseling, both at the Carlsbad office.
 
 Request a session to discuss fit and availability for couples counseling as a San Marcos client.
