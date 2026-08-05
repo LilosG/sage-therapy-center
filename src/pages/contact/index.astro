@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/sections/Breadcrumbs.astro';
 import Card from '../../components/ui/Card.astro';
 import Button from '../../components/ui/Button.astro';
+import MapEmbed from '../../components/sections/MapEmbed.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
 
@@ -57,6 +58,10 @@ const mapUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
         <Button variant="secondary">Get Directions</Button>
       </a>
     </Card>
+
+    <div class="mt-6">
+      <MapEmbed />
+    </div>
 
     <div class="mt-8">
       <Button href="/schedule-a-session/">Schedule a Session</Button>

@@ -1,0 +1,27 @@
+---
+// Real Google Maps embed (standard no-API-key iframe pattern) for the
+// confirmed practice address. Uses only site.ts data — no placeholder
+// needed here, this is real and ready for launch as-is.
+import { site } from '../../data/site';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+const fullAddress = `${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}`;
+const src = `https://www.google.com/maps?q=${encodeURIComponent(fullAddress)}&output=embed`;
+const classes = ['overflow-hidden rounded-3xl border border-border shadow-sm', className].filter(Boolean).join(' ');
+---
+
+<div class={classes}>
+  <iframe
+    src={src}
+    width="100%"
+    height="400"
+    style="border:0; display:block;"
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+    title={`Map showing ${site.name} at ${fullAddress}`}
+  />
+</div>
