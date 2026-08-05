@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Breadcrumbs from '../../components/sections/Breadcrumbs.astro';
+import PageHero from '../../components/sections/PageHero.astro';
 import Card from '../../components/ui/Card.astro';
 import Button from '../../components/ui/Button.astro';
 import MapEmbed from '../../components/sections/MapEmbed.astro';
@@ -17,16 +17,15 @@ const mapUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
   title="Contact | S.A.G.E. Therapy Center"
   description={`Contact S.A.G.E. Therapy Center in ${site.address.city}, ${site.address.region} — phone, email, and office location.`}
 >
-  <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'Contact', url: '/contact/' }]} />
+  <PageHero
+    eyebrow="Contact"
+    title="Get in touch"
+    description="Request a session to discuss fit and availability, or reach out with any questions."
+    breadcrumbItems={[{ name: 'Home', url: '/' }, { name: 'Contact', url: '/contact/' }]}
+  />
 
   <div class="mx-auto max-w-3xl px-6 pb-12 pt-8">
-    <p class="eyebrow-label">Contact</p>
-    <h1 class="mt-4 font-serif text-4xl text-ink sm:text-5xl">Get in touch</h1>
-    <p class="mt-4 font-sans text-lg text-foreground">
-      Request a session to discuss fit and availability, or reach out with any questions.
-    </p>
-
-    <div class="mt-8 grid gap-6 sm:grid-cols-2">
+    <div class="grid gap-6 sm:grid-cols-2">
       <Card>
         <p class="font-sans text-sm font-semibold text-ink">Phone</p>
         <a href={`tel:${site.phone.tel}`} class="mt-2 block font-serif text-2xl text-primary hover:text-sage-deep">

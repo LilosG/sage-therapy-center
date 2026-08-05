@@ -1,0 +1,31 @@
+---
+// Lighter-weight hero for every page type besides the homepage (which
+// uses the full two-column Hero). Referenced in the Lovable typography
+// spec ("every PageHero H1") but never actually built until Wave 6 —
+// see Wave 6 report. Integrates breadcrumbs into the tinted band rather
+// than leaving them as a separate plain element above the heading.
+import Breadcrumbs from './Breadcrumbs.astro';
+
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  breadcrumbItems: BreadcrumbItem[];
+}
+
+const { eyebrow, title, description, breadcrumbItems } = Astro.props;
+---
+
+<section class="bg-lavender-soft">
+  <Breadcrumbs items={breadcrumbItems} />
+  <div class="mx-auto max-w-3xl px-6 pb-10 pt-2 text-center sm:pb-14">
+    {eyebrow && <p class="eyebrow-label">{eyebrow}</p>}
+    <h1 class="mt-4 font-serif text-4xl text-ink sm:text-5xl">{title}</h1>
+    {description && <p class="mx-auto mt-4 max-w-2xl font-sans text-lg text-foreground">{description}</p>}
+  </div>
+</section>

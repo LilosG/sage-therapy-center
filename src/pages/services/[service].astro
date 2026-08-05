@@ -21,8 +21,6 @@ const pageUrl = `${site.canonicalOrigin}/services/${entry.data.slug}/`;
 
 <ServiceLayout entry={entry}>
   <div class="mx-auto max-w-3xl px-6 pb-4 pt-8">
-    <p class="eyebrow-label">{entry.data.category === 'core' ? 'Core Service' : 'Concern-Led Service'}</p>
-    <h1 class="mt-4 font-serif text-4xl text-ink sm:text-5xl">{entry.data.title}</h1>
     <div class="prose mt-6 max-w-none font-sans text-foreground">
       <Content />
     </div>

@@ -1,6 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import Breadcrumbs from '../components/sections/Breadcrumbs.astro';
+import PageHero from '../components/sections/PageHero.astro';
 import FAQAccordion from '../components/sections/FAQAccordion.astro';
 import CTASection from '../components/sections/CTASection.astro';
 import { site } from '../data/site';
@@ -22,7 +22,7 @@ const breadcrumbItems = [
 ---
 
 <BaseLayout title={`${service.data.title} in ${city.data.name}`} description={service.data.description}>
-  <Breadcrumbs items={breadcrumbItems} />
+  <PageHero eyebrow={city.data.name} title={`${service.data.title} in ${city.data.name}, CA`} breadcrumbItems={breadcrumbItems} />
   <slot />
   {entry.data.faq && entry.data.faq.length > 0 && (
     <FAQAccordion heading={`${service.data.title} in ${city.data.name}: FAQs`} items={entry.data.faq} />

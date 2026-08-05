@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Breadcrumbs from '../../components/sections/Breadcrumbs.astro';
+import PageHero from '../../components/sections/PageHero.astro';
 import Card from '../../components/ui/Card.astro';
 import Button from '../../components/ui/Button.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
@@ -11,18 +11,15 @@ import { site } from '../../data/site';
   title="Schedule a Session | S.A.G.E. Therapy Center"
   description="Request a session with S.A.G.E. Therapy Center in Carlsbad, CA — reach out by phone or email to discuss fit and availability."
 >
-  <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'Schedule a Session', url: '/schedule-a-session/' }]} />
+  <PageHero
+    eyebrow="Schedule a Session"
+    title="Request a session"
+    description={`Reach out by phone or email to discuss fit and availability. ${site.practitioner.name}, ${site.practitioner.credential} will follow up to schedule your first session.`}
+    breadcrumbItems={[{ name: 'Home', url: '/' }, { name: 'Schedule a Session', url: '/schedule-a-session/' }]}
+  />
 
   <div class="mx-auto max-w-2xl px-6 py-12 text-center">
-    <p class="eyebrow-label">Schedule a Session</p>
-    <h1 class="mt-4 font-serif text-4xl text-ink sm:text-5xl">Request a session</h1>
-    <p class="mx-auto mt-4 max-w-xl font-sans text-lg text-foreground">
-      Reach out by phone or email to discuss fit and availability. {site.practitioner.name}, {
-        site.practitioner.credential
-      } will follow up to schedule your first session.
-    </p>
-
-    <div class="mt-10 grid gap-6 sm:grid-cols-2">
+    <div class="grid gap-6 sm:grid-cols-2">
       <Card>
         <p class="font-sans text-sm font-semibold text-ink">Call or text</p>
         <a href={`tel:${site.phone.tel}`} class="mt-2 block font-serif text-2xl text-primary hover:text-sage-deep">

@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Breadcrumbs from '../../components/sections/Breadcrumbs.astro';
+import PageHero from '../../components/sections/PageHero.astro';
 import TrustStrip from '../../components/sections/TrustStrip.astro';
 import CTASection from '../../components/sections/CTASection.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
@@ -14,7 +14,11 @@ const modalities = ['EMDR', 'Lifespan Integration', 'CBT', 'IMAGO', 'Psychodynam
   title={`About ${site.practitioner.name}, ${site.practitioner.credential} | S.A.G.E. Therapy Center`}
   description={`Meet ${site.practitioner.name}, ${site.practitioner.credential}, and learn about the approach behind S.A.G.E. Therapy Center in Carlsbad, CA.`}
 >
-  <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'About', url: '/about/' }]} />
+  <PageHero
+    eyebrow="About"
+    title={`${site.practitioner.name}, ${site.practitioner.credential}`}
+    breadcrumbItems={[{ name: 'Home', url: '/' }, { name: 'About', url: '/about/' }]}
+  />
 
   <div class="mx-auto grid max-w-5xl gap-10 px-6 pb-4 pt-8 lg:grid-cols-[minmax(0,280px)_1fr] lg:items-start">
     <!-- PLACEHOLDER: headshot of Kristin Moorehead-Malley, LMFT, arriving Wave 6 -->
@@ -25,12 +29,7 @@ const modalities = ['EMDR', 'Lifespan Integration', 'CBT', 'IMAGO', 'Psychodynam
     />
 
     <div>
-      <p class="eyebrow-label">About</p>
-      <h1 class="mt-4 font-serif text-4xl text-ink sm:text-5xl">
-        {site.practitioner.name}, {site.practitioner.credential}
-      </h1>
-
-      <div class="mt-6 space-y-4 font-sans text-lg text-foreground">
+      <div class="space-y-4 font-sans text-lg text-foreground">
         <p>
           S.A.G.E. stands for Self-Awareness, Growth, and Enlightenment. The practice's mission is to help you
           discover inner peace, heal from past experiences, and cultivate a more joyful life.

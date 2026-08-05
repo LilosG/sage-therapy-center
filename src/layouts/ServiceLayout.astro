@@ -1,6 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import Breadcrumbs from '../components/sections/Breadcrumbs.astro';
+import PageHero from '../components/sections/PageHero.astro';
 import CTASection from '../components/sections/CTASection.astro';
 import { site } from '../data/site';
 import type { CollectionEntry } from 'astro:content';
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const { title, description, slug } = entry.data;
+const { title, description, slug, category } = entry.data;
 const breadcrumbItems = [
   { name: 'Home', url: '/' },
   { name: 'Services', url: '/services/' },
@@ -19,7 +19,11 @@ const breadcrumbItems = [
 ---
 
 <BaseLayout title={title} description={description}>
-  <Breadcrumbs items={breadcrumbItems} />
+  <PageHero
+    eyebrow={category === 'core' ? 'Core Service' : 'Concern-Led Service'}
+    title={title}
+    breadcrumbItems={breadcrumbItems}
+  />
   <slot />
   <!-- Every service pillar is a money page per Build Spec link quotas —
        structural here (guaranteed by the layout), matching the
