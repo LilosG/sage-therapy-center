@@ -1,14 +1,13 @@
 ---
-// Minimal route wiring only, to prove the city-services collection schema
-// validates and renders — not a Wave 1 content page.
-//
 // Critical guardrail (Build Spec Section 5): getStaticPaths() sources
 // ONLY from existing `city-services` content entries, never from a
 // cross-product of all cities x all services. A research-gated
 // city/service combination gets a live route only when someone adds a
 // content entry for it — never by editing this file.
-import { getCollection, getEntry } from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
 import CityServiceLayout from '../../layouts/CityServiceLayout.astro';
+import SchemaOrg from '../../components/seo/SchemaOrg.astro';
+import { site } from '../../data/site';
 
 export async function getStaticPaths() {
   const entries = await getCollection('city-services');
@@ -27,8 +26,29 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const city = await getEntry(entry.data.city);
 const service = await getEntry(entry.data.service);
+const { Content } = await render(entry);
+const pageUrl = `${site.canonicalOrigin}/${city.data.slug}/${service.data.slug}/`;
 ---
 
 <CityServiceLayout entry={entry}>
-  <h1>{service.data.title} in {city.data.name}</h1>
+  <div class="mx-auto max-w-3xl px-6 pb-4 pt-8">
+    <p class="eyebrow-label">{city.data.name}</p>
+    <h1 class="mt-4 font-serif text-4xl text-ink sm:text-5xl">
+      {service.data.title} in {city.data.name}, CA
+    </h1>
+    <div class="prose mt-6 max-w-none font-sans text-foreground">
+      <Content />
+    </div>
+  </div>
 </CityServiceLayout>
+
+<SchemaOrg
+  type="service"
+  service={{
+    name: `${service.data.title} in ${city.data.name}`,
+    description: service.data.description,
+    serviceType: service.data.primaryTarget,
+    url: pageUrl,
+    areaServed: city.data.name,
+  }}
+/>
