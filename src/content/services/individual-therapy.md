@@ -9,6 +9,7 @@ primaryTarget: "individual therapy"
 mustNotCompeteFor: "therapist Carlsbad (that's the city hub's job)"
 relatedServices:
   - couples-counseling
+  - emdr-therapy
 description: "One-on-one therapy sessions for adults navigating anxiety, grief, life transitions, and other personal challenges, offered at the Carlsbad office."
 faq:
   - q: "How do I know if individual therapy is right for me?"

@@ -9,6 +9,7 @@ primaryTarget: "couples counseling"
 mustNotCompeteFor: "premarital counseling"
 relatedServices:
   - individual-therapy
+  - premarital-marriage-counseling
 description: "Couples counseling for partners working through communication, connection, or relationship challenges, offered at the Carlsbad office."
 faq:
   - q: "What if my partner isn't sure about couples counseling?"
