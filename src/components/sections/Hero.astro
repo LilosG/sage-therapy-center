@@ -1,5 +1,6 @@
 ---
 import Button from '../ui/Button.astro';
+import ImagePlaceholder from '../ui/ImagePlaceholder.astro';
 
 interface CTA {
   label: string;
@@ -23,29 +24,38 @@ const parts = emphasis && headline.includes(emphasis) ? headline.split(emphasis)
 ---
 
 <section class="bg-lavender-soft">
-  <div class="mx-auto max-w-3xl px-6 py-20 text-center sm:py-28">
-    <p class="eyebrow-label">{eyebrow}</p>
-    <h1 class="mt-4 font-serif text-4xl leading-tight text-ink sm:text-5xl">
-      {
-        parts ? (
-          <Fragment>
-            {parts[0]}
-            <em class="italic text-primary">{emphasis}</em>
-            {parts[1]}
-          </Fragment>
-        ) : (
-          headline
-        )
-      }
-    </h1>
-    <p class="mx-auto mt-6 max-w-2xl font-sans text-lg text-foreground">{subhead}</p>
-    <div class="mt-8 flex flex-wrap justify-center gap-4">
-      <Button href={primaryCta.href}>{primaryCta.label}</Button>
-      {secondaryCta && (
-        <Button href={secondaryCta.href} variant="secondary">
-          {secondaryCta.label}
-        </Button>
-      )}
+  <div class="mx-auto grid max-w-6xl gap-12 px-6 py-20 sm:py-28 lg:grid-cols-2 lg:items-center">
+    <div class="text-center lg:text-left">
+      <p class="eyebrow-label">{eyebrow}</p>
+      <h1 class="mt-4 font-serif text-4xl leading-tight text-ink sm:text-5xl">
+        {
+          parts ? (
+            <Fragment>
+              {parts[0]}
+              <em class="italic text-primary">{emphasis}</em>
+              {parts[1]}
+            </Fragment>
+          ) : (
+            headline
+          )
+        }
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl font-sans text-lg text-foreground lg:mx-0">{subhead}</p>
+      <div class="mt-8 flex flex-wrap justify-center gap-4 lg:justify-start">
+        <Button href={primaryCta.href}>{primaryCta.label}</Button>
+        {secondaryCta && (
+          <Button href={secondaryCta.href} variant="secondary">
+            {secondaryCta.label}
+          </Button>
+        )}
+      </div>
     </div>
+
+    <!-- PLACEHOLDER: hero image, coastal/Carlsbad themed, arriving Wave 6 -->
+    <ImagePlaceholder
+      alt="Photo of the Carlsbad coastline near S.A.G.E. Therapy Center — placeholder, real photography arriving Wave 6"
+      icon="lucide:image"
+      class="aspect-[4/3] w-full shadow-sm lg:aspect-[4/5]"
+    />
   </div>
 </section>

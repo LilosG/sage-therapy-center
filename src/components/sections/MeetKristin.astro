@@ -1,5 +1,6 @@
 ---
 import Button from '../ui/Button.astro';
+import ImagePlaceholder from '../ui/ImagePlaceholder.astro';
 
 interface Props {
   name: string;
@@ -15,6 +16,13 @@ const { name, credential, bio, modalities, ctaLabel, ctaHref } = Astro.props;
 
 <section class="bg-lavender-soft">
   <div class="mx-auto grid max-w-6xl gap-10 px-6 py-16 sm:py-20 lg:grid-cols-2 lg:items-center">
+    <!-- PLACEHOLDER: headshot of Kristin Moorehead-Malley, LMFT, arriving Wave 6 -->
+    <ImagePlaceholder
+      alt={`Headshot of ${name}, ${credential} — placeholder, real photography arriving Wave 6`}
+      icon="lucide:user-round"
+      class="aspect-[4/5] w-full shadow-sm"
+    />
+
     <div>
       <p class="eyebrow-label">Meet Your Therapist</p>
       <h2 class="mt-4 font-serif text-3xl text-ink sm:text-4xl">
@@ -26,9 +34,8 @@ const { name, credential, bio, modalities, ctaLabel, ctaHref } = Astro.props;
       <Button href={ctaHref} class="mt-6">
         {ctaLabel}
       </Button>
-    </div>
-    <div>
-      <p class="font-sans text-sm font-semibold text-ink">Approaches Kristin draws on</p>
+
+      <p class="mt-8 font-sans text-sm font-semibold text-ink">Approaches Kristin draws on</p>
       <ul class="mt-4 flex flex-wrap gap-2">
         {
           modalities.map((modality) => (

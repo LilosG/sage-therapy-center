@@ -1,0 +1,30 @@
+---
+// Styled placeholder for a real photo arriving in Wave 6. Uses
+// role="img" + aria-label rather than an <img> with a fake src, since
+// there's no real asset yet to point a src at — this keeps the block
+// genuinely accessible (screen readers announce it as an image with a
+// real description) rather than an empty decorative div. Swap for a real
+// <Image> from astro:assets when the photo arrives; the aspect-ratio and
+// rounding classes passed in via `class` are what the real image should
+// keep.
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  alt: string;
+  icon?: string;
+  class?: string;
+}
+
+const { alt, icon = 'lucide:image', class: className = '' } = Astro.props;
+const classes = [
+  'relative flex items-center justify-center overflow-hidden rounded-3xl',
+  'bg-gradient-to-br from-lavender-soft via-lavender to-sage',
+  className,
+]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<div role="img" aria-label={alt} class={classes}>
+  <Icon name={icon} class="h-10 w-10 text-surface/70" aria-hidden="true" />
+</div>
