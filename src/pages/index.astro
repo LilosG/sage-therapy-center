@@ -38,13 +38,7 @@ const cities = await getCollection('cities');
     secondaryCta={{ label: 'Meet Kristin', href: '/about/' }}
   />
 
-  <TrustStrip
-    items={[
-      `${site.practitioner.name}, ${site.practitioner.credential}`,
-      'Serving Carlsbad & North County San Diego',
-      `In-person sessions at our ${site.address.city} office`,
-    ]}
-  />
+  <TrustStrip />
 
   <div class="bg-secondary px-6 py-10 text-center">
     <p class="mx-auto max-w-2xl font-sans text-foreground">

@@ -58,6 +58,6 @@
   }
 
   .trust-strip {
-    @apply flex flex-wrap items-center justify-center gap-x-8 gap-y-3 border-y border-border bg-surface px-6 py-4 font-sans text-sm text-muted-foreground;
+    @apply grid grid-cols-2 gap-6 border-y border-border bg-surface px-6 py-6 sm:grid-cols-4 sm:gap-4;
   }
 }
