@@ -1,0 +1,68 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/sections/Breadcrumbs.astro';
+import CTASection from '../../components/sections/CTASection.astro';
+import { site } from '../../data/site';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const primaryService = await getEntry(entry.data.primaryService);
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Blog', url: '/blog/' },
+  { name: entry.data.title, url: `/blog/${entry.data.slug}/` },
+];
+---
+
+<BaseLayout title={`${entry.data.title} | S.A.G.E. Therapy Center Blog`} description={entry.data.title}>
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <div class="mx-auto max-w-3xl px-6 pb-4 pt-8">
+    <h1 class="font-serif text-4xl text-ink sm:text-5xl">{entry.data.title}</h1>
+    <p class="mt-2 font-sans text-sm text-muted-foreground">
+      {
+        entry.data.publishDate.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        })
+      }
+    </p>
+    <div class="prose mt-6 max-w-none font-sans text-foreground">
+      <Content />
+    </div>
+
+    <div class="mt-10 flex flex-wrap gap-3 border-t border-border pt-6 font-sans text-sm">
+      <a
+        href={`/services/${primaryService.data.slug}/`}
+        class="rounded-full border border-border bg-surface px-4 py-2 text-foreground hover:border-sage-deep hover:text-sage-deep"
+      >
+        {primaryService.data.title}
+      </a>
+      <a
+        href={entry.data.primaryLocalPage}
+        class="rounded-full border border-border bg-surface px-4 py-2 text-foreground hover:border-sage-deep hover:text-sage-deep"
+      >
+        Areas we serve
+      </a>
+    </div>
+  </div>
+
+  <CTASection
+    heading="Ready to take the next step?"
+    subhead="Request a session to discuss fit and availability."
+    ctaLabel="Schedule a Session"
+    ctaHref={entry.data.conversionPage}
+    phoneDisplay={site.phone.display}
+    phoneHref={`tel:${site.phone.tel}`}
+  />
+</BaseLayout>
