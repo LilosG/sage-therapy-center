@@ -6,6 +6,8 @@ city: carlsbad
 service: teen-counseling
 minWordCount: 400
 uniqueContentPercent: 35
+lateralLinks:
+  - family-therapy
 faq:
   - q: "Where do Carlsbad teen counseling sessions take place?"
     a: "At the S.A.G.E. Therapy Center office, 5055 Avenida Encinas, Suite 100, in Carlsbad."

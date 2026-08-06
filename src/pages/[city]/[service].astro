@@ -34,17 +34,17 @@ const pageUrl = canonicalUrl(cityServiceUrl(city.data.slug, routeSlug));
 // Sibling services offered in the same city, excluding this one — same
 // "local combo page over generic pillar" preference as [city]/index.astro,
 // since a local combo page is a better link target when one exists.
-const approvedServices = city.data.approvedCityServices.length
-  ? await getEntries(city.data.approvedCityServices)
-  : [];
-// Capped at 3 per the SEO doc's Internal Link Plan rule 7 (same-city
-// sibling links) and the Link Quotas table ("2-3 siblings" for this page
-// type). This is a compliance floor, not the doc's curated Same-City
-// Lateral Links table (e.g. Carlsbad Couples -> premarital/marriage,
-// individual, family, each with a named rationale) — that curation isn't
-// representable in the city-services schema yet and needs a real content
-// decision, not a guess.
-const otherApprovedServices = approvedServices.filter((s) => s.id !== service.id).slice(0, 3);
+//
+// Prefer the entry's own curated lateralLinks (SEO doc's Same-City
+// Lateral Links table) when present — real editorial order/rationale.
+// Every entry without curation yet falls back to the generic
+// approvedCityServices filter, capped at 3 per the doc's Internal Link
+// Plan rule 7 / Link Quotas table ("2-3 siblings" for this page type).
+const otherApprovedServices = entry.data.lateralLinks?.length
+  ? await getEntries(entry.data.lateralLinks)
+  : (city.data.approvedCityServices.length ? await getEntries(city.data.approvedCityServices) : [])
+      .filter((s) => s.id !== service.id)
+      .slice(0, 3);
 
 const cityServiceEntries = await getCollection('city-services');
 // Maps service id -> its local combo entry (for slugOverride), not just a

@@ -6,6 +6,8 @@ city: vista
 service: couples-counseling
 minWordCount: 400
 uniqueContentPercent: 35
+lateralLinks:
+  - individual-therapy
 faq:
   - q: "Is there an S.A.G.E. Therapy Center office in Vista?"
     a: "No. Couples counseling for Vista clients is held at the Carlsbad office, 5055 Avenida Encinas, Suite 100 — a short drive from Vista."

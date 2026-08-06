@@ -82,6 +82,11 @@ const cityServices = defineCollection({
         })
       )
       .optional(),
+    // Curated Same-City Lateral Links (SEO doc). Array order is display
+    // order. Only populated for the entries the doc's table actually
+    // names — every other city-services entry falls back to
+    // [city]/[service].astro's generic approvedCityServices filter+cap.
+    lateralLinks: z.array(reference('services')).optional(),
   }),
 });
 
