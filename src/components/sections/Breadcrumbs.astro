@@ -6,23 +6,29 @@ interface BreadcrumbItem {
 
 interface Props {
   items: BreadcrumbItem[];
+  // "light" is for use over a dark scrim (PageHero's gradient+overlay);
+  // default "muted" is for plain white/cream backgrounds.
+  variant?: 'muted' | 'light';
 }
 
-const { items } = Astro.props;
+const { items, variant = 'muted' } = Astro.props;
+const trail = variant === 'light' ? 'text-surface/80' : 'text-muted-foreground';
+const current = variant === 'light' ? 'text-surface' : 'text-ink';
+const link = variant === 'light' ? 'hover:text-surface' : 'hover:text-sage-deep';
 ---
 
 <nav aria-label="Breadcrumb" class="mx-auto max-w-6xl px-6 py-4">
-  <ol class="flex flex-wrap items-center gap-2 font-sans text-sm text-muted-foreground">
+  <ol class={`flex flex-wrap items-center gap-2 font-sans text-sm ${trail}`}>
     {
       items.map((item, i) => (
         <li class="flex items-center gap-2">
           {i > 0 && <span aria-hidden="true">/</span>}
           {i === items.length - 1 ? (
-            <span class="text-ink" aria-current="page">
+            <span class={current} aria-current="page">
               {item.name}
             </span>
           ) : (
-            <a href={item.url} class="hover:text-sage-deep">
+            <a href={item.url} class={link}>
               {item.name}
             </a>
           )}

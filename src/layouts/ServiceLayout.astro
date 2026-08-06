@@ -17,10 +17,10 @@ const breadcrumbItems = serviceBreadcrumbs(title, slug);
   description={description}
   eyebrow={category === 'core' ? 'Core Service' : 'Concern-Led Service'}
   heroTitle={title}
+  heroDescription={description}
   breadcrumbItems={breadcrumbItems}
   faqHeading="Frequently asked questions"
   faqItems={faq}
-  faqBackground="secondary"
   ctaHeading={`Ready to talk about ${title.toLowerCase()}?`}
 >
   <slot />

@@ -9,11 +9,17 @@
 import BaseLayout from './BaseLayout.astro';
 import PageHero from '../components/sections/PageHero.astro';
 import TrustStrip from '../components/sections/TrustStrip.astro';
+import ReassuranceGrid from '../components/sections/ReassuranceGrid.astro';
+import MeetKristin from '../components/sections/MeetKristin.astro';
+import ProcessSteps from '../components/sections/ProcessSteps.astro';
 import FAQAccordion from '../components/sections/FAQAccordion.astro';
 import ReviewsSection from '../components/sections/ReviewsSection.astro';
 import CTASection from '../components/sections/CTASection.astro';
+import SchemaOrg from '../components/seo/SchemaOrg.astro';
 import { site } from '../data/site';
+import { practitioner } from '../data/practitioner';
 import { SCHEDULE_URL } from '../data/nav';
+import kristinPhoto from '../assets/images/kristin-moorehead-malley.webp';
 
 interface BreadcrumbItem {
   name: string;
@@ -35,15 +41,32 @@ interface Review {
   googleMapsUri: string | null;
 }
 
+interface ReassuranceItem {
+  title: string;
+  body: string;
+  icon: string;
+}
+
 interface Props {
   title: string;
   description: string;
   eyebrow?: string;
   heroTitle: string;
+  heroDescription?: string;
+  heroTrustBadges?: string[];
   breadcrumbItems: BreadcrumbItem[];
+  // Optional reassurance cards between the hero/trust strip and the page's
+  // own content — off by default so pages that don't supply items don't
+  // get filler copy just to satisfy the funnel order.
+  reassuranceHeading?: string;
+  reassuranceItems?: ReassuranceItem[];
+  // On by default per the funnel spec (Hero -> TrustBar -> Reassurance ->
+  // Core Content -> MeetKristin -> ProcessSteps -> Reviews -> FAQs -> CTA);
+  // callers can opt individual pages out if a section reads as padding.
+  showMeetKristin?: boolean;
+  showProcessSteps?: boolean;
   faqHeading?: string;
   faqItems?: FaqItem[];
-  faqBackground?: 'background' | 'secondary';
   // Reviews are homepage-and-city-hub only (Wave 6 scope) — defaults to
   // false so ServiceLayout/CityServiceLayout never render this section.
   showReviews?: boolean;
@@ -60,10 +83,15 @@ const {
   description,
   eyebrow,
   heroTitle,
+  heroDescription,
+  heroTrustBadges,
   breadcrumbItems,
+  reassuranceHeading,
+  reassuranceItems,
+  showMeetKristin = true,
+  showProcessSteps = true,
   faqHeading,
   faqItems,
-  faqBackground,
   showReviews = false,
   rating,
   reviewCount,
@@ -75,19 +103,77 @@ const {
 ---
 
 <BaseLayout title={title} description={description}>
-  <PageHero eyebrow={eyebrow} title={heroTitle} breadcrumbItems={breadcrumbItems} />
+  <PageHero
+    eyebrow={eyebrow}
+    title={heroTitle}
+    description={heroDescription}
+    breadcrumbItems={breadcrumbItems}
+    ctaLabel="Schedule a Session"
+    ctaHref={SCHEDULE_URL}
+    phoneDisplay={site.phone.display}
+    phoneHref={`tel:${site.phone.tel}`}
+    trustBadges={heroTrustBadges}
+  />
   <TrustStrip />
-  <slot />
   {
-    faqItems && faqItems.length > 0 && (
-      <FAQAccordion heading={faqHeading as string} items={faqItems} background={faqBackground} />
+    reassuranceItems && reassuranceItems.length > 0 && (
+      <ReassuranceGrid heading={reassuranceHeading as string} items={reassuranceItems} />
+    )
+  }
+  <div class="bg-surface">
+    <slot />
+  </div>
+  <!-- City hub pages fill this with VisitUs (map + neighborhoods); service
+       and city-service pages leave it empty. -->
+  <slot name="visit-us" />
+  {
+    showMeetKristin && (
+      <MeetKristin
+        name={practitioner.name}
+        credential={practitioner.credential}
+        bio={practitioner.bio}
+        modalities={practitioner.modalities}
+        ctaLabel={practitioner.ctaLabel}
+        ctaHref={practitioner.ctaHref}
+        image={kristinPhoto}
+      />
+    )
+  }
+  {
+    showProcessSteps && (
+      <ProcessSteps
+        eyebrow="How It Works"
+        heading="How therapy works"
+        steps={[
+          { title: 'Reach out', body: 'Request a session to discuss fit and availability, by phone or email.' },
+          {
+            title: 'First session',
+            body: 'Meet with Kristin to talk through what brought you in and what you’re hoping for.',
+          },
+          { title: 'Ongoing sessions', body: 'Continue at a pace and with an approach that fits your goals.' },
+        ]}
+      />
     )
   }
   {
     showReviews && (
-      <ReviewsSection rating={rating} reviewCount={reviewCount} reviews={reviews} placeUrl={placeUrl} lastUpdated={lastUpdated} />
+      <ReviewsSection
+        rating={rating}
+        reviewCount={reviewCount}
+        reviews={reviews}
+        placeUrl={placeUrl}
+        lastUpdated={lastUpdated}
+      />
     )
   }
+  {
+    faqItems && faqItems.length > 0 && (
+      <FAQAccordion heading={faqHeading as string} items={faqItems} background="secondary" />
+    )
+  }
+  <!-- City hub pages fill this with AreasServed (nearby cities); service
+       and city-service pages leave it empty. -->
+  <slot name="areas-served" />
   <!-- Every interior page is a money page per Build Spec link quotas — the
        CTA is structural here (guaranteed by the shell) rather than left to
        each page to remember, same fix as the Wave 1 Footer bug. -->
@@ -100,3 +186,11 @@ const {
     phoneHref={`tel:${site.phone.tel}`}
   />
 </BaseLayout>
+
+<!-- Structural, not per-page: every interior page needs the LocalBusiness
+     reference node so its FAQPage/Service/city JSON-LD graphs resolve
+     against `${site.canonicalOrigin}/#business`. Individually-typed schema
+     (Service, city WebPage, FAQPage) stays a per-page SchemaOrg call in
+     each route file since it needs page-specific data this shell doesn't
+     have. -->
+<SchemaOrg type="localBusiness" />

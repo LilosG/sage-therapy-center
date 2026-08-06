@@ -69,6 +69,13 @@ const cityServices = defineCollection({
   schema: z.object({
     city: reference('cities'),
     service: reference('services'),
+    // Wave 11: the launch matrix names some city/service pages with a
+    // different URL slug than the referenced service pillar's own slug
+    // (e.g. matrix says "trauma-therapy", pillar slug is
+    // "trauma-ptsd-therapy"). When present, getStaticPaths() in
+    // [city]/[service].astro uses this instead of service.data.slug for
+    // the route — the doc's URL is the source of truth, not the pillar's.
+    slugOverride: z.string().optional(),
     // Revised from 600 after Wave 2 (see Build Spec Section 4) — 350-450
     // words is the realistic ceiling for genuine, non-overlapping
     // per-page content on a solo-practitioner site. Not a padding target.

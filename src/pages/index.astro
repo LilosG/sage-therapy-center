@@ -9,9 +9,11 @@ import ProcessSteps from '../components/sections/ProcessSteps.astro';
 import ServiceGrid from '../components/sections/ServiceGrid.astro';
 import QuoteBlock from '../components/sections/QuoteBlock.astro';
 import ReviewsSection from '../components/sections/ReviewsSection.astro';
+import AreasServed from '../components/sections/AreasServed.astro';
 import CTASection from '../components/sections/CTASection.astro';
 import SchemaOrg from '../components/seo/SchemaOrg.astro';
 import { site } from '../data/site';
+import { practitioner } from '../data/practitioner';
 import { serviceIcons, defaultServiceIcon } from '../data/serviceIcons';
 import { ABOUT_URL, AREAS_WE_SERVE_URL, SCHEDULE_URL, SERVICES_URL } from '../data/nav';
 import { cityUrl, serviceUrl } from '../lib/routes';
@@ -91,15 +93,12 @@ if (cities.length === 0) {
   />
 
   <MeetKristin
-    name={site.practitioner.name}
-    credential={site.practitioner.credential}
-    bio={[
-      `${site.practitioner.name} is a Licensed Marriage and Family Therapist based in ${site.address.city}, ${site.address.region}, offering individual and couples therapy at ${site.name}.`,
-      'Sessions draw on a range of approaches, matched to what fits each person or couple rather than a one-size-fits-all method.',
-    ]}
-    modalities={['EMDR', 'Lifespan Integration', 'CBT', 'IMAGO', 'Psychodynamic', 'Attachment-Based']}
-    ctaLabel="Learn More About Kristin"
-    ctaHref={ABOUT_URL}
+    name={practitioner.name}
+    credential={practitioner.credential}
+    bio={practitioner.bio}
+    modalities={practitioner.modalities}
+    ctaLabel={practitioner.ctaLabel}
+    ctaHref={practitioner.ctaHref}
     image={kristinPhoto}
   />
 
@@ -144,33 +143,12 @@ if (cities.length === 0) {
     lastUpdated={googleReviews.fetchedAt}
   />
 
-  <section class="bg-background">
-    <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
-      <div class="mx-auto max-w-2xl text-center">
-        <p class="eyebrow-label">Areas We Serve</p>
-        <h2 class="mt-4 font-serif text-3xl text-ink sm:text-4xl">Serving Carlsbad and North County San Diego</h2>
-      </div>
-      <ul class="mt-8 flex flex-wrap justify-center gap-3">
-        {
-          cities.map((c) => (
-            <li>
-              <a
-                href={cityUrl(c.data.slug)}
-                class="rounded-full border border-border bg-surface px-5 py-2 font-sans text-sm text-foreground hover:border-sage-deep hover:text-sage-deep"
-              >
-                {c.data.name}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-      <p class="mt-6 text-center">
-        <a href={AREAS_WE_SERVE_URL} class="font-sans text-sm font-medium text-sage-deep hover:text-primary">
-          See all areas we serve &rarr;
-        </a>
-      </p>
-    </div>
-  </section>
+  <AreasServed
+    eyebrow="Areas We Serve"
+    heading="Serving Carlsbad and North County San Diego"
+    cities={cities.map((c) => ({ name: c.data.name, href: cityUrl(c.data.slug) }))}
+    viewAllHref={AREAS_WE_SERVE_URL}
+  />
 
   <CTASection
     heading="Ready to take the first step?"

@@ -1,0 +1,58 @@
+---
+// 2-column "visit us" card for city hub pages with a physical office:
+// left is office-access copy + the city's neighborhoods (an Astro content
+// field that existed on the `cities` schema but was never rendered
+// anywhere — see plan "Interior Page Design System Upgrade"), right is
+// the existing MapEmbed. Only meant to be rendered when
+// entry.data.hasOffice is true; callers gate that, not this component.
+import MapEmbed from './MapEmbed.astro';
+import { site } from '../../data/site';
+
+interface Neighborhood {
+  name: string;
+  blurb: string;
+}
+
+interface Props {
+  cityName: string;
+  neighborhoods?: Neighborhood[];
+}
+
+const { cityName, neighborhoods = [] } = Astro.props;
+const fullAddress = `${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}`;
+---
+
+<section class="bg-secondary">
+  <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="eyebrow-label">Visit Us</p>
+      <h2 class="mt-4 font-serif text-3xl text-ink sm:text-4xl">Our office, convenient to {cityName}</h2>
+    </div>
+    <div class="mt-10 grid gap-8 rounded-3xl border border-border bg-surface p-6 shadow-sm sm:p-8 lg:grid-cols-2 lg:items-start">
+      <div>
+        <p class="font-sans text-sm font-semibold text-ink">{site.name}</p>
+        <p class="mt-1 font-sans text-sm text-foreground">{fullAddress}</p>
+        <p class="mt-4 font-sans text-sm text-muted-foreground">
+          In-person sessions at our Carlsbad office, plus telehealth available to clients across{' '}
+          {site.telehealth.coverageArea}.
+        </p>
+        {
+          neighborhoods.length > 0 && (
+            <div class="mt-6 border-t border-border pt-6">
+              <p class="font-sans text-sm font-semibold text-ink">Neighborhoods we serve near {cityName}</p>
+              <ul class="mt-3 space-y-3">
+                {neighborhoods.map((n) => (
+                  <li>
+                    <p class="font-sans text-sm font-semibold text-foreground">{n.name}</p>
+                    <p class="font-sans text-sm text-muted-foreground">{n.blurb}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+      </div>
+      <MapEmbed />
+    </div>
+  </div>
+</section>

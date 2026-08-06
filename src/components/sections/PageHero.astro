@@ -1,10 +1,13 @@
 ---
-// Lighter-weight hero for every page type besides the homepage (which
-// uses the full two-column Hero). Referenced in the Lovable typography
-// spec ("every PageHero H1") but never actually built until Wave 6 —
-// see Wave 6 report. Integrates breadcrumbs into the tinted band rather
-// than leaving them as a separate plain element above the heading.
+// Interior-page hero. Raised to match the homepage Hero's visual weight
+// (same gradient family + a dark scrim for contrast) rather than the flat
+// bg-lavender-soft band this used to be — see plan
+// "Interior Page Design System Upgrade". Still a light-palette hero, not a
+// dark/plum band: the homepage hero itself is light, so "matching" it means
+// staying in this family. Integrates breadcrumbs into the tinted band
+// rather than leaving them as a separate plain element above the heading.
 import Breadcrumbs from './Breadcrumbs.astro';
+import Button from '../ui/Button.astro';
 
 interface BreadcrumbItem {
   name: string;
@@ -16,16 +19,51 @@ interface Props {
   title: string;
   description?: string;
   breadcrumbItems: BreadcrumbItem[];
+  ctaLabel?: string;
+  ctaHref?: string;
+  phoneDisplay?: string;
+  phoneHref?: string;
+  // Short practice facts (e.g. "LMFT", "Telehealth statewide") shown as
+  // small pills beneath the CTAs. Optional — most combo pages skip these
+  // in favor of the shell's own TrustStrip immediately below.
+  trustBadges?: string[];
 }
 
-const { eyebrow, title, description, breadcrumbItems } = Astro.props;
+const { eyebrow, title, description, breadcrumbItems, ctaLabel, ctaHref, phoneDisplay, phoneHref, trustBadges } =
+  Astro.props;
 ---
 
-<section class="bg-lavender-soft">
-  <Breadcrumbs items={breadcrumbItems} />
-  <div class="mx-auto max-w-3xl px-6 pb-10 pt-2 text-center sm:pb-14">
-    {eyebrow && <p class="eyebrow-label">{eyebrow}</p>}
-    <h1 class="mt-4 font-serif text-4xl text-ink sm:text-5xl">{title}</h1>
-    {description && <p class="mx-auto mt-4 max-w-2xl font-sans text-lg text-foreground">{description}</p>}
+<section class="relative overflow-hidden bg-gradient-to-br from-lavender-soft via-lavender to-sage">
+  <div class="absolute inset-0 bg-ink/25" aria-hidden="true" />
+  <div class="relative">
+    <Breadcrumbs items={breadcrumbItems} variant="light" />
+    <div class="mx-auto max-w-3xl px-6 pb-12 pt-2 text-center sm:pb-16">
+      {eyebrow && <p class="eyebrow-label text-surface">{eyebrow}</p>}
+      <h1 class="mt-4 font-serif text-4xl leading-tight text-surface sm:text-5xl">{title}</h1>
+      {description && <p class="mx-auto mt-4 max-w-2xl font-sans text-lg text-surface/90">{description}</p>}
+      {
+        (ctaHref || phoneHref) && (
+          <div class="mt-8 flex flex-wrap justify-center gap-4">
+            {ctaHref && ctaLabel && <Button href={ctaHref}>{ctaLabel}</Button>}
+            {phoneHref && phoneDisplay && (
+              <Button href={phoneHref} variant="secondary" class="border-surface text-surface hover:bg-surface/10">
+                Call {phoneDisplay}
+              </Button>
+            )}
+          </div>
+        )
+      }
+      {
+        trustBadges && trustBadges.length > 0 && (
+          <ul class="mt-6 flex flex-wrap justify-center gap-2">
+            {trustBadges.map((badge) => (
+              <li class="rounded-full border border-surface/40 bg-surface/10 px-4 py-1.5 font-sans text-xs font-semibold uppercase tracking-wide text-surface">
+                {badge}
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
   </div>
 </section>

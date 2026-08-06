@@ -20,10 +20,10 @@ const breadcrumbItems = cityServiceBreadcrumbs(city.data.name, city.data.slug, s
   description={service.data.description}
   eyebrow={city.data.name}
   heroTitle={`${service.data.title} in ${city.data.name}, CA`}
+  heroDescription={service.data.description}
   breadcrumbItems={breadcrumbItems}
   faqHeading={`${service.data.title} in ${city.data.name}: FAQs`}
   faqItems={entry.data.faq}
-  faqBackground="secondary"
   ctaHeading={`Ready to schedule ${service.data.title.toLowerCase()} in ${city.data.name}?`}
 >
   <slot />

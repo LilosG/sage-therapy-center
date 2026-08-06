@@ -1,0 +1,51 @@
+---
+// Reusable center-aligned "areas served" pill list, extracted from the
+// near-identical inline blocks that used to live in index.astro
+// ("Areas We Serve") and [city]/index.astro ("Nearby areas").
+interface CityLink {
+  name: string;
+  href: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  cities: CityLink[];
+  viewAllHref?: string;
+  viewAllLabel?: string;
+}
+
+const { eyebrow, heading, cities, viewAllHref, viewAllLabel = 'See all areas we serve' } = Astro.props;
+---
+
+<section class="bg-background">
+  <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+    <div class="mx-auto max-w-2xl text-center">
+      {eyebrow && <p class="eyebrow-label">{eyebrow}</p>}
+      <h2 class="mt-4 font-serif text-3xl text-ink sm:text-4xl">{heading}</h2>
+    </div>
+    <ul class="mt-8 flex flex-wrap justify-center gap-3">
+      {
+        cities.map((c) => (
+          <li>
+            <a
+              href={c.href}
+              class="rounded-full border border-border bg-surface px-5 py-2 font-sans text-sm text-foreground hover:border-sage-deep hover:text-sage-deep"
+            >
+              {c.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    {
+      viewAllHref && (
+        <p class="mt-6 text-center">
+          <a href={viewAllHref} class="font-sans text-sm font-medium text-sage-deep hover:text-primary">
+            {viewAllLabel} &rarr;
+          </a>
+        </p>
+      )
+    }
+  </div>
+</section>

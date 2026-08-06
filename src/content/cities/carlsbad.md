@@ -16,6 +16,8 @@ approvedCityServices:
   - teen-counseling
   - premarital-marriage-counseling
   - emdr-therapy
+  - anxiety-therapy
+  - trauma-ptsd-therapy
 nearbyCities:
   - encinitas
   - san-marcos

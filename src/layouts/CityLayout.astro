@@ -1,6 +1,9 @@
 ---
 import InteriorPageLayout from './InteriorPageLayout.astro';
+import VisitUs from '../components/sections/VisitUs.astro';
+import AreasServed from '../components/sections/AreasServed.astro';
 import { cityBreadcrumbs } from '../lib/breadcrumbs';
+import { AREAS_WE_SERVE_URL } from '../data/nav';
 import type { CollectionEntry } from 'astro:content';
 
 interface Review {
@@ -13,6 +16,11 @@ interface Review {
   googleMapsUri: string | null;
 }
 
+interface NearbyCity {
+  name: string;
+  href: string;
+}
+
 interface Props {
   entry: CollectionEntry<'cities'>;
   showReviews?: boolean;
@@ -21,16 +29,23 @@ interface Props {
   reviews?: Review[];
   placeUrl?: string;
   lastUpdated?: string | null;
+  // Resolved by the page ([city]/index.astro) since resolving
+  // nearbyCities references requires an async getEntries() call this
+  // layout shouldn't own.
+  nearbyCities?: NearbyCity[];
 }
 
-const { entry, showReviews, rating, reviewCount, reviews, placeUrl, lastUpdated } = Astro.props;
-const { name, hasOffice, primaryTarget, slug, faq, approvedCityServices } = entry.data;
-// Section-rhythm (Wave 6, item 7): the page slot renders a ServiceGrid
-// (background="secondary") only when this city has approved services.
-// When it does, FAQ should sit on "background" to alternate against it;
-// when it doesn't, FAQ directly follows the slot's plain background
-// content, so it needs "secondary" itself.
-const faqBackground = approvedCityServices.length > 0 ? 'background' : 'secondary';
+const {
+  entry,
+  showReviews,
+  rating,
+  reviewCount,
+  reviews,
+  placeUrl,
+  lastUpdated,
+  nearbyCities = [],
+} = Astro.props;
+const { name, hasOffice, primaryTarget, slug, faq, neighborhoods } = entry.data;
 const breadcrumbItems = cityBreadcrumbs(name, slug);
 ---
 
@@ -39,10 +54,10 @@ const breadcrumbItems = cityBreadcrumbs(name, slug);
   description={primaryTarget}
   eyebrow={hasOffice ? 'Our Office' : 'Areas We Serve'}
   heroTitle={`Therapist in ${name}, CA`}
+  heroDescription={primaryTarget}
   breadcrumbItems={breadcrumbItems}
   faqHeading={`${name} FAQs`}
   faqItems={faq}
-  faqBackground={faqBackground}
   showReviews={showReviews}
   rating={rating}
   reviewCount={reviewCount}
@@ -52,4 +67,18 @@ const breadcrumbItems = cityBreadcrumbs(name, slug);
   ctaHeading={`Ready to schedule as a ${name} client?`}
 >
   <slot />
+  {
+    hasOffice && (
+      <Fragment slot="visit-us">
+        <VisitUs cityName={name} neighborhoods={neighborhoods} />
+      </Fragment>
+    )
+  }
+  {
+    nearbyCities.length > 0 && (
+      <Fragment slot="areas-served">
+        <AreasServed heading={`Other areas near ${name}`} cities={nearbyCities} viewAllHref={AREAS_WE_SERVE_URL} />
+      </Fragment>
+    )
+  }
 </InteriorPageLayout>
