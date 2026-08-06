@@ -8,6 +8,7 @@ import { site } from '../../data/site';
 import { serviceIcons, defaultServiceIcon } from '../../data/serviceIcons';
 import { canonicalUrl, cityServiceUrl, cityUrl, serviceUrl } from '../../lib/routes';
 import { citySchemaBreadcrumbs } from '../../lib/breadcrumbs';
+import googleReviews from '../../data/google-reviews.json';
 
 export async function getStaticPaths() {
   const entries = await getCollection('cities');
@@ -39,7 +40,15 @@ const pageUrl = canonicalUrl(cityUrl(entry.data.slug));
 const breadcrumbItems = citySchemaBreadcrumbs(entry.data.name, pageUrl);
 ---
 
-<CityLayout entry={entry}>
+<CityLayout
+  entry={entry}
+  showReviews={true}
+  rating={googleReviews.rating}
+  reviewCount={googleReviews.userRatingCount}
+  reviews={googleReviews.reviews}
+  placeUrl={`https://www.google.com/maps/place/?q=place_id:${googleReviews.placeId}`}
+  lastUpdated={googleReviews.fetchedAt}
+>
   <div class="mx-auto max-w-3xl px-6 pb-4 pt-8">
     <div class="prose mt-6 max-w-none font-sans text-foreground">
       <Content />
@@ -94,4 +103,5 @@ const breadcrumbItems = citySchemaBreadcrumbs(entry.data.name, pageUrl);
   type="city"
   city={{ name: entry.data.name, url: pageUrl, areaServed: entry.data.name }}
   breadcrumb={breadcrumbItems}
+  reviewsData={{ rating: googleReviews.rating, reviewCount: googleReviews.userRatingCount }}
 />

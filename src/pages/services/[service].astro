@@ -1,7 +1,6 @@
 ---
 import { getCollection, getEntries, render } from 'astro:content';
 import ServiceLayout from '../../layouts/ServiceLayout.astro';
-import FAQAccordion from '../../components/sections/FAQAccordion.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
 import { canonicalUrl, serviceUrl } from '../../lib/routes';
@@ -46,10 +45,6 @@ const pageUrl = canonicalUrl(serviceUrl(entry.data.slug));
       )
     }
   </div>
-
-  {entry.data.faq && entry.data.faq.length > 0 && (
-    <FAQAccordion heading="Frequently asked questions" items={entry.data.faq} background="secondary" />
-  )}
 </ServiceLayout>
 
 <SchemaOrg

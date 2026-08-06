@@ -47,7 +47,12 @@ interface ReviewData {
 interface ReviewsProps {
   rating: number;
   reviewCount: number;
-  reviews: ReviewData[];
+  // Optional: buildCity()'s LocalBusiness reference node only ever wants
+  // aggregateRating (no per-review data on a city page), so this prop is
+  // shared between type="organization" (full review array) and
+  // type="city" (rating/reviewCount only) rather than duplicating the
+  // interface.
+  reviews?: ReviewData[];
 }
 
 interface Props {
@@ -122,13 +127,17 @@ function buildOrganization() {
             ratingValue: reviewsData.rating,
             reviewCount: reviewsData.reviewCount,
           },
-          review: reviewsData.reviews.map((r) => ({
-            '@type': 'Review',
-            author: { '@type': 'Person', name: r.authorName },
-            reviewRating: { '@type': 'Rating', ratingValue: r.rating },
-            reviewBody: r.text,
-            ...(r.publishTime ? { datePublished: r.publishTime } : {}),
-          })),
+          ...(reviewsData.reviews
+            ? {
+                review: reviewsData.reviews.map((r) => ({
+                  '@type': 'Review',
+                  author: { '@type': 'Person', name: r.authorName },
+                  reviewRating: { '@type': 'Rating', ratingValue: r.rating },
+                  reviewBody: r.text,
+                  ...(r.publishTime ? { datePublished: r.publishTime } : {}),
+                })),
+              }
+            : {}),
         }
       : {}),
   };
@@ -213,6 +222,15 @@ function buildCity() {
         '@type': 'LocalBusiness',
         ...businessRef(),
         areaServed: { '@type': 'City', name: city.areaServed },
+        ...(reviewsData
+          ? {
+              aggregateRating: {
+                '@type': 'AggregateRating',
+                ratingValue: reviewsData.rating,
+                reviewCount: reviewsData.reviewCount,
+              },
+            }
+          : {}),
       },
     ],
   };
