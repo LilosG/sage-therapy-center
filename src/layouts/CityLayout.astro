@@ -49,6 +49,37 @@ const {
 const { name, hasOffice, primaryTarget, slug, faq, neighborhoods } = entry.data;
 const breadcrumbItems = cityBreadcrumbs(name, slug);
 const faqItems = await withFallbackFaqs(faq);
+
+// primaryTarget (e.g. "therapist Carlsbad") is a raw SEO target phrase for
+// the <meta description> — description prop below — never a
+// human-readable sentence. The visible hero subtitle needs its own
+// polished copy instead of leaking that keyword string onto the page.
+const heroDescription = `Compassionate, evidence-based therapy tailored to your goals${hasOffice ? `, with in-person sessions in ${name}` : ` for ${name} residents`} and telehealth across California.`;
+
+const reassuranceItems = [
+  {
+    title: 'A space without judgment',
+    body: `Sessions meet you where you are, at a pace that fits your goals as a ${name} client.`,
+    icon: 'lucide:check-circle',
+  },
+  {
+    title: 'In-person and telehealth',
+    body: hasOffice
+      ? `In-person sessions at our Carlsbad office, convenient to ${name}, or telehealth statewide.`
+      : `Telehealth sessions available to ${name} residents anywhere in California.`,
+    icon: 'lucide:check-circle',
+  },
+  {
+    title: 'An approach tailored to you',
+    body: 'CBT, EMDR, psychodynamic, and attachment-based work, drawn on depending on what fits.',
+    icon: 'lucide:check-circle',
+  },
+  {
+    title: 'No pressure to have it figured out',
+    body: 'There’s no requirement to have a diagnosis or a clear goal before reaching out.',
+    icon: 'lucide:check-circle',
+  },
+];
 ---
 
 <InteriorPageLayout
@@ -56,8 +87,10 @@ const faqItems = await withFallbackFaqs(faq);
   description={primaryTarget}
   eyebrow={hasOffice ? 'Our Office' : 'Areas We Serve'}
   heroTitle={`Therapist in ${name}, CA`}
-  heroDescription={primaryTarget}
+  heroDescription={heroDescription}
   breadcrumbItems={breadcrumbItems}
+  reassuranceHeading={`Therapy tailored for ${name} residents`}
+  reassuranceItems={reassuranceItems}
   faqHeading={`${name} FAQs`}
   faqItems={faqItems}
   showReviews={showReviews}

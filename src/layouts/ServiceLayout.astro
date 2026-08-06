@@ -1,7 +1,12 @@
 ---
 import InteriorPageLayout from './InteriorPageLayout.astro';
+import AreasServed from '../components/sections/AreasServed.astro';
 import { serviceBreadcrumbs } from '../lib/breadcrumbs';
 import { withFallbackFaqs } from '../lib/faq';
+import { getCollection } from 'astro:content';
+import { cityUrl } from '../lib/routes';
+import { AREAS_WE_SERVE_URL } from '../data/nav';
+import googleReviews from '../data/google-reviews.json';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -12,6 +17,35 @@ const { entry } = Astro.props;
 const { title, description, slug, category, faq } = entry.data;
 const breadcrumbItems = serviceBreadcrumbs(title, slug);
 const faqItems = await withFallbackFaqs(faq);
+
+// Service pages aren't scoped to one city, so "areas served" here is the
+// full city roster rather than a nearby-cities subset (that's the city
+// hub page's job).
+const cities = await getCollection('cities');
+const cityLinks = cities.map((c) => ({ name: c.data.name, href: cityUrl(c.data.slug) }));
+
+const reassuranceItems = [
+  {
+    title: 'No diagnosis required',
+    body: 'You don’t need a formal diagnosis or a fully worked-out problem to reach out.',
+    icon: 'lucide:check-circle',
+  },
+  {
+    title: 'A space without judgment',
+    body: 'Sessions explore what you’re experiencing at a pace that fits you, not a script.',
+    icon: 'lucide:check-circle',
+  },
+  {
+    title: 'In-person or telehealth',
+    body: 'Meet in person at the Carlsbad office, or by telehealth anywhere in California.',
+    icon: 'lucide:check-circle',
+  },
+  {
+    title: 'An approach tailored to you',
+    body: 'CBT, EMDR, psychodynamic, and attachment-based work, drawn on depending on what fits.',
+    icon: 'lucide:check-circle',
+  },
+];
 ---
 
 <InteriorPageLayout
@@ -21,9 +55,20 @@ const faqItems = await withFallbackFaqs(faq);
   heroTitle={title}
   heroDescription={description}
   breadcrumbItems={breadcrumbItems}
+  reassuranceHeading="You're in the right place if..."
+  reassuranceItems={reassuranceItems}
   faqHeading="Frequently asked questions"
   faqItems={faqItems}
+  showReviews={true}
+  rating={googleReviews.rating}
+  reviewCount={googleReviews.userRatingCount}
+  reviews={googleReviews.reviews}
+  placeUrl={`https://www.google.com/maps/place/?q=place_id:${googleReviews.placeId}`}
+  lastUpdated={googleReviews.fetchedAt}
   ctaHeading={`Ready to talk about ${title.toLowerCase()}?`}
 >
   <slot />
+  <Fragment slot="areas-served">
+    <AreasServed heading="Areas we serve" cities={cityLinks} viewAllHref={AREAS_WE_SERVE_URL} />
+  </Fragment>
 </InteriorPageLayout>
