@@ -1,0 +1,102 @@
+---
+// Shared shell for every non-homepage page type (service pillar, city hub,
+// city/service combo). Wave 10 verified ServiceLayout/CityLayout/
+// CityServiceLayout's routing, props, and breadcrumb logic as "genuinely
+// solid" as separate files — this consolidation only extracts their
+// duplicated JSX structure into one shell; the type-specific logic stays
+// in each of those three files, which compute their values and pass them
+// in here.
+import BaseLayout from './BaseLayout.astro';
+import PageHero from '../components/sections/PageHero.astro';
+import TrustStrip from '../components/sections/TrustStrip.astro';
+import FAQAccordion from '../components/sections/FAQAccordion.astro';
+import ReviewsSection from '../components/sections/ReviewsSection.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import { site } from '../data/site';
+import { SCHEDULE_URL } from '../data/nav';
+
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
+interface FaqItem {
+  q: string;
+  a: string;
+}
+
+interface Review {
+  authorName: string;
+  authorPhotoUrl: string | null;
+  authorProfileUrl: string | null;
+  rating: number | null;
+  text: string;
+  relativeTime: string;
+  googleMapsUri: string | null;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  eyebrow?: string;
+  heroTitle: string;
+  breadcrumbItems: BreadcrumbItem[];
+  faqHeading?: string;
+  faqItems?: FaqItem[];
+  faqBackground?: 'background' | 'secondary';
+  // Reviews are homepage-and-city-hub only (Wave 6 scope) — defaults to
+  // false so ServiceLayout/CityServiceLayout never render this section.
+  showReviews?: boolean;
+  rating?: number | null;
+  reviewCount?: number | null;
+  reviews?: Review[];
+  placeUrl?: string;
+  lastUpdated?: string | null;
+  ctaHeading: string;
+}
+
+const {
+  title,
+  description,
+  eyebrow,
+  heroTitle,
+  breadcrumbItems,
+  faqHeading,
+  faqItems,
+  faqBackground,
+  showReviews = false,
+  rating,
+  reviewCount,
+  reviews,
+  placeUrl,
+  lastUpdated,
+  ctaHeading,
+} = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <PageHero eyebrow={eyebrow} title={heroTitle} breadcrumbItems={breadcrumbItems} />
+  <TrustStrip />
+  <slot />
+  {
+    faqItems && faqItems.length > 0 && (
+      <FAQAccordion heading={faqHeading as string} items={faqItems} background={faqBackground} />
+    )
+  }
+  {
+    showReviews && (
+      <ReviewsSection rating={rating} reviewCount={reviewCount} reviews={reviews} placeUrl={placeUrl} lastUpdated={lastUpdated} />
+    )
+  }
+  <!-- Every interior page is a money page per Build Spec link quotas — the
+       CTA is structural here (guaranteed by the shell) rather than left to
+       each page to remember, same fix as the Wave 1 Footer bug. -->
+  <CTASection
+    heading={ctaHeading}
+    subhead="Request a session to discuss fit and availability."
+    ctaLabel="Schedule a Session"
+    ctaHref={SCHEDULE_URL}
+    phoneDisplay={site.phone.display}
+    phoneHref={`tel:${site.phone.tel}`}
+  />
+</BaseLayout>

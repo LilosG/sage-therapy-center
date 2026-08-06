@@ -37,7 +37,14 @@ const pageUrl = canonicalUrl(cityServiceUrl(city.data.slug, routeSlug));
 const approvedServices = city.data.approvedCityServices.length
   ? await getEntries(city.data.approvedCityServices)
   : [];
-const otherApprovedServices = approvedServices.filter((s) => s.id !== service.id);
+// Capped at 3 per the SEO doc's Internal Link Plan rule 7 (same-city
+// sibling links) and the Link Quotas table ("2-3 siblings" for this page
+// type). This is a compliance floor, not the doc's curated Same-City
+// Lateral Links table (e.g. Carlsbad Couples -> premarital/marriage,
+// individual, family, each with a named rationale) — that curation isn't
+// representable in the city-services schema yet and needs a real content
+// decision, not a guess.
+const otherApprovedServices = approvedServices.filter((s) => s.id !== service.id).slice(0, 3);
 
 const cityServiceEntries = await getCollection('city-services');
 // Maps service id -> its local combo entry (for slugOverride), not just a

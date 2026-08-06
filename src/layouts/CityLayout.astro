@@ -1,18 +1,29 @@
 ---
-import BaseLayout from './BaseLayout.astro';
-import PageHero from '../components/sections/PageHero.astro';
-import FAQAccordion from '../components/sections/FAQAccordion.astro';
-import CTASection from '../components/sections/CTASection.astro';
-import { site } from '../data/site';
-import { SCHEDULE_URL } from '../data/nav';
+import InteriorPageLayout from './InteriorPageLayout.astro';
 import { cityBreadcrumbs } from '../lib/breadcrumbs';
 import type { CollectionEntry } from 'astro:content';
 
-interface Props {
-  entry: CollectionEntry<'cities'>;
+interface Review {
+  authorName: string;
+  authorPhotoUrl: string | null;
+  authorProfileUrl: string | null;
+  rating: number | null;
+  text: string;
+  relativeTime: string;
+  googleMapsUri: string | null;
 }
 
-const { entry } = Astro.props;
+interface Props {
+  entry: CollectionEntry<'cities'>;
+  showReviews?: boolean;
+  rating?: number | null;
+  reviewCount?: number | null;
+  reviews?: Review[];
+  placeUrl?: string;
+  lastUpdated?: string | null;
+}
+
+const { entry, showReviews, rating, reviewCount, reviews, placeUrl, lastUpdated } = Astro.props;
 const { name, hasOffice, primaryTarget, slug, faq, approvedCityServices } = entry.data;
 // Section-rhythm (Wave 6, item 7): the page slot renders a ServiceGrid
 // (background="secondary") only when this city has approved services.
@@ -23,23 +34,22 @@ const faqBackground = approvedCityServices.length > 0 ? 'background' : 'secondar
 const breadcrumbItems = cityBreadcrumbs(name, slug);
 ---
 
-<BaseLayout title={name} description={primaryTarget}>
-  <PageHero
-    eyebrow={hasOffice ? 'Our Office' : 'Areas We Serve'}
-    title={`Therapist in ${name}, CA`}
-    breadcrumbItems={breadcrumbItems}
-  />
+<InteriorPageLayout
+  title={name}
+  description={primaryTarget}
+  eyebrow={hasOffice ? 'Our Office' : 'Areas We Serve'}
+  heroTitle={`Therapist in ${name}, CA`}
+  breadcrumbItems={breadcrumbItems}
+  faqHeading={`${name} FAQs`}
+  faqItems={faq}
+  faqBackground={faqBackground}
+  showReviews={showReviews}
+  rating={rating}
+  reviewCount={reviewCount}
+  reviews={reviews}
+  placeUrl={placeUrl}
+  lastUpdated={lastUpdated}
+  ctaHeading={`Ready to schedule as a ${name} client?`}
+>
   <slot />
-  {faq && faq.length > 0 && <FAQAccordion heading={`${name} FAQs`} items={faq} background={faqBackground} />}
-  <!-- Every city hub is a money page per Build Spec link quotas — the CTA
-       is structural here (guaranteed by the layout) rather than left to
-       each page to remember, same fix as the Wave 1 Footer bug. -->
-  <CTASection
-    heading={`Ready to schedule as a ${name} client?`}
-    subhead="Request a session to discuss fit and availability."
-    ctaLabel="Schedule a Session"
-    ctaHref={SCHEDULE_URL}
-    phoneDisplay={site.phone.display}
-    phoneHref={`tel:${site.phone.tel}`}
-  />
-</BaseLayout>
+</InteriorPageLayout>

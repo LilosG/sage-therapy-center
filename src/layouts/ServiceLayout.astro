@@ -1,9 +1,5 @@
 ---
-import BaseLayout from './BaseLayout.astro';
-import PageHero from '../components/sections/PageHero.astro';
-import CTASection from '../components/sections/CTASection.astro';
-import { site } from '../data/site';
-import { SCHEDULE_URL } from '../data/nav';
+import InteriorPageLayout from './InteriorPageLayout.astro';
 import { serviceBreadcrumbs } from '../lib/breadcrumbs';
 import type { CollectionEntry } from 'astro:content';
 
@@ -12,26 +8,20 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const { title, description, slug, category } = entry.data;
+const { title, description, slug, category, faq } = entry.data;
 const breadcrumbItems = serviceBreadcrumbs(title, slug);
 ---
 
-<BaseLayout title={title} description={description}>
-  <PageHero
-    eyebrow={category === 'core' ? 'Core Service' : 'Concern-Led Service'}
-    title={title}
-    breadcrumbItems={breadcrumbItems}
-  />
+<InteriorPageLayout
+  title={title}
+  description={description}
+  eyebrow={category === 'core' ? 'Core Service' : 'Concern-Led Service'}
+  heroTitle={title}
+  breadcrumbItems={breadcrumbItems}
+  faqHeading="Frequently asked questions"
+  faqItems={faq}
+  faqBackground="secondary"
+  ctaHeading={`Ready to talk about ${title.toLowerCase()}?`}
+>
   <slot />
-  <!-- Every service pillar is a money page per Build Spec link quotas —
-       structural here (guaranteed by the layout), matching the
-       CityLayout/CityServiceLayout/Footer fix pattern from prior waves. -->
-  <CTASection
-    heading={`Ready to talk about ${title.toLowerCase()}?`}
-    subhead="Request a session to discuss fit and availability."
-    ctaLabel="Schedule a Session"
-    ctaHref={SCHEDULE_URL}
-    phoneDisplay={site.phone.display}
-    phoneHref={`tel:${site.phone.tel}`}
-  />
-</BaseLayout>
+</InteriorPageLayout>

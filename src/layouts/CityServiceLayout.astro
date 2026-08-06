@@ -1,10 +1,5 @@
 ---
-import BaseLayout from './BaseLayout.astro';
-import PageHero from '../components/sections/PageHero.astro';
-import FAQAccordion from '../components/sections/FAQAccordion.astro';
-import CTASection from '../components/sections/CTASection.astro';
-import { site } from '../data/site';
-import { SCHEDULE_URL } from '../data/nav';
+import InteriorPageLayout from './InteriorPageLayout.astro';
 import { cityServiceBreadcrumbs } from '../lib/breadcrumbs';
 import { getEntry } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
@@ -20,25 +15,16 @@ const routeSlug = entry.data.slugOverride ?? service.data.slug;
 const breadcrumbItems = cityServiceBreadcrumbs(city.data.name, city.data.slug, service.data.title, routeSlug);
 ---
 
-<BaseLayout title={`${service.data.title} in ${city.data.name}`} description={service.data.description}>
-  <PageHero eyebrow={city.data.name} title={`${service.data.title} in ${city.data.name}, CA`} breadcrumbItems={breadcrumbItems} />
+<InteriorPageLayout
+  title={`${service.data.title} in ${city.data.name}`}
+  description={service.data.description}
+  eyebrow={city.data.name}
+  heroTitle={`${service.data.title} in ${city.data.name}, CA`}
+  breadcrumbItems={breadcrumbItems}
+  faqHeading={`${service.data.title} in ${city.data.name}: FAQs`}
+  faqItems={entry.data.faq}
+  faqBackground="secondary"
+  ctaHeading={`Ready to schedule ${service.data.title.toLowerCase()} in ${city.data.name}?`}
+>
   <slot />
-  {entry.data.faq && entry.data.faq.length > 0 && (
-    <FAQAccordion
-      heading={`${service.data.title} in ${city.data.name}: FAQs`}
-      items={entry.data.faq}
-      background="secondary"
-    />
-  )}
-  <!-- Every city/service page is a money page per Build Spec link quotas —
-       structural here (guaranteed by the layout), same fix pattern as
-       CityLayout/Footer. -->
-  <CTASection
-    heading={`Ready to schedule ${service.data.title.toLowerCase()} in ${city.data.name}?`}
-    subhead="Request a session to discuss fit and availability."
-    ctaLabel="Schedule a Session"
-    ctaHref={SCHEDULE_URL}
-    phoneDisplay={site.phone.display}
-    phoneHref={`tel:${site.phone.tel}`}
-  />
-</BaseLayout>
+</InteriorPageLayout>
