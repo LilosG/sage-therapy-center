@@ -15,7 +15,7 @@ import { site } from '../data/site';
 import { serviceIcons, defaultServiceIcon } from '../data/serviceIcons';
 import { ABOUT_URL, AREAS_WE_SERVE_URL, SCHEDULE_URL, SERVICES_URL } from '../data/nav';
 import { cityUrl, serviceUrl } from '../lib/routes';
-import kristinPhoto from '../assets/images/kristin-moorehead-malley.webp';
+import { practitioner, processSteps, canonicalQuote } from '../data/practitioner';
 import googleReviews from '../data/google-reviews.json';
 
 // Data-driven rather than a hardcoded 6/8 list: only individual-therapy
@@ -91,30 +91,16 @@ if (cities.length === 0) {
   />
 
   <MeetKristin
-    name={site.practitioner.name}
-    credential={site.practitioner.credential}
-    bio={[
-      `${site.practitioner.name} is a Licensed Marriage and Family Therapist based in ${site.address.city}, ${site.address.region}, offering individual and couples therapy at ${site.name}.`,
-      'Sessions draw on a range of approaches, matched to what fits each person or couple rather than a one-size-fits-all method.',
-    ]}
-    modalities={['EMDR', 'Lifespan Integration', 'CBT', 'IMAGO', 'Psychodynamic', 'Attachment-Based']}
-    ctaLabel="Learn More About Kristin"
-    ctaHref={ABOUT_URL}
-    image={kristinPhoto}
+    name={practitioner.name}
+    credential={practitioner.credential}
+    bio={[...practitioner.bio]}
+    modalities={[...practitioner.modalities]}
+    ctaLabel={practitioner.ctaLabel}
+    ctaHref={practitioner.ctaHref}
+    image={practitioner.image}
   />
 
-  <ProcessSteps
-    eyebrow="How It Works"
-    heading="How therapy works"
-    steps={[
-      { title: 'Reach out', body: 'Request a session to discuss fit and availability, by phone or email.' },
-      {
-        title: 'First session',
-        body: 'Meet with Kristin to talk through what brought you in and what you’re hoping for.',
-      },
-      { title: 'Ongoing sessions', body: 'Continue at a pace and with an approach that fits your goals.' },
-    ]}
-  />
+  <ProcessSteps eyebrow={processSteps.eyebrow} heading={processSteps.heading} steps={[...processSteps.steps]} />
 
   <ServiceGrid
     eyebrow="What We Offer"
@@ -131,10 +117,7 @@ if (cities.length === 0) {
     background="secondary"
   />
 
-  <QuoteBlock
-    quote="Therapy is a lot like climbing Everest."
-    attribution={`${site.practitioner.name}, ${site.practitioner.credential}`}
-  />
+  <QuoteBlock quote={canonicalQuote.quote} attribution={canonicalQuote.attribution} />
 
   <ReviewsSection
     rating={googleReviews.rating}

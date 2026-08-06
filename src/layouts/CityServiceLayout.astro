@@ -24,6 +24,7 @@ const breadcrumbItems = cityServiceBreadcrumbs(city.data.name, city.data.slug, s
   faqHeading={`${service.data.title} in ${city.data.name}: FAQs`}
   faqItems={entry.data.faq}
   faqBackground="secondary"
+  showQuote={true}
   ctaHeading={`Ready to schedule ${service.data.title.toLowerCase()} in ${city.data.name}?`}
 >
   <slot />

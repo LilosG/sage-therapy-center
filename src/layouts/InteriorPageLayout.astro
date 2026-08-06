@@ -12,8 +12,12 @@ import TrustStrip from '../components/sections/TrustStrip.astro';
 import FAQAccordion from '../components/sections/FAQAccordion.astro';
 import ReviewsSection from '../components/sections/ReviewsSection.astro';
 import CTASection from '../components/sections/CTASection.astro';
+import MeetKristin from '../components/sections/MeetKristin.astro';
+import ProcessSteps from '../components/sections/ProcessSteps.astro';
+import QuoteBlock from '../components/sections/QuoteBlock.astro';
 import { site } from '../data/site';
 import { SCHEDULE_URL } from '../data/nav';
+import { practitioner, processSteps, canonicalQuote } from '../data/practitioner';
 
 interface BreadcrumbItem {
   name: string;
@@ -52,6 +56,16 @@ interface Props {
   reviews?: Review[];
   placeUrl?: string;
   lastUpdated?: string | null;
+  // Trust-funnel sections between the page's own body (slot) and its FAQ.
+  // Content for all three is centralized in src/data/practitioner.ts —
+  // callers only toggle visibility, never pass copy, so the bio/steps/
+  // quote can't drift out of sync between page types the way the
+  // homepage's own hardcoded copy used to. Default false: only the
+  // layouts that explicitly opt in (ServiceLayout, CityServiceLayout)
+  // render them; CityLayout/other consumers stay as-is unless they opt in.
+  showMeetKristin?: boolean;
+  showProcessSteps?: boolean;
+  showQuote?: boolean;
   ctaHeading: string;
 }
 
@@ -70,6 +84,9 @@ const {
   reviews,
   placeUrl,
   lastUpdated,
+  showMeetKristin = false,
+  showProcessSteps = false,
+  showQuote = false,
   ctaHeading,
 } = Astro.props;
 ---
@@ -78,6 +95,25 @@ const {
   <PageHero eyebrow={eyebrow} title={heroTitle} breadcrumbItems={breadcrumbItems} />
   <TrustStrip />
   <slot />
+  {
+    showMeetKristin && (
+      <MeetKristin
+        name={practitioner.name}
+        credential={practitioner.credential}
+        bio={[...practitioner.bio]}
+        modalities={[...practitioner.modalities]}
+        ctaLabel={practitioner.ctaLabel}
+        ctaHref={practitioner.ctaHref}
+        image={practitioner.image}
+      />
+    )
+  }
+  {
+    showProcessSteps && (
+      <ProcessSteps eyebrow={processSteps.eyebrow} heading={processSteps.heading} steps={[...processSteps.steps]} />
+    )
+  }
+  {showQuote && <QuoteBlock quote={canonicalQuote.quote} attribution={canonicalQuote.attribution} />}
   {
     faqItems && faqItems.length > 0 && (
       <FAQAccordion heading={faqHeading as string} items={faqItems} background={faqBackground} />

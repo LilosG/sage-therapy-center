@@ -1,9 +1,9 @@
 ---
-import { getCollection, getEntries, render } from 'astro:content';
+import { getCollection, getEntries, getEntry, render } from 'astro:content';
 import ServiceLayout from '../../layouts/ServiceLayout.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
-import { canonicalUrl, serviceUrl } from '../../lib/routes';
+import { canonicalUrl, cityServiceUrl, serviceUrl } from '../../lib/routes';
 
 export async function getStaticPaths() {
   const entries = await getCollection('services');
@@ -17,6 +17,20 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 const related = entry.data.relatedServices.length ? await getEntries(entry.data.relatedServices) : [];
 const pageUrl = canonicalUrl(serviceUrl(entry.data.slug));
+
+// Cities that have a live combo page for this exact service — a real,
+// data-driven link block (not a hand-maintained list that would drift or
+// 404), mirroring the sibling-services block [city]/[service].astro
+// already builds off the city-services collection the same way.
+const allCityServices = await getCollection('city-services');
+const combosForThisService = allCityServices.filter((cs) => cs.data.service.id === entry.id);
+const citiesOfferingThisService = await Promise.all(
+  combosForThisService.map(async (cs) => {
+    const city = await getEntry(cs.data.city);
+    const routeSlug = cs.data.slugOverride ?? entry.data.slug;
+    return { name: city.data.name, href: cityServiceUrl(city.data.slug, routeSlug) };
+  })
+);
 ---
 
 <ServiceLayout entry={entry}>
@@ -37,6 +51,26 @@ const pageUrl = canonicalUrl(serviceUrl(entry.data.slug));
                   class="rounded-full border border-border bg-surface px-4 py-2 font-sans text-sm text-foreground hover:border-sage-deep hover:text-sage-deep"
                 >
                   {r.data.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+
+    {
+      citiesOfferingThisService.length > 0 && (
+        <div class="mt-6 border-t border-border pt-6">
+          <p class="font-sans text-sm font-semibold text-ink">Available in these areas</p>
+          <ul class="mt-3 flex flex-wrap gap-2">
+            {citiesOfferingThisService.map((c) => (
+              <li>
+                <a
+                  href={c.href}
+                  class="rounded-full border border-border bg-surface px-4 py-2 font-sans text-sm text-foreground hover:border-sage-deep hover:text-sage-deep"
+                >
+                  {c.name}
                 </a>
               </li>
             ))}
