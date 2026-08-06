@@ -1,10 +1,12 @@
 ---
 // Lighter-weight hero for every page type besides the homepage (which
-// uses the full two-column Hero). Referenced in the Lovable typography
-// spec ("every PageHero H1") but never actually built until Wave 6 —
-// see Wave 6 report. Integrates breadcrumbs into the tinted band rather
-// than leaving them as a separate plain element above the heading.
+// uses the full two-column Hero). Previously a flat text-only band with
+// no CTA and no visual weight — every non-homepage page (all service,
+// combo, and city pages) shared that same flatness. Elevated with a
+// gradient, a direct CTA, and more presence, without trying to
+// replicate the homepage's full-bleed image treatment.
 import Breadcrumbs from './Breadcrumbs.astro';
+import Button from '../ui/Button.astro';
 
 interface BreadcrumbItem {
   name: string;
@@ -16,16 +18,30 @@ interface Props {
   title: string;
   description?: string;
   breadcrumbItems: BreadcrumbItem[];
+  ctaLabel?: string;
+  ctaHref?: string;
+  phoneDisplay?: string;
+  phoneHref?: string;
 }
 
-const { eyebrow, title, description, breadcrumbItems } = Astro.props;
+const { eyebrow, title, description, breadcrumbItems, ctaLabel, ctaHref, phoneDisplay, phoneHref } = Astro.props;
 ---
 
-<section class="bg-lavender-soft">
+<section class="relative overflow-hidden bg-gradient-to-br from-lavender-soft via-lavender-soft to-lavender">
   <Breadcrumbs items={breadcrumbItems} />
-  <div class="mx-auto max-w-3xl px-6 pb-10 pt-2 text-center sm:pb-14">
+  <div class="relative mx-auto max-w-3xl px-6 pb-14 pt-4 text-center sm:pb-20">
     {eyebrow && <p class="eyebrow-label">{eyebrow}</p>}
     <h1 class="mt-4 font-serif text-4xl text-ink sm:text-5xl">{title}</h1>
     {description && <p class="mx-auto mt-4 max-w-2xl font-sans text-lg text-foreground">{description}</p>}
+    {ctaLabel && ctaHref && (
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+        <Button href={ctaHref}>{ctaLabel}</Button>
+        {phoneDisplay && phoneHref && (
+          <a href={phoneHref} class="font-sans text-sm font-medium text-primary underline underline-offset-4">
+            Or call {phoneDisplay}
+          </a>
+        )}
+      </div>
+    )}
   </div>
 </section>

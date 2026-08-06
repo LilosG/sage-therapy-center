@@ -95,7 +95,15 @@ const {
 ---
 
 <BaseLayout title={title} description={description}>
-  <PageHero eyebrow={eyebrow} title={heroTitle} breadcrumbItems={breadcrumbItems} />
+  <PageHero
+    eyebrow={eyebrow}
+    title={heroTitle}
+    breadcrumbItems={breadcrumbItems}
+    ctaLabel="Schedule a Session"
+    ctaHref={SCHEDULE_URL}
+    phoneDisplay={site.phone.display}
+    phoneHref={`tel:${site.phone.tel}`}
+  />
   <TrustStrip />
   {
     showReassurance && (
