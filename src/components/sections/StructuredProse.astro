@@ -1,0 +1,33 @@
+---
+// Wraps page body markdown (service/city/city-service `<Content />`) in
+// richer prose styling than a bare `.prose` block: serif H2s with an
+// accent underline, sage checkmarks on bullet lists, and blockquotes
+// rendered as dark quote cards. Content authoring doesn't have a distinct
+// "callout box" markdown convention, so blockquotes double as the
+// highlighted-quote treatment; a true key-takeaway callout box would need
+// a dedicated frontmatter/MDX shape, which is out of scope here.
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+const classes = [
+  'prose prose-lg max-w-none font-sans text-foreground',
+  'prose-headings:font-serif prose-headings:text-ink',
+  'prose-h2:mb-6 prose-h2:mt-12 prose-h2:border-b prose-h2:border-sage/20 prose-h2:pb-3 prose-h2:text-2xl sm:prose-h2:text-3xl',
+  'prose-h3:mt-8 prose-h3:text-xl',
+  'prose-p:leading-relaxed',
+  'prose-a:text-sage-deep prose-a:font-medium prose-a:no-underline hover:prose-a:underline',
+  'prose-strong:text-ink',
+  'prose-ul:my-6 prose-ul:space-y-2 prose-ul:pl-0 prose-li:list-none prose-li:pl-8 prose-li:relative',
+  "prose-li:before:absolute prose-li:before:left-0 prose-li:before:top-0.5 prose-li:before:content-['✓'] prose-li:before:text-sage-deep prose-li:before:font-semibold",
+  'prose-blockquote:not-italic prose-blockquote:border-l-0 prose-blockquote:rounded-2xl prose-blockquote:bg-primary prose-blockquote:text-primary-foreground prose-blockquote:px-8 prose-blockquote:py-8 prose-blockquote:my-8 prose-blockquote:font-serif prose-blockquote:text-xl',
+  className,
+]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<div class={classes}>
+  <slot />
+</div>

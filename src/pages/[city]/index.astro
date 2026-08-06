@@ -2,6 +2,7 @@
 import { getCollection, getEntries, render } from 'astro:content';
 import CityLayout from '../../layouts/CityLayout.astro';
 import ServiceGrid from '../../components/sections/ServiceGrid.astro';
+import StructuredProse from '../../components/sections/StructuredProse.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
 import { serviceIcons, defaultServiceIcon } from '../../data/serviceIcons';
@@ -50,9 +51,9 @@ const breadcrumbItems = citySchemaBreadcrumbs(entry.data.name, pageUrl);
   nearbyCities={nearbyCities.map((c) => ({ name: c.data.name, href: cityUrl(c.data.slug) }))}
 >
   <div class="mx-auto max-w-3xl px-6 pb-4 pt-8">
-    <div class="prose mt-6 max-w-none font-sans text-foreground">
+    <StructuredProse class="mt-6">
       <Content />
-    </div>
+    </StructuredProse>
   </div>
 
   {

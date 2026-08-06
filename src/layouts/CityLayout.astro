@@ -3,6 +3,7 @@ import InteriorPageLayout from './InteriorPageLayout.astro';
 import VisitUs from '../components/sections/VisitUs.astro';
 import AreasServed from '../components/sections/AreasServed.astro';
 import { cityBreadcrumbs } from '../lib/breadcrumbs';
+import { withFallbackFaqs } from '../lib/faq';
 import { AREAS_WE_SERVE_URL } from '../data/nav';
 import type { CollectionEntry } from 'astro:content';
 
@@ -47,6 +48,7 @@ const {
 } = Astro.props;
 const { name, hasOffice, primaryTarget, slug, faq, neighborhoods } = entry.data;
 const breadcrumbItems = cityBreadcrumbs(name, slug);
+const faqItems = await withFallbackFaqs(faq);
 ---
 
 <InteriorPageLayout
@@ -57,7 +59,7 @@ const breadcrumbItems = cityBreadcrumbs(name, slug);
   heroDescription={primaryTarget}
   breadcrumbItems={breadcrumbItems}
   faqHeading={`${name} FAQs`}
-  faqItems={faq}
+  faqItems={faqItems}
   showReviews={showReviews}
   rating={rating}
   reviewCount={reviewCount}

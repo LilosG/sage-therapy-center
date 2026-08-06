@@ -11,7 +11,7 @@ interface Props {
 const { class: className = '' } = Astro.props;
 const fullAddress = `${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}`;
 const src = `https://www.google.com/maps?q=${encodeURIComponent(fullAddress)}&output=embed`;
-const classes = ['overflow-hidden rounded-3xl border border-border shadow-sm', className].filter(Boolean).join(' ');
+const classes = ['overflow-hidden rounded-2xl border border-border shadow-lg', className].filter(Boolean).join(' ');
 ---
 
 <div class={classes}>

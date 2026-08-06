@@ -123,9 +123,6 @@ const {
   <div class="bg-surface">
     <slot />
   </div>
-  <!-- City hub pages fill this with VisitUs (map + neighborhoods); service
-       and city-service pages leave it empty. -->
-  <slot name="visit-us" />
   {
     showMeetKristin && (
       <MeetKristin
@@ -155,6 +152,10 @@ const {
       />
     )
   }
+  <!-- City hub pages fill this with VisitUs (map + neighborhoods); service
+       and city-service pages leave it empty. Sits after MeetKristin/
+       ProcessSteps so the value case lands before office logistics. -->
+  <slot name="visit-us" />
   {
     showReviews && (
       <ReviewsSection
@@ -168,7 +169,7 @@ const {
   }
   {
     faqItems && faqItems.length > 0 && (
-      <FAQAccordion heading={faqHeading as string} items={faqItems} background="secondary" />
+      <FAQAccordion heading={faqHeading as string} items={faqItems} background="surface" />
     )
   }
   <!-- City hub pages fill this with AreasServed (nearby cities); service

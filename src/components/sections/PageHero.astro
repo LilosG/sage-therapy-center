@@ -34,19 +34,41 @@ const { eyebrow, title, description, breadcrumbItems, ctaLabel, ctaHref, phoneDi
 ---
 
 <section class="relative overflow-hidden bg-gradient-to-br from-lavender-soft via-lavender to-sage">
+  <!-- Radial light accent for visual depth, built from existing theme
+       tokens only (no new palette) — a soft sage glow off-center behind
+       the heading. -->
+  <div
+    class="pointer-events-none absolute -top-24 right-[-10%] h-[28rem] w-[28rem] rounded-full bg-surface/40 blur-3xl"
+    aria-hidden="true"
+  />
   <div class="absolute inset-0 bg-ink/25" aria-hidden="true" />
   <div class="relative">
     <Breadcrumbs items={breadcrumbItems} variant="light" />
-    <div class="mx-auto max-w-3xl px-6 pb-12 pt-2 text-center sm:pb-16">
-      {eyebrow && <p class="eyebrow-label text-surface">{eyebrow}</p>}
-      <h1 class="mt-4 font-serif text-4xl leading-tight text-surface sm:text-5xl">{title}</h1>
+    <div class="mx-auto max-w-3xl px-6 pb-16 pt-2 text-center sm:pb-24">
+      {
+        eyebrow && (
+          <span class="inline-flex items-center gap-2 rounded-full border border-surface/40 bg-surface/10 px-4 py-1.5 font-sans text-xs font-semibold uppercase tracking-widest text-surface backdrop-blur-md">
+            <span class="h-1.5 w-1.5 rounded-full bg-sage-deep" aria-hidden="true" />
+            {eyebrow}
+          </span>
+        )
+      }
+      <h1 class="mt-5 font-serif text-4xl leading-tight text-surface sm:text-5xl">{title}</h1>
       {description && <p class="mx-auto mt-4 max-w-2xl font-sans text-lg text-surface/90">{description}</p>}
       {
         (ctaHref || phoneHref) && (
           <div class="mt-8 flex flex-wrap justify-center gap-4">
-            {ctaHref && ctaLabel && <Button href={ctaHref}>{ctaLabel}</Button>}
+            {ctaHref && ctaLabel && (
+              <Button href={ctaHref} class="shadow-lg shadow-sage-deep/30 hover:shadow-xl hover:shadow-sage-deep/40">
+                {ctaLabel}
+              </Button>
+            )}
             {phoneHref && phoneDisplay && (
-              <Button href={phoneHref} variant="secondary" class="border-surface text-surface hover:bg-surface/10">
+              <Button
+                href={phoneHref}
+                variant="secondary"
+                class="border-surface/50 bg-surface/10 text-surface backdrop-blur-md hover:bg-surface/20"
+              >
                 Call {phoneDisplay}
               </Button>
             )}

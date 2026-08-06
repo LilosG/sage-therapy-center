@@ -6,6 +6,7 @@
 // content entry for it — never by editing this file.
 import { getCollection, getEntries, getEntry, render } from 'astro:content';
 import CityServiceLayout from '../../layouts/CityServiceLayout.astro';
+import StructuredProse from '../../components/sections/StructuredProse.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
 import { canonicalUrl, cityServiceUrl, serviceUrl } from '../../lib/routes';
@@ -57,9 +58,9 @@ const localCombosForCity = new Map(
 
 <CityServiceLayout entry={entry}>
   <div class="mx-auto max-w-3xl px-6 pb-4 pt-8">
-    <div class="prose mt-6 max-w-none font-sans text-foreground">
+    <StructuredProse class="mt-6">
       <Content />
-    </div>
+    </StructuredProse>
 
     <div class="mt-10 border-t border-border pt-6">
       <a

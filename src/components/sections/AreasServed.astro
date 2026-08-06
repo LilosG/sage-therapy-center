@@ -1,7 +1,10 @@
 ---
-// Reusable center-aligned "areas served" pill list, extracted from the
-// near-identical inline blocks that used to live in index.astro
-// ("Areas We Serve") and [city]/index.astro ("Nearby areas").
+// Reusable "areas served" card grid, extracted from the near-identical
+// inline blocks that used to live in index.astro ("Areas We Serve") and
+// [city]/index.astro ("Nearby areas"). Cards over pills per the interior
+// design system upgrade — same info, more scannable at a glance.
+import { site } from '../../data/site';
+
 interface CityLink {
   name: string;
   href: string;
@@ -24,15 +27,26 @@ const { eyebrow, heading, cities, viewAllHref, viewAllLabel = 'See all areas we 
       {eyebrow && <p class="eyebrow-label">{eyebrow}</p>}
       <h2 class="mt-4 font-serif text-3xl text-ink sm:text-4xl">{heading}</h2>
     </div>
-    <ul class="mt-8 flex flex-wrap justify-center gap-3">
+    <ul class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {
         cities.map((c) => (
           <li>
             <a
               href={c.href}
-              class="rounded-full border border-border bg-surface px-5 py-2 font-sans text-sm text-foreground hover:border-sage-deep hover:text-sage-deep"
+              class="group flex h-full flex-col justify-between rounded-2xl border border-border bg-surface p-6 shadow-sm transition-all duration-150 hover:border-sage hover:shadow-md"
             >
-              {c.name}
+              <div>
+                <p class="font-serif text-lg text-ink">{c.name}</p>
+                <p class="mt-1 font-sans text-sm text-muted-foreground">
+                  Serving {c.name} &middot; Telehealth available across {site.telehealth.coverageArea}
+                </p>
+              </div>
+              <span class="mt-4 inline-flex items-center gap-1.5 font-sans text-sm font-medium text-sage-deep">
+                Learn more
+                <span class="transition-transform duration-150 group-hover:translate-x-1" aria-hidden="true">
+                  &rarr;
+                </span>
+              </span>
             </a>
           </li>
         ))
@@ -40,7 +54,7 @@ const { eyebrow, heading, cities, viewAllHref, viewAllLabel = 'See all areas we 
     </ul>
     {
       viewAllHref && (
-        <p class="mt-6 text-center">
+        <p class="mt-8 text-center">
           <a href={viewAllHref} class="font-sans text-sm font-medium text-sage-deep hover:text-primary">
             {viewAllLabel} &rarr;
           </a>

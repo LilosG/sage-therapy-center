@@ -1,6 +1,7 @@
 ---
 import InteriorPageLayout from './InteriorPageLayout.astro';
 import { serviceBreadcrumbs } from '../lib/breadcrumbs';
+import { withFallbackFaqs } from '../lib/faq';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -10,6 +11,7 @@ interface Props {
 const { entry } = Astro.props;
 const { title, description, slug, category, faq } = entry.data;
 const breadcrumbItems = serviceBreadcrumbs(title, slug);
+const faqItems = await withFallbackFaqs(faq);
 ---
 
 <InteriorPageLayout
@@ -20,7 +22,7 @@ const breadcrumbItems = serviceBreadcrumbs(title, slug);
   heroDescription={description}
   breadcrumbItems={breadcrumbItems}
   faqHeading="Frequently asked questions"
-  faqItems={faq}
+  faqItems={faqItems}
   ctaHeading={`Ready to talk about ${title.toLowerCase()}?`}
 >
   <slot />

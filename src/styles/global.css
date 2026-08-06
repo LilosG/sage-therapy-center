@@ -57,7 +57,4 @@
     @apply bg-primary text-primary-foreground rounded-3xl px-8 py-14 text-center font-serif text-2xl italic leading-relaxed sm:text-3xl;
   }
 
-  .trust-strip {
-    @apply grid grid-cols-2 gap-6 border-y border-border bg-surface px-6 py-6 sm:grid-cols-4 sm:gap-4;
-  }
 }

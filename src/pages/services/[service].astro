@@ -1,6 +1,7 @@
 ---
 import { getCollection, getEntries, render } from 'astro:content';
 import ServiceLayout from '../../layouts/ServiceLayout.astro';
+import StructuredProse from '../../components/sections/StructuredProse.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
 import { canonicalUrl, serviceUrl } from '../../lib/routes';
@@ -21,9 +22,9 @@ const pageUrl = canonicalUrl(serviceUrl(entry.data.slug));
 
 <ServiceLayout entry={entry}>
   <div class="mx-auto max-w-3xl px-6 pb-4 pt-8">
-    <div class="prose mt-6 max-w-none font-sans text-foreground">
+    <StructuredProse class="mt-6">
       <Content />
-    </div>
+    </StructuredProse>
 
     {
       related.length > 0 && (
