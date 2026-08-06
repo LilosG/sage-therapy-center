@@ -13,6 +13,8 @@ import CTASection from '../components/sections/CTASection.astro';
 import SchemaOrg from '../components/seo/SchemaOrg.astro';
 import { site } from '../data/site';
 import { serviceIcons, defaultServiceIcon } from '../data/serviceIcons';
+import { ABOUT_URL, AREAS_WE_SERVE_URL, SCHEDULE_URL, SERVICES_URL } from '../data/nav';
+import { cityUrl, serviceUrl } from '../lib/routes';
 import kristinPhoto from '../assets/images/kristin-moorehead-malley.webp';
 import googleReviews from '../data/google-reviews.json';
 
@@ -48,8 +50,8 @@ if (cities.length === 0) {
     headline="Support for whatever you're carrying — anxiety, trauma, or life's harder chapters."
     emphasis="anxiety, trauma"
     subhead="Individual and couples therapy in Carlsbad, CA, drawing on a range of therapeutic approaches to help you feel more like yourself."
-    primaryCta={{ label: 'Schedule a Session', href: '/schedule-a-session/' }}
-    secondaryCta={{ label: 'Meet Kristin', href: '/about/' }}
+    primaryCta={{ label: 'Schedule a Session', href: SCHEDULE_URL }}
+    secondaryCta={{ label: 'Meet Kristin', href: ABOUT_URL }}
   />
 
   <TrustStrip />
@@ -97,7 +99,7 @@ if (cities.length === 0) {
     ]}
     modalities={['EMDR', 'Lifespan Integration', 'CBT', 'IMAGO', 'Psychodynamic', 'Attachment-Based']}
     ctaLabel="Learn More About Kristin"
-    ctaHref="/about/"
+    ctaHref={ABOUT_URL}
     image={kristinPhoto}
   />
 
@@ -121,10 +123,10 @@ if (cities.length === 0) {
       .map((s) => ({
         title: s.data.title,
         description: s.data.description,
-        href: `/services/${s.data.slug}/`,
+        href: serviceUrl(s.data.slug),
         icon: serviceIcons[s.data.slug] ?? defaultServiceIcon,
       }))}
-    viewAllHref="/services/"
+    viewAllHref={SERVICES_URL}
     viewAllLabel="View all services"
     background="secondary"
   />
@@ -153,7 +155,7 @@ if (cities.length === 0) {
           cities.map((c) => (
             <li>
               <a
-                href={`/${c.data.slug}/`}
+                href={cityUrl(c.data.slug)}
                 class="rounded-full border border-border bg-surface px-5 py-2 font-sans text-sm text-foreground hover:border-sage-deep hover:text-sage-deep"
               >
                 {c.data.name}
@@ -163,7 +165,7 @@ if (cities.length === 0) {
         }
       </ul>
       <p class="mt-6 text-center">
-        <a href="/areas-we-serve/" class="font-sans text-sm font-medium text-sage-deep hover:text-primary">
+        <a href={AREAS_WE_SERVE_URL} class="font-sans text-sm font-medium text-sage-deep hover:text-primary">
           See all areas we serve &rarr;
         </a>
       </p>
@@ -174,7 +176,7 @@ if (cities.length === 0) {
     heading="Ready to take the first step?"
     subhead="Request a session to discuss fit and availability."
     ctaLabel="Schedule a Session"
-    ctaHref="/schedule-a-session/"
+    ctaHref={SCHEDULE_URL}
     phoneDisplay={site.phone.display}
     phoneHref={`tel:${site.phone.tel}`}
   />

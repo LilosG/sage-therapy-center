@@ -4,6 +4,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/sections/Breadcrumbs.astro';
 import CTASection from '../../components/sections/CTASection.astro';
 import { site } from '../../data/site';
+import { serviceUrl } from '../../lib/routes';
+import { blogPostBreadcrumbs } from '../../lib/breadcrumbs';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -16,11 +18,7 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const primaryService = await getEntry(entry.data.primaryService);
-const breadcrumbItems = [
-  { name: 'Home', url: '/' },
-  { name: 'Blog', url: '/blog/' },
-  { name: entry.data.title, url: `/blog/${entry.data.slug}/` },
-];
+const breadcrumbItems = blogPostBreadcrumbs(entry.data.title, entry.data.slug);
 ---
 
 <BaseLayout title={`${entry.data.title} | S.A.G.E. Therapy Center Blog`} description={entry.data.title}>
@@ -43,7 +41,7 @@ const breadcrumbItems = [
 
     <div class="mt-10 flex flex-wrap gap-3 border-t border-border pt-6 font-sans text-sm">
       <a
-        href={`/services/${primaryService.data.slug}/`}
+        href={serviceUrl(primaryService.data.slug)}
         class="rounded-full border border-border bg-surface px-4 py-2 text-foreground hover:border-sage-deep hover:text-sage-deep"
       >
         {primaryService.data.title}

@@ -5,6 +5,8 @@ import PageHero from '../../components/sections/PageHero.astro';
 import FAQAccordion from '../../components/sections/FAQAccordion.astro';
 import CTASection from '../../components/sections/CTASection.astro';
 import { site } from '../../data/site';
+import { CONTACT_URL, FAQ_URL } from '../../data/nav';
+import { staticBreadcrumbs } from '../../lib/breadcrumbs';
 
 // Fee/insurance questions are intentionally not included: the SEO doc's
 // Wave 0 blockers say payment/insurance policy must be confirmed before
@@ -19,7 +21,7 @@ const faqs = await getCollection('faq');
   <PageHero
     eyebrow="FAQ"
     title="Frequently asked questions"
-    breadcrumbItems={[{ name: 'Home', url: '/' }, { name: 'FAQ', url: '/faq/' }]}
+    breadcrumbItems={staticBreadcrumbs('FAQ', FAQ_URL)}
   />
 
   <FAQAccordion heading="Common questions" items={faqs.map((f) => ({ q: f.data.q, a: f.data.a }))} />
@@ -28,7 +30,7 @@ const faqs = await getCollection('faq');
     heading="Still have questions?"
     subhead="Reach out — we're happy to help."
     ctaLabel="Contact Us"
-    ctaHref="/contact/"
+    ctaHref={CONTACT_URL}
     phoneDisplay={site.phone.display}
     phoneHref={`tel:${site.phone.tel}`}
   />

@@ -6,6 +6,8 @@ import Button from '../../components/ui/Button.astro';
 import MapEmbed from '../../components/sections/MapEmbed.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
+import { CONTACT_URL, SCHEDULE_URL } from '../../data/nav';
+import { staticBreadcrumbs } from '../../lib/breadcrumbs';
 
 const mapQuery = encodeURIComponent(
   `${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}`
@@ -21,7 +23,7 @@ const mapUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
     eyebrow="Contact"
     title="Get in touch"
     description="Request a session to discuss fit and availability, or reach out with any questions."
-    breadcrumbItems={[{ name: 'Home', url: '/' }, { name: 'Contact', url: '/contact/' }]}
+    breadcrumbItems={staticBreadcrumbs('Contact', CONTACT_URL)}
   />
 
   <div class="mx-auto max-w-3xl px-6 pb-12 pt-8">
@@ -63,7 +65,7 @@ const mapUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
     </div>
 
     <div class="mt-8">
-      <Button href="/schedule-a-session/">Schedule a Session</Button>
+      <Button href={SCHEDULE_URL}>Schedule a Session</Button>
     </div>
   </div>
 </BaseLayout>

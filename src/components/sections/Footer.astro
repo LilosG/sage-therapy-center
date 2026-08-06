@@ -9,6 +9,8 @@
 // documents the intended footer shape for when a later wave adds them.
 import { getCollection } from 'astro:content';
 import { site } from '../../data/site';
+import { ABOUT_URL, CONTACT_URL, FAQ_URL, SCHEDULE_URL, SERVICES_URL } from '../../data/nav';
+import { cityUrl, serviceUrl } from '../../lib/routes';
 
 const cities = await getCollection('cities');
 const coreServices = (await getCollection('services')).filter((s) => s.data.category === 'core');
@@ -47,7 +49,7 @@ const coreServices = (await getCollection('services')).filter((s) => s.data.cate
           {
             cities.map((c) => (
               <li>
-                <a href={`/${c.data.slug}/`} class="font-sans text-sm text-muted-foreground hover:text-sage-deep">
+                <a href={cityUrl(c.data.slug)} class="font-sans text-sm text-muted-foreground hover:text-sage-deep">
                   {c.data.name}
                 </a>
               </li>
@@ -63,7 +65,7 @@ const coreServices = (await getCollection('services')).filter((s) => s.data.cate
             coreServices.map((s) => (
               <li>
                 <a
-                  href={`/services/${s.data.slug}/`}
+                  href={serviceUrl(s.data.slug)}
                   class="font-sans text-sm text-muted-foreground hover:text-sage-deep"
                 >
                   {s.data.title}
@@ -72,7 +74,7 @@ const coreServices = (await getCollection('services')).filter((s) => s.data.cate
             ))
           }
           <li>
-            <a href="/services/" class="font-sans text-sm font-medium text-sage-deep hover:text-primary">
+            <a href={SERVICES_URL} class="font-sans text-sm font-medium text-sage-deep hover:text-primary">
               View all services &rarr;
             </a>
           </li>
@@ -83,16 +85,16 @@ const coreServices = (await getCollection('services')).filter((s) => s.data.cate
         <p class="font-sans text-sm font-semibold text-ink">Practice</p>
         <ul class="mt-3 space-y-2">
           <li>
-            <a href="/about/" class="font-sans text-sm text-muted-foreground hover:text-sage-deep">About</a>
+            <a href={ABOUT_URL} class="font-sans text-sm text-muted-foreground hover:text-sage-deep">About</a>
           </li>
           <li>
-            <a href="/faq/" class="font-sans text-sm text-muted-foreground hover:text-sage-deep">FAQ</a>
+            <a href={FAQ_URL} class="font-sans text-sm text-muted-foreground hover:text-sage-deep">FAQ</a>
           </li>
           <li>
-            <a href="/contact/" class="font-sans text-sm text-muted-foreground hover:text-sage-deep">Contact</a>
+            <a href={CONTACT_URL} class="font-sans text-sm text-muted-foreground hover:text-sage-deep">Contact</a>
           </li>
           <li>
-            <a href="/schedule-a-session/" class="font-sans text-sm text-muted-foreground hover:text-sage-deep">
+            <a href={SCHEDULE_URL} class="font-sans text-sm text-muted-foreground hover:text-sage-deep">
               Schedule a Session
             </a>
           </li>

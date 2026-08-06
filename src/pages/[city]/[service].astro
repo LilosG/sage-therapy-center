@@ -8,6 +8,7 @@ import { getCollection, getEntries, getEntry, render } from 'astro:content';
 import CityServiceLayout from '../../layouts/CityServiceLayout.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
+import { canonicalUrl, cityServiceUrl, serviceUrl } from '../../lib/routes';
 
 export async function getStaticPaths() {
   const entries = await getCollection('city-services');
@@ -16,7 +17,7 @@ export async function getStaticPaths() {
       const city = await getEntry(entry.data.city);
       const service = await getEntry(entry.data.service);
       return {
-        params: { city: city.data.slug, service: service.data.slug },
+        params: { city: city.data.slug, service: entry.data.slugOverride ?? service.data.slug },
         props: { entry },
       };
     })
@@ -27,7 +28,8 @@ const { entry } = Astro.props;
 const city = await getEntry(entry.data.city);
 const service = await getEntry(entry.data.service);
 const { Content } = await render(entry);
-const pageUrl = `${site.canonicalOrigin}/${city.data.slug}/${service.data.slug}/`;
+const routeSlug = entry.data.slugOverride ?? service.data.slug;
+const pageUrl = canonicalUrl(cityServiceUrl(city.data.slug, routeSlug));
 
 // Sibling services offered in the same city, excluding this one — same
 // "local combo page over generic pillar" preference as [city]/index.astro,
@@ -38,8 +40,11 @@ const approvedServices = city.data.approvedCityServices.length
 const otherApprovedServices = approvedServices.filter((s) => s.id !== service.id);
 
 const cityServiceEntries = await getCollection('city-services');
-const localComboSlugs = new Set(
-  cityServiceEntries.filter((cs) => cs.data.city.id === city.id).map((cs) => cs.data.service.id)
+// Maps service id -> its local combo entry (for slugOverride), not just a
+// membership Set, since a sibling's route slug may differ from its own
+// service slug (Wave 11 trauma-therapy case).
+const localCombosForCity = new Map(
+  cityServiceEntries.filter((cs) => cs.data.city.id === city.id).map((cs) => [cs.data.service.id, cs])
 );
 ---
 
@@ -51,7 +56,7 @@ const localComboSlugs = new Set(
 
     <div class="mt-10 border-t border-border pt-6">
       <a
-        href={`/services/${service.data.slug}/`}
+        href={serviceUrl(service.data.slug)}
         class="font-sans text-sm font-medium text-sage-deep hover:text-primary"
       >
         &larr; {service.data.title} overview
@@ -67,9 +72,9 @@ const localComboSlugs = new Set(
               <li>
                 <a
                   href={
-                    localComboSlugs.has(s.id)
-                      ? `/${city.data.slug}/${s.data.slug}/`
-                      : `/services/${s.data.slug}/`
+                    localCombosForCity.has(s.id)
+                      ? cityServiceUrl(city.data.slug, localCombosForCity.get(s.id).data.slugOverride ?? s.data.slug)
+                      : serviceUrl(s.data.slug)
                   }
                   class="rounded-full border border-border bg-surface px-4 py-2 font-sans text-sm text-foreground hover:border-sage-deep hover:text-sage-deep"
                 >

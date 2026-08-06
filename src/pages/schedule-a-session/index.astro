@@ -5,6 +5,8 @@ import Card from '../../components/ui/Card.astro';
 import Button from '../../components/ui/Button.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
+import { CONTACT_URL, FAQ_URL, SCHEDULE_URL } from '../../data/nav';
+import { staticBreadcrumbs } from '../../lib/breadcrumbs';
 ---
 
 <BaseLayout
@@ -15,7 +17,7 @@ import { site } from '../../data/site';
     eyebrow="Schedule a Session"
     title="Request a session"
     description={`Reach out by phone or email to discuss fit and availability. ${site.practitioner.name}, ${site.practitioner.credential} will follow up to schedule your first session.`}
-    breadcrumbItems={[{ name: 'Home', url: '/' }, { name: 'Schedule a Session', url: '/schedule-a-session/' }]}
+    breadcrumbItems={staticBreadcrumbs('Schedule a Session', SCHEDULE_URL)}
   />
 
   <div class="mx-auto max-w-2xl px-6 py-12 text-center">
@@ -39,8 +41,8 @@ import { site } from '../../data/site';
     </div>
 
     <p class="mt-10 font-sans text-sm text-muted-foreground">
-      Have questions first? Visit the <a href="/faq/" class="text-sage-deep hover:text-primary">FAQ</a> or
-      <a href="/contact/" class="text-sage-deep hover:text-primary">contact page</a>.
+      Have questions first? Visit the <a href={FAQ_URL} class="text-sage-deep hover:text-primary">FAQ</a> or
+      <a href={CONTACT_URL} class="text-sage-deep hover:text-primary">contact page</a>.
     </p>
   </div>
 </BaseLayout>

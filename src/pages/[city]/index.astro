@@ -6,6 +6,8 @@ import MapEmbed from '../../components/sections/MapEmbed.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
 import { serviceIcons, defaultServiceIcon } from '../../data/serviceIcons';
+import { canonicalUrl, cityServiceUrl, cityUrl, serviceUrl } from '../../lib/routes';
+import { citySchemaBreadcrumbs } from '../../lib/breadcrumbs';
 
 export async function getStaticPaths() {
   const entries = await getCollection('cities');
@@ -26,16 +28,15 @@ const nearbyCities = entry.data.nearbyCities.length ? await getEntries(entry.dat
 // when one exists for this city — it has real, city-specific content
 // (per Wave 2), so it's a better link target than the generic pillar.
 const cityServiceEntries = await getCollection('city-services');
-const localComboSlugs = new Set(
-  cityServiceEntries.filter((cs) => cs.data.city.id === entry.id).map((cs) => cs.data.service.id)
+// Maps service id -> its local combo entry (for slugOverride), not just a
+// membership Set, since a combo's route slug may differ from the
+// referenced service's own slug (Wave 11 trauma-therapy case).
+const localCombosForCity = new Map(
+  cityServiceEntries.filter((cs) => cs.data.city.id === entry.id).map((cs) => [cs.data.service.id, cs])
 );
 
-const pageUrl = `${site.canonicalOrigin}/${entry.data.slug}/`;
-const breadcrumbItems = [
-  { name: 'Home', url: '/' },
-  { name: 'Areas We Serve', url: '/areas-we-serve/' },
-  { name: entry.data.name, url: pageUrl },
-];
+const pageUrl = canonicalUrl(cityUrl(entry.data.slug));
+const breadcrumbItems = citySchemaBreadcrumbs(entry.data.name, pageUrl);
 ---
 
 <CityLayout entry={entry}>
@@ -58,7 +59,7 @@ const breadcrumbItems = [
             {nearbyCities.map((c) => (
               <li>
                 <a
-                  href={`/${c.data.slug}/`}
+                  href={cityUrl(c.data.slug)}
                   class="rounded-full border border-border bg-surface px-4 py-2 font-sans text-sm text-foreground hover:border-sage-deep hover:text-sage-deep"
                 >
                   {c.data.name}
@@ -78,9 +79,9 @@ const breadcrumbItems = [
         services={approvedServices.map((s) => ({
           title: s.data.title,
           description: s.data.description,
-          href: localComboSlugs.has(s.id)
-            ? `/${entry.data.slug}/${s.data.slug}/`
-            : `/services/${s.data.slug}/`,
+          href: localCombosForCity.has(s.id)
+            ? cityServiceUrl(entry.data.slug, localCombosForCity.get(s.id).data.slugOverride ?? s.data.slug)
+            : serviceUrl(s.data.slug),
           icon: serviceIcons[s.data.slug] ?? defaultServiceIcon,
         }))}
         background="secondary"

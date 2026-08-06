@@ -9,13 +9,15 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/sections/Breadcrumbs.astro';
 import Card from '../../components/ui/Card.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
+import { RESOURCES_URL, SELF_LOVE_RESOURCE_URL } from '../../data/nav';
+import { staticBreadcrumbs } from '../../lib/breadcrumbs';
 ---
 
 <BaseLayout
   title="Resources | S.A.G.E. Therapy Center"
   description="Resources from S.A.G.E. Therapy Center in Carlsbad, CA."
 >
-  <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'Resources', url: '/resources/' }]} />
+  <Breadcrumbs items={staticBreadcrumbs('Resources', RESOURCES_URL)} />
 
   <div class="bg-secondary px-6 pb-4 pt-8 text-center">
     <p class="eyebrow-label">Resources</p>
@@ -25,7 +27,7 @@ import SchemaOrg from '../../components/seo/SchemaOrg.astro';
   <section class="bg-background">
     <div class="mx-auto max-w-3xl px-6 py-10">
       <Card>
-        <a href="/resources/28-days-of-self-love/" class="font-serif text-xl text-ink hover:text-sage-deep">
+        <a href={SELF_LOVE_RESOURCE_URL} class="font-serif text-xl text-ink hover:text-sage-deep">
           28 Days of Self-Love
         </a>
         <p class="mt-2 font-sans text-sm text-muted-foreground">
