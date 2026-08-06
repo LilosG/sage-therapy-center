@@ -6,6 +6,8 @@ city: encinitas
 service: couples-counseling
 minWordCount: 400
 uniqueContentPercent: 35
+lateralLinks:
+  - individual-therapy
 faq:
   - q: "Is there an S.A.G.E. Therapy Center office in Encinitas?"
     a: "No. Couples counseling for Encinitas clients is held at the Carlsbad office, 5055 Avenida Encinas, Suite 100 — a short drive up the coast."

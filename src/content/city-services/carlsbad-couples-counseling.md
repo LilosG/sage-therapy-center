@@ -6,6 +6,10 @@ city: carlsbad
 service: couples-counseling
 minWordCount: 400
 uniqueContentPercent: 35
+lateralLinks:
+  - premarital-marriage-counseling
+  - individual-therapy
+  - family-therapy
 faq:
   - q: "Where do Carlsbad couples counseling sessions take place?"
     a: "At the S.A.G.E. Therapy Center office, 5055 Avenida Encinas, Suite 100, in Carlsbad."
