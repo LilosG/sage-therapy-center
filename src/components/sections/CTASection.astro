@@ -13,8 +13,8 @@ interface Props {
 const { heading, subhead, ctaLabel, ctaHref, phoneDisplay, phoneHref } = Astro.props;
 ---
 
-<section class="bg-primary">
-  <div class="mx-auto max-w-3xl px-6 py-16 text-center sm:py-20">
+<section class="mx-4 my-12 rounded-3xl bg-primary px-6 py-16 text-center sm:mx-6 sm:py-20 lg:mx-8">
+  <div class="mx-auto max-w-3xl">
     <h2 class="font-serif text-3xl text-primary-foreground sm:text-4xl">{heading}</h2>
     {subhead && <p class="mt-4 font-sans text-lg text-primary-foreground/80">{subhead}</p>}
     <div class="mt-8 flex flex-wrap items-center justify-center gap-4">

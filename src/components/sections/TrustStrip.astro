@@ -24,11 +24,11 @@ const stats = [
 ];
 ---
 
-<div class="relative z-20 -mt-10 px-6 lg:-mt-12">
-  <div class="mx-auto grid w-full max-w-6xl grid-cols-2 gap-x-4 gap-y-6 rounded-2xl border border-border/80 bg-surface p-6 shadow-xl shadow-border/50 lg:grid-cols-4 lg:gap-6 lg:p-8">
+<div class="relative z-20 -mt-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:-mt-12 lg:px-8">
+  <div class="mx-auto grid grid-cols-2 divide-y divide-border rounded-2xl border border-border/80 bg-surface/95 p-6 shadow-xl shadow-ink/5 backdrop-blur-md lg:grid-cols-4 lg:divide-y-0 lg:divide-x lg:p-8">
     {
-      stats.map((stat, i) => (
-        <div class={`flex items-center gap-3 px-2 text-left lg:px-4 ${i < stats.length - 1 ? 'lg:border-r lg:border-border' : ''}`}>
+      stats.map((stat) => (
+        <div class="flex items-center gap-3 px-2 py-4 text-left first:pt-0 lg:px-6 lg:py-0 lg:first:pl-0">
           <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-sage/15 text-sage-deep">
             <Icon name={stat.icon} width={20} height={20} aria-hidden="true" />
           </span>

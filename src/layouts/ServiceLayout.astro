@@ -1,11 +1,13 @@
 ---
 import InteriorPageLayout from './InteriorPageLayout.astro';
 import AreasServed from '../components/sections/AreasServed.astro';
+import ModalityBadges from '../components/sections/ModalityBadges.astro';
 import { serviceBreadcrumbs } from '../lib/breadcrumbs';
 import { withFallbackFaqs } from '../lib/faq';
 import { getCollection } from 'astro:content';
 import { cityUrl } from '../lib/routes';
 import { AREAS_WE_SERVE_URL } from '../data/nav';
+import { practitioner } from '../data/practitioner';
 import googleReviews from '../data/google-reviews.json';
 import type { CollectionEntry } from 'astro:content';
 
@@ -40,11 +42,6 @@ const reassuranceItems = [
     body: 'Meet in person at the Carlsbad office, or by telehealth anywhere in California.',
     icon: 'lucide:check-circle',
   },
-  {
-    title: 'An approach tailored to you',
-    body: 'CBT, EMDR, psychodynamic, and attachment-based work, drawn on depending on what fits.',
-    icon: 'lucide:check-circle',
-  },
 ];
 ---
 
@@ -57,6 +54,7 @@ const reassuranceItems = [
   breadcrumbItems={breadcrumbItems}
   reassuranceHeading="You're in the right place if..."
   reassuranceItems={reassuranceItems}
+  reassuranceColumns={3}
   faqHeading="Frequently asked questions"
   faqItems={faqItems}
   showReviews={true}
@@ -68,6 +66,7 @@ const reassuranceItems = [
   ctaHeading={`Ready to talk about ${title.toLowerCase()}?`}
 >
   <slot />
+  <ModalityBadges modalities={practitioner.modalities} />
   <Fragment slot="areas-served">
     <AreasServed heading="Areas we serve" cities={cityLinks} viewAllHref={AREAS_WE_SERVE_URL} />
   </Fragment>

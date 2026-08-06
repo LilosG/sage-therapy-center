@@ -60,6 +60,7 @@ interface Props {
   // get filler copy just to satisfy the funnel order.
   reassuranceHeading?: string;
   reassuranceItems?: ReassuranceItem[];
+  reassuranceColumns?: 3 | 4;
   // On by default per the funnel spec (Hero -> TrustBar -> Reassurance ->
   // Core Content -> MeetKristin -> ProcessSteps -> Reviews -> FAQs -> CTA);
   // callers can opt individual pages out if a section reads as padding.
@@ -88,6 +89,7 @@ const {
   breadcrumbItems,
   reassuranceHeading,
   reassuranceItems,
+  reassuranceColumns = 4,
   showMeetKristin = true,
   showProcessSteps = true,
   faqHeading,
@@ -117,7 +119,7 @@ const {
   <TrustStrip />
   {
     reassuranceItems && reassuranceItems.length > 0 && (
-      <ReassuranceGrid heading={reassuranceHeading as string} items={reassuranceItems} />
+      <ReassuranceGrid heading={reassuranceHeading as string} items={reassuranceItems} columns={reassuranceColumns} />
     )
   }
   <div class="bg-surface">

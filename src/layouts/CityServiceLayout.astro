@@ -1,8 +1,12 @@
 ---
 import InteriorPageLayout from './InteriorPageLayout.astro';
+import ModalityBadges from '../components/sections/ModalityBadges.astro';
+import LocationContext from '../components/sections/LocationContext.astro';
 import { cityServiceBreadcrumbs } from '../lib/breadcrumbs';
 import { withFallbackFaqs } from '../lib/faq';
+import { practitioner } from '../data/practitioner';
 import { getEntry } from 'astro:content';
+import googleReviews from '../data/google-reviews.json';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -15,6 +19,24 @@ const service = await getEntry(entry.data.service);
 const routeSlug = entry.data.slugOverride ?? service.data.slug;
 const breadcrumbItems = cityServiceBreadcrumbs(city.data.name, city.data.slug, service.data.title, routeSlug);
 const faqItems = await withFallbackFaqs(entry.data.faq);
+
+const reassuranceItems = [
+  {
+    title: 'No diagnosis required',
+    body: `You don't need a formal diagnosis to start ${service.data.title.toLowerCase()}.`,
+    icon: 'lucide:check-circle',
+  },
+  {
+    title: `Local to ${city.data.name}`,
+    body: `Serving ${city.data.name} clients in person at the Carlsbad office or by telehealth.`,
+    icon: 'lucide:check-circle',
+  },
+  {
+    title: 'An approach tailored to you',
+    body: 'CBT, EMDR, psychodynamic, and attachment-based work, drawn on depending on what fits.',
+    icon: 'lucide:check-circle',
+  },
+];
 ---
 
 <InteriorPageLayout
@@ -24,9 +46,22 @@ const faqItems = await withFallbackFaqs(entry.data.faq);
   heroTitle={`${service.data.title} in ${city.data.name}, CA`}
   heroDescription={service.data.description}
   breadcrumbItems={breadcrumbItems}
+  reassuranceHeading={`You're in the right place if...`}
+  reassuranceItems={reassuranceItems}
+  reassuranceColumns={3}
   faqHeading={`${service.data.title} in ${city.data.name}: FAQs`}
   faqItems={faqItems}
+  showReviews={true}
+  rating={googleReviews.rating}
+  reviewCount={googleReviews.userRatingCount}
+  reviews={googleReviews.reviews}
+  placeUrl={`https://www.google.com/maps/place/?q=place_id:${googleReviews.placeId}`}
+  lastUpdated={googleReviews.fetchedAt}
   ctaHeading={`Ready to schedule ${service.data.title.toLowerCase()} in ${city.data.name}?`}
 >
   <slot />
+  <ModalityBadges modalities={practitioner.modalities} />
+  <Fragment slot="visit-us">
+    <LocationContext cityName={city.data.name} hasOffice={city.data.hasOffice} neighborhoods={city.data.neighborhoods} />
+  </Fragment>
 </InteriorPageLayout>
