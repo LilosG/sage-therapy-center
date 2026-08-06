@@ -15,7 +15,7 @@ import { site } from '../data/site';
 import { serviceIcons, defaultServiceIcon } from '../data/serviceIcons';
 import { ABOUT_URL, AREAS_WE_SERVE_URL, SCHEDULE_URL, SERVICES_URL } from '../data/nav';
 import { cityUrl, serviceUrl } from '../lib/routes';
-import { practitioner, processSteps, canonicalQuote } from '../data/practitioner';
+import { practitioner, processSteps, canonicalQuote, reassurance } from '../data/practitioner';
 import googleReviews from '../data/google-reviews.json';
 
 // Data-driven rather than a hardcoded 6/8 list: only individual-therapy
@@ -63,32 +63,7 @@ if (cities.length === 0) {
     </p>
   </div>
 
-  <ReassuranceGrid
-    eyebrow="You're In The Right Place If..."
-    heading="You're in the right place if..."
-    items={[
-      {
-        title: 'Feeling anxious or overwhelmed',
-        body: 'Sessions may explore what’s driving anxiety and overwhelm, and ways to feel more grounded.',
-        icon: 'lucide:wind',
-      },
-      {
-        title: 'Stuck in patterns you want to change',
-        body: 'An approach can include exploring patterns in how you think, feel, and relate to others.',
-        icon: 'lucide:refresh-cw',
-      },
-      {
-        title: 'Navigating grief or a hard transition',
-        body: 'Some people seek therapy when they’re grieving a loss or moving through a major life change.',
-        icon: 'lucide:cloud-rain',
-      },
-      {
-        title: 'Working through it with a partner',
-        body: 'Couples counseling offers support for communication, connection, and relationship challenges.',
-        icon: 'lucide:heart',
-      },
-    ]}
-  />
+  <ReassuranceGrid eyebrow={reassurance.eyebrow} heading={reassurance.heading} items={[...reassurance.items]} />
 
   <MeetKristin
     name={practitioner.name}

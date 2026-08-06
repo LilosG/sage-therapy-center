@@ -15,9 +15,10 @@ import CTASection from '../components/sections/CTASection.astro';
 import MeetKristin from '../components/sections/MeetKristin.astro';
 import ProcessSteps from '../components/sections/ProcessSteps.astro';
 import QuoteBlock from '../components/sections/QuoteBlock.astro';
+import ReassuranceGrid from '../components/sections/ReassuranceGrid.astro';
 import { site } from '../data/site';
 import { SCHEDULE_URL } from '../data/nav';
-import { practitioner, processSteps, canonicalQuote } from '../data/practitioner';
+import { practitioner, processSteps, canonicalQuote, reassurance } from '../data/practitioner';
 
 interface BreadcrumbItem {
   name: string;
@@ -66,6 +67,7 @@ interface Props {
   showMeetKristin?: boolean;
   showProcessSteps?: boolean;
   showQuote?: boolean;
+  showReassurance?: boolean;
   ctaHeading: string;
 }
 
@@ -87,6 +89,7 @@ const {
   showMeetKristin = false,
   showProcessSteps = false,
   showQuote = false,
+  showReassurance = false,
   ctaHeading,
 } = Astro.props;
 ---
@@ -94,6 +97,11 @@ const {
 <BaseLayout title={title} description={description}>
   <PageHero eyebrow={eyebrow} title={heroTitle} breadcrumbItems={breadcrumbItems} />
   <TrustStrip />
+  {
+    showReassurance && (
+      <ReassuranceGrid eyebrow={reassurance.eyebrow} heading={reassurance.heading} items={[...reassurance.items]} />
+    )
+  }
   <slot />
   {
     showMeetKristin && (
@@ -115,13 +123,13 @@ const {
   }
   {showQuote && <QuoteBlock quote={canonicalQuote.quote} attribution={canonicalQuote.attribution} />}
   {
-    faqItems && faqItems.length > 0 && (
-      <FAQAccordion heading={faqHeading as string} items={faqItems} background={faqBackground} />
+    showReviews && (
+      <ReviewsSection rating={rating} reviewCount={reviewCount} reviews={reviews} placeUrl={placeUrl} lastUpdated={lastUpdated} />
     )
   }
   {
-    showReviews && (
-      <ReviewsSection rating={rating} reviewCount={reviewCount} reviews={reviews} placeUrl={placeUrl} lastUpdated={lastUpdated} />
+    faqItems && faqItems.length > 0 && (
+      <FAQAccordion heading={faqHeading as string} items={faqItems} background={faqBackground} />
     )
   }
   <!-- Every interior page is a money page per Build Spec link quotas — the

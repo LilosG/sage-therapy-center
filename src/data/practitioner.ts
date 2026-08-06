@@ -46,3 +46,34 @@ export const canonicalQuote = {
   quote: 'Therapy is a lot like climbing Everest.',
   attribution: `${site.practitioner.name}, ${site.practitioner.credential}`,
 } as const;
+
+// Real, already-approved "who this is for" copy — previously typed inline
+// only on index.astro. Centralized so ServiceLayout/CityLayout can reuse
+// the exact same vetted content instead of either fabricating new
+// per-page copy or going without this section entirely.
+export const reassurance = {
+  eyebrow: "You're In The Right Place If...",
+  heading: "You're in the right place if...",
+  items: [
+    {
+      title: 'Feeling anxious or overwhelmed',
+      body: 'Sessions may explore what\u2019s driving anxiety and overwhelm, and ways to feel more grounded.',
+      icon: 'lucide:wind',
+    },
+    {
+      title: 'Stuck in patterns you want to change',
+      body: 'An approach can include exploring patterns in how you think, feel, and relate to others.',
+      icon: 'lucide:refresh-cw',
+    },
+    {
+      title: 'Navigating grief or a hard transition',
+      body: 'Some people seek therapy when they\u2019re grieving a loss or moving through a major life change.',
+      icon: 'lucide:cloud-rain',
+    },
+    {
+      title: 'Working through it with a partner',
+      body: 'Couples counseling offers support for communication, connection, and relationship challenges.',
+      icon: 'lucide:heart',
+    },
+  ],
+} as const;

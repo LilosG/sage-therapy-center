@@ -25,12 +25,12 @@ interface Props {
 
 const { entry, showReviews, rating, reviewCount, reviews, placeUrl, lastUpdated } = Astro.props;
 const { name, hasOffice, primaryTarget, slug, faq, approvedCityServices } = entry.data;
-// Section-rhythm (Wave 6, item 7): the page slot renders a ServiceGrid
-// (background="secondary") only when this city has approved services.
-// When it does, FAQ should sit on "background" to alternate against it;
-// when it doesn't, FAQ directly follows the slot's plain background
-// content, so it needs "secondary" itself.
-const faqBackground = approvedCityServices.length > 0 ? 'background' : 'secondary';
+// FAQ always directly follows ReviewsSection now (InteriorPageLayout
+// renders Reviews immediately before FAQ), and ReviewsSection is always
+// bg-secondary — so FAQ always needs 'background' to alternate against
+// it. Previously this alternated against ServiceGrid instead (before the
+// Reviews/FAQ reorder), which is no longer what's adjacent to FAQ.
+const faqBackground = 'background';
 const breadcrumbItems = cityBreadcrumbs(name, slug);
 ---
 
@@ -50,6 +50,9 @@ const breadcrumbItems = cityBreadcrumbs(name, slug);
   placeUrl={placeUrl}
   lastUpdated={lastUpdated}
   ctaHeading={`Ready to schedule as a ${name} client?`}
+  showReassurance={true}
+  showMeetKristin={true}
+  showProcessSteps={true}
 >
   <slot />
 </InteriorPageLayout>
