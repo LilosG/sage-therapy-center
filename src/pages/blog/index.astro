@@ -4,6 +4,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/sections/Breadcrumbs.astro';
 import Card from '../../components/ui/Card.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
+import { BLOG_URL } from '../../data/nav';
+import { blogUrl } from '../../lib/routes';
+import { staticBreadcrumbs } from '../../lib/breadcrumbs';
 
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
@@ -14,7 +17,7 @@ const posts = (await getCollection('blog')).sort(
   title="Blog | S.A.G.E. Therapy Center"
   description="Articles from S.A.G.E. Therapy Center in Carlsbad, CA."
 >
-  <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'Blog', url: '/blog/' }]} />
+  <Breadcrumbs items={staticBreadcrumbs('Blog', BLOG_URL)} />
 
   <div class="bg-secondary px-6 pb-4 pt-8 text-center">
     <p class="eyebrow-label">Blog</p>
@@ -27,7 +30,7 @@ const posts = (await getCollection('blog')).sort(
         {
           posts.map((post) => (
             <Card>
-              <a href={`/blog/${post.data.slug}/`} class="font-serif text-xl text-ink hover:text-sage-deep">
+              <a href={blogUrl(post.data.slug)} class="font-serif text-xl text-ink hover:text-sage-deep">
                 {post.data.title}
               </a>
               <p class="mt-2 font-sans text-sm text-muted-foreground">

@@ -3,6 +3,8 @@ import BaseLayout from './BaseLayout.astro';
 import PageHero from '../components/sections/PageHero.astro';
 import CTASection from '../components/sections/CTASection.astro';
 import { site } from '../data/site';
+import { SCHEDULE_URL } from '../data/nav';
+import { serviceBreadcrumbs } from '../lib/breadcrumbs';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -11,11 +13,7 @@ interface Props {
 
 const { entry } = Astro.props;
 const { title, description, slug, category } = entry.data;
-const breadcrumbItems = [
-  { name: 'Home', url: '/' },
-  { name: 'Services', url: '/services/' },
-  { name: title, url: `/services/${slug}/` },
-];
+const breadcrumbItems = serviceBreadcrumbs(title, slug);
 ---
 
 <BaseLayout title={title} description={description}>
@@ -32,7 +30,7 @@ const breadcrumbItems = [
     heading={`Ready to talk about ${title.toLowerCase()}?`}
     subhead="Request a session to discuss fit and availability."
     ctaLabel="Schedule a Session"
-    ctaHref="/schedule-a-session/"
+    ctaHref={SCHEDULE_URL}
     phoneDisplay={site.phone.display}
     phoneHref={`tel:${site.phone.tel}`}
   />

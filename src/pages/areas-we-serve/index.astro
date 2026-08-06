@@ -6,6 +6,9 @@ import Card from '../../components/ui/Card.astro';
 import CTASection from '../../components/sections/CTASection.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
+import { AREAS_WE_SERVE_URL, CONTACT_URL } from '../../data/nav';
+import { cityUrl } from '../../lib/routes';
+import { staticBreadcrumbs } from '../../lib/breadcrumbs';
 
 // Data-driven: only shows cities that exist as real content entries.
 // Full 8-city coverage (SEO doc launch architecture) arrives in Wave 3 —
@@ -17,7 +20,7 @@ const cities = await getCollection('cities');
   title="Areas We Serve | S.A.G.E. Therapy Center"
   description="S.A.G.E. Therapy Center is based in Carlsbad, CA and serves clients throughout North County San Diego."
 >
-  <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'Areas We Serve', url: '/areas-we-serve/' }]} />
+  <Breadcrumbs items={staticBreadcrumbs('Areas We Serve', AREAS_WE_SERVE_URL)} />
 
   <div class="mx-auto max-w-3xl px-6 pb-4 pt-8 text-center">
     <p class="eyebrow-label">Areas We Serve</p>
@@ -39,7 +42,7 @@ const cities = await getCollection('cities');
                 {c.data.hasOffice ? 'Our office is located here.' : 'Sessions are held at our Carlsbad office.'}
               </p>
               <a
-                href={`/${c.data.slug}/`}
+                href={cityUrl(c.data.slug)}
                 class="mt-4 inline-block font-sans text-sm font-medium text-sage-deep hover:text-primary"
               >
                 Learn more &rarr;
@@ -55,7 +58,7 @@ const cities = await getCollection('cities');
     heading="Don't see your area listed?"
     subhead="Reach out — we may still be able to help."
     ctaLabel="Contact Us"
-    ctaHref="/contact/"
+    ctaHref={CONTACT_URL}
     phoneDisplay={site.phone.display}
     phoneHref={`tel:${site.phone.tel}`}
   />

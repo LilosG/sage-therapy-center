@@ -4,6 +4,7 @@ import ServiceLayout from '../../layouts/ServiceLayout.astro';
 import FAQAccordion from '../../components/sections/FAQAccordion.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
+import { canonicalUrl, serviceUrl } from '../../lib/routes';
 
 export async function getStaticPaths() {
   const entries = await getCollection('services');
@@ -16,7 +17,7 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const related = entry.data.relatedServices.length ? await getEntries(entry.data.relatedServices) : [];
-const pageUrl = `${site.canonicalOrigin}/services/${entry.data.slug}/`;
+const pageUrl = canonicalUrl(serviceUrl(entry.data.slug));
 ---
 
 <ServiceLayout entry={entry}>
@@ -33,7 +34,7 @@ const pageUrl = `${site.canonicalOrigin}/services/${entry.data.slug}/`;
             {related.map((r) => (
               <li>
                 <a
-                  href={`/services/${r.data.slug}/`}
+                  href={serviceUrl(r.data.slug)}
                   class="rounded-full border border-border bg-surface px-4 py-2 font-sans text-sm text-foreground hover:border-sage-deep hover:text-sage-deep"
                 >
                   {r.data.title}

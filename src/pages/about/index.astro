@@ -6,6 +6,8 @@ import CTASection from '../../components/sections/CTASection.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import ImagePlaceholder from '../../components/ui/ImagePlaceholder.astro';
 import { site } from '../../data/site';
+import { ABOUT_URL, SCHEDULE_URL } from '../../data/nav';
+import { staticBreadcrumbs } from '../../lib/breadcrumbs';
 
 const modalities = ['EMDR', 'Lifespan Integration', 'CBT', 'IMAGO', 'Psychodynamic', 'Attachment-Based'];
 ---
@@ -17,7 +19,7 @@ const modalities = ['EMDR', 'Lifespan Integration', 'CBT', 'IMAGO', 'Psychodynam
   <PageHero
     eyebrow="About"
     title={`${site.practitioner.name}, ${site.practitioner.credential}`}
-    breadcrumbItems={[{ name: 'Home', url: '/' }, { name: 'About', url: '/about/' }]}
+    breadcrumbItems={staticBreadcrumbs('About', ABOUT_URL)}
   />
 
   <div class="mx-auto grid max-w-5xl gap-10 px-6 pb-4 pt-8 lg:grid-cols-[minmax(0,280px)_1fr] lg:items-start">
@@ -80,7 +82,7 @@ const modalities = ['EMDR', 'Lifespan Integration', 'CBT', 'IMAGO', 'Psychodynam
     heading="Ready to take the first step?"
     subhead="Request a session to discuss fit and availability."
     ctaLabel="Schedule a Session"
-    ctaHref="/schedule-a-session/"
+    ctaHref={SCHEDULE_URL}
     phoneDisplay={site.phone.display}
     phoneHref={`tel:${site.phone.tel}`}
   />

@@ -4,19 +4,15 @@ import Breadcrumbs from '../../../components/sections/Breadcrumbs.astro';
 import CTASection from '../../../components/sections/CTASection.astro';
 import SchemaOrg from '../../../components/seo/SchemaOrg.astro';
 import { site } from '../../../data/site';
+import { SCHEDULE_URL, SELF_LOVE_RESOURCE_URL } from '../../../data/nav';
+import { resourceBreadcrumbs } from '../../../lib/breadcrumbs';
 ---
 
 <BaseLayout
   title="28 Days of Self-Love | S.A.G.E. Therapy Center"
   description="A self-love resource series from S.A.G.E. Therapy Center — full content pending recovery from the practice's legacy site."
 >
-  <Breadcrumbs
-    items={[
-      { name: 'Home', url: '/' },
-      { name: 'Resources', url: '/resources/' },
-      { name: '28 Days of Self-Love', url: '/resources/28-days-of-self-love/' },
-    ]}
-  />
+  <Breadcrumbs items={resourceBreadcrumbs('28 Days of Self-Love', SELF_LOVE_RESOURCE_URL)} />
 
   <div class="mx-auto max-w-3xl px-6 py-10">
     <p class="eyebrow-label">Resources</p>
@@ -45,7 +41,7 @@ import { site } from '../../../data/site';
     heading="Looking for support in the meantime?"
     subhead="Request a session to discuss fit and availability."
     ctaLabel="Schedule a Session"
-    ctaHref="/schedule-a-session/"
+    ctaHref={SCHEDULE_URL}
     phoneDisplay={site.phone.display}
     phoneHref={`tel:${site.phone.tel}`}
   />
