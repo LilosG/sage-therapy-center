@@ -1,12 +1,4 @@
 ---
-// Correction to Wave 1's original component: that version rendered an
-// arbitrary caller-supplied pill list, which was never the intended
-// design. The real design is a fixed 4-column label/value stat grid
-// (LMFT/license, years practicing, telehealth coverage, insurance
-// policy). Self-contained — reads site.ts directly rather than taking
-// props — since every value here is a fixed practice fact rather than
-// per-page content, and the license stat needs site.ts's own
-// licenseConfirmRequired flag to decide what it's allowed to show.
 import { Icon } from 'astro-icon/components';
 import { site } from '../../data/site';
 
@@ -24,20 +16,29 @@ const stats = [
 ];
 ---
 
-<div class="relative z-20 -mt-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:-mt-12 lg:px-8">
-  <div class="mx-auto grid grid-cols-2 divide-y divide-border rounded-2xl border border-border/80 bg-surface/95 p-6 shadow-xl shadow-ink/5 backdrop-blur-md lg:grid-cols-4 lg:divide-y-0 lg:divide-x lg:p-8">
+<section class="relative z-20 -mt-1 w-full border-y border-border bg-surface shadow-[0_14px_34px_-28px_rgba(42,40,51,0.45)] lg:-mt-2">
+  <div class="mx-auto grid max-w-7xl grid-cols-2 px-6 lg:grid-cols-4 lg:px-8">
     {
-      stats.map((stat) => (
-        <div class="flex items-center gap-3 px-2 py-4 text-left first:pt-0 lg:px-6 lg:py-0 lg:first:pl-0">
-          <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-sage/15 text-sage-deep">
+      stats.map((stat, index) => (
+        <div
+          class:list={[
+            'flex min-h-28 items-center gap-4 py-5 sm:py-6 lg:min-h-32 lg:px-7',
+            index % 2 === 0 ? 'pr-4 sm:pr-6' : 'border-l border-border pl-4 sm:pl-6',
+            index >= 2 && 'border-t border-border lg:border-t-0',
+            index > 0 && 'lg:border-l lg:border-border',
+            index === 0 && 'lg:pl-0',
+            index === stats.length - 1 && 'lg:pr-0',
+          ]}
+        >
+          <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-sage/12 text-sage-deep ring-1 ring-sage/15 sm:h-12 sm:w-12">
             <Icon name={stat.icon} width={20} height={20} aria-hidden="true" />
           </span>
-          <div>
-            <p class="font-sans text-xs font-semibold uppercase tracking-wide text-sage-deep">{stat.label}</p>
-            <p class="mt-0.5 font-serif text-sm text-ink sm:text-base">{stat.value}</p>
+          <div class="min-w-0">
+            <p class="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-sage-deep sm:text-xs">{stat.label}</p>
+            <p class="mt-1 font-serif text-sm leading-snug text-ink sm:text-base lg:text-[1.05rem]">{stat.value}</p>
           </div>
         </div>
       ))
     }
   </div>
-</div>
+</section>
