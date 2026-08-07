@@ -1,11 +1,17 @@
 ---
 import InteriorPageLayout from './InteriorPageLayout.astro';
+import ReassuranceGrid from '../components/sections/ReassuranceGrid.astro';
+import MeetKristin from '../components/sections/MeetKristin.astro';
+import ProcessSteps from '../components/sections/ProcessSteps.astro';
+import ReviewsSection from '../components/sections/ReviewsSection.astro';
+import FAQAccordion from '../components/sections/FAQAccordion.astro';
 import ModalityBadges from '../components/sections/ModalityBadges.astro';
 import LocationContext from '../components/sections/LocationContext.astro';
 import { cityServiceBreadcrumbs } from '../lib/breadcrumbs';
 import { withFallbackFaqs } from '../lib/faq';
 import { practitioner } from '../data/practitioner';
 import { getEntry } from 'astro:content';
+import kristinPhoto from '../assets/images/kristin-moorehead-malley.webp';
 import googleReviews from '../data/google-reviews.json';
 import type { CollectionEntry } from 'astro:content';
 
@@ -22,19 +28,21 @@ const faqItems = await withFallbackFaqs(entry.data.faq);
 
 const reassuranceItems = [
   {
-    title: 'No diagnosis required',
-    body: `You don't need a formal diagnosis to start ${service.data.title.toLowerCase()}.`,
+    title: 'You can begin without a diagnosis',
+    body: `You do not need a formal diagnosis or a perfectly defined goal before starting ${service.data.title.toLowerCase()}.`,
     icon: 'lucide:check-circle',
   },
   {
-    title: `Local to ${city.data.name}`,
-    body: `Serving ${city.data.name} clients in person at the Carlsbad office or by telehealth.`,
-    icon: 'lucide:check-circle',
+    title: city.data.hasOffice ? `In-person in ${city.data.name}` : `Serving ${city.data.name}`,
+    body: city.data.hasOffice
+      ? `Sessions are available at the Carlsbad office, with telehealth available across California.`
+      : `Work with Kristin from the Carlsbad office or by telehealth anywhere in California.`,
+    icon: 'lucide:map-pin',
   },
   {
-    title: 'An approach tailored to you',
-    body: 'CBT, EMDR, psychodynamic, and attachment-based work, drawn on depending on what fits.',
-    icon: 'lucide:check-circle',
+    title: 'Therapy tailored to the person',
+    body: 'Kristin may draw from several therapeutic approaches depending on what is most relevant to the work.',
+    icon: 'lucide:layers-3',
   },
 ];
 ---
@@ -42,26 +50,51 @@ const reassuranceItems = [
 <InteriorPageLayout
   title={`${service.data.title} in ${city.data.name}`}
   description={service.data.description}
-  eyebrow={city.data.name}
+  eyebrow={`${city.data.name} Therapy`}
   heroTitle={`${service.data.title} in ${city.data.name}, CA`}
   heroDescription={service.data.description}
   breadcrumbItems={breadcrumbItems}
-  reassuranceHeading={`You're in the right place if...`}
-  reassuranceItems={reassuranceItems}
-  reassuranceColumns={3}
-  faqHeading={`${service.data.title} in ${city.data.name}: FAQs`}
-  faqItems={faqItems}
-  showReviews={true}
-  rating={googleReviews.rating}
-  reviewCount={googleReviews.userRatingCount}
-  reviews={googleReviews.reviews}
-  placeUrl={`https://www.google.com/maps/place/?q=place_id:${googleReviews.placeId}`}
-  lastUpdated={googleReviews.fetchedAt}
-  ctaHeading={`Ready to schedule ${service.data.title.toLowerCase()} in ${city.data.name}?`}
+  ctaHeading={`Ready to explore ${service.data.title.toLowerCase()} in ${city.data.name}?`}
 >
+  <ReassuranceGrid heading="A clear, supportive place to start" items={reassuranceItems} columns={3} />
+
+  <!-- Unique service + city editorial content and related local links come from the route. -->
   <slot />
-  <ModalityBadges modalities={practitioner.modalities} />
-  <Fragment slot="visit-us">
-    <LocationContext cityName={city.data.name} hasOffice={city.data.hasOffice} neighborhoods={city.data.neighborhoods} />
-  </Fragment>
+
+  <MeetKristin
+    name={practitioner.name}
+    credential={practitioner.credential}
+    bio={practitioner.bio}
+    modalities={[]}
+    ctaLabel={practitioner.ctaLabel}
+    ctaHref={practitioner.ctaHref}
+    image={kristinPhoto}
+  />
+
+  <ModalityBadges modalities={practitioner.modalities} heading="Approaches Kristin may draw on" />
+
+  <ProcessSteps
+    eyebrow="What To Expect"
+    heading={`What ${service.data.title.toLowerCase()} may look like`}
+    steps={[
+      { title: 'Reach out', body: 'Request a session to discuss fit, availability, and what is bringing you in.' },
+      {
+        title: 'First session',
+        body: 'Begin exploring the concerns, patterns, or questions that feel most important right now.',
+      },
+      { title: 'Ongoing work', body: 'Continue at a pace and with an approach shaped around your needs and goals.' },
+    ]}
+  />
+
+  <LocationContext cityName={city.data.name} hasOffice={city.data.hasOffice} neighborhoods={city.data.neighborhoods} />
+
+  <ReviewsSection
+    rating={googleReviews.rating}
+    reviewCount={googleReviews.userRatingCount}
+    reviews={googleReviews.reviews}
+    placeUrl={`https://www.google.com/maps/place/?q=place_id:${googleReviews.placeId}`}
+    lastUpdated={googleReviews.fetchedAt}
+  />
+
+  {faqItems.length > 0 && <FAQAccordion heading={`${service.data.title} in ${city.data.name}: common questions`} items={faqItems} background="surface" />}
 </InteriorPageLayout>
