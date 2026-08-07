@@ -13,16 +13,36 @@ faq:
     a: "No. Some people come in with a clear focus; others come in feeling stuck or unsure where to start. Either way, request a session to talk it through."
 ---
 
-If you're looking for individual therapy in Carlsbad, S.A.G.E. Therapy Center's office is right here — 5055 Avenida Encinas, Suite 100. Kristin Moorehead-Malley, LMFT, works with adults navigating anxiety, grief, life transitions, and other personal challenges, one on one.
+## Individual therapy with a Carlsbad-based therapist
 
-Carlsbad clients come from across the city — La Costa, Olde Carlsbad, Bressi Ranch, Aviara, and Calavera Hills are all a short drive from the office. Wherever you're coming from in Carlsbad, individual therapy here is built around what fits you, not a fixed program everyone goes through the same way.
+S.A.G.E. Therapy Center's office is at 5055 Avenida Encinas, Suite 100 in Carlsbad. Kristin Moorehead-Malley, LMFT, works one on one with adults navigating anxiety, grief, life transitions, relationship patterns, and other personal concerns.
 
-Sessions can draw on EMDR, Lifespan Integration, CBT, IMAGO, psychodynamic, and attachment-based approaches. Some Carlsbad clients come in feeling anxious or overwhelmed; others are working through grief, a major life change, or simply want dedicated space to reflect and grow. What the work looks like from week to week depends on what you're bringing in and what you're hoping to get out of it.
+Individual therapy is not built around one fixed program. Sessions can begin with whatever feels most relevant now and develop around what you want to better understand, work through, or change.
 
-Carlsbad clients bring a wide range of concerns into individual therapy. Some are feeling overwhelmed or stuck and want space to sort through it. Others are working with anxiety, depression, anger, or stress that's become hard to manage day to day. Still others are addressing low self-worth, self-sabotaging patterns, difficulty setting boundaries, or relationship challenges — and some are processing trauma, abuse, or PTSD, or navigating sleep issues, addiction, or disordered eating. If what you're dealing with feels like an emergency, individual therapy isn't a substitute for crisis care — call 911 or a crisis line, and therapy can support you from there.
+### People may come to individual therapy while navigating
 
-Because the office is local, in-person sessions are straightforward to build into a Carlsbad routine — before work, after school pickup, or on a lunch break, depending on what times work for you. That's part of what makes individual therapy in Carlsbad different from working with someone who isn't actually based here: the office, the parking, the day-to-day logistics are all part of a place you already know.
+- anxiety, overwhelm, or persistent stress
+- grief and major life transitions
+- relationship or boundary concerns
+- low self-worth or recurring patterns
+- anger, depression, or feeling stuck
+- trauma, abuse, or PTSD-related concerns
+- personal growth and greater self-understanding
 
-If you're a Carlsbad resident considering individual therapy, the first step is simple: request a session to discuss fit and availability. There's no requirement to have things figured out beforehand — that's part of what the sessions themselves are for.
+Therapy is not a substitute for emergency or crisis services. When someone is in immediate danger or needs urgent crisis support, emergency services should be used instead of relying on an outpatient therapy session.
 
-Individual therapy is one of six core services offered at the Carlsbad office, alongside couples counseling, family therapy, teen counseling, premarital and marriage counseling, and EMDR therapy. If you're not sure individual sessions are the right starting point, that's a reasonable thing to bring up when you reach out.
+## An individualized approach
+
+Depending on what is relevant to the work, sessions may draw from EMDR, Lifespan Integration, CBT, IMAGO, psychodynamic, attachment-based, or other approaches within Kristin's scope.
+
+The focus can shift over time. Some weeks may center on a current stressor; others may explore recurring patterns, relationships, past experiences, or the way thoughts and emotions are showing up day to day.
+
+## Therapy that fits into life in Carlsbad
+
+Clients come to the Avenida Encinas office from across Carlsbad, including La Costa, Olde Carlsbad, Bressi Ranch, Aviara, and Calavera Hills. Having the practice based in Carlsbad can make in-person sessions easier to incorporate into an existing routine, while telehealth provides another option across California.
+
+## Getting started
+
+You do not need to know exactly what you want to work on before reaching out. Some people begin with a clear concern; others simply know that something feels difficult, repetitive, or ready for more attention.
+
+Request a session to discuss fit and availability. If individual therapy is not clearly the right starting point, that is also something you can ask about when you reach out.
