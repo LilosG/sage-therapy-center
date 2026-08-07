@@ -1,5 +1,10 @@
 ---
 import InteriorPageLayout from './InteriorPageLayout.astro';
+import ReassuranceGrid from '../components/sections/ReassuranceGrid.astro';
+import MeetKristin from '../components/sections/MeetKristin.astro';
+import ProcessSteps from '../components/sections/ProcessSteps.astro';
+import ReviewsSection from '../components/sections/ReviewsSection.astro';
+import FAQAccordion from '../components/sections/FAQAccordion.astro';
 import AreasServed from '../components/sections/AreasServed.astro';
 import ModalityBadges from '../components/sections/ModalityBadges.astro';
 import { serviceBreadcrumbs } from '../lib/breadcrumbs';
@@ -8,6 +13,7 @@ import { getCollection } from 'astro:content';
 import { cityUrl } from '../lib/routes';
 import { AREAS_WE_SERVE_URL } from '../data/nav';
 import { practitioner } from '../data/practitioner';
+import kristinPhoto from '../assets/images/kristin-moorehead-malley.webp';
 import googleReviews from '../data/google-reviews.json';
 import type { CollectionEntry } from 'astro:content';
 
@@ -19,28 +25,24 @@ const { entry } = Astro.props;
 const { title, description, slug, category, faq } = entry.data;
 const breadcrumbItems = serviceBreadcrumbs(title, slug);
 const faqItems = await withFallbackFaqs(faq);
-
-// Service pages aren't scoped to one city, so "areas served" here is the
-// full city roster rather than a nearby-cities subset (that's the city
-// hub page's job).
 const cities = await getCollection('cities');
 const cityLinks = cities.map((c) => ({ name: c.data.name, href: cityUrl(c.data.slug) }));
 
 const reassuranceItems = [
   {
     title: 'No diagnosis required',
-    body: 'You don’t need a formal diagnosis or a fully worked-out problem to reach out.',
+    body: 'You do not need a formal diagnosis or a fully worked-out problem before reaching out.',
     icon: 'lucide:check-circle',
   },
   {
-    title: 'A space without judgment',
-    body: 'Sessions explore what you’re experiencing at a pace that fits you, not a script.',
-    icon: 'lucide:check-circle',
+    title: 'A collaborative process',
+    body: 'Sessions can begin with what feels most relevant now, rather than following a fixed script.',
+    icon: 'lucide:messages-circle',
   },
   {
-    title: 'In-person or telehealth',
-    body: 'Meet in person at the Carlsbad office, or by telehealth anywhere in California.',
-    icon: 'lucide:check-circle',
+    title: 'In person or telehealth',
+    body: 'Meet at the Carlsbad office or by telehealth anywhere in California.',
+    icon: 'lucide:map-pin',
   },
 ];
 ---
@@ -48,26 +50,51 @@ const reassuranceItems = [
 <InteriorPageLayout
   title={title}
   description={description}
-  eyebrow={category === 'core' ? 'Core Service' : 'Concern-Led Service'}
+  eyebrow={category === 'core' ? 'Therapy Service' : 'Area of Support'}
   heroTitle={title}
   heroDescription={description}
   breadcrumbItems={breadcrumbItems}
-  reassuranceHeading="You're in the right place if..."
-  reassuranceItems={reassuranceItems}
-  reassuranceColumns={3}
-  faqHeading="Frequently asked questions"
-  faqItems={faqItems}
-  showReviews={true}
-  rating={googleReviews.rating}
-  reviewCount={googleReviews.userRatingCount}
-  reviews={googleReviews.reviews}
-  placeUrl={`https://www.google.com/maps/place/?q=place_id:${googleReviews.placeId}`}
-  lastUpdated={googleReviews.fetchedAt}
   ctaHeading={`Ready to talk about ${title.toLowerCase()}?`}
 >
+  <ReassuranceGrid heading="A supportive place to begin" items={reassuranceItems} columns={3} />
+
+  <!-- The route supplies the service-specific editorial content here. -->
   <slot />
-  <ModalityBadges modalities={practitioner.modalities} />
-  <Fragment slot="areas-served">
-    <AreasServed heading="Areas we serve" cities={cityLinks} viewAllHref={AREAS_WE_SERVE_URL} />
-  </Fragment>
+
+  <MeetKristin
+    name={practitioner.name}
+    credential={practitioner.credential}
+    bio={practitioner.bio}
+    modalities={[]}
+    ctaLabel={practitioner.ctaLabel}
+    ctaHref={practitioner.ctaHref}
+    image={kristinPhoto}
+  />
+
+  <ModalityBadges modalities={practitioner.modalities} heading="Therapeutic approaches that may inform the work" />
+
+  <ProcessSteps
+    eyebrow="What To Expect"
+    heading={`What ${title.toLowerCase()} may look like`}
+    steps={[
+      { title: 'Reach out', body: 'Request a session to discuss fit, availability, and what is bringing you in.' },
+      {
+        title: 'First session',
+        body: 'Begin with the concerns, questions, or patterns that feel most important to understand.',
+      },
+      { title: 'Ongoing work', body: 'Continue with an approach and pace shaped around your needs and goals.' },
+    ]}
+  />
+
+  <ReviewsSection
+    rating={googleReviews.rating}
+    reviewCount={googleReviews.userRatingCount}
+    reviews={googleReviews.reviews}
+    placeUrl={`https://www.google.com/maps/place/?q=place_id:${googleReviews.placeId}`}
+    lastUpdated={googleReviews.fetchedAt}
+  />
+
+  <AreasServed heading="Therapy for Carlsbad and North County" cities={cityLinks} viewAllHref={AREAS_WE_SERVE_URL} />
+
+  {faqItems.length > 0 && <FAQAccordion heading="Common questions before getting started" items={faqItems} background="surface" />}
 </InteriorPageLayout>
