@@ -133,6 +133,7 @@ if (cities.length === 0) {
     heading="Serving Carlsbad and North County San Diego"
     cities={cities.map((c) => ({ name: c.data.name, href: cityUrl(c.data.slug) }))}
     viewAllHref={AREAS_WE_SERVE_URL}
+    variant="compact"
   />
 
   <CTASection
