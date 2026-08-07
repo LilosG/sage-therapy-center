@@ -5,9 +5,9 @@ import Hero from '../components/sections/Hero.astro';
 import TrustStrip from '../components/sections/TrustStrip.astro';
 import ReassuranceGrid from '../components/sections/ReassuranceGrid.astro';
 import MeetKristin from '../components/sections/MeetKristin.astro';
+import PhilosophySection from '../components/sections/PhilosophySection.astro';
 import ProcessSteps from '../components/sections/ProcessSteps.astro';
 import ServiceGrid from '../components/sections/ServiceGrid.astro';
-import QuoteBlock from '../components/sections/QuoteBlock.astro';
 import ReviewsSection from '../components/sections/ReviewsSection.astro';
 import AreasServed from '../components/sections/AreasServed.astro';
 import CTASection from '../components/sections/CTASection.astro';
@@ -20,20 +20,10 @@ import { cityUrl, serviceUrl } from '../lib/routes';
 import kristinPhoto from '../assets/images/kristin-moorehead-malley.webp';
 import googleReviews from '../data/google-reviews.json';
 
-// Data-driven rather than a hardcoded 6/8 list: only individual-therapy
-// and couples-counseling exist as real content this wave, and only
-// Carlsbad/Encinitas/San Marcos have real city entries. Linking to routes
-// that don't exist yet would 404; full link-quota coverage (Build Spec
-// Section C: 6 core services, 8 cities) arrives naturally as later waves
-// add the remaining content entries.
 const services = await getCollection('services');
 const cities = await getCollection('cities');
-
 const coreServices = services.filter((s) => s.data.category === 'core');
 
-// Insurance against a silent zero-render: a schema/content regression that
-// drops every core service or city would otherwise ship an empty homepage
-// grid with no build-time signal (see Wave 7 audit).
 if (coreServices.length === 0) {
   throw new Error('Homepage core services resolved to zero entries — check category filter/schema.');
 }
@@ -58,81 +48,76 @@ if (cities.length === 0) {
 
   <TrustStrip />
 
-  <div class="bg-secondary px-6 py-10 text-center">
-    <p class="mx-auto max-w-2xl font-sans text-foreground">
-      S.A.G.E. stands for Self-Awareness, Growth, and Enlightenment — a mission to help you discover inner peace,
-      heal from past experiences, and cultivate a more joyful life.
-    </p>
-  </div>
-
   <ReassuranceGrid
-    eyebrow="You're In The Right Place If..."
-    heading="You're in the right place if..."
+    eyebrow="A Place To Begin"
+    heading="You’re in the right place if..."
     items={[
       {
         title: 'Feeling anxious or overwhelmed',
-        body: 'Sessions may explore what’s driving anxiety and overwhelm, and ways to feel more grounded.',
+        body: 'Sessions may explore what is driving anxiety and overwhelm, and ways to feel more grounded.',
         icon: 'lucide:wind',
       },
       {
         title: 'Stuck in patterns you want to change',
-        body: 'An approach can include exploring patterns in how you think, feel, and relate to others.',
+        body: 'Therapy can create space to understand recurring patterns in how you think, feel, and relate to others.',
         icon: 'lucide:refresh-cw',
       },
       {
         title: 'Navigating grief or a hard transition',
-        body: 'Some people seek therapy when they’re grieving a loss or moving through a major life change.',
+        body: 'Some people seek therapy while grieving a loss or moving through a major life change.',
         icon: 'lucide:cloud-rain',
       },
       {
         title: 'Working through it with a partner',
-        body: 'Couples counseling offers support for communication, connection, and relationship challenges.',
+        body: 'Couples counseling can support communication, connection, and relationship concerns.',
         icon: 'lucide:heart',
       },
     ]}
+  />
+
+  <ServiceGrid
+    eyebrow="Therapy Services"
+    heading="How we can help"
+    services={coreServices.map((s) => ({
+      title: s.data.title,
+      description: s.data.description,
+      href: serviceUrl(s.data.slug),
+      icon: serviceIcons[s.data.slug] ?? defaultServiceIcon,
+    }))}
+    viewAllHref={SERVICES_URL}
+    viewAllLabel="View all services"
+    background="secondary"
   />
 
   <MeetKristin
     name={practitioner.name}
     credential={practitioner.credential}
     bio={practitioner.bio}
-    modalities={practitioner.modalities}
+    modalities={[]}
     ctaLabel={practitioner.ctaLabel}
     ctaHref={practitioner.ctaHref}
     image={kristinPhoto}
   />
 
+  <PhilosophySection
+    heading="Therapy should fit the person — not force the person into one method."
+    body="S.A.G.E. stands for Self-Awareness, Growth, and Enlightenment. Kristin draws from multiple therapeutic approaches so the work can respond to the person, relationship, and circumstances in front of her rather than following one rigid formula."
+    quote="Therapy is a lot like climbing Everest."
+    attribution={`${site.practitioner.name}, ${site.practitioner.credential}`}
+    items={['EMDR', 'CBT', 'IMAGO', 'Attachment-Based', 'Lifespan Integration', 'Psychodynamic']}
+  />
+
   <ProcessSteps
-    eyebrow="How It Works"
+    eyebrow="What To Expect"
     heading="How therapy works"
     steps={[
       { title: 'Reach out', body: 'Request a session to discuss fit and availability, by phone or email.' },
       {
         title: 'First session',
-        body: 'Meet with Kristin to talk through what brought you in and what you’re hoping for.',
+        body: 'Meet with Kristin to talk through what brought you in and what you are hoping for.',
       },
       { title: 'Ongoing sessions', body: 'Continue at a pace and with an approach that fits your goals.' },
     ]}
-  />
-
-  <ServiceGrid
-    eyebrow="What We Offer"
-    heading="How we can help"
-    services={coreServices
-      .map((s) => ({
-        title: s.data.title,
-        description: s.data.description,
-        href: serviceUrl(s.data.slug),
-        icon: serviceIcons[s.data.slug] ?? defaultServiceIcon,
-      }))}
-    viewAllHref={SERVICES_URL}
-    viewAllLabel="View all services"
-    background="secondary"
-  />
-
-  <QuoteBlock
-    quote="Therapy is a lot like climbing Everest."
-    attribution={`${site.practitioner.name}, ${site.practitioner.credential}`}
   />
 
   <ReviewsSection
@@ -151,8 +136,8 @@ if (cities.length === 0) {
   />
 
   <CTASection
-    heading="Ready to take the first step?"
-    subhead="Request a session to discuss fit and availability."
+    heading="Ready to see if S.A.G.E. is a good fit?"
+    subhead="Request a session to discuss fit, availability, and next steps."
     ctaLabel="Schedule a Session"
     ctaHref={SCHEDULE_URL}
     phoneDisplay={site.phone.display}
