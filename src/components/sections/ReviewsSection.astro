@@ -1,23 +1,4 @@
 ---
-// Live Google reviews (Wave 9 — docs/WAVE_9_LIVE_REVIEWS.md). Data comes
-// from src/data/google-reviews.json, a committed snapshot written at
-// build time by scripts/fetch-google-reviews.mjs — never fetched
-// client-side (the API key must never reach the browser bundle).
-//
-// Attribution follows the current Places API policy
-// (developers.google.com/maps/documentation/places/web-service/policies):
-// "Google Maps" text attribution is explicitly acceptable in place of the
-// logo when space is limited (used here rather than shipping Google's
-// logo asset as an extra binary dependency); every review keeps its
-// author avatar/name/profile link and a "View on Google" link to the
-// individual source review (googleMapsUri) so the source stays reachable
-// per policy, and review text is rendered unmodified.
-//
-// No caller currently passes anything else through this component besides
-// the live-data path below, but the empty state is kept for the same
-// reason as before: other pages using this component may not have
-// verified review data.
-import { Icon } from 'astro-icon/components';
 import StarRating from '../ui/StarRating.astro';
 
 interface Review {
@@ -49,97 +30,75 @@ const {
 } = Astro.props;
 
 const hasRealData = typeof rating === 'number' && typeof reviewCount === 'number' && reviews.length > 0;
-
+const featuredReviews = reviews.slice(0, 3);
 const lastUpdatedLabel = lastUpdated
   ? new Date(lastUpdated).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
   : null;
 ---
 
 <section class="bg-background">
-  <div class="mx-auto max-w-5xl px-6 py-16 text-center sm:py-20">
-    <p class="eyebrow-label">Trust &amp; Reviews</p>
+  <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
     {
       hasRealData ? (
         <Fragment>
-          <div class="mt-4 flex items-center justify-center gap-2">
-            <span class="font-serif text-4xl text-ink">{rating.toFixed(1)}</span>
-            <StarRating rating={rating} size={20} />
+          <div class="flex flex-col gap-4 border-b border-border pb-8 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p class="eyebrow-label">Client Feedback</p>
+              <h2 class="mt-3 font-serif text-3xl text-ink sm:text-4xl">What clients have shared</h2>
+            </div>
+            <div class="sm:text-right">
+              <div class="flex items-center gap-2 sm:justify-end">
+                <span class="font-serif text-3xl text-ink">{rating.toFixed(1)}</span>
+                <StarRating rating={rating} size={18} />
+              </div>
+              <p class="mt-1 font-sans text-sm text-muted-foreground">Based on {reviewCount} {platformName} reviews</p>
+            </div>
           </div>
-          <p class="mt-2 font-sans text-sm text-muted-foreground">
-            Based on {reviewCount} {platformName} reviews
-          </p>
 
-          <ul class="mt-10 grid gap-6 text-left sm:grid-cols-2 lg:grid-cols-3">
-            {reviews.slice(0, 5).map((review) => (
-              <li class="flex flex-col rounded-2xl border border-border bg-surface p-5 shadow-sm">
+          <ul class="-mx-6 mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-3 sm:mx-0 sm:px-0 lg:grid lg:grid-cols-3 lg:overflow-visible lg:pb-0">
+            {featuredReviews.map((review) => (
+              <li class="min-w-[82%] snap-start border-l border-border pl-5 sm:min-w-[48%] lg:min-w-0 lg:pl-6">
                 <div class="flex items-center gap-3">
                   {review.authorPhotoUrl ? (
                     <img
                       src={review.authorPhotoUrl}
-                      alt={`${review.authorName}'s Google profile photo`}
-                      width="40"
-                      height="40"
-                      class="h-10 w-10 rounded-full object-cover"
+                      alt=""
+                      width="36"
+                      height="36"
+                      class="h-9 w-9 rounded-full object-cover"
                       loading="lazy"
                       referrerpolicy="no-referrer"
                     />
                   ) : (
-                    <div class="flex h-10 w-10 items-center justify-center rounded-full bg-lavender-soft" aria-hidden="true">
-                      <Icon name="lucide:user-round" width={18} height={18} class="text-sage-deep" />
-                    </div>
+                    <div class="h-9 w-9 rounded-full bg-lavender-soft" aria-hidden="true" />
                   )}
                   <div>
-                    {review.authorProfileUrl ? (
-                      <a
-                        href={review.authorProfileUrl}
-                        class="font-sans text-sm font-semibold text-ink hover:text-sage-deep"
-                      >
-                        {review.authorName}
-                      </a>
-                    ) : (
-                      <p class="font-sans text-sm font-semibold text-ink">{review.authorName}</p>
-                    )}
-                    <StarRating rating={review.rating ?? 0} size={14} />
+                    <p class="font-sans text-sm font-semibold text-ink">{review.authorName}</p>
+                    <StarRating rating={review.rating ?? 0} size={13} />
                   </div>
                 </div>
-                <p class="mt-3 line-clamp-6 font-sans text-sm text-foreground">{review.text}</p>
-                <div class="mt-3 flex items-center justify-between gap-3 pt-1">
-                  <span class="font-sans text-xs text-muted-foreground">{review.relativeTime}</span>
+                <p class="mt-4 line-clamp-5 font-sans text-sm leading-6 text-foreground">{review.text}</p>
+                <div class="mt-4 flex items-center gap-3 font-sans text-xs text-muted-foreground">
+                  <span>{review.relativeTime}</span>
                   {review.googleMapsUri && (
-                    <a
-                      href={review.googleMapsUri}
-                      class="font-sans text-xs font-medium text-sage-deep hover:text-primary"
-                    >
-                      View on Google &rarr;
-                    </a>
+                    <a href={review.googleMapsUri} class="font-medium text-sage-deep hover:text-primary">View on Google &rarr;</a>
                   )}
                 </div>
               </li>
             ))}
           </ul>
 
-          <div class="mt-8 flex flex-col items-center gap-2 border-t border-border pt-6 sm:flex-row sm:justify-between">
-            {lastUpdatedLabel && (
-              <p class="font-sans text-xs text-muted-foreground">Reviews last updated {lastUpdatedLabel}</p>
-            )}
-            {placeUrl && (
-              <a
-                href={placeUrl}
-                class="font-sans text-xs font-medium text-muted-foreground hover:text-sage-deep"
-              >
-                Reviews via Google Maps &rarr;
-              </a>
-            )}
+          <div class="mt-8 flex flex-col gap-2 border-t border-border pt-5 font-sans text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+            {lastUpdatedLabel && <p>Reviews last updated {lastUpdatedLabel}</p>}
+            {placeUrl && <a href={placeUrl} class="font-medium hover:text-sage-deep">See all reviews on Google Maps &rarr;</a>}
           </div>
         </Fragment>
       ) : (
-        <Fragment>
-          <h2 class="mt-4 font-serif text-2xl text-ink sm:text-3xl">{platformName} reviews coming soon</h2>
-          <p class="mx-auto mt-3 max-w-xl font-sans text-foreground">
-            We're in the process of building out our {platformName} review presence. In the meantime, reach out
-            directly with any questions about fit or availability.
-          </p>
-        </Fragment>
+        <div class="mx-auto max-w-2xl text-center">
+          <p class="eyebrow-label">Client Feedback</p>
+          <h2 class="mt-4 font-serif text-3xl text-ink sm:text-4xl">{platformName} reviews coming soon</h2>
+          <p class="mt-3 font-sans text-foreground">Reach out directly with any questions about fit or availability.</p>
+        </div>
       )
     }
   </div>
