@@ -87,6 +87,7 @@ const reassuranceItems = [
   breadcrumbItems={breadcrumbItems}
   ctaHeading={`Ready to explore therapy as a ${name} client?`}
 >
+  <!-- Local context first: establish that this is a real practice serving this city without leading with a map. -->
   <slot name="overview" />
 
   <ReassuranceGrid heading={`Therapy tailored for ${name} clients`} items={reassuranceItems} columns={3} />
@@ -104,8 +105,6 @@ const reassuranceItems = [
     image={kristinPhoto}
   />
 
-  {hasOffice && <VisitUs cityName={name} neighborhoods={neighborhoods} />}
-
   <ProcessSteps
     eyebrow="What To Expect"
     heading="How therapy works"
@@ -119,6 +118,9 @@ const reassuranceItems = [
     ]}
   />
 
+  <!-- Practical location information belongs after service/provider/process fit has been established. -->
+  {hasOffice && <VisitUs cityName={name} neighborhoods={neighborhoods} />}
+
   {
     showReviews && (
       <ReviewsSection
@@ -131,6 +133,8 @@ const reassuranceItems = [
     )
   }
 
+  {faqItems.length > 0 && <FAQAccordion heading={`${name} therapy: common questions`} items={faqItems} background="surface" />}
+
   {
     nearbyCities.length > 0 && (
       <AreasServed
@@ -142,6 +146,4 @@ const reassuranceItems = [
       />
     )
   }
-
-  {faqItems.length > 0 && <FAQAccordion heading={`${name} therapy: common questions`} items={faqItems} background="surface" />}
 </InteriorPageLayout>
