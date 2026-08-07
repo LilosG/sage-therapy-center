@@ -36,28 +36,36 @@ const lastUpdatedLabel = lastUpdated
   : null;
 ---
 
-<section class="bg-background">
-  <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+<section class="border-y border-border bg-surface">
+  <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20 lg:py-24">
     {
       hasRealData ? (
         <Fragment>
-          <div class="flex flex-col gap-4 border-b border-border pb-8 sm:flex-row sm:items-end sm:justify-between">
+          <div class="grid gap-6 border-b border-border pb-8 sm:grid-cols-[1fr_auto] sm:items-end">
             <div>
               <p class="eyebrow-label">Client Feedback</p>
               <h2 class="mt-3 font-serif text-3xl text-ink sm:text-4xl">What clients have shared</h2>
+              <p class="mt-3 max-w-xl font-sans text-sm leading-6 text-muted-foreground">
+                Recent public Google feedback about S.A.G.E. Therapy Center and Kristin's approach.
+              </p>
             </div>
-            <div class="sm:text-right">
-              <div class="flex items-center gap-2 sm:justify-end">
-                <span class="font-serif text-3xl text-ink">{rating.toFixed(1)}</span>
+            <div class="inline-flex items-center gap-4 rounded-2xl bg-lavender-soft/70 px-5 py-4 sm:justify-self-end">
+              <span class="font-serif text-3xl text-ink">{rating.toFixed(1)}</span>
+              <div>
                 <StarRating rating={rating} size={18} />
+                <p class="mt-1 font-sans text-xs text-muted-foreground">{reviewCount} {platformName} reviews</p>
               </div>
-              <p class="mt-1 font-sans text-sm text-muted-foreground">Based on {reviewCount} {platformName} reviews</p>
             </div>
           </div>
 
-          <ul class="-mx-6 mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-3 sm:mx-0 sm:px-0 lg:grid lg:grid-cols-3 lg:overflow-visible lg:pb-0">
-            {featuredReviews.map((review) => (
-              <li class="min-w-[82%] snap-start border-l border-border pl-5 sm:min-w-[48%] lg:min-w-0 lg:pl-6">
+          <ul class="-mx-6 mt-9 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-3 sm:mx-0 sm:px-0 lg:grid lg:grid-cols-3 lg:gap-0 lg:overflow-visible lg:pb-0">
+            {featuredReviews.map((review, index) => (
+              <li class:list={[
+                'min-w-[82%] snap-start py-1 sm:min-w-[48%] lg:min-w-0 lg:px-7',
+                index > 0 && 'lg:border-l lg:border-border',
+                index === 0 && 'lg:pl-0',
+                index === featuredReviews.length - 1 && 'lg:pr-0',
+              ]}>
                 <div class="flex items-center gap-3">
                   {review.authorPhotoUrl ? (
                     <img
@@ -88,7 +96,7 @@ const lastUpdatedLabel = lastUpdated
             ))}
           </ul>
 
-          <div class="mt-8 flex flex-col gap-2 border-t border-border pt-5 font-sans text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+          <div class="mt-9 flex flex-col gap-2 border-t border-border pt-5 font-sans text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
             {lastUpdatedLabel && <p>Reviews last updated {lastUpdatedLabel}</p>}
             {placeUrl && <a href={placeUrl} class="font-medium hover:text-sage-deep">See all reviews on Google Maps &rarr;</a>}
           </div>
