@@ -1,9 +1,7 @@
-// Tops up a page's own FAQ list with entries from the global `faq` content
-// collection (general therapy process, superbill/insurance, session
-// logistics — src/content/faq/) so no interior page renders with fewer
-// than MIN_FAQS. Page-specific FAQs always come first and are never
-// dropped; fallbacks fill in behind them, skipping any question the page
-// already asks verbatim.
+// Page-specific FAQs should drive the section. Global FAQs are only used
+// as a light fallback when a page has too little practical information to
+// make the accordion useful; we do not force every interior page to five
+// questions because that creates repetitive filler across templates.
 import { getCollection } from 'astro:content';
 
 export interface FaqItem {
@@ -11,14 +9,13 @@ export interface FaqItem {
   a: string;
 }
 
-export const MIN_FAQS = 5;
+export const MIN_FAQS = 3;
 
 export async function withFallbackFaqs(pageFaqs: FaqItem[] = []): Promise<FaqItem[]> {
   if (pageFaqs.length >= MIN_FAQS) return pageFaqs;
 
   const globalFaqs = await getCollection('faq');
   const existingQuestions = new Set(pageFaqs.map((f) => f.q));
-
   const fallbacks = globalFaqs
     .map((entry) => ({ q: entry.data.q, a: entry.data.a }))
     .filter((f) => !existingQuestions.has(f.q));
