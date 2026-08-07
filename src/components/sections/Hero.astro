@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import Button from '../ui/Button.astro';
 
 interface CTA {
@@ -9,62 +10,73 @@ interface CTA {
 interface Props {
   eyebrow: string;
   headline: string;
-  // Optional exact substring of `headline` to render in italic, per Build
-  // Spec Section 2 ("italic used selectively for emphasis words within
-  // headlines").
   emphasis?: string;
   subhead: string;
   primaryCta: CTA;
   secondaryCta?: CTA;
-  // Pill badge above the eyebrow label (e.g. "Now Accepting New
-  // Clients"). Optional so Hero stays reusable without it.
   badge?: string;
+  image?: ImageMetadata;
 }
 
-const { eyebrow, headline, emphasis, subhead, primaryCta, secondaryCta, badge } = Astro.props;
+const { eyebrow, headline, emphasis, subhead, primaryCta, secondaryCta, badge, image } = Astro.props;
 const parts = emphasis && headline.includes(emphasis) ? headline.split(emphasis) : null;
 ---
 
-<section class="relative overflow-hidden bg-gradient-to-br from-lavender-soft via-lavender to-sage">
-  <!-- PLACEHOLDER: full-bleed hero image, coastal/Carlsbad themed, arriving
-       when real photography is confirmed. role="img" keeps this announced
-       to screen readers as a described image rather than silent decoration,
-       same rationale as ImagePlaceholder. -->
-  <div
-    role="img"
-    aria-label="Photo of the Carlsbad coastline near S.A.G.E. Therapy Center — placeholder, real photography pending"
-    class="absolute inset-0 bg-ink/35"
-  />
+<section class="relative isolate overflow-hidden bg-primary">
+  {
+    image ? (
+      <Image
+        src={image}
+        alt=""
+        widths={[768, 1200, 1600]}
+        sizes="100vw"
+        class="absolute inset-0 h-full w-full object-cover object-center"
+        loading="eager"
+        fetchpriority="high"
+      />
+    ) : (
+      <div class="absolute inset-0 bg-gradient-to-br from-lavender via-primary to-sage-deep" aria-hidden="true" />
+    )
+  }
 
-  <div class="relative mx-auto max-w-3xl px-6 py-24 text-center sm:py-32">
-    {badge && (
-      <span class="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-1.5 font-sans text-xs font-semibold uppercase tracking-wide text-sage-deep shadow-sm">
-        <span class="h-2 w-2 rounded-full bg-sage-deep" aria-hidden="true" />
-        {badge}
-      </span>
-    )}
-    <p class="eyebrow-label mt-4 text-surface">{eyebrow}</p>
-    <h1 class="mt-4 font-serif text-4xl leading-tight text-surface sm:text-5xl">
+  <div class="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/72 to-primary/28" aria-hidden="true" />
+  <div class="absolute inset-0 bg-gradient-to-t from-primary/35 via-transparent to-primary/10" aria-hidden="true" />
+
+  <div class="relative mx-auto flex min-h-[31rem] max-w-7xl items-center px-6 py-20 sm:min-h-[35rem] sm:py-24 lg:px-8">
+    <div class="max-w-3xl text-left">
       {
-        parts ? (
-          <Fragment>
-            {parts[0]}
-            <em class="italic text-lavender-soft">{emphasis}</em>
-            {parts[1]}
-          </Fragment>
-        ) : (
-          headline
+        badge && (
+          <span class="inline-flex items-center gap-2 rounded-full border border-surface/70 bg-surface/90 px-4 py-1.5 font-sans text-xs font-semibold uppercase tracking-wide text-sage-deep shadow-sm backdrop-blur-sm">
+            <span class="h-2 w-2 rounded-full bg-sage-deep" aria-hidden="true" />
+            {badge}
+          </span>
         )
       }
-    </h1>
-    <p class="mx-auto mt-6 max-w-2xl font-sans text-lg text-surface/90">{subhead}</p>
-    <div class="mt-8 flex flex-wrap justify-center gap-4">
-      <Button href={primaryCta.href}>{primaryCta.label}</Button>
-      {secondaryCta && (
-        <Button href={secondaryCta.href} variant="secondary" class="border-surface text-surface hover:bg-surface/10">
-          {secondaryCta.label}
-        </Button>
-      )}
+      <p class="mt-5 font-sans text-xs font-semibold uppercase tracking-[0.18em] text-surface/80">{eyebrow}</p>
+      <h1 class="mt-4 max-w-3xl font-serif text-4xl leading-[1.08] text-surface sm:text-5xl lg:text-6xl">
+        {
+          parts ? (
+            <Fragment>
+              {parts[0]}
+              <em class="italic text-lavender-soft">{emphasis}</em>
+              {parts[1]}
+            </Fragment>
+          ) : (
+            headline
+          )
+        }
+      </h1>
+      <p class="mt-6 max-w-2xl font-sans text-base leading-7 text-surface/88 sm:text-lg">{subhead}</p>
+      <div class="mt-8 flex flex-wrap gap-4">
+        <Button href={primaryCta.href}>{primaryCta.label}</Button>
+        {
+          secondaryCta && (
+            <Button href={secondaryCta.href} variant="secondary" class="border-surface/80 bg-primary/20 text-surface backdrop-blur-sm hover:bg-surface/10">
+              {secondaryCta.label}
+            </Button>
+          )
+        }
+      </div>
     </div>
   </div>
 </section>
