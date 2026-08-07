@@ -1,8 +1,4 @@
 ---
-// Reusable "areas served" card grid, extracted from the near-identical
-// inline blocks that used to live in index.astro ("Areas We Serve") and
-// [city]/index.astro ("Nearby areas"). Cards over pills per the interior
-// design system upgrade — same info, more scannable at a glance.
 import { site } from '../../data/site';
 
 interface CityLink {
@@ -16,47 +12,76 @@ interface Props {
   cities: CityLink[];
   viewAllHref?: string;
   viewAllLabel?: string;
+  variant?: 'cards' | 'compact';
 }
 
-const { eyebrow, heading, cities, viewAllHref, viewAllLabel = 'See all areas we serve' } = Astro.props;
+const {
+  eyebrow,
+  heading,
+  cities,
+  viewAllHref,
+  viewAllLabel = 'See all areas we serve',
+  variant = 'cards',
+} = Astro.props;
 ---
 
 <section class="bg-background">
   <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
-    <div class="mx-auto max-w-2xl text-center">
-      {eyebrow && <p class="eyebrow-label">{eyebrow}</p>}
-      <h2 class="mt-4 font-serif text-3xl text-ink sm:text-4xl">{heading}</h2>
-    </div>
-    <ul class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <div class={variant === 'compact' ? 'grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end' : 'mx-auto max-w-2xl text-center'}>
+      <div>
+        {eyebrow && <p class="eyebrow-label">{eyebrow}</p>}
+        <h2 class="mt-4 font-serif text-3xl leading-tight text-ink sm:text-4xl">{heading}</h2>
+      </div>
       {
-        cities.map((c) => (
-          <li>
-            <a
-              href={c.href}
-              class="group flex h-full flex-col justify-between rounded-2xl border border-border bg-surface p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-sage/40 hover:shadow-md"
-            >
-              <div>
-                <p class="font-serif text-lg text-ink">{c.name}</p>
-                <p class="mt-1 font-sans text-sm text-muted-foreground">
-                  Serving {c.name} &middot; Telehealth available across {site.telehealth.coverageArea}
-                </p>
-              </div>
-              <span class="mt-4 inline-flex items-center gap-1.5 font-sans text-sm font-medium text-sage-deep">
-                Learn more
-                <span class="transition-transform duration-150 group-hover:translate-x-1" aria-hidden="true">
-                  &rarr;
-                </span>
-              </span>
-            </a>
-          </li>
-        ))
+        variant === 'compact' && (
+          <p class="max-w-xl font-sans text-sm leading-6 text-muted-foreground lg:justify-self-end">
+            In-person sessions are based at the Carlsbad office, with telehealth available across {site.telehealth.coverageArea}.
+          </p>
+        )
       }
-    </ul>
+    </div>
+
+    {
+      variant === 'compact' ? (
+        <ul class="mt-9 grid border-y border-border sm:grid-cols-2 lg:grid-cols-4">
+          {cities.map((c) => (
+            <li class="border-b border-border lg:border-b-0 lg:border-r lg:last:border-r-0">
+              <a href={c.href} class="group flex items-center justify-between gap-3 py-4 sm:px-5 lg:px-6 lg:first:pl-0">
+                <span class="font-serif text-base text-ink">{c.name}</span>
+                <span class="font-sans text-sm text-sage-deep transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <ul class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {cities.map((c) => (
+            <li>
+              <a
+                href={c.href}
+                class="group flex h-full flex-col justify-between rounded-2xl border border-border bg-surface p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-sage/40 hover:shadow-md"
+              >
+                <div>
+                  <p class="font-serif text-lg text-ink">{c.name}</p>
+                  <p class="mt-1 font-sans text-sm text-muted-foreground">
+                    Serving {c.name} · Telehealth available across {site.telehealth.coverageArea}
+                  </p>
+                </div>
+                <span class="mt-4 inline-flex items-center gap-1.5 font-sans text-sm font-medium text-sage-deep">
+                  Learn more <span class="transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+
     {
       viewAllHref && (
-        <p class="mt-8 text-center">
+        <p class={variant === 'compact' ? 'mt-6' : 'mt-8 text-center'}>
           <a href={viewAllHref} class="font-sans text-sm font-medium text-sage-deep hover:text-primary">
-            {viewAllLabel} &rarr;
+            {viewAllLabel} →
           </a>
         </p>
       )
