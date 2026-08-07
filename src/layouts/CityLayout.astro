@@ -1,10 +1,17 @@
 ---
 import InteriorPageLayout from './InteriorPageLayout.astro';
+import ReassuranceGrid from '../components/sections/ReassuranceGrid.astro';
+import MeetKristin from '../components/sections/MeetKristin.astro';
+import ProcessSteps from '../components/sections/ProcessSteps.astro';
+import ReviewsSection from '../components/sections/ReviewsSection.astro';
+import FAQAccordion from '../components/sections/FAQAccordion.astro';
 import VisitUs from '../components/sections/VisitUs.astro';
 import AreasServed from '../components/sections/AreasServed.astro';
 import { cityBreadcrumbs } from '../lib/breadcrumbs';
 import { withFallbackFaqs } from '../lib/faq';
 import { AREAS_WE_SERVE_URL } from '../data/nav';
+import { practitioner } from '../data/practitioner';
+import kristinPhoto from '../assets/images/kristin-moorehead-malley.webp';
 import type { CollectionEntry } from 'astro:content';
 
 interface Review {
@@ -30,9 +37,6 @@ interface Props {
   reviews?: Review[];
   placeUrl?: string;
   lastUpdated?: string | null;
-  // Resolved by the page ([city]/index.astro) since resolving
-  // nearbyCities references requires an async getEntries() call this
-  // layout shouldn't own.
   nearbyCities?: NearbyCity[];
 }
 
@@ -49,35 +53,27 @@ const {
 const { name, hasOffice, primaryTarget, slug, faq, neighborhoods } = entry.data;
 const breadcrumbItems = cityBreadcrumbs(name, slug);
 const faqItems = await withFallbackFaqs(faq);
-
-// primaryTarget (e.g. "therapist Carlsbad") is a raw SEO target phrase for
-// the <meta description> — description prop below — never a
-// human-readable sentence. The visible hero subtitle needs its own
-// polished copy instead of leaking that keyword string onto the page.
-const heroDescription = `Compassionate, evidence-based therapy tailored to your goals${hasOffice ? `, with in-person sessions in ${name}` : ` for ${name} residents`} and telehealth across California.`;
+const heroDescription = hasOffice
+  ? `Individualized therapy with Kristin Moorehead-Malley, LMFT, with in-person sessions at the ${name} office and telehealth across California.`
+  : `Individualized therapy for ${name} residents with Kristin Moorehead-Malley, LMFT, from the Carlsbad office or by telehealth across California.`;
 
 const reassuranceItems = [
   {
-    title: 'A space without judgment',
-    body: `Sessions meet you where you are, at a pace that fits your goals as a ${name} client.`,
-    icon: 'lucide:check-circle',
+    title: 'Individualized support',
+    body: 'Therapy is shaped around the person, relationship, or family rather than a one-size-fits-all protocol.',
+    icon: 'lucide:sparkles',
   },
   {
-    title: 'In-person and telehealth',
+    title: hasOffice ? 'A real local practice' : 'Clear location options',
     body: hasOffice
-      ? `In-person sessions at our Carlsbad office, convenient to ${name}, or telehealth statewide.`
-      : `Telehealth sessions available to ${name} residents anywhere in California.`,
-    icon: 'lucide:check-circle',
+      ? 'The S.A.G.E. office is here in Carlsbad, with in-person sessions available at Avenida Encinas.'
+      : `The practice is based in Carlsbad, with telehealth available to ${name} residents across California.`,
+    icon: 'lucide:map-pin',
   },
   {
-    title: 'An approach tailored to you',
-    body: 'CBT, EMDR, psychodynamic, and attachment-based work, drawn on depending on what fits.',
-    icon: 'lucide:check-circle',
-  },
-  {
-    title: 'No pressure to have it figured out',
-    body: 'There’s no requirement to have a diagnosis or a clear goal before reaching out.',
-    icon: 'lucide:check-circle',
+    title: 'Multiple therapeutic approaches',
+    body: 'Kristin may draw from EMDR, CBT, IMAGO, attachment-based, psychodynamic, and other approaches when appropriate.',
+    icon: 'lucide:layers-3',
   },
 ];
 ---
@@ -85,35 +81,59 @@ const reassuranceItems = [
 <InteriorPageLayout
   title={name}
   description={primaryTarget}
-  eyebrow={hasOffice ? 'Our Office' : 'Areas We Serve'}
+  eyebrow={hasOffice ? 'Carlsbad Therapy Practice' : 'Areas We Serve'}
   heroTitle={`Therapist in ${name}, CA`}
   heroDescription={heroDescription}
   breadcrumbItems={breadcrumbItems}
-  reassuranceHeading={`Therapy tailored for ${name} residents`}
-  reassuranceItems={reassuranceItems}
-  faqHeading={`${name} FAQs`}
-  faqItems={faqItems}
-  showReviews={showReviews}
-  rating={rating}
-  reviewCount={reviewCount}
-  reviews={reviews}
-  placeUrl={placeUrl}
-  lastUpdated={lastUpdated}
-  ctaHeading={`Ready to schedule as a ${name} client?`}
+  ctaHeading={`Ready to explore therapy as a ${name} client?`}
 >
+  {hasOffice && <VisitUs cityName={name} neighborhoods={neighborhoods} />}
+
+  <ReassuranceGrid heading={`Therapy tailored for ${name} clients`} items={reassuranceItems} columns={3} />
+
+  <!-- City-specific copy and the approved local service grid are supplied by the route. -->
   <slot />
+
+  <MeetKristin
+    name={practitioner.name}
+    credential={practitioner.credential}
+    bio={practitioner.bio}
+    modalities={[]}
+    ctaLabel={practitioner.ctaLabel}
+    ctaHref={practitioner.ctaHref}
+    image={kristinPhoto}
+  />
+
+  <ProcessSteps
+    eyebrow="What To Expect"
+    heading="How therapy works"
+    steps={[
+      { title: 'Reach out', body: 'Request a session to discuss fit, availability, and the kind of support you are looking for.' },
+      {
+        title: 'First session',
+        body: 'Meet with Kristin and begin with what is bringing you in, without needing to have everything figured out first.',
+      },
+      { title: 'Ongoing sessions', body: 'Continue with an approach and pace that can evolve with your needs and goals.' },
+    ]}
+  />
+
   {
-    hasOffice && (
-      <Fragment slot="visit-us">
-        <VisitUs cityName={name} neighborhoods={neighborhoods} />
-      </Fragment>
+    showReviews && (
+      <ReviewsSection
+        rating={rating}
+        reviewCount={reviewCount}
+        reviews={reviews}
+        placeUrl={placeUrl}
+        lastUpdated={lastUpdated}
+      />
     )
   }
+
+  {faqItems.length > 0 && <FAQAccordion heading={`${name} therapy: common questions`} items={faqItems} background="surface" />}
+
   {
     nearbyCities.length > 0 && (
-      <Fragment slot="areas-served">
-        <AreasServed heading={`Other areas near ${name}`} cities={nearbyCities} viewAllHref={AREAS_WE_SERVE_URL} />
-      </Fragment>
+      <AreasServed heading={`Also serving communities near ${name}`} cities={nearbyCities} viewAllHref={AREAS_WE_SERVE_URL} />
     )
   }
 </InteriorPageLayout>
