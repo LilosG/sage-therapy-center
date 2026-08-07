@@ -1,14 +1,12 @@
 ---
-// Real Google Maps embed (standard no-API-key iframe pattern) for the
-// confirmed practice address. Uses only site.ts data — no placeholder
-// needed here, this is real and ready for launch as-is.
 import { site } from '../../data/site';
 
 interface Props {
   class?: string;
+  height?: number;
 }
 
-const { class: className = '' } = Astro.props;
+const { class: className = '', height = 400 } = Astro.props;
 const fullAddress = `${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}`;
 const src = `https://www.google.com/maps?q=${encodeURIComponent(fullAddress)}&output=embed`;
 const classes = ['overflow-hidden rounded-2xl border border-border shadow-lg', className].filter(Boolean).join(' ');
@@ -18,7 +16,7 @@ const classes = ['overflow-hidden rounded-2xl border border-border shadow-lg', c
   <iframe
     src={src}
     width="100%"
-    height="400"
+    height={height}
     style="border:0; display:block;"
     loading="lazy"
     referrerpolicy="no-referrer-when-downgrade"
