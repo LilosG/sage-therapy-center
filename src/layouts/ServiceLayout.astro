@@ -37,7 +37,7 @@ const reassuranceItems = [
   {
     title: 'A collaborative process',
     body: 'Sessions can begin with what feels most relevant now, rather than following a fixed script.',
-    icon: 'lucide:messages-circle',
+    icon: 'lucide:message-circle',
   },
   {
     title: 'In person or telehealth',
@@ -57,8 +57,6 @@ const reassuranceItems = [
   ctaHeading={`Ready to talk about ${title.toLowerCase()}?`}
 >
   <ReassuranceGrid heading="A supportive place to begin" items={reassuranceItems} columns={3} />
-
-  <!-- The route supplies the service-specific editorial content here. -->
   <slot />
 
   <MeetKristin
@@ -78,10 +76,7 @@ const reassuranceItems = [
     heading={`What ${title.toLowerCase()} may look like`}
     steps={[
       { title: 'Reach out', body: 'Request a session to discuss fit, availability, and what is bringing you in.' },
-      {
-        title: 'First session',
-        body: 'Begin with the concerns, questions, or patterns that feel most important to understand.',
-      },
+      { title: 'First session', body: 'Begin with the concerns, questions, or patterns that feel most important to understand.' },
       { title: 'Ongoing work', body: 'Continue with an approach and pace shaped around your needs and goals.' },
     ]}
   />
@@ -94,7 +89,7 @@ const reassuranceItems = [
     lastUpdated={googleReviews.fetchedAt}
   />
 
-  <AreasServed heading="Therapy for Carlsbad and North County" cities={cityLinks} viewAllHref={AREAS_WE_SERVE_URL} />
+  <AreasServed heading="Therapy for Carlsbad and North County" cities={cityLinks} viewAllHref={AREAS_WE_SERVE_URL} variant="compact" />
 
   {faqItems.length > 0 && <FAQAccordion heading="Common questions before getting started" items={faqItems} background="surface" />}
 </InteriorPageLayout>
