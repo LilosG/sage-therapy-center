@@ -1,13 +1,9 @@
 ---
 import { Icon } from 'astro-icon/components';
-import Card from '../ui/Card.astro';
-import IconCircle from '../ui/IconCircle.astro';
 
 interface ReassuranceItem {
   title: string;
   body: string;
-  // Lucide icon name (e.g. "lucide:wind"), chosen per card's subject —
-  // see astro-icon usage in ServiceGrid.astro for the same pattern.
   icon: string;
 }
 
@@ -15,31 +11,30 @@ interface Props {
   eyebrow?: string;
   heading: string;
   items: ReassuranceItem[];
-  // Money pages (service/city-service) use a 3-column "who this is for"
-  // layout; city hubs keep the original 4-column stat-style grid.
   columns?: 3 | 4;
 }
 
 const { eyebrow, heading, items, columns = 4 } = Astro.props;
-const gridClass = columns === 3 ? 'sm:grid-cols-2 lg:grid-cols-3' : 'sm:grid-cols-2 lg:grid-cols-4';
+const gridClass = columns === 3 ? 'md:grid-cols-3' : 'sm:grid-cols-2 lg:grid-cols-4';
 ---
 
 <section class="bg-background">
-  <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
-    <div class="mx-auto max-w-2xl text-center">
+  <div class="mx-auto max-w-6xl px-6 py-14 sm:py-18">
+    <div class="max-w-2xl">
       {eyebrow && <p class="eyebrow-label">{eyebrow}</p>}
-      <h2 class="mt-4 font-serif text-3xl text-ink sm:text-4xl">{heading}</h2>
+      <h2 class="mt-3 font-serif text-3xl leading-tight text-ink sm:text-4xl">{heading}</h2>
     </div>
-    <div class={`mt-10 grid gap-6 ${gridClass}`}>
+
+    <div class={`mt-9 grid gap-0 border-y border-border ${gridClass}`}>
       {
         items.map((item) => (
-          <Card>
-            <IconCircle>
-              <Icon name={item.icon} width={22} height={22} />
-            </IconCircle>
-            <p class="mt-4 font-serif text-lg text-ink">{item.title}</p>
-            <p class="mt-2 font-sans text-sm text-muted-foreground">{item.body}</p>
-          </Card>
+          <article class="border-b border-border py-7 last:border-b-0 sm:px-6 md:border-b-0 md:border-r md:last:border-r-0 md:first:pl-0 md:last:pr-0">
+            <div class="flex h-9 w-9 items-center justify-center rounded-full bg-lavender-soft text-sage-deep" aria-hidden="true">
+              <Icon name={item.icon} width={17} height={17} />
+            </div>
+            <h3 class="mt-4 font-serif text-lg leading-snug text-ink">{item.title}</h3>
+            <p class="mt-2 font-sans text-sm leading-6 text-muted-foreground">{item.body}</p>
+          </article>
         ))
       }
     </div>
