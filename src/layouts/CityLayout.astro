@@ -66,13 +66,13 @@ const reassuranceItems = [
   {
     title: hasOffice ? 'A real local practice' : 'Clear location options',
     body: hasOffice
-      ? 'The S.A.G.E. office is here in Carlsbad, with in-person sessions available at Avenida Encinas.'
+      ? 'S.A.G.E. is based here in Carlsbad, with in-person sessions available at the Avenida Encinas office.'
       : `The practice is based in Carlsbad, with telehealth available to ${name} residents across California.`,
     icon: 'lucide:map-pin',
   },
   {
     title: 'Multiple therapeutic approaches',
-    body: 'Kristin may draw from EMDR, CBT, IMAGO, attachment-based, psychodynamic, and other approaches when appropriate.',
+    body: 'Kristin may draw from several therapeutic approaches depending on the person, relationship, and goals.',
     icon: 'lucide:layers-3',
   },
 ];
@@ -87,11 +87,11 @@ const reassuranceItems = [
   breadcrumbItems={breadcrumbItems}
   ctaHeading={`Ready to explore therapy as a ${name} client?`}
 >
-  {hasOffice && <VisitUs cityName={name} neighborhoods={neighborhoods} />}
+  <slot name="overview" />
 
   <ReassuranceGrid heading={`Therapy tailored for ${name} clients`} items={reassuranceItems} columns={3} />
 
-  <!-- City-specific copy and the approved local service grid are supplied by the route. -->
+  <!-- The route supplies the approved local service grid here. -->
   <slot />
 
   <MeetKristin
@@ -103,6 +103,8 @@ const reassuranceItems = [
     ctaHref={practitioner.ctaHref}
     image={kristinPhoto}
   />
+
+  {hasOffice && <VisitUs cityName={name} neighborhoods={neighborhoods} />}
 
   <ProcessSteps
     eyebrow="What To Expect"
@@ -129,11 +131,17 @@ const reassuranceItems = [
     )
   }
 
-  {faqItems.length > 0 && <FAQAccordion heading={`${name} therapy: common questions`} items={faqItems} background="surface" />}
-
   {
     nearbyCities.length > 0 && (
-      <AreasServed heading={`Also serving communities near ${name}`} cities={nearbyCities} viewAllHref={AREAS_WE_SERVE_URL} />
+      <AreasServed
+        eyebrow="Nearby Communities"
+        heading={`Also serving communities near ${name}`}
+        cities={nearbyCities}
+        viewAllHref={AREAS_WE_SERVE_URL}
+        variant="compact"
+      />
     )
   }
+
+  {faqItems.length > 0 && <FAQAccordion heading={`${name} therapy: common questions`} items={faqItems} background="surface" />}
 </InteriorPageLayout>
