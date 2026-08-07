@@ -1,0 +1,64 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import { site } from '../../data/site';
+
+interface Props {
+  cityName: string;
+  hasOffice: boolean;
+  image?: ImageMetadata;
+}
+
+const { cityName, hasOffice, image } = Astro.props;
+const fullAddress = `${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}`;
+---
+
+<section class="bg-background">
+  <div class="mx-auto grid max-w-6xl gap-10 px-6 py-16 sm:py-20 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-16 lg:py-24">
+    <div>
+      <p class="eyebrow-label">Therapy in {cityName}</p>
+      <h2 class="mt-4 max-w-xl font-serif text-3xl leading-tight text-ink sm:text-4xl">
+        {hasOffice ? 'A local practice with flexible ways to connect.' : `Therapy for ${cityName} residents, connected to our Carlsbad practice.`}
+      </h2>
+      <div class="mt-6 max-w-xl font-sans text-base leading-7 text-foreground">
+        <slot />
+      </div>
+
+      <div class="mt-8 grid gap-3 sm:grid-cols-2">
+        <div class="flex items-start gap-3 rounded-2xl border border-border bg-surface px-4 py-4">
+          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-sage/15 text-sage-deep" aria-hidden="true">
+            <Icon name="lucide:map-pin" width={17} height={17} />
+          </span>
+          <div>
+            <p class="font-sans text-xs font-semibold uppercase tracking-wide text-sage-deep">{hasOffice ? 'Carlsbad Office' : 'Practice Base'}</p>
+            <p class="mt-1 font-sans text-sm leading-5 text-foreground">{fullAddress}</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3 rounded-2xl border border-border bg-surface px-4 py-4">
+          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-lavender-soft text-sage-deep" aria-hidden="true">
+            <Icon name="lucide:monitor" width={17} height={17} />
+          </span>
+          <div>
+            <p class="font-sans text-xs font-semibold uppercase tracking-wide text-sage-deep">Telehealth</p>
+            <p class="mt-1 font-sans text-sm leading-5 text-foreground">Available across {site.telehealth.coverageArea}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {
+      image && (
+        <div class="relative overflow-hidden rounded-[2rem] bg-secondary">
+          <Image
+            src={image}
+            alt={`Muted Southern California coastal landscape representing the ${cityName} area`}
+            widths={[640, 900, 1200]}
+            sizes="(min-width: 1024px) 48vw, 100vw"
+            class="aspect-[4/3] w-full object-cover"
+          />
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-primary/15 via-transparent to-transparent" aria-hidden="true" />
+        </div>
+      )
+    }
+  </div>
+</section>
