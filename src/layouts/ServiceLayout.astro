@@ -7,12 +7,14 @@ import ReviewsSection from '../components/sections/ReviewsSection.astro';
 import FAQAccordion from '../components/sections/FAQAccordion.astro';
 import AreasServed from '../components/sections/AreasServed.astro';
 import ModalityBadges from '../components/sections/ModalityBadges.astro';
+import InquiryFormSection from '../components/sections/InquiryFormSection.astro';
 import { serviceBreadcrumbs } from '../lib/breadcrumbs';
 import { withFallbackFaqs } from '../lib/faq';
 import { getCollection } from 'astro:content';
 import { cityUrl } from '../lib/routes';
 import { AREAS_WE_SERVE_URL } from '../data/nav';
 import { practitioner } from '../data/practitioner';
+import { getServiceHero } from '../data/pageImages';
 import kristinPhoto from '../assets/images/kristin-moorehead-malley.webp';
 import googleReviews from '../data/google-reviews.json';
 import type { CollectionEntry } from 'astro:content';
@@ -27,6 +29,7 @@ const breadcrumbItems = serviceBreadcrumbs(title, slug);
 const faqItems = await withFallbackFaqs(faq);
 const cities = await getCollection('cities');
 const cityLinks = cities.map((c) => ({ name: c.data.name, href: cityUrl(c.data.slug) }));
+const heroImage = getServiceHero(slug);
 
 const reassuranceItems = [
   {
@@ -53,8 +56,11 @@ const reassuranceItems = [
   eyebrow={category === 'core' ? 'Therapy Service' : 'Area of Support'}
   heroTitle={title}
   heroDescription={description}
+  heroImage={heroImage}
+  heroImageAlt={`Quiet editorial setting for ${title.toLowerCase()} at S.A.G.E. Therapy Center`}
   breadcrumbItems={breadcrumbItems}
   ctaHeading={`Ready to talk about ${title.toLowerCase()}?`}
+  showFinalCta={false}
 >
   <ReassuranceGrid heading="A supportive place to begin" items={reassuranceItems} columns={3} />
   <slot />
@@ -89,7 +95,14 @@ const reassuranceItems = [
     lastUpdated={googleReviews.fetchedAt}
   />
 
-  <AreasServed heading="Therapy for Carlsbad and North County" cities={cityLinks} viewAllHref={AREAS_WE_SERVE_URL} variant="compact" />
-
   {faqItems.length > 0 && <FAQAccordion heading="Common questions before getting started" items={faqItems} background="surface" />}
+
+  <InquiryFormSection
+    context={title}
+    selectedService={title}
+    heading={`Interested in ${title.toLowerCase()}? Start with a simple request.`}
+    subhead="Share how you would like Kristin to reach you about fit, availability, and session options."
+  />
+
+  <AreasServed heading="Therapy for Carlsbad and North County" cities={cityLinks} viewAllHref={AREAS_WE_SERVE_URL} variant="compact" />
 </InteriorPageLayout>
