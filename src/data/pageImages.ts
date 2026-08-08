@@ -1,32 +1,31 @@
 import homeCoastalPath from '../assets/images/home/hero-coastal-path.webp';
-import eucalyptusTrail from '../assets/images/editorial/misty-eucalyptus-coastal-trail.webp';
 import windowNook from '../assets/images/editorial/serene-sunlit-window-nook.webp';
 
 const serviceHeroOverrides = {
   'individual-therapy': windowNook,
-  'couples-counseling': eucalyptusTrail,
+  'couples-counseling': homeCoastalPath,
   'family-therapy': windowNook,
-  'teen-counseling': eucalyptusTrail,
+  'teen-counseling': homeCoastalPath,
   'premarital-marriage-counseling': windowNook,
-  'emdr-therapy': eucalyptusTrail,
+  'emdr-therapy': homeCoastalPath,
   'anxiety-therapy': windowNook,
-  'trauma-ptsd-therapy': eucalyptusTrail,
+  'trauma-ptsd-therapy': homeCoastalPath,
 } as const;
 
 const cityHeroOverrides = {
-  carlsbad: eucalyptusTrail,
+  carlsbad: homeCoastalPath,
   encinitas: homeCoastalPath,
   oceanside: homeCoastalPath,
-  'san-marcos': eucalyptusTrail,
-  vista: eucalyptusTrail,
+  'san-marcos': homeCoastalPath,
+  vista: homeCoastalPath,
   'del-mar': homeCoastalPath,
   'solana-beach': homeCoastalPath,
-  'rancho-santa-fe': eucalyptusTrail,
+  'rancho-santa-fe': homeCoastalPath,
 } as const;
 
-const servicePool = [windowNook, eucalyptusTrail] as const;
-const cityPool = [eucalyptusTrail, homeCoastalPath] as const;
-const moneyPool = [eucalyptusTrail, windowNook, homeCoastalPath] as const;
+const servicePool = [windowNook, homeCoastalPath] as const;
+const cityPool = [homeCoastalPath] as const;
+const moneyPool = [windowNook, homeCoastalPath] as const;
 
 function stableIndex(key: string, length: number) {
   let hash = 0;
@@ -48,6 +47,5 @@ export function getCityServiceHero(citySlug: string, serviceSlug: string) {
 
 export const editorialImages = {
   coastalPath: homeCoastalPath,
-  eucalyptusTrail,
   windowNook,
 } as const;
