@@ -17,7 +17,7 @@ import { site } from '../data/site';
 import { practitioner } from '../data/practitioner';
 import { homeImages } from '../data/homeImages';
 import { serviceIcons, defaultServiceIcon } from '../data/serviceIcons';
-import { ABOUT_URL, AREAS_WE_SERVE_URL, SCHEDULE_URL, SERVICES_URL } from '../data/nav';
+import { ABOUT_URL, AREAS_WE_SERVE_URL, SERVICES_URL } from '../data/nav';
 import { cityUrl, serviceUrl } from '../lib/routes';
 import kristinPhoto from '../assets/images/kristin-moorehead-malley.webp';
 import googleReviews from '../data/google-reviews.json';
@@ -44,7 +44,7 @@ if (cities.length === 0) {
     headline="Support for whatever you're carrying — anxiety, trauma, or life's harder chapters."
     emphasis="anxiety, trauma"
     subhead="Individual and couples therapy in Carlsbad, CA, drawing on a range of therapeutic approaches to help you feel more like yourself."
-    primaryCta={{ label: 'Schedule a Session', href: SCHEDULE_URL }}
+    primaryCta={{ label: 'Schedule a Session', href: '#request-session' }}
     secondaryCta={{ label: 'Meet Kristin', href: ABOUT_URL }}
     image={homeImages.hero}
   />
