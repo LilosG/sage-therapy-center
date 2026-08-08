@@ -5,7 +5,6 @@ import CityOverviewSection from '../../components/sections/CityOverviewSection.a
 import ServiceGrid from '../../components/sections/ServiceGrid.astro';
 import StructuredProse from '../../components/sections/StructuredProse.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
-import { homeImages } from '../../data/homeImages';
 import { serviceIcons, defaultServiceIcon } from '../../data/serviceIcons';
 import { canonicalUrl, cityServiceUrl, cityUrl, serviceUrl } from '../../lib/routes';
 import { citySchemaBreadcrumbs } from '../../lib/breadcrumbs';
@@ -46,11 +45,7 @@ const breadcrumbItems = citySchemaBreadcrumbs(entry.data.name, pageUrl);
   nearbyCities={nearbyCities.map((c) => ({ name: c.data.name, href: cityUrl(c.data.slug) }))}
 >
   <Fragment slot="overview">
-    <CityOverviewSection
-      cityName={entry.data.name}
-      hasOffice={entry.data.hasOffice}
-      image={entry.data.hasOffice ? homeImages.hero : undefined}
-    >
+    <CityOverviewSection cityName={entry.data.name} hasOffice={entry.data.hasOffice}>
       <StructuredProse class="prose-p:my-0 prose-p:leading-7 prose-a:text-sage-deep">
         <Content />
       </StructuredProse>
