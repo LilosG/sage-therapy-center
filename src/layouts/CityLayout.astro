@@ -7,10 +7,12 @@ import ReviewsSection from '../components/sections/ReviewsSection.astro';
 import FAQAccordion from '../components/sections/FAQAccordion.astro';
 import VisitUs from '../components/sections/VisitUs.astro';
 import AreasServed from '../components/sections/AreasServed.astro';
+import InquiryFormSection from '../components/sections/InquiryFormSection.astro';
 import { cityBreadcrumbs } from '../lib/breadcrumbs';
 import { withFallbackFaqs } from '../lib/faq';
 import { AREAS_WE_SERVE_URL } from '../data/nav';
 import { practitioner } from '../data/practitioner';
+import { getCityHero } from '../data/pageImages';
 import kristinPhoto from '../assets/images/kristin-moorehead-malley.webp';
 import type { CollectionEntry } from 'astro:content';
 
@@ -53,6 +55,7 @@ const {
 const { name, hasOffice, primaryTarget, slug, faq, neighborhoods } = entry.data;
 const breadcrumbItems = cityBreadcrumbs(name, slug);
 const faqItems = await withFallbackFaqs(faq);
+const heroImage = getCityHero(slug);
 const heroDescription = hasOffice
   ? `Individualized therapy with Kristin Moorehead-Malley, LMFT, with in-person sessions at the ${name} office and telehealth across California.`
   : `Individualized therapy for ${name} residents with Kristin Moorehead-Malley, LMFT, from the Carlsbad office or by telehealth across California.`;
@@ -84,10 +87,12 @@ const reassuranceItems = [
   eyebrow={hasOffice ? 'Carlsbad Therapy Practice' : 'Areas We Serve'}
   heroTitle={`Therapist in ${name}, CA`}
   heroDescription={heroDescription}
+  heroImage={heroImage}
+  heroImageAlt={`Quiet North County San Diego landscape for the ${name} therapy service area`}
   breadcrumbItems={breadcrumbItems}
   ctaHeading={`Ready to explore therapy as a ${name} client?`}
+  showFinalCta={false}
 >
-  <!-- Local context first: establish that this is a real practice serving this city without leading with a map. -->
   <slot name="overview" />
 
   <ReassuranceGrid heading={`Therapy tailored for ${name} clients`} items={reassuranceItems} columns={3} />
@@ -118,7 +123,6 @@ const reassuranceItems = [
     ]}
   />
 
-  <!-- Practical location information belongs after service/provider/process fit has been established. -->
   {hasOffice && <VisitUs cityName={name} neighborhoods={neighborhoods} />}
 
   {
@@ -134,6 +138,12 @@ const reassuranceItems = [
   }
 
   {faqItems.length > 0 && <FAQAccordion heading={`${name} therapy: common questions`} items={faqItems} background="surface" />}
+
+  <InquiryFormSection
+    context={`Therapy in ${name}`}
+    heading={`Looking for therapy in ${name}? Start with a simple request.`}
+    subhead="Share how you would like Kristin to reach you about fit, availability, and whether in-person or telehealth sessions make sense."
+  />
 
   {
     nearbyCities.length > 0 && (
