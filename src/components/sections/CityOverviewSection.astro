@@ -1,84 +1,59 @@
 ---
-import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import { site } from '../../data/site';
 
 interface Props {
   cityName: string;
   hasOffice: boolean;
-  image?: ImageMetadata;
 }
 
-const { cityName, hasOffice, image } = Astro.props;
+const { cityName, hasOffice } = Astro.props;
 const fullAddress = `${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}`;
 ---
 
 <section class="bg-background">
-  <div class="mx-auto grid max-w-6xl gap-10 px-6 py-16 sm:py-20 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-16 lg:py-24">
+  <div class="mx-auto grid max-w-6xl gap-10 px-6 py-16 sm:py-20 lg:grid-cols-[1.08fr_0.62fr] lg:items-start lg:gap-20 lg:py-24">
     <div>
       <p class="eyebrow-label">Therapy in {cityName}</p>
-      <h2 class="mt-4 max-w-xl font-serif text-3xl leading-tight text-ink sm:text-4xl">
+      <h2 class="mt-4 max-w-2xl font-serif text-3xl leading-tight text-ink sm:text-4xl">
         {hasOffice ? 'A local practice with flexible ways to connect.' : `Therapy for ${cityName} residents, connected to our Carlsbad practice.`}
       </h2>
-      <div class="mt-6 max-w-xl font-sans text-base leading-7 text-foreground [&_p+p]:mt-4">
+      <div class="mt-6 max-w-2xl font-sans text-base leading-7 text-foreground [&_p+p]:mt-4">
         <slot />
       </div>
+    </div>
 
-      <div class="mt-8 grid gap-3 sm:grid-cols-2">
-        <div class="flex items-start gap-3 rounded-2xl border border-border bg-surface px-4 py-4">
+    <aside class="border-y border-border py-2 lg:border-y-0 lg:border-l lg:py-0 lg:pl-10">
+      <p class="font-sans text-xs font-semibold uppercase tracking-[0.18em] text-sage-deep">At a glance</p>
+      <dl class="mt-3 divide-y divide-border">
+        <div class="flex gap-4 py-5">
           <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-sage/15 text-sage-deep" aria-hidden="true">
             <Icon name="lucide:map-pin" width={17} height={17} />
           </span>
           <div>
-            <p class="font-sans text-xs font-semibold uppercase tracking-wide text-sage-deep">{hasOffice ? 'Carlsbad Office' : 'Practice Base'}</p>
-            <p class="mt-1 font-sans text-sm leading-5 text-foreground">{fullAddress}</p>
+            <dt class="font-sans text-sm font-semibold text-ink">{hasOffice ? 'Carlsbad office' : 'Practice base'}</dt>
+            <dd class="mt-1 font-sans text-sm leading-6 text-muted-foreground">{fullAddress}</dd>
           </div>
         </div>
-        <div class="flex items-start gap-3 rounded-2xl border border-border bg-surface px-4 py-4">
+        <div class="flex gap-4 py-5">
           <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-lavender-soft text-sage-deep" aria-hidden="true">
             <Icon name="lucide:monitor" width={17} height={17} />
           </span>
           <div>
-            <p class="font-sans text-xs font-semibold uppercase tracking-wide text-sage-deep">Telehealth</p>
-            <p class="mt-1 font-sans text-sm leading-5 text-foreground">Available across {site.telehealth.coverageArea}</p>
+            <dt class="font-sans text-sm font-semibold text-ink">Flexible session options</dt>
+            <dd class="mt-1 font-sans text-sm leading-6 text-muted-foreground">In-person in Carlsbad and telehealth across {site.telehealth.coverageArea}.</dd>
           </div>
         </div>
-      </div>
-    </div>
-
-    {
-      image ? (
-        <figure class="relative overflow-hidden rounded-[2rem] bg-secondary shadow-[0_24px_60px_-48px_rgba(42,40,51,0.5)]">
-          <Image
-            src={image}
-            alt={`Coastal North County San Diego landscape near ${cityName}`}
-            widths={[640, 900, 1200]}
-            sizes="(min-width: 1024px) 48vw, 100vw"
-            class="aspect-[4/3] w-full object-cover"
-            loading="lazy"
-          />
-          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-primary/45 via-primary/5 to-transparent" aria-hidden="true" />
-          <figcaption class="absolute bottom-0 left-0 right-0 p-6 text-primary-foreground sm:p-8">
-            <p class="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-sage">North County San Diego</p>
-            <p class="mt-2 font-serif text-2xl sm:text-3xl">Therapy rooted in Carlsbad.</p>
-          </figcaption>
-        </figure>
-      ) : (
-        <div class="relative isolate min-h-[21rem] overflow-hidden rounded-[2rem] bg-primary px-7 py-8 text-primary-foreground sm:min-h-[24rem] sm:px-9 sm:py-10">
-          <div class="absolute -right-12 -top-12 h-44 w-44 rounded-full border border-sage/25" aria-hidden="true" />
-          <div class="absolute right-16 top-16 h-24 w-24 rounded-full border border-lavender/20" aria-hidden="true" />
-          <div class="absolute -bottom-20 -left-10 h-56 w-56 rounded-full bg-lavender/10 blur-2xl" aria-hidden="true" />
-          <div class="relative flex min-h-[17rem] h-full flex-col justify-between sm:min-h-[20rem]">
-            <p class="font-sans text-xs font-semibold uppercase tracking-[0.18em] text-sage">North County San Diego</p>
-            <div>
-              <p class="font-serif text-4xl leading-none sm:text-5xl">{cityName}</p>
-              <p class="mt-4 max-w-sm font-sans text-sm leading-6 text-primary-foreground/72">
-                Individualized therapy connected to S.A.G.E.'s Carlsbad practice, with flexible options for clients across California.
-              </p>
-            </div>
+        <div class="flex gap-4 py-5">
+          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-sage/15 text-sage-deep" aria-hidden="true">
+            <Icon name="lucide:sparkles" width={17} height={17} />
+          </span>
+          <div>
+            <dt class="font-sans text-sm font-semibold text-ink">Individualized approach</dt>
+            <dd class="mt-1 font-sans text-sm leading-6 text-muted-foreground">Therapy can draw from multiple approaches based on the person, relationship, and goals.</dd>
           </div>
         </div>
-      )
-    }
+      </dl>
+    </aside>
   </div>
 </section>
