@@ -48,26 +48,34 @@ const fullAddress = `${site.address.street}, ${site.address.city}, ${site.addres
 
     {
       image ? (
-        <div class="relative overflow-hidden rounded-[2rem] bg-secondary">
+        <figure class="relative overflow-hidden rounded-[2rem] bg-secondary shadow-[0_24px_60px_-48px_rgba(42,40,51,0.5)]">
           <Image
             src={image}
-            alt={`Muted Southern California coastal landscape representing the ${cityName} area`}
+            alt={`Coastal North County San Diego landscape near ${cityName}`}
             widths={[640, 900, 1200]}
             sizes="(min-width: 1024px) 48vw, 100vw"
             class="aspect-[4/3] w-full object-cover"
+            loading="lazy"
           />
-          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-primary/15 via-transparent to-transparent" aria-hidden="true" />
-        </div>
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-primary/45 via-primary/5 to-transparent" aria-hidden="true" />
+          <figcaption class="absolute bottom-0 left-0 right-0 p-6 text-primary-foreground sm:p-8">
+            <p class="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-sage">North County San Diego</p>
+            <p class="mt-2 font-serif text-2xl sm:text-3xl">Therapy rooted in Carlsbad.</p>
+          </figcaption>
+        </figure>
       ) : (
-        <div class="relative isolate flex aspect-[4/3] overflow-hidden rounded-[2rem] border border-border bg-gradient-to-br from-lavender-soft via-secondary to-sage/20 p-8 sm:p-10">
-          <div class="absolute -right-16 -top-16 h-52 w-52 rounded-full border border-sage/25" aria-hidden="true" />
-          <div class="absolute -bottom-24 -left-10 h-64 w-64 rounded-full bg-surface/55 blur-2xl" aria-hidden="true" />
-          <div class="relative mt-auto max-w-sm">
-            <p class="font-sans text-xs font-semibold uppercase tracking-[0.18em] text-sage-deep">North County San Diego</p>
-            <p class="mt-3 font-serif text-4xl leading-none text-primary sm:text-5xl">{cityName}</p>
-            <p class="mt-4 font-sans text-sm leading-6 text-muted-foreground">
-              A practice rooted in Carlsbad, with in-person care and flexible statewide telehealth options.
-            </p>
+        <div class="relative isolate min-h-[21rem] overflow-hidden rounded-[2rem] bg-primary px-7 py-8 text-primary-foreground sm:min-h-[24rem] sm:px-9 sm:py-10">
+          <div class="absolute -right-12 -top-12 h-44 w-44 rounded-full border border-sage/25" aria-hidden="true" />
+          <div class="absolute right-16 top-16 h-24 w-24 rounded-full border border-lavender/20" aria-hidden="true" />
+          <div class="absolute -bottom-20 -left-10 h-56 w-56 rounded-full bg-lavender/10 blur-2xl" aria-hidden="true" />
+          <div class="relative flex min-h-[17rem] h-full flex-col justify-between sm:min-h-[20rem]">
+            <p class="font-sans text-xs font-semibold uppercase tracking-[0.18em] text-sage">North County San Diego</p>
+            <div>
+              <p class="font-serif text-4xl leading-none sm:text-5xl">{cityName}</p>
+              <p class="mt-4 max-w-sm font-sans text-sm leading-6 text-primary-foreground/72">
+                Individualized therapy connected to S.A.G.E.'s Carlsbad practice, with flexible options for clients across California.
+              </p>
+            </div>
           </div>
         </div>
       )
