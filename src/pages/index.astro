@@ -11,7 +11,7 @@ import PracticeSection from '../components/sections/PracticeSection.astro';
 import ServiceGrid from '../components/sections/ServiceGrid.astro';
 import ReviewsSection from '../components/sections/ReviewsSection.astro';
 import AreasServed from '../components/sections/AreasServed.astro';
-import CTASection from '../components/sections/CTASection.astro';
+import InquiryFormSection from '../components/sections/InquiryFormSection.astro';
 import SchemaOrg from '../components/seo/SchemaOrg.astro';
 import { site } from '../data/site';
 import { practitioner } from '../data/practitioner';
@@ -141,13 +141,10 @@ if (cities.length === 0) {
     variant="compact"
   />
 
-  <CTASection
-    heading="Ready to see if S.A.G.E. is a good fit?"
-    subhead="Request a session to discuss fit, availability, and next steps."
-    ctaLabel="Schedule a Session"
-    ctaHref={SCHEDULE_URL}
-    phoneDisplay={site.phone.display}
-    phoneHref={`tel:${site.phone.tel}`}
+  <InquiryFormSection
+    context="Homepage"
+    heading="Ready to see if S.A.G.E. may be a good fit?"
+    subhead="Request a follow-up about availability, session options, and what kind of therapy you are looking for."
   />
 </BaseLayout>
 
