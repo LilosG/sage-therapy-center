@@ -1,0 +1,185 @@
+---
+import { Icon } from 'astro-icon/components';
+import { site } from '../../data/site';
+import { inquiryContactOptions, inquirySessionOptions, inquiryTherapyOptions } from '../../data/inquiry';
+
+interface Props {
+  eyebrow?: string;
+  heading?: string;
+  subhead?: string;
+  context?: string;
+  selectedService?: string;
+}
+
+const {
+  eyebrow = 'Request a Session',
+  heading = 'Start with a simple conversation about fit and availability.',
+  subhead = 'Share the best way to reach you. You do not need to explain everything before getting started.',
+  context = 'General inquiry',
+  selectedService = '',
+} = Astro.props;
+
+const endpoint = (import.meta.env.PUBLIC_INQUIRY_ENDPOINT ?? '').trim();
+const transportReady = endpoint.length > 0;
+const sourcePath = Astro.url.pathname;
+---
+
+<section id="request-session" class="scroll-mt-24 bg-primary text-primary-foreground">
+  <div class="mx-auto grid max-w-6xl gap-10 px-6 py-16 sm:py-20 lg:grid-cols-[0.78fr_1.22fr] lg:items-start lg:gap-16 lg:py-24">
+    <div class="lg:sticky lg:top-28">
+      <p class="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-sage">{eyebrow}</p>
+      <h2 class="mt-4 max-w-lg font-serif text-3xl leading-tight sm:text-4xl lg:text-[2.65rem]">{heading}</h2>
+      <p class="mt-5 max-w-lg font-sans text-base leading-7 text-primary-foreground/75">{subhead}</p>
+
+      <ul class="mt-8 space-y-4 border-t border-primary-foreground/15 pt-7">
+        <li class="flex gap-3">
+          <span class="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary-foreground/10 text-sage" aria-hidden="true">
+            <Icon name="lucide:calendar-check" width={16} height={16} />
+          </span>
+          <div>
+            <p class="font-sans text-sm font-semibold">Scheduling and fit first</p>
+            <p class="mt-1 font-sans text-sm leading-6 text-primary-foreground/65">A short inquiry is enough to begin.</p>
+          </div>
+        </li>
+        <li class="flex gap-3">
+          <span class="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary-foreground/10 text-sage" aria-hidden="true">
+            <Icon name="lucide:map-pin" width={16} height={16} />
+          </span>
+          <div>
+            <p class="font-sans text-sm font-semibold">Carlsbad + telehealth</p>
+            <p class="mt-1 font-sans text-sm leading-6 text-primary-foreground/65">In-person at the Carlsbad office or telehealth across {site.telehealth.coverageArea}.</p>
+          </div>
+        </li>
+        <li class="flex gap-3">
+          <span class="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary-foreground/10 text-sage" aria-hidden="true">
+            <Icon name="lucide:phone" width={16} height={16} />
+          </span>
+          <div>
+            <p class="font-sans text-sm font-semibold">Prefer to call?</p>
+            <a href={`tel:${site.phone.tel}`} class="mt-1 inline-flex font-sans text-sm text-sage hover:text-primary-foreground">{site.phone.display} →</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="rounded-[2rem] bg-surface p-6 text-foreground shadow-[0_30px_80px_-50px_rgba(0,0,0,0.6)] sm:p-8 lg:p-10">
+      <form
+        action={transportReady ? endpoint : undefined}
+        method="post"
+        data-inquiry-form
+        data-transport-ready={transportReady ? 'true' : 'false'}
+        class="grid gap-5"
+      >
+        <input type="hidden" name="context" value={context} />
+        <input type="hidden" name="sourcePath" value={sourcePath} />
+        <div class="absolute -left-[10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+          <label for="inquiry-website">Website</label>
+          <input id="inquiry-website" type="text" name="website" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div class="grid gap-5 sm:grid-cols-2">
+          <label class="font-sans text-sm font-semibold text-ink">
+            First name <span class="text-sage-deep">*</span>
+            <input
+              required
+              name="firstName"
+              type="text"
+              autocomplete="given-name"
+              class="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 font-sans text-base font-normal text-foreground outline-none transition focus:border-sage-deep focus:ring-2 focus:ring-sage/25"
+            />
+          </label>
+          <label class="font-sans text-sm font-semibold text-ink">
+            Email <span class="text-sage-deep">*</span>
+            <input
+              required
+              name="email"
+              type="email"
+              autocomplete="email"
+              class="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 font-sans text-base font-normal text-foreground outline-none transition focus:border-sage-deep focus:ring-2 focus:ring-sage/25"
+            />
+          </label>
+        </div>
+
+        <div class="grid gap-5 sm:grid-cols-2">
+          <label class="font-sans text-sm font-semibold text-ink">
+            Phone <span class="font-normal text-muted-foreground">(optional)</span>
+            <input
+              name="phone"
+              type="tel"
+              autocomplete="tel"
+              class="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 font-sans text-base font-normal text-foreground outline-none transition focus:border-sage-deep focus:ring-2 focus:ring-sage/25"
+            />
+          </label>
+          <label class="font-sans text-sm font-semibold text-ink">
+            Best way to reach you
+            <select name="preferredContact" class="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 font-sans text-base font-normal text-foreground outline-none transition focus:border-sage-deep focus:ring-2 focus:ring-sage/25">
+              {inquiryContactOptions.map((option) => <option value={option}>{option}</option>)}
+            </select>
+          </label>
+        </div>
+
+        <div class="grid gap-5 sm:grid-cols-2">
+          <label class="font-sans text-sm font-semibold text-ink">
+            What are you looking for?
+            <select name="service" class="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 font-sans text-base font-normal text-foreground outline-none transition focus:border-sage-deep focus:ring-2 focus:ring-sage/25">
+              <option value="">Select an option</option>
+              {inquiryTherapyOptions.map((option) => <option value={option} selected={selectedService === option}>{option}</option>)}
+            </select>
+          </label>
+          <label class="font-sans text-sm font-semibold text-ink">
+            Session preference
+            <select name="sessionPreference" class="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 font-sans text-base font-normal text-foreground outline-none transition focus:border-sage-deep focus:ring-2 focus:ring-sage/25">
+              <option value="">Select an option</option>
+              {inquirySessionOptions.map((option) => <option value={option}>{option}</option>)}
+            </select>
+          </label>
+        </div>
+
+        <label class="font-sans text-sm font-semibold text-ink">
+          Anything helpful for scheduling or fit? <span class="font-normal text-muted-foreground">(optional)</span>
+          <textarea
+            name="message"
+            rows="4"
+            maxlength="1000"
+            placeholder="A brief note is enough. Please avoid sensitive clinical or medical details."
+            class="mt-2 w-full resize-y rounded-xl border border-border bg-background px-4 py-3 font-sans text-base font-normal leading-6 text-foreground outline-none transition focus:border-sage-deep focus:ring-2 focus:ring-sage/25"
+          ></textarea>
+        </label>
+
+        <div class="mt-1 border-t border-border pt-5">
+          <button
+            type="submit"
+            class="inline-flex min-h-12 w-full items-center justify-center rounded-full bg-sage px-6 py-3 font-sans text-sm font-semibold text-primary shadow-sm transition hover:-translate-y-0.5 hover:bg-sage/90 focus:outline-none focus:ring-2 focus:ring-sage-deep focus:ring-offset-2 sm:w-auto"
+          >
+            Request a Session
+          </button>
+          <p class="mt-4 max-w-xl font-sans text-xs leading-5 text-muted-foreground">
+            Use this form for scheduling and availability only. It is not monitored for urgent or emergency needs, and you should not include sensitive health information.
+          </p>
+          {
+            !transportReady && (
+              <p data-form-offline-note class="mt-3 rounded-xl bg-lavender-soft px-4 py-3 font-sans text-xs leading-5 text-foreground">
+                Online delivery will be connected before launch. For now, call {site.phone.display} to reach S.A.G.E.
+              </p>
+            )
+          }
+          <p data-form-status class="mt-3 hidden rounded-xl bg-lavender-soft px-4 py-3 font-sans text-sm text-foreground" aria-live="polite"></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('[data-inquiry-form]').forEach((form) => {
+    if (!(form instanceof HTMLFormElement) || form.dataset.transportReady === 'true') return;
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const status = form.querySelector('[data-form-status]');
+      if (status instanceof HTMLElement) {
+        status.textContent = 'Online submission is not connected yet. Please call S.A.G.E. using the number shown here.';
+        status.classList.remove('hidden');
+      }
+    });
+  });
+</script>
