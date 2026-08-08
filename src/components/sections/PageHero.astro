@@ -17,7 +17,7 @@ interface Props {
   phoneDisplay?: string;
   phoneHref?: string;
   trustBadges?: string[];
-  image?: ImageMetadata;
+  image?: string;
   imageAlt?: string;
   imagePosition?: string;
 }
@@ -96,15 +96,16 @@ const {
         image && (
           <figure class="relative mx-auto w-full max-w-xl overflow-hidden rounded-[2rem] border border-surface/70 bg-secondary shadow-[0_30px_75px_-48px_rgba(42,40,51,0.6)] lg:max-w-none">
             <img
-              src={image.src}
+              src={image}
               alt={imageAlt}
-              width={image.width}
-              height={image.height}
+              width="1200"
+              height="900"
               class="aspect-[4/3] w-full object-cover"
               style={`object-position: ${imagePosition};`}
               loading="eager"
               fetchpriority="high"
               decoding="async"
+              referrerpolicy="no-referrer"
             />
             <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-primary/15 via-transparent to-surface/5" aria-hidden="true" />
           </figure>
