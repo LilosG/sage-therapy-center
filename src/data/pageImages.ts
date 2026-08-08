@@ -1,3 +1,6 @@
+// Centralized editorial image assignments for service, city, and money-page templates.
+// Keep image selection here so shared Astro layouts stay reusable and individual routes
+// can retain unique copy without one-off visual wiring.
 import homeCoastalPath from '../assets/images/home/hero-coastal-path.webp';
 import courtyardRetreat from '../assets/images/editorial/serene-courtyard-retreat.webp';
 import eucalyptusTrail from '../assets/images/editorial/misty-eucalyptus-coastal-trail.webp';
