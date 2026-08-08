@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import Breadcrumbs from './Breadcrumbs.astro';
 import Button from '../ui/Button.astro';
 
@@ -96,15 +95,16 @@ const {
       {
         image && (
           <figure class="relative mx-auto w-full max-w-xl overflow-hidden rounded-[2rem] border border-surface/70 bg-secondary shadow-[0_30px_75px_-48px_rgba(42,40,51,0.6)] lg:max-w-none">
-            <Image
-              src={image}
+            <img
+              src={image.src}
               alt={imageAlt}
-              widths={[640, 900, 1200]}
-              sizes="(min-width: 1024px) 46vw, 100vw"
+              width={image.width}
+              height={image.height}
               class="aspect-[4/3] w-full object-cover"
               style={`object-position: ${imagePosition};`}
               loading="eager"
               fetchpriority="high"
+              decoding="async"
             />
             <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-primary/15 via-transparent to-surface/5" aria-hidden="true" />
           </figure>
