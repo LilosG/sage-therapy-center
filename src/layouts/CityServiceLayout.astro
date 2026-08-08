@@ -7,9 +7,11 @@ import ReviewsSection from '../components/sections/ReviewsSection.astro';
 import FAQAccordion from '../components/sections/FAQAccordion.astro';
 import ModalityBadges from '../components/sections/ModalityBadges.astro';
 import LocationContext from '../components/sections/LocationContext.astro';
+import InquiryFormSection from '../components/sections/InquiryFormSection.astro';
 import { cityServiceBreadcrumbs } from '../lib/breadcrumbs';
 import { withFallbackFaqs } from '../lib/faq';
 import { practitioner } from '../data/practitioner';
+import { getCityServiceHero } from '../data/pageImages';
 import { getEntry } from 'astro:content';
 import kristinPhoto from '../assets/images/kristin-moorehead-malley.webp';
 import googleReviews from '../data/google-reviews.json';
@@ -25,6 +27,7 @@ const service = await getEntry(entry.data.service);
 const routeSlug = entry.data.slugOverride ?? service.data.slug;
 const breadcrumbItems = cityServiceBreadcrumbs(city.data.name, city.data.slug, service.data.title, routeSlug);
 const faqItems = await withFallbackFaqs(entry.data.faq);
+const heroImage = getCityServiceHero(city.data.slug, service.data.slug);
 
 const reassuranceItems = [
   {
@@ -53,8 +56,11 @@ const reassuranceItems = [
   eyebrow={`${city.data.name} Therapy`}
   heroTitle={`${service.data.title} in ${city.data.name}, CA`}
   heroDescription={service.data.description}
+  heroImage={heroImage}
+  heroImageAlt={`Quiet editorial image for ${service.data.title.toLowerCase()} serving ${city.data.name}`}
   breadcrumbItems={breadcrumbItems}
   ctaHeading={`Ready to explore ${service.data.title.toLowerCase()} in ${city.data.name}?`}
+  showFinalCta={false}
 >
   <ReassuranceGrid heading="A clear, supportive place to start" items={reassuranceItems} columns={3} />
 
@@ -97,4 +103,11 @@ const reassuranceItems = [
   />
 
   {faqItems.length > 0 && <FAQAccordion heading={`${service.data.title} in ${city.data.name}: common questions`} items={faqItems} background="surface" />}
+
+  <InquiryFormSection
+    context={`${service.data.title} in ${city.data.name}`}
+    selectedService={service.data.title}
+    heading={`Ready to explore ${service.data.title.toLowerCase()} in ${city.data.name}?`}
+    subhead="Request a follow-up about fit, availability, and session options without having to share your full story in a web form."
+  />
 </InteriorPageLayout>
