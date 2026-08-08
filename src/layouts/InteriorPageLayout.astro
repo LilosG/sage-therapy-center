@@ -1,10 +1,8 @@
 ---
-// Shared structural shell for interior pages. This component deliberately
-// owns only the elements that are truly universal: metadata/base layout,
-// page hero, trust strip, final conversion CTA, and the shared business
-// schema node. Service, city, and city/service layouts own their own
-// narrative section order so search intent can drive the funnel instead of
-// forcing every page type through one generic sequence.
+// Shared structural shell for interior pages. This component owns only
+// universal concerns: metadata/base layout, the image-capable page hero,
+// trust strip, optional final CTA, and the shared business schema node.
+// Service, city, and city/service layouts still own their narrative order.
 import BaseLayout from './BaseLayout.astro';
 import PageHero from '../components/sections/PageHero.astro';
 import TrustStrip from '../components/sections/TrustStrip.astro';
@@ -25,9 +23,14 @@ interface Props {
   heroTitle: string;
   heroDescription?: string;
   heroTrustBadges?: string[];
+  heroImage?: ImageMetadata;
+  heroImageAlt?: string;
+  heroImagePosition?: string;
+  heroCtaHref?: string;
   breadcrumbItems: BreadcrumbItem[];
   ctaHeading: string;
   ctaSubhead?: string;
+  showFinalCta?: boolean;
 }
 
 const {
@@ -37,9 +40,14 @@ const {
   heroTitle,
   heroDescription,
   heroTrustBadges,
+  heroImage,
+  heroImageAlt,
+  heroImagePosition,
+  heroCtaHref = SCHEDULE_URL,
   breadcrumbItems,
   ctaHeading,
   ctaSubhead = 'Request a session to discuss fit and availability.',
+  showFinalCta = true,
 } = Astro.props;
 ---
 
@@ -50,24 +58,31 @@ const {
     description={heroDescription}
     breadcrumbItems={breadcrumbItems}
     ctaLabel="Schedule a Session"
-    ctaHref={SCHEDULE_URL}
+    ctaHref={heroCtaHref}
     phoneDisplay={site.phone.display}
     phoneHref={`tel:${site.phone.tel}`}
     trustBadges={heroTrustBadges}
+    image={heroImage}
+    imageAlt={heroImageAlt}
+    imagePosition={heroImagePosition}
   />
 
   <TrustStrip />
 
   <slot />
 
-  <CTASection
-    heading={ctaHeading}
-    subhead={ctaSubhead}
-    ctaLabel="Schedule a Session"
-    ctaHref={SCHEDULE_URL}
-    phoneDisplay={site.phone.display}
-    phoneHref={`tel:${site.phone.tel}`}
-  />
+  {
+    showFinalCta && (
+      <CTASection
+        heading={ctaHeading}
+        subhead={ctaSubhead}
+        ctaLabel="Schedule a Session"
+        ctaHref={SCHEDULE_URL}
+        phoneDisplay={site.phone.display}
+        phoneHref={`tel:${site.phone.tel}`}
+      />
+    )
+  }
 </BaseLayout>
 
 <SchemaOrg type="localBusiness" />
