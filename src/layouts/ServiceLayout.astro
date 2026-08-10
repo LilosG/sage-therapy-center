@@ -1,6 +1,12 @@
 ---
 import InteriorPageLayout from './InteriorPageLayout.astro';
 import ReassuranceGrid from '../components/sections/ReassuranceGrid.astro';
+import RecognitionBand from '../components/sections/RecognitionBand.astro';
+import OverviewFeature from '../components/sections/OverviewFeature.astro';
+import TopicMatrix from '../components/sections/TopicMatrix.astro';
+import ApproachFeature from '../components/sections/ApproachFeature.astro';
+import DecisionSection from '../components/sections/DecisionSection.astro';
+import RelatedSupportStrip from '../components/sections/RelatedSupportStrip.astro';
 import MeetKristin from '../components/sections/MeetKristin.astro';
 import ProcessSteps from '../components/sections/ProcessSteps.astro';
 import ReviewsSection from '../components/sections/ReviewsSection.astro';
@@ -18,12 +24,29 @@ import kristinPhoto from '../assets/images/kristin-moorehead-malley.webp';
 import googleReviews from '../data/google-reviews.json';
 import type { CollectionEntry } from 'astro:content';
 
-interface Props {
-  entry: CollectionEntry<'services'>;
+interface RelatedLink {
+  title: string;
+  href: string;
 }
 
-const { entry } = Astro.props;
-const { title, description, slug, category, faq } = entry.data;
+interface Props {
+  entry: CollectionEntry<'services'>;
+  relatedLinks?: RelatedLink[];
+}
+
+const { entry, relatedLinks = [] } = Astro.props;
+const {
+  title,
+  description,
+  slug,
+  category,
+  faq,
+  recognition,
+  overview,
+  topics,
+  approach,
+  decisionItems,
+} = entry.data;
 const breadcrumbItems = serviceBreadcrumbs(title, slug);
 const faqItems = await withFallbackFaqs(faq);
 const cities = await getCollection('cities');
@@ -31,6 +54,7 @@ const cityLinks = cities.map((c) => ({ name: c.data.name, href: cityUrl(c.data.s
 const heroImage = getServiceHero(slug);
 const metaTitle = `${title} | S.A.G.E. Therapy Center, Carlsbad CA`;
 const metaDescription = `${description} Work with Kristin Moorehead-Malley, LMFT, in Carlsbad or by telehealth across California.`;
+const hasStructuredContent = Boolean(recognition?.length && overview && topics);
 
 const reassuranceItems = [
   {
@@ -64,8 +88,40 @@ const reassuranceItems = [
   ctaHeading={`Ready to talk about ${title.toLowerCase()}?`}
   showFinalCta={false}
 >
-  <ReassuranceGrid heading="A supportive place to begin" items={reassuranceItems} columns={3} />
-  <slot />
+  {
+    hasStructuredContent ? (
+      <>
+        <RecognitionBand
+          eyebrow="A Supportive Place To Begin"
+          heading={`People consider ${title.toLowerCase()} for different reasons`}
+          items={recognition!}
+        />
+        <OverviewFeature
+          eyebrow={overview!.eyebrow}
+          heading={overview!.heading}
+          paragraphs={overview!.paragraphs}
+          detailEyebrow="Session Options"
+          detailTitle="Carlsbad office + telehealth"
+          detailItems={[
+            'In-person sessions in Carlsbad, California',
+            'Telehealth available across California',
+            'Start with a conversation about fit and availability',
+          ]}
+        />
+        <TopicMatrix
+          eyebrow={topics!.eyebrow}
+          heading={topics!.heading}
+          intro={topics!.intro}
+          items={topics!.items}
+        />
+      </>
+    ) : (
+      <>
+        <ReassuranceGrid heading="A supportive place to begin" items={reassuranceItems} columns={3} />
+        <slot />
+      </>
+    )
+  }
 
   <MeetKristin
     name={practitioner.name}
@@ -77,6 +133,17 @@ const reassuranceItems = [
     image={kristinPhoto}
   />
 
+  {
+    hasStructuredContent && approach && (
+      <ApproachFeature
+        eyebrow={approach.eyebrow}
+        heading={approach.heading}
+        body={approach.body}
+        modalities={approach.modalities}
+      />
+    )
+  }
+
   <ProcessSteps
     eyebrow="What To Expect"
     heading={`What ${title.toLowerCase()} may look like`}
@@ -86,6 +153,18 @@ const reassuranceItems = [
       { title: 'Ongoing work', body: 'Continue with an approach and pace shaped around your needs and goals.' },
     ]}
   />
+
+  {
+    hasStructuredContent && decisionItems?.length && (
+      <DecisionSection
+        eyebrow="Considering Therapy?"
+        heading={`What to know before starting ${title.toLowerCase()}`}
+        items={decisionItems}
+      />
+    )
+  }
+
+  {hasStructuredContent && relatedLinks.length > 0 && <RelatedSupportStrip links={relatedLinks} />}
 
   <ReviewsSection
     rating={googleReviews.rating}
