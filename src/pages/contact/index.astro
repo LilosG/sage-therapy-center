@@ -1,73 +1,46 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/sections/PageHero.astro';
-import Card from '../../components/ui/Card.astro';
-import Button from '../../components/ui/Button.astro';
-import MapEmbed from '../../components/sections/MapEmbed.astro';
+import TrustStrip from '../../components/sections/TrustStrip.astro';
+import DirectContactSection from '../../components/sections/DirectContactSection.astro';
+import PracticeSection from '../../components/sections/PracticeSection.astro';
+import InquiryFormSection from '../../components/sections/InquiryFormSection.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
-import { CONTACT_URL, SCHEDULE_URL } from '../../data/nav';
+import { editorialImages } from '../../data/pageImages';
+import { CONTACT_URL } from '../../data/nav';
 import { staticBreadcrumbs } from '../../lib/breadcrumbs';
-
-const mapQuery = encodeURIComponent(
-  `${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}`
-);
-const mapUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
 ---
 
 <BaseLayout
-  title="Contact | S.A.G.E. Therapy Center"
-  description={`Contact S.A.G.E. Therapy Center in ${site.address.city}, ${site.address.region} — phone, email, and office location.`}
+  title="Contact S.A.G.E. Therapy Center | Carlsbad, CA"
+  description={`Contact S.A.G.E. Therapy Center in ${site.address.city}, ${site.address.region} by phone, email, or online request form. In-person sessions in Carlsbad and telehealth across California.`}
+  image={editorialImages.courtyardRetreat}
 >
   <PageHero
     eyebrow="Contact"
-    title="Get in touch"
-    description="Request a session to discuss fit and availability, or reach out with any questions."
+    title="Get in touch with S.A.G.E."
+    description="Reach out about fit, current availability, in-person sessions at the Carlsbad office, or telehealth across California."
     breadcrumbItems={staticBreadcrumbs('Contact', CONTACT_URL)}
+    ctaLabel="Send a Request"
+    ctaHref="#request-session"
+    phoneDisplay={site.phone.display}
+    phoneHref={`tel:${site.phone.tel}`}
+    image={editorialImages.courtyardRetreat}
+    imageAlt="Quiet Southern California courtyard reflecting the calm setting of S.A.G.E. Therapy Center"
   />
 
-  <div class="mx-auto max-w-3xl px-6 pb-12 pt-8">
-    <div class="grid gap-6 sm:grid-cols-2">
-      <Card>
-        <p class="font-sans text-sm font-semibold text-ink">Phone</p>
-        <a href={`tel:${site.phone.tel}`} class="mt-2 block font-serif text-2xl text-primary hover:text-sage-deep">
-          {site.phone.display}
-        </a>
-      </Card>
-      <Card>
-        <p class="font-sans text-sm font-semibold text-ink">Email</p>
-        <a href={`mailto:${site.email}`} class="mt-2 block font-serif text-xl text-primary hover:text-sage-deep">
-          {site.email}
-        </a>
-      </Card>
-    </div>
+  <TrustStrip />
 
-    <Card class="mt-6">
-      <p class="font-sans text-sm font-semibold text-ink">Office</p>
-      <address class="mt-2 not-italic font-sans text-foreground">
-        {site.address.street}<br />
-        {site.address.city}, {site.address.region} {site.address.postalCode}
-      </address>
-      <p class="mt-3 font-sans text-sm text-muted-foreground">
-        <!-- CONFIRM: office hours are not documented anywhere in project
-             sources (site.ts hours is null) — populate from the live
-             Google Business Profile before this is considered
-             launch-ready. -->
-         Hours available upon request.
-      </p>
-      <a href={mapUrl} target="_blank" rel="noopener noreferrer" class="mt-4 inline-block">
-        <Button variant="secondary">Get Directions</Button>
-      </a>
-    </Card>
+  <DirectContactSection />
 
-    <div class="mt-6">
-      <MapEmbed />
-    </div>
+  <PracticeSection />
 
-    <div class="mt-8">
-      <Button href={SCHEDULE_URL}>Schedule a Session</Button>
-    </div>
-  </div>
+  <InquiryFormSection
+    context="Contact Page"
+    heading="Send a simple request"
+    subhead="Share the best way to reach you and what kind of support you are looking for. You do not need to include sensitive clinical details."
+  />
+
+  <SchemaOrg type="localBusiness" />
 </BaseLayout>
-
-<SchemaOrg type="localBusiness" />
