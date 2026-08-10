@@ -3,10 +3,7 @@ import { getCollection, getEntries, render } from 'astro:content';
 import ServiceLayout from '../../layouts/ServiceLayout.astro';
 import ServiceEditorialSection from '../../components/sections/ServiceEditorialSection.astro';
 import StructuredProse from '../../components/sections/StructuredProse.astro';
-import SchemaOrg from '../../components/seo/SchemaOrg.astro';
-import { site } from '../../data/site';
-import { absoluteBreadcrumbs, serviceBreadcrumbs } from '../../lib/breadcrumbs';
-import { canonicalUrl, serviceUrl } from '../../lib/routes';
+import { serviceUrl } from '../../lib/routes';
 
 export async function getStaticPaths() {
   const entries = await getCollection('services');
@@ -20,8 +17,6 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 const related = entry.data.relatedServices.length ? await getEntries(entry.data.relatedServices) : [];
 const relatedLinks = related.map((r) => ({ title: r.data.title, href: serviceUrl(r.data.slug) }));
-const pageUrl = canonicalUrl(serviceUrl(entry.data.slug));
-const schemaBreadcrumbs = absoluteBreadcrumbs(serviceBreadcrumbs(entry.data.title, entry.data.slug));
 const hasStructuredContent = Boolean(entry.data.recognition?.length && entry.data.overview && entry.data.topics);
 ---
 
@@ -36,15 +31,3 @@ const hasStructuredContent = Boolean(entry.data.recognition?.length && entry.dat
     )
   }
 </ServiceLayout>
-
-<SchemaOrg
-  type="service"
-  breadcrumb={schemaBreadcrumbs}
-  service={{
-    name: entry.data.title,
-    description: entry.data.description,
-    serviceType: entry.data.primaryTarget,
-    url: pageUrl,
-    areaServed: site.address.city,
-  }}
-/>
