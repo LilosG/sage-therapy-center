@@ -54,6 +54,7 @@ const relatedLinks = otherApprovedServices.map((s) => {
   };
 });
 const hasStructuredContent = Boolean(entry.data.recognition?.length && entry.data.overview && entry.data.topics);
+const hasStructuredServiceShell = Boolean(service.data.recognition?.length && service.data.topics);
 ---
 
 <CityServiceLayout entry={entry} relatedLinks={relatedLinks}>
@@ -63,7 +64,7 @@ const hasStructuredContent = Boolean(entry.data.recognition?.length && entry.dat
         cityName={city.data.name}
         hasOffice={city.data.hasOffice}
         detailsEyebrow={`${service.data.title} in ${city.data.name}`}
-        related={relatedLinks}
+        related={hasStructuredServiceShell ? [] : relatedLinks}
       >
         <StructuredProse class="max-w-2xl prose-p:leading-7 prose-li:leading-7">
           <Content />
