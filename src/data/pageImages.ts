@@ -13,6 +13,7 @@ import windowNook from '../assets/images/editorial/serene-sunlit-window-nook.web
 export const hubHeroImages = {
   services: courtyardRetreat,
   areas: eucalyptusTrail,
+  telehealth: meadowTree,
   schedule: meadowTree,
 } as const;
 
