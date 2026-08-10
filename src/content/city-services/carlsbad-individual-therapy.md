@@ -8,14 +8,14 @@ minWordCount: 400
 uniqueContentPercent: 35
 faq:
   - q: "Where do Carlsbad individual therapy sessions take place?"
-    a: "At the S.A.G.E. Therapy Center office, 5055 Avenida Encinas, Suite 100, in Carlsbad."
+    a: "In-person sessions take place at S.A.G.E. Therapy Center's office on Avenida Encinas in Carlsbad. The full address and directions are provided in the location section on this page."
   - q: "Do I need to know exactly what I want to work on before starting?"
-    a: "No. Some people come in with a clear focus; others come in feeling stuck or unsure where to start. Either way, request a session to talk it through."
+    a: "No. Some people come in with a clear focus; others come in feeling stuck or unsure where to start. Either way, the first step can simply be a conversation about fit and availability."
 ---
 
 ## Individual therapy with a Carlsbad-based therapist
 
-S.A.G.E. Therapy Center's office is at 5055 Avenida Encinas, Suite 100 in Carlsbad. Kristin Moorehead-Malley, LMFT, works one on one with adults navigating anxiety, grief, life transitions, relationship patterns, and other personal concerns.
+Kristin Moorehead-Malley, LMFT, provides individual therapy from S.A.G.E. Therapy Center's Carlsbad office for adults navigating anxiety, grief, life transitions, relationship patterns, and other personal concerns.
 
 Individual therapy is not built around one fixed program. Sessions can begin with whatever feels most relevant now and develop around what you want to better understand, work through, or change.
 
@@ -39,10 +39,10 @@ The focus can shift over time. Some weeks may center on a current stressor; othe
 
 ## Therapy that fits into life in Carlsbad
 
-Clients come to the Avenida Encinas office from across Carlsbad, including La Costa, Olde Carlsbad, Bressi Ranch, Aviara, and Calavera Hills. Having the practice based in Carlsbad can make in-person sessions easier to incorporate into an existing routine, while telehealth provides another option across California.
+Clients come to the Avenida Encinas office from across Carlsbad, including La Costa, Olde Carlsbad, Bressi Ranch, Aviara, and Calavera Hills. In-person sessions offer a local option in Carlsbad, while telehealth provides another way to meet across California.
 
 ## Getting started
 
 You do not need to know exactly what you want to work on before reaching out. Some people begin with a clear concern; others simply know that something feels difficult, repetitive, or ready for more attention.
 
-Request a session to discuss fit and availability. If individual therapy is not clearly the right starting point, that is also something you can ask about when you reach out.
+Request a session to discuss fit and availability. Specific arrival, access, and scheduling details can be confirmed as part of that conversation rather than requiring you to work them out before reaching out.
