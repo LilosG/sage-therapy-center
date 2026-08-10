@@ -8,6 +8,7 @@ import FAQAccordion from '../components/sections/FAQAccordion.astro';
 import VisitUs from '../components/sections/VisitUs.astro';
 import AreasServed from '../components/sections/AreasServed.astro';
 import InquiryFormSection from '../components/sections/InquiryFormSection.astro';
+import SchemaOrg from '../components/seo/SchemaOrg.astro';
 import { cityBreadcrumbs } from '../lib/breadcrumbs';
 import { withFallbackFaqs } from '../lib/faq';
 import { AREAS_WE_SERVE_URL } from '../data/nav';
@@ -104,7 +105,6 @@ const recognitionItems = [
     tone="lavender"
   />
 
-  <!-- The route supplies the approved local service grid here. -->
   <slot />
 
   <MeetKristin
@@ -163,4 +163,6 @@ const recognitionItems = [
       />
     )
   }
+
+  {faqItems.length > 0 && <SchemaOrg type="faqPage" faqItems={faqItems} />}
 </InteriorPageLayout>
