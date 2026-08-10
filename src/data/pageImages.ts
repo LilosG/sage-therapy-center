@@ -1,16 +1,12 @@
 // Centralized image assignments for interior-page heroes.
-// These URLs intentionally point at the exact, pre-optimized WebP files already
-// committed to this repository. Using stable direct image URLs keeps the hero
-// system deterministic across Vercel deployments while preserving one central
-// source of truth for service, city, and money-page image selection.
-
-const RAW_BASE = 'https://raw.githubusercontent.com/LilosG/sage-therapy-center/main/src/assets/images';
-
-const homeCoastalPath = `${RAW_BASE}/home/hero-coastal-path.webp`;
-const courtyardRetreat = `${RAW_BASE}/editorial/serene-courtyard-retreat.webp`;
-const eucalyptusTrail = `${RAW_BASE}/editorial/misty-eucalyptus-coastal-trail.webp`;
-const meadowTree = `${RAW_BASE}/editorial/misty-meadow-spreading-tree.webp`;
-const windowNook = `${RAW_BASE}/editorial/serene-sunlit-window-nook.webp`;
+// Keep first-party editorial images as ESM-imported Astro assets so they are
+// emitted, fingerprinted, and optimized by the build rather than fetched at
+// runtime from an external source.
+import homeCoastalPath from '../assets/images/home/hero-coastal-path.webp';
+import courtyardRetreat from '../assets/images/editorial/serene-courtyard-retreat.webp';
+import eucalyptusTrail from '../assets/images/editorial/misty-eucalyptus-coastal-trail.webp';
+import meadowTree from '../assets/images/editorial/misty-meadow-spreading-tree.webp';
+import windowNook from '../assets/images/editorial/serene-sunlit-window-nook.webp';
 
 const serviceHeroOverrides = {
   'individual-therapy': windowNook,
