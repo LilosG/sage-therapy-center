@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/sections/Hero.astro';
 import TrustStrip from '../components/sections/TrustStrip.astro';
-import ReassuranceGrid from '../components/sections/ReassuranceGrid.astro';
+import RecognitionBand from '../components/sections/RecognitionBand.astro';
 import MeetKristin from '../components/sections/MeetKristin.astro';
 import PhilosophySection from '../components/sections/PhilosophySection.astro';
 import ProcessSteps from '../components/sections/ProcessSteps.astro';
@@ -52,29 +52,25 @@ if (cities.length === 0) {
 
   <TrustStrip />
 
-  <ReassuranceGrid
+  <RecognitionBand
     eyebrow="A Place To Begin"
     heading="You’re in the right place if..."
     items={[
       {
         title: 'Feeling anxious or overwhelmed',
-        body: 'Sessions may explore what is driving anxiety and overwhelm, and ways to feel more grounded.',
-        icon: 'lucide:wind',
+        body: 'Sessions may explore what is driving anxiety and overwhelm and how it is affecting day-to-day life.',
       },
       {
         title: 'Stuck in patterns you want to change',
         body: 'Therapy can create space to understand recurring patterns in how you think, feel, and relate to others.',
-        icon: 'lucide:refresh-cw',
       },
       {
         title: 'Navigating grief or a hard transition',
         body: 'Some people seek therapy while grieving a loss or moving through a major life change.',
-        icon: 'lucide:cloud-rain',
       },
       {
         title: 'Working through it with a partner',
         body: 'Couples counseling can support communication, connection, and relationship concerns.',
-        icon: 'lucide:heart',
       },
     ]}
   />
