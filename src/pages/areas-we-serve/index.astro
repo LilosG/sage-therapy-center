@@ -8,7 +8,7 @@ import PracticeSection from '../../components/sections/PracticeSection.astro';
 import CTASection from '../../components/sections/CTASection.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
-import { editorialImages } from '../../data/pageImages';
+import { hubHeroImages } from '../../data/pageImages';
 import { AREAS_WE_SERVE_URL, SCHEDULE_URL } from '../../data/nav';
 import { cityUrl } from '../../lib/routes';
 import { staticBreadcrumbs } from '../../lib/breadcrumbs';
@@ -20,7 +20,7 @@ const breadcrumbItems = staticBreadcrumbs('Areas We Serve', AREAS_WE_SERVE_URL);
 <BaseLayout
   title="Therapy in Carlsbad & North County San Diego | S.A.G.E. Therapy Center"
   description="S.A.G.E. Therapy Center is based in Carlsbad, CA and serves clients from North County San Diego, with telehealth available across California."
-  image={editorialImages.eucalyptusTrail}
+  image={hubHeroImages.areas}
 >
   <PageHero
     eyebrow="Areas We Serve"
@@ -31,7 +31,7 @@ const breadcrumbItems = staticBreadcrumbs('Areas We Serve', AREAS_WE_SERVE_URL);
     ctaHref="#service-areas"
     phoneDisplay={site.phone.display}
     phoneHref={`tel:${site.phone.tel}`}
-    image={editorialImages.eucalyptusTrail}
+    image={hubHeroImages.areas}
     imageAlt="Soft Southern California eucalyptus landscape representing the North County communities served by S.A.G.E. Therapy Center"
   />
 
