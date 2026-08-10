@@ -14,8 +14,9 @@ import FAQAccordion from '../components/sections/FAQAccordion.astro';
 import LocationContext from '../components/sections/LocationContext.astro';
 import InquiryFormSection from '../components/sections/InquiryFormSection.astro';
 import SchemaOrg from '../components/seo/SchemaOrg.astro';
-import { cityServiceBreadcrumbs } from '../lib/breadcrumbs';
+import { absoluteBreadcrumbs, cityServiceBreadcrumbs } from '../lib/breadcrumbs';
 import { withFallbackFaqs } from '../lib/faq';
+import { canonicalUrl, cityServiceUrl } from '../lib/routes';
 import { practitioner } from '../data/practitioner';
 import { getCityServiceHero } from '../data/pageImages';
 import { getEntry } from 'astro:content';
@@ -38,6 +39,8 @@ const city = await getEntry(entry.data.city);
 const service = await getEntry(entry.data.service);
 const routeSlug = entry.data.slugOverride ?? service.data.slug;
 const breadcrumbItems = cityServiceBreadcrumbs(city.data.name, city.data.slug, service.data.title, routeSlug);
+const schemaBreadcrumbs = absoluteBreadcrumbs(breadcrumbItems);
+const pageUrl = canonicalUrl(cityServiceUrl(city.data.slug, routeSlug));
 const faqItems = await withFallbackFaqs(entry.data.faq);
 const heroImage = getCityServiceHero(city.data.slug, service.data.slug);
 const metaTitle = `${service.data.title} in ${city.data.name}, CA | S.A.G.E. Therapy Center`;
@@ -48,10 +51,6 @@ const heroDescription = city.data.hasOffice
   ? `${service.data.title} with Kristin Moorehead-Malley, LMFT, with in-person sessions at S.A.G.E.'s Carlsbad office and telehealth across California.`
   : `${service.data.title} for ${city.data.name} clients with Kristin Moorehead-Malley, LMFT, from the Carlsbad office or by telehealth across California.`;
 
-// A city/service entry owns the strongest local uniqueness. When a legacy
-// entry has not yet been migrated to the typed blocks, reuse the canonical
-// service's structured recognition/topics/approach around that entry's unique
-// local Markdown instead of falling all the way back to the old generic page.
 const entryHasStructuredContent = Boolean(entry.data.recognition?.length && entry.data.overview && entry.data.topics);
 const recognition = entry.data.recognition ?? service.data.recognition;
 const topics = entry.data.topics ?? service.data.topics;
@@ -68,8 +67,8 @@ const reassuranceItems = [
   {
     title: city.data.hasOffice ? `In-person in ${city.data.name}` : `Serving ${city.data.name}`,
     body: city.data.hasOffice
-      ? `Sessions are available at the Carlsbad office, with telehealth available across California.`
-      : `Work with Kristin from the Carlsbad office or by telehealth anywhere in California.`,
+      ? 'Sessions are available at the Carlsbad office, with telehealth available across California.'
+      : 'Work with Kristin from the Carlsbad office or by telehealth anywhere in California.',
     icon: 'lucide:map-pin',
   },
   {
@@ -222,5 +221,16 @@ const reassuranceItems = [
     subhead="Request a follow-up about fit, availability, and session options without having to share your full story in a web form."
   />
 
+  <SchemaOrg
+    type="service"
+    breadcrumb={schemaBreadcrumbs}
+    service={{
+      name: `${service.data.title} in ${city.data.name}`,
+      description: metaDescription,
+      serviceType: service.data.primaryTarget,
+      url: pageUrl,
+      areaServed: city.data.name,
+    }}
+  />
   {faqItems.length > 0 && <SchemaOrg type="faqPage" faqItems={faqItems} />}
 </InteriorPageLayout>
