@@ -2,90 +2,75 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/sections/PageHero.astro';
 import TrustStrip from '../../components/sections/TrustStrip.astro';
+import MeetKristin from '../../components/sections/MeetKristin.astro';
+import PhilosophySection from '../../components/sections/PhilosophySection.astro';
+import ProcessSteps from '../../components/sections/ProcessSteps.astro';
 import CTASection from '../../components/sections/CTASection.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
-import ImagePlaceholder from '../../components/ui/ImagePlaceholder.astro';
 import { site } from '../../data/site';
+import { practitioner } from '../../data/practitioner';
+import { editorialImages } from '../../data/pageImages';
 import { ABOUT_URL, SCHEDULE_URL } from '../../data/nav';
 import { staticBreadcrumbs } from '../../lib/breadcrumbs';
-
-const modalities = ['EMDR', 'Lifespan Integration', 'CBT', 'IMAGO', 'Psychodynamic', 'Attachment-Based'];
+import kristinPhoto from '../../assets/images/kristin-moorehead-malley.webp';
 ---
 
 <BaseLayout
   title={`About ${site.practitioner.name}, ${site.practitioner.credential} | S.A.G.E. Therapy Center`}
-  description={`Meet ${site.practitioner.name}, ${site.practitioner.credential}, and learn about the approach behind S.A.G.E. Therapy Center in Carlsbad, CA.`}
+  description={`Meet ${site.practitioner.name}, ${site.practitioner.credential}, and learn about the individualized approach behind S.A.G.E. Therapy Center in Carlsbad, CA.`}
+  image={editorialImages.courtyardRetreat}
 >
   <PageHero
-    eyebrow="About"
-    title={`${site.practitioner.name}, ${site.practitioner.credential}`}
+    eyebrow="About S.A.G.E."
+    title={`Meet ${site.practitioner.name}, ${site.practitioner.credential}`}
+    description="A Carlsbad-based therapist drawing from multiple approaches so therapy can respond to the person, relationship, family, and circumstances in front of her."
     breadcrumbItems={staticBreadcrumbs('About', ABOUT_URL)}
+    ctaLabel="Schedule a Session"
+    ctaHref={SCHEDULE_URL}
+    phoneDisplay={site.phone.display}
+    phoneHref={`tel:${site.phone.tel}`}
+    image={editorialImages.courtyardRetreat}
+    imageAlt="Quiet Southern California courtyard reflecting the calm, individualized approach of S.A.G.E. Therapy Center"
   />
 
-  <div class="mx-auto grid max-w-5xl gap-10 px-6 pb-4 pt-8 lg:grid-cols-[minmax(0,280px)_1fr] lg:items-start">
-    <!-- PLACEHOLDER: headshot of Kristin Moorehead-Malley, LMFT, arriving Wave 6 -->
-    <ImagePlaceholder
-      alt={`Headshot of ${site.practitioner.name}, ${site.practitioner.credential} — placeholder, real photography arriving Wave 6`}
-      icon="lucide:user-round"
-      class="aspect-[4/5] w-full shadow-sm"
-    />
+  <TrustStrip />
 
-    <div>
-      <div class="space-y-4 font-sans text-lg text-foreground">
-        <p>
-          S.A.G.E. stands for Self-Awareness, Growth, and Enlightenment. The practice's mission is to help you
-          discover inner peace, heal from past experiences, and cultivate a more joyful life.
-        </p>
-        <p>
-          {site.practitioner.name} is a Licensed Marriage and Family Therapist based in {site.address.city}, {
-            site.address.region
-          }, offering individual and couples therapy at {site.name}.
-        </p>
-        <p>
-          Sessions draw on a range of approaches — including EMDR, Lifespan Integration, CBT, IMAGO, psychodynamic,
-          and attachment-based work — matched to what fits each person or couple, rather than a single fixed
-          method. This breadth means the approach can be adapted as the work together evolves.
-        </p>
-        <p>
-          {site.practitioner.name} works with individuals and couples navigating anxiety, grief, life transitions,
-          and relationship challenges, offering support for people at whatever stage they're starting from.
-        </p>
-        <p class="text-sm text-muted-foreground">
-          {site.practitioner.name}, {site.practitioner.credential}
-          <!-- CONFIRM: display site.practitioner.licenseNumber (CA license
-               number) here once Kristin confirms it — SEO doc Wave 0
-               blocker 7. site.practitioner.licenseConfirmRequired is
-               currently true. -->
-        </p>
-      </div>
+  <MeetKristin
+    name={practitioner.name}
+    credential={practitioner.credential}
+    bio={practitioner.aboutBio}
+    modalities={practitioner.modalities}
+    ctaLabel="Schedule a Session"
+    ctaHref={SCHEDULE_URL}
+    image={kristinPhoto}
+  />
 
-      <div class="mt-8">
-        <p class="font-sans text-sm font-semibold text-ink">Approaches Kristin draws on</p>
-        <ul class="mt-3 flex flex-wrap gap-2">
-          {
-            modalities.map((modality) => (
-              <li class="rounded-full border border-border bg-surface px-4 py-2 font-sans text-sm text-foreground">
-                {modality}
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-    </div>
-  </div>
+  <PhilosophySection
+    heading="Therapy should fit the person — not force the person into one method."
+    body="S.A.G.E. stands for Self-Awareness, Growth, and Enlightenment. Kristin draws from multiple therapeutic approaches so the work can adapt as your needs, relationships, circumstances, and goals become clearer."
+    quote="Therapy is a lot like climbing Everest."
+    attribution={`${site.practitioner.name}, ${site.practitioner.credential}`}
+    items={practitioner.modalities}
+  />
 
-  <div class="mt-12">
-    <TrustStrip />
-  </div>
+  <ProcessSteps
+    eyebrow="Working Together"
+    heading="What getting started can look like"
+    steps={[
+      { title: 'Reach out', body: 'Request a session to discuss what you are looking for, fit, and current availability.' },
+      { title: 'First session', body: 'Begin with what is bringing you in and what you would like support understanding or changing.' },
+      { title: 'Ongoing work', body: 'Continue with an approach and pace that can evolve as the work becomes clearer.' },
+    ]}
+  />
 
   <CTASection
-    heading="Ready to take the first step?"
-    subhead="Request a session to discuss fit and availability."
+    heading="Ready to see if working with Kristin may be a fit?"
+    subhead="Start with a simple request about availability and session options."
     ctaLabel="Schedule a Session"
     ctaHref={SCHEDULE_URL}
     phoneDisplay={site.phone.display}
     phoneHref={`tel:${site.phone.tel}`}
   />
-</BaseLayout>
 
-<SchemaOrg type="person" />
+  <SchemaOrg type="person" />
+</BaseLayout>
