@@ -5,6 +5,7 @@ entryId:
 title: Individual Therapy
 slug: individual-therapy
 category: core
+pageKind: audience
 primaryTarget: "individual therapy"
 mustNotCompeteFor: "therapist Carlsbad (that's the city hub's job)"
 relatedServices:
