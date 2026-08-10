@@ -1,6 +1,12 @@
 ---
 import InteriorPageLayout from './InteriorPageLayout.astro';
 import ReassuranceGrid from '../components/sections/ReassuranceGrid.astro';
+import RecognitionBand from '../components/sections/RecognitionBand.astro';
+import OverviewFeature from '../components/sections/OverviewFeature.astro';
+import TopicMatrix from '../components/sections/TopicMatrix.astro';
+import ApproachFeature from '../components/sections/ApproachFeature.astro';
+import DecisionSection from '../components/sections/DecisionSection.astro';
+import RelatedSupportStrip from '../components/sections/RelatedSupportStrip.astro';
 import MeetKristin from '../components/sections/MeetKristin.astro';
 import ProcessSteps from '../components/sections/ProcessSteps.astro';
 import ReviewsSection from '../components/sections/ReviewsSection.astro';
@@ -16,11 +22,17 @@ import kristinPhoto from '../assets/images/kristin-moorehead-malley.webp';
 import googleReviews from '../data/google-reviews.json';
 import type { CollectionEntry } from 'astro:content';
 
-interface Props {
-  entry: CollectionEntry<'city-services'>;
+interface RelatedLink {
+  title: string;
+  href: string;
 }
 
-const { entry } = Astro.props;
+interface Props {
+  entry: CollectionEntry<'city-services'>;
+  relatedLinks?: RelatedLink[];
+}
+
+const { entry, relatedLinks = [] } = Astro.props;
 const city = await getEntry(entry.data.city);
 const service = await getEntry(entry.data.service);
 const routeSlug = entry.data.slugOverride ?? service.data.slug;
@@ -31,6 +43,8 @@ const metaTitle = `${service.data.title} in ${city.data.name}, CA | S.A.G.E. The
 const metaDescription = city.data.hasOffice
   ? `${service.data.title} in ${city.data.name}, CA with Kristin Moorehead-Malley, LMFT, at S.A.G.E. Therapy Center. Request a session to discuss fit and availability.`
   : `${service.data.title} for ${city.data.name}, CA clients with Kristin Moorehead-Malley, LMFT, from the Carlsbad office or by telehealth across California.`;
+const { recognition, overview, topics, approach, decisionItems } = entry.data;
+const hasStructuredContent = Boolean(recognition?.length && overview && topics);
 
 const reassuranceItems = [
   {
@@ -66,10 +80,40 @@ const reassuranceItems = [
   ctaHeading={`Ready to explore ${service.data.title.toLowerCase()} in ${city.data.name}?`}
   showFinalCta={false}
 >
-  <ReassuranceGrid heading="A clear, supportive place to start" items={reassuranceItems} columns={3} />
-
-  <!-- Unique service + city editorial content and related local links come from the route. -->
-  <slot />
+  {
+    hasStructuredContent ? (
+      <>
+        <RecognitionBand
+          eyebrow="A Clear Place To Start"
+          heading={`You may be considering ${service.data.title.toLowerCase()} if...`}
+          items={recognition!}
+        />
+        <OverviewFeature
+          eyebrow={overview!.eyebrow}
+          heading={overview!.heading}
+          paragraphs={overview!.paragraphs}
+          detailEyebrow={city.data.hasOffice ? 'Local Practice' : 'Session Access'}
+          detailTitle={city.data.hasOffice ? `Based here in ${city.data.name}` : `Serving ${city.data.name} from Carlsbad`}
+          detailItems={
+            city.data.hasOffice
+              ? ['In-person sessions at the Avenida Encinas office', 'Telehealth available across California', 'Request a session to discuss fit and availability']
+              : ['In-person sessions at the Carlsbad office', `Serving clients from ${city.data.name}`, 'Telehealth available across California']
+          }
+        />
+        <TopicMatrix
+          eyebrow={topics!.eyebrow}
+          heading={topics!.heading}
+          intro={topics!.intro}
+          items={topics!.items}
+        />
+      </>
+    ) : (
+      <>
+        <ReassuranceGrid heading="A clear, supportive place to start" items={reassuranceItems} columns={3} />
+        <slot />
+      </>
+    )
+  }
 
   <MeetKristin
     name={practitioner.name}
@@ -80,6 +124,17 @@ const reassuranceItems = [
     ctaHref={practitioner.ctaHref}
     image={kristinPhoto}
   />
+
+  {
+    hasStructuredContent && approach && (
+      <ApproachFeature
+        eyebrow={approach.eyebrow}
+        heading={approach.heading}
+        body={approach.body}
+        modalities={approach.modalities}
+      />
+    )
+  }
 
   <ProcessSteps
     eyebrow="What To Expect"
@@ -95,6 +150,26 @@ const reassuranceItems = [
   />
 
   <LocationContext cityName={city.data.name} hasOffice={city.data.hasOffice} neighborhoods={city.data.neighborhoods} />
+
+  {
+    hasStructuredContent && decisionItems?.length && (
+      <DecisionSection
+        eyebrow="Planning Your First Step"
+        heading={`Considering ${service.data.title.toLowerCase()} in ${city.data.name}?`}
+        items={decisionItems}
+      />
+    )
+  }
+
+  {
+    hasStructuredContent && relatedLinks.length > 0 && (
+      <RelatedSupportStrip
+        eyebrow={`${city.data.name} Therapy`}
+        heading={`Other therapy services available to ${city.data.name} clients`}
+        links={relatedLinks}
+      />
+    )
+  }
 
   <ReviewsSection
     rating={googleReviews.rating}
