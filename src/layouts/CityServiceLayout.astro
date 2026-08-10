@@ -43,6 +43,9 @@ const metaTitle = `${service.data.title} in ${city.data.name}, CA | S.A.G.E. The
 const metaDescription = city.data.hasOffice
   ? `${service.data.title} in ${city.data.name}, CA with Kristin Moorehead-Malley, LMFT, at S.A.G.E. Therapy Center. Request a session to discuss fit and availability.`
   : `${service.data.title} for ${city.data.name}, CA clients with Kristin Moorehead-Malley, LMFT, from the Carlsbad office or by telehealth across California.`;
+const heroDescription = city.data.hasOffice
+  ? `${service.data.title} with Kristin Moorehead-Malley, LMFT, with in-person sessions at S.A.G.E.'s Carlsbad office and telehealth across California.`
+  : `${service.data.title} for ${city.data.name} clients with Kristin Moorehead-Malley, LMFT, from the Carlsbad office or by telehealth across California.`;
 const { recognition, overview, topics, approach, decisionItems } = entry.data;
 const hasStructuredContent = Boolean(recognition?.length && overview && topics);
 
@@ -72,7 +75,7 @@ const reassuranceItems = [
   description={metaDescription}
   eyebrow={`${city.data.name} Therapy`}
   heroTitle={`${service.data.title} in ${city.data.name}, CA`}
-  heroDescription={service.data.description}
+  heroDescription={heroDescription}
   heroImage={heroImage}
   heroImageAlt={`Quiet editorial image for ${service.data.title.toLowerCase()} serving ${city.data.name}`}
   heroCtaHref="#request-session"
@@ -82,7 +85,7 @@ const reassuranceItems = [
 >
   {
     hasStructuredContent ? (
-      <>
+      <Fragment>
         <RecognitionBand
           eyebrow="A Clear Place To Start"
           heading={`You may be considering ${service.data.title.toLowerCase()} if...`}
@@ -106,12 +109,12 @@ const reassuranceItems = [
           intro={topics!.intro}
           items={topics!.items}
         />
-      </>
+      </Fragment>
     ) : (
-      <>
+      <Fragment>
         <ReassuranceGrid heading="A clear, supportive place to start" items={reassuranceItems} columns={3} />
         <slot />
-      </>
+      </Fragment>
     )
   }
 
