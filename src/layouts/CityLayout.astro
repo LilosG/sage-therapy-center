@@ -9,8 +9,9 @@ import VisitUs from '../components/sections/VisitUs.astro';
 import AreasServed from '../components/sections/AreasServed.astro';
 import InquiryFormSection from '../components/sections/InquiryFormSection.astro';
 import SchemaOrg from '../components/seo/SchemaOrg.astro';
-import { cityBreadcrumbs } from '../lib/breadcrumbs';
+import { absoluteBreadcrumbs, cityBreadcrumbs } from '../lib/breadcrumbs';
 import { withFallbackFaqs } from '../lib/faq';
+import { canonicalUrl, cityUrl } from '../lib/routes';
 import { AREAS_WE_SERVE_URL } from '../data/nav';
 import { practitioner } from '../data/practitioner';
 import { getCityHero } from '../data/pageImages';
@@ -55,6 +56,8 @@ const {
 } = Astro.props;
 const { name, hasOffice, slug, faq, neighborhoods } = entry.data;
 const breadcrumbItems = cityBreadcrumbs(name, slug);
+const schemaBreadcrumbs = absoluteBreadcrumbs(breadcrumbItems);
+const pageUrl = canonicalUrl(cityUrl(slug));
 const faqItems = await withFallbackFaqs(faq);
 const heroImage = getCityHero(slug);
 const heroDescription = hasOffice
@@ -164,5 +167,10 @@ const recognitionItems = [
     )
   }
 
+  <SchemaOrg
+    type="city"
+    city={{ name, url: pageUrl, areaServed: name }}
+    breadcrumb={schemaBreadcrumbs}
+  />
   {faqItems.length > 0 && <SchemaOrg type="faqPage" faqItems={faqItems} />}
 </InteriorPageLayout>
