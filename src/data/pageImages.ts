@@ -13,6 +13,7 @@ import windowNook from '../assets/images/editorial/serene-sunlit-window-nook.web
 export const hubHeroImages = {
   services: courtyardRetreat,
   areas: eucalyptusTrail,
+  schedule: meadowTree,
 } as const;
 
 // Hero imagery needs enough visual structure to read immediately at card size.
