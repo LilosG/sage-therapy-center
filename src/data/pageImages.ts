@@ -8,8 +8,11 @@ import eucalyptusTrail from '../assets/images/editorial/misty-eucalyptus-coastal
 import meadowTree from '../assets/images/editorial/misty-meadow-spreading-tree.webp';
 import windowNook from '../assets/images/editorial/serene-sunlit-window-nook.webp';
 
+// Hero imagery needs enough visual structure to read immediately at card size.
+// Keep the very low-contrast window-nook asset available for editorial use,
+// but do not use it as a hero where it can read like an empty placeholder.
 const serviceHeroOverrides = {
-  'individual-therapy': windowNook,
+  'individual-therapy': meadowTree,
   'couples-counseling': meadowTree,
   'family-therapy': courtyardRetreat,
   'teen-counseling': eucalyptusTrail,
@@ -42,14 +45,14 @@ const moneyServiceOverrides = {
   'family-therapy': meadowTree,
   'teen-counseling': homeCoastalPath,
   'premarital-marriage-counseling': meadowTree,
-  'emdr-therapy': windowNook,
+  'emdr-therapy': courtyardRetreat,
   'anxiety-therapy': eucalyptusTrail,
-  'trauma-ptsd-therapy': windowNook,
+  'trauma-ptsd-therapy': meadowTree,
 } as const;
 
-const servicePool = [windowNook, courtyardRetreat, eucalyptusTrail, meadowTree, homeCoastalPath] as const;
+const servicePool = [courtyardRetreat, eucalyptusTrail, meadowTree, homeCoastalPath] as const;
 const cityPool = [eucalyptusTrail, meadowTree, homeCoastalPath] as const;
-const moneyPool = [eucalyptusTrail, meadowTree, windowNook, courtyardRetreat, homeCoastalPath] as const;
+const moneyPool = [eucalyptusTrail, meadowTree, courtyardRetreat, homeCoastalPath] as const;
 
 function stableIndex(key: string, length: number) {
   let hash = 0;
