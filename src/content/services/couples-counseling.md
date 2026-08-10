@@ -5,6 +5,7 @@ entryId:
 title: Couples Counseling
 slug: couples-counseling
 category: core
+pageKind: relationship
 primaryTarget: "couples counseling"
 mustNotCompeteFor: "premarital counseling"
 relatedServices:
