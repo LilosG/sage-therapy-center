@@ -189,7 +189,7 @@ const reassuranceItems = [
   }
 
   {
-    relatedLinks.length > 0 && (
+    hasStructuredShell && relatedLinks.length > 0 && (
       <RelatedSupportStrip
         eyebrow={`${city.data.name} Therapy`}
         heading={`Other therapy services available to ${city.data.name} clients`}
