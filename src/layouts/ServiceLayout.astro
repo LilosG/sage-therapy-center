@@ -40,6 +40,7 @@ const {
   description,
   slug,
   category,
+  pageKind,
   faq,
   recognition,
   overview,
@@ -55,6 +56,32 @@ const heroImage = getServiceHero(slug);
 const metaTitle = `${title} | S.A.G.E. Therapy Center, Carlsbad CA`;
 const metaDescription = `${description} Work with Kristin Moorehead-Malley, LMFT, in Carlsbad or by telehealth across California.`;
 const hasStructuredContent = Boolean(recognition?.length && overview && topics);
+
+const heroEyebrow =
+  pageKind === 'modality'
+    ? 'Therapeutic Approach'
+    : pageKind === 'relationship'
+      ? 'Relationship Therapy'
+      : pageKind === 'family'
+        ? 'Family Therapy'
+        : pageKind === 'adolescent'
+          ? 'Teen Therapy'
+          : category === 'concern-led'
+            ? 'Area of Support'
+            : 'Therapy Service';
+
+const recognitionHeading =
+  pageKind === 'modality'
+    ? `${title} may be worth exploring if...`
+    : pageKind === 'relationship'
+      ? `Couples consider ${title.toLowerCase()} for different reasons`
+      : pageKind === 'family'
+        ? `Families may look for support when...`
+        : pageKind === 'adolescent'
+          ? `Teen counseling may be helpful when...`
+          : category === 'concern-led'
+            ? `You may be looking for support if...`
+            : `People consider ${title.toLowerCase()} for different reasons`;
 
 const reassuranceItems = [
   {
@@ -78,7 +105,7 @@ const reassuranceItems = [
 <InteriorPageLayout
   title={metaTitle}
   description={metaDescription}
-  eyebrow={category === 'core' ? 'Therapy Service' : 'Area of Support'}
+  eyebrow={heroEyebrow}
   heroTitle={title}
   heroDescription={description}
   heroImage={heroImage}
@@ -90,10 +117,10 @@ const reassuranceItems = [
 >
   {
     hasStructuredContent ? (
-      <>
+      <Fragment>
         <RecognitionBand
           eyebrow="A Supportive Place To Begin"
-          heading={`People consider ${title.toLowerCase()} for different reasons`}
+          heading={recognitionHeading}
           items={recognition!}
         />
         <OverviewFeature
@@ -114,12 +141,12 @@ const reassuranceItems = [
           intro={topics!.intro}
           items={topics!.items}
         />
-      </>
+      </Fragment>
     ) : (
-      <>
+      <Fragment>
         <ReassuranceGrid heading="A supportive place to begin" items={reassuranceItems} columns={3} />
         <slot />
-      </>
+      </Fragment>
     )
   }
 
@@ -146,7 +173,7 @@ const reassuranceItems = [
 
   <ProcessSteps
     eyebrow="What To Expect"
-    heading={`What ${title.toLowerCase()} may look like`}
+    heading={pageKind === 'modality' ? `How ${title} may fit into therapy` : `What ${title.toLowerCase()} may look like`}
     steps={[
       { title: 'Reach out', body: 'Request a session to discuss fit, availability, and what is bringing you in.' },
       { title: 'First session', body: 'Begin with the concerns, questions, or patterns that feel most important to understand.' },
