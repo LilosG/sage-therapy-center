@@ -64,6 +64,7 @@ const services = defineCollection({
     title: z.string(),
     slug: z.string(),
     category: z.enum(['core', 'concern-led']),
+    pageKind: z.enum(['audience', 'relationship', 'family', 'adolescent', 'modality', 'concern']).optional(),
     primaryTarget: z.string(),
     mustNotCompeteFor: z.string(),
     relatedServices: z.array(reference('services')),
