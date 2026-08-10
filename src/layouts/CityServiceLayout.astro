@@ -43,13 +43,22 @@ const schemaBreadcrumbs = absoluteBreadcrumbs(breadcrumbItems);
 const pageUrl = canonicalUrl(cityServiceUrl(city.data.slug, routeSlug));
 const faqItems = await withFallbackFaqs(entry.data.faq);
 const heroImage = getCityServiceHero(city.data.slug, service.data.slug);
-const metaTitle = `${service.data.title} in ${city.data.name}, CA | S.A.G.E. Therapy Center`;
+const heroTitle = city.data.hasOffice
+  ? `${service.data.title} in ${city.data.name}, CA`
+  : `${service.data.title} for ${city.data.name}, CA`;
+const metaTitle = `${heroTitle} | S.A.G.E. Therapy Center`;
 const metaDescription = city.data.hasOffice
   ? `${service.data.title} in ${city.data.name}, CA with Kristin Moorehead-Malley, LMFT, at S.A.G.E. Therapy Center. Request a session to discuss fit and availability.`
   : `${service.data.title} for ${city.data.name}, CA clients with Kristin Moorehead-Malley, LMFT, from the Carlsbad office or by telehealth across California.`;
 const heroDescription = city.data.hasOffice
   ? `${service.data.title} with Kristin Moorehead-Malley, LMFT, with in-person sessions at S.A.G.E.'s Carlsbad office and telehealth across California.`
   : `${service.data.title} for ${city.data.name} clients with Kristin Moorehead-Malley, LMFT, from the Carlsbad office or by telehealth across California.`;
+const inquiryHeading = city.data.hasOffice
+  ? `Ready to explore ${service.data.title.toLowerCase()} in ${city.data.name}?`
+  : `Ready to explore ${service.data.title.toLowerCase()} as a ${city.data.name} client?`;
+const faqHeading = city.data.hasOffice
+  ? `${service.data.title} in ${city.data.name}: common questions`
+  : `${service.data.title} for ${city.data.name} clients: common questions`;
 
 const entryHasStructuredContent = Boolean(entry.data.recognition?.length && entry.data.overview && entry.data.topics);
 const recognition = entry.data.recognition ?? service.data.recognition;
@@ -82,14 +91,14 @@ const reassuranceItems = [
 <InteriorPageLayout
   title={metaTitle}
   description={metaDescription}
-  eyebrow={`${city.data.name} Therapy`}
-  heroTitle={`${service.data.title} in ${city.data.name}, CA`}
+  eyebrow={city.data.hasOffice ? `${city.data.name} Therapy` : `Serving ${city.data.name}`}
+  heroTitle={heroTitle}
   heroDescription={heroDescription}
   heroImage={heroImage}
   heroImageAlt={`Quiet editorial image for ${service.data.title.toLowerCase()} serving ${city.data.name}`}
   heroCtaHref="#request-session"
   breadcrumbItems={breadcrumbItems}
-  ctaHeading={`Ready to explore ${service.data.title.toLowerCase()} in ${city.data.name}?`}
+  ctaHeading={inquiryHeading}
   showFinalCta={false}
 >
   {
@@ -188,7 +197,11 @@ const reassuranceItems = [
     decisionItems?.length && (
       <DecisionSection
         eyebrow="Planning Your First Step"
-        heading={`Considering ${service.data.title.toLowerCase()} in ${city.data.name}?`}
+        heading={
+          city.data.hasOffice
+            ? `Considering ${service.data.title.toLowerCase()} in ${city.data.name}?`
+            : `Considering ${service.data.title.toLowerCase()} as a ${city.data.name} client?`
+        }
         items={decisionItems}
       />
     )
@@ -197,7 +210,7 @@ const reassuranceItems = [
   {
     relatedLinks.length > 0 && (
       <RelatedSupportStrip
-        eyebrow={`${city.data.name} Therapy`}
+        eyebrow={city.data.hasOffice ? `${city.data.name} Therapy` : `Serving ${city.data.name}`}
         heading={`Other therapy services available to ${city.data.name} clients`}
         links={relatedLinks}
       />
@@ -212,12 +225,12 @@ const reassuranceItems = [
     lastUpdated={googleReviews.fetchedAt}
   />
 
-  {faqItems.length > 0 && <FAQAccordion heading={`${service.data.title} in ${city.data.name}: common questions`} items={faqItems} background="surface" />}
+  {faqItems.length > 0 && <FAQAccordion heading={faqHeading} items={faqItems} background="surface" />}
 
   <InquiryFormSection
-    context={`${service.data.title} in ${city.data.name}`}
+    context={`${service.data.title} — ${city.data.name}`}
     selectedService={service.data.title}
-    heading={`Ready to explore ${service.data.title.toLowerCase()} in ${city.data.name}?`}
+    heading={inquiryHeading}
     subhead="Request a follow-up about fit, availability, and session options without having to share your full story in a web form."
   />
 
@@ -225,7 +238,7 @@ const reassuranceItems = [
     type="service"
     breadcrumb={schemaBreadcrumbs}
     service={{
-      name: `${service.data.title} in ${city.data.name}`,
+      name: heroTitle,
       description: metaDescription,
       serviceType: service.data.primaryTarget,
       url: pageUrl,
