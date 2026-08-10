@@ -134,34 +134,52 @@ function buildPerson() {
 
 function buildService() {
   if (!service) return null;
+  const serviceId = `${service.url}#service`;
+  const pageId = `${service.url}#webpage`;
+  const breadcrumbId = `${service.url}#breadcrumb`;
+
   return {
     '@context': 'https://schema.org',
-    '@type': 'Service',
-    '@id': `${service.url}#service`,
-    name: service.name,
-    description: service.description,
-    serviceType: service.serviceType,
-    url: service.url,
-    provider: businessRef(),
-    ...(service.areaServed ? { areaServed: service.areaServed } : {}),
-    ...(service.audience
-      ? { audience: { '@type': 'Audience', audienceType: service.audience } }
-      : {}),
-    ...(site.offersConfirmed && service.offer
-      ? {
-          offers: {
-            '@type': 'Offer',
-            price: service.offer.price,
-            priceCurrency: service.offer.priceCurrency,
-          },
-        }
-      : {}),
+    '@graph': [
+      {
+        '@type': 'Service',
+        '@id': serviceId,
+        name: service.name,
+        description: service.description,
+        serviceType: service.serviceType,
+        url: service.url,
+        provider: businessRef(),
+        ...(service.areaServed ? { areaServed: service.areaServed } : {}),
+        ...(service.audience
+          ? { audience: { '@type': 'Audience', audienceType: service.audience } }
+          : {}),
+        ...(site.offersConfirmed && service.offer
+          ? {
+              offers: {
+                '@type': 'Offer',
+                price: service.offer.price,
+                priceCurrency: service.offer.priceCurrency,
+              },
+            }
+          : {}),
+      },
+      {
+        '@type': 'WebPage',
+        '@id': pageId,
+        url: service.url,
+        name: service.name,
+        description: service.description,
+        isPartOf: { '@id': websiteId },
+        about: { '@id': serviceId },
+        ...(breadcrumb ? { breadcrumb: { '@id': breadcrumbId } } : {}),
+      },
+      ...(breadcrumb ? [{ '@id': breadcrumbId, ...breadcrumbList(breadcrumb) }] : []),
+    ],
   };
 }
 
 function buildCity() {
   if (!city) return null;
-  // Never fabricate a branch address for a service area without an office.
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -170,6 +188,7 @@ function buildCity() {
         '@id': `${city.url}#webpage`,
         name: city.name,
         url: city.url,
+        isPartOf: { '@id': websiteId },
         about: businessRef(),
         ...(breadcrumb ? { breadcrumb: { '@id': `${city.url}#breadcrumb` } } : {}),
       },
