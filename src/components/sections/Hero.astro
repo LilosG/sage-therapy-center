@@ -16,9 +16,20 @@ interface Props {
   secondaryCta?: CTA;
   badge?: string;
   image?: ImageMetadata;
+  imagePosition?: string;
 }
 
-const { eyebrow, headline, emphasis, subhead, primaryCta, secondaryCta, badge, image } = Astro.props;
+const {
+  eyebrow,
+  headline,
+  emphasis,
+  subhead,
+  primaryCta,
+  secondaryCta,
+  badge,
+  image,
+  imagePosition = 'center',
+} = Astro.props;
 const parts = emphasis && headline.includes(emphasis) ? headline.split(emphasis) : null;
 ---
 
@@ -30,7 +41,8 @@ const parts = emphasis && headline.includes(emphasis) ? headline.split(emphasis)
         alt=""
         widths={[768, 1200, 1600]}
         sizes="100vw"
-        class="absolute inset-0 h-full w-full object-cover object-center"
+        class="absolute inset-0 h-full w-full object-cover"
+        style={`object-position: ${imagePosition};`}
         loading="eager"
         fetchpriority="high"
       />
@@ -39,8 +51,10 @@ const parts = emphasis && headline.includes(emphasis) ? headline.split(emphasis)
     )
   }
 
-  <div class="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/72 to-primary/28" aria-hidden="true" />
-  <div class="absolute inset-0 bg-gradient-to-t from-primary/35 via-transparent to-primary/10" aria-hidden="true" />
+  <!-- Keep the left text field controlled without flattening the editorial
+       photography into an almost-solid purple panel. -->
+  <div class="absolute inset-0 bg-gradient-to-r from-primary/84 via-primary/58 to-primary/16" aria-hidden="true" />
+  <div class="absolute inset-0 bg-gradient-to-t from-primary/28 via-transparent to-primary/8" aria-hidden="true" />
 
   <div class="relative mx-auto flex min-h-[31rem] max-w-7xl items-center px-6 py-20 sm:min-h-[35rem] sm:py-24 lg:px-8">
     <div class="max-w-3xl text-left">
@@ -52,8 +66,8 @@ const parts = emphasis && headline.includes(emphasis) ? headline.split(emphasis)
           </span>
         )
       }
-      <p class="mt-5 font-sans text-xs font-semibold uppercase tracking-[0.18em] text-surface/80">{eyebrow}</p>
-      <h1 class="mt-4 max-w-3xl font-serif text-4xl leading-[1.08] text-surface sm:text-5xl lg:text-6xl">
+      <p class="mt-5 font-sans text-xs font-semibold uppercase tracking-[0.18em] text-surface/85">{eyebrow}</p>
+      <h1 class="mt-4 max-w-3xl font-serif text-4xl leading-[1.08] text-surface drop-shadow-[0_2px_12px_rgba(42,40,51,0.18)] sm:text-5xl lg:text-6xl">
         {
           parts ? (
             <Fragment>
@@ -66,12 +80,12 @@ const parts = emphasis && headline.includes(emphasis) ? headline.split(emphasis)
           )
         }
       </h1>
-      <p class="mt-6 max-w-2xl font-sans text-base leading-7 text-surface/88 sm:text-lg">{subhead}</p>
+      <p class="mt-6 max-w-2xl font-sans text-base leading-7 text-surface/92 sm:text-lg">{subhead}</p>
       <div class="mt-8 flex flex-wrap gap-4">
         <Button href={primaryCta.href}>{primaryCta.label}</Button>
         {
           secondaryCta && (
-            <Button href={secondaryCta.href} variant="secondary" class="border-surface/80 bg-primary/20 text-surface backdrop-blur-sm hover:bg-surface/10">
+            <Button href={secondaryCta.href} variant="secondary" class="border-surface/80 bg-primary/25 text-surface backdrop-blur-sm hover:bg-surface/10">
               {secondaryCta.label}
             </Button>
           )
