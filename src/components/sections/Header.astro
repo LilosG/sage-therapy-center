@@ -12,6 +12,10 @@ function isNavActive(href: string) {
   if (href === AREAS_WE_SERVE_URL && hasCityRouteContext) return true;
   return currentPath === href || currentPath.startsWith(href);
 }
+
+function isCurrentPage(href: string) {
+  return currentPath === href;
+}
 ---
 
 <header class="sticky top-0 z-40 border-b border-border/80 bg-surface/95 backdrop-blur-md">
@@ -29,7 +33,7 @@ function isNavActive(href: string) {
               'font-sans text-sm transition-colors',
               isNavActive(item.href) ? 'font-medium text-sage-deep' : 'text-foreground hover:text-sage-deep',
             ]}
-            aria-current={isNavActive(item.href) ? 'page' : undefined}
+            aria-current={isCurrentPage(item.href) ? 'page' : undefined}
           >
             {item.label}
           </a>
@@ -64,7 +68,7 @@ function isNavActive(href: string) {
                       'flex min-h-12 items-center justify-between rounded-xl px-3 font-sans text-sm transition hover:bg-lavender-soft/50',
                       isNavActive(item.href) ? 'font-semibold text-sage-deep' : 'text-foreground',
                     ]}
-                    aria-current={isNavActive(item.href) ? 'page' : undefined}
+                    aria-current={isCurrentPage(item.href) ? 'page' : undefined}
                   >
                     <span>{item.label}</span>
                     <span class="text-sage-deep" aria-hidden="true">→</span>
