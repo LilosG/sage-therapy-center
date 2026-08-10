@@ -1,10 +1,17 @@
 ---
 import { Icon } from 'astro-icon/components';
 import { site } from '../../data/site';
-import { headerNav, HOME_URL, SCHEDULE_URL } from '../../data/nav';
+import { headerNav, AREAS_WE_SERVE_URL, HOME_URL, SCHEDULE_URL } from '../../data/nav';
 import Button from '../ui/Button.astro';
 
 const currentPath = Astro.url.pathname;
+const hasCityRouteContext = typeof Astro.params.city === 'string';
+
+function isNavActive(href: string) {
+  if (href === HOME_URL) return currentPath === HOME_URL;
+  if (href === AREAS_WE_SERVE_URL && hasCityRouteContext) return true;
+  return currentPath === href || currentPath.startsWith(href);
+}
 ---
 
 <header class="sticky top-0 z-40 border-b border-border/80 bg-surface/95 backdrop-blur-md">
@@ -20,9 +27,9 @@ const currentPath = Astro.url.pathname;
             href={item.href}
             class:list={[
               'font-sans text-sm transition-colors',
-              currentPath === item.href ? 'font-medium text-sage-deep' : 'text-foreground hover:text-sage-deep',
+              isNavActive(item.href) ? 'font-medium text-sage-deep' : 'text-foreground hover:text-sage-deep',
             ]}
-            aria-current={currentPath === item.href ? 'page' : undefined}
+            aria-current={isNavActive(item.href) ? 'page' : undefined}
           >
             {item.label}
           </a>
@@ -55,9 +62,9 @@ const currentPath = Astro.url.pathname;
                     href={item.href}
                     class:list={[
                       'flex min-h-12 items-center justify-between rounded-xl px-3 font-sans text-sm transition hover:bg-lavender-soft/50',
-                      currentPath === item.href ? 'font-semibold text-sage-deep' : 'text-foreground',
+                      isNavActive(item.href) ? 'font-semibold text-sage-deep' : 'text-foreground',
                     ]}
-                    aria-current={currentPath === item.href ? 'page' : undefined}
+                    aria-current={isNavActive(item.href) ? 'page' : undefined}
                   >
                     <span>{item.label}</span>
                     <span class="text-sage-deep" aria-hidden="true">→</span>
