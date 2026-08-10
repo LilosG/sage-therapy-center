@@ -20,13 +20,16 @@ const serviceHeroOverrides = {
 } as const;
 
 const cityHeroOverrides = {
-  carlsbad: eucalyptusTrail,
-  encinitas: homeCoastalPath,
+  // Carlsbad is the actual practice location, so use the strongest coastal
+  // image rather than the softer eucalyptus image that read too much like a
+  // placeholder in the hero card.
+  carlsbad: homeCoastalPath,
+  encinitas: eucalyptusTrail,
   oceanside: homeCoastalPath,
   'san-marcos': meadowTree,
   vista: meadowTree,
   'del-mar': homeCoastalPath,
-  'solana-beach': homeCoastalPath,
+  'solana-beach': eucalyptusTrail,
   'rancho-santa-fe': meadowTree,
 } as const;
 
