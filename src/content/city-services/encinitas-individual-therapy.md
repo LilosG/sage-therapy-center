@@ -6,25 +6,42 @@ city: encinitas
 service: individual-therapy
 minWordCount: 400
 uniqueContentPercent: 35
+recognition:
+  - title: "You want one-on-one support without needing a diagnosis first"
+    body: "You may know something feels difficult, repetitive, or overwhelming without having a formal label for what you are experiencing."
+  - title: "You are balancing stress with the rest of daily life"
+    body: "Work, relationships, grief, transitions, and recurring patterns can overlap rather than fitting into one isolated concern."
+  - title: "You want a therapist who can meet in person or by telehealth"
+    body: "Encinitas clients can meet Kristin at S.A.G.E.'s Carlsbad office or use telehealth anywhere in California."
+overview:
+  eyebrow: "Individual Therapy for Encinitas"
+  heading: "Individual therapy connected to a nearby Carlsbad practice"
+  paragraphs:
+    - "S.A.G.E. Therapy Center serves Encinitas clients through one-on-one therapy with Kristin Moorehead-Malley, LMFT. The practice's only physical office is in Carlsbad, so Encinitas clients can choose in-person sessions there or telehealth across California rather than being directed to a separate Encinitas location."
+    - "Sessions are individualized around what is most relevant to you. That may include anxiety, grief, a difficult transition, relationship or boundary concerns, recurring emotional patterns, stress, trauma-related concerns, or a broader desire to understand yourself more clearly. The work can shift as priorities change rather than staying confined to one label or fixed program."
+topics:
+  eyebrow: "What Therapy May Explore"
+  heading: "Common reasons Encinitas clients seek individual therapy"
+  intro: "The starting point can be specific or broad, and more than one concern may be part of the work at the same time."
+  items:
+    - "Anxiety, overwhelm, and persistent stress"
+    - "Grief, loss, and major life transitions"
+    - "Relationship patterns and boundaries"
+    - "Self-worth and patterns that feel hard to change"
+    - "Trauma-related concerns and difficult past experiences"
+    - "Personal growth and greater self-understanding"
+decisionItems:
+  - q: "Is there an S.A.G.E. office in Encinitas?"
+    a: "No. S.A.G.E.'s only physical office is in Carlsbad. Encinitas clients can meet there in person or use telehealth across California."
+  - q: "Do I need to know exactly what I want to work on?"
+    a: "No. A first conversation can begin with what feels most pressing now, even if your goals are not fully defined yet."
+  - q: "Can I choose between in-person and telehealth sessions?"
+    a: "Both options are available: in-person sessions are based at the Carlsbad office, and telehealth is available across California."
+  - q: "What is the first step?"
+    a: "Request a session to discuss fit, current availability, and which session format makes sense for you."
 faq:
-  - q: "Is there an S.A.G.E. Therapy Center office in Encinitas?"
-    a: "No. Individual therapy for Encinitas clients is held at the Carlsbad office, 5055 Avenida Encinas, Suite 100 — a short drive up the coast."
-  - q: "What does individual therapy involve for Encinitas clients?"
-    a: "The same one-on-one sessions offered to Carlsbad clients, with Kristin Moorehead-Malley, LMFT, working with adults on anxiety, grief, life transitions, and other personal challenges."
+  - q: "Where do Encinitas clients attend individual therapy?"
+    a: "In-person sessions take place at S.A.G.E. Therapy Center's Carlsbad office. Telehealth is also available to Encinitas clients across California."
+  - q: "What concerns can individual therapy address?"
+    a: "Clients may bring anxiety, grief, life transitions, relationship or boundary concerns, recurring patterns, trauma-related concerns, stress, or personal growth goals. The focus is individualized rather than limited to one issue."
 ---
-
-Encinitas residents looking for individual therapy work with S.A.G.E. Therapy Center at the Carlsbad office — 5055 Avenida Encinas, Suite 100 — just a short drive up the coast. There's no separate Encinitas location; every individual therapy session, including for clients coming from Olivenhain and elsewhere in Encinitas, takes place at the Carlsbad address.
-
-Kristin Moorehead-Malley, LMFT, works one on one with adults navigating anxiety, grief, life transitions, and other personal challenges. Sessions can draw on EMDR, Lifespan Integration, CBT, IMAGO, psychodynamic, and attachment-based approaches, chosen based on what fits your situation rather than a single fixed method.
-
-Some Encinitas clients choose S.A.G.E. Therapy Center specifically because of the range of approaches on offer — six or more, depending on what a given session calls for — which is broader than what many single-focus local practices offer. Others come from a referral or after comparing a few practices in North County San Diego and deciding the short drive to Carlsbad is worth it.
-
-Because there's no Encinitas office, it's worth being upfront about the logistics: sessions are in person, at the Carlsbad address, not remote and not at a satellite location closer to Encinitas. If proximity to home is a priority, that's a reasonable thing to weigh — but many Encinitas clients find the drive manageable given what they're getting in return.
-
-There's no single reason people start individual therapy. For some, it's feeling overwhelmed or stuck in day-to-day life. For others, it's ongoing anxiety, depression, anger, or stress, or patterns of low self-worth and self-sabotage that are hard to shift alone. Relationship difficulties, trouble setting boundaries, trauma, abuse, or PTSD, and concerns like sleep problems, addiction, or disordered eating are also common starting points. None of these needs to be at a breaking point to be worth bringing in — and if it's an emergency, please contact 911 or a crisis line rather than waiting for a scheduled session.
-
-Encinitas itself is a coastal surf town, with Highway 101 running along the coast as the community's main corridor and Moonlight Beach as one of its best-known landmarks — a generally laid-back, beach-town pace to daily life. The short drive north to the Carlsbad office is a small trade-off many Encinitas clients weigh against the range of approaches available there.
-
-Individual therapy is one of two services currently available to Encinitas clients, alongside couples counseling — both held at the same Carlsbad office.
-
-Request a session to discuss fit and availability for individual therapy as an Encinitas client.

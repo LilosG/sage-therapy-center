@@ -8,25 +8,50 @@ minWordCount: 400
 uniqueContentPercent: 35
 lateralLinks:
   - family-therapy
+recognition:
+  - title: "Your teen seems more anxious or overwhelmed"
+    body: "School, friendships, family stress, transitions, and other pressures can become difficult to manage without a dedicated place to talk."
+  - title: "Something has changed and you are not sure how to help"
+    body: "Parents may notice withdrawal, irritability, conflict, or another change without knowing exactly what is behind it or how to begin the conversation."
+  - title: "Conflict at home keeps escalating"
+    body: "Teen counseling can make room for the teen's individual experience while also recognizing the family context around recurring tension."
+overview:
+  eyebrow: "Teen Counseling in Carlsbad"
+  heading: "A local counseling option for Carlsbad teens and families"
+  paragraphs:
+    - "Teen counseling in Carlsbad is available through S.A.G.E. Therapy Center's Avenida Encinas office with Kristin Moorehead-Malley, LMFT. Families may reach out because a teen is navigating anxiety, school or social pressures, a difficult transition, family conflict, or another change affecting day-to-day life."
+    - "Carlsbad is the practice's home base, providing an in-person option for families from neighborhoods including La Costa, Olde Carlsbad, Bressi Ranch, Aviara, and Calavera Hills. The work is shaped around the teen and the family context rather than assuming every family needs the same level of involvement or the same therapeutic approach."
+topics:
+  eyebrow: "What Teen Counseling May Explore"
+  heading: "The concerns teens bring to therapy can overlap"
+  intro: "The focus may begin with one immediate issue and expand as the teen's experience becomes clearer."
+  items:
+    - "Anxiety and feeling overwhelmed"
+    - "School and social pressures"
+    - "Family conflict and communication"
+    - "Life transitions and change"
+    - "Relationships and boundaries"
+    - "Emotional patterns and coping"
+approach:
+  eyebrow: "An Adapted Approach"
+  heading: "Therapy is shaped around the teen rather than a fixed program"
+  body: "Kristin may draw from CBT, attachment-based, psychodynamic, and other approaches depending on what is relevant to the teen and within the scope of the work. Expectations about family involvement, communication, and the boundaries of therapy can be discussed directly so the process is clearer from the beginning."
+  modalities:
+    - "CBT"
+    - "Attachment-Based"
+    - "Psychodynamic"
+decisionItems:
+  - q: "How involved are parents in teen counseling?"
+    a: "That varies by family and by the work being done. Participation, communication, and confidentiality boundaries should be discussed directly with Kristin rather than assumed in advance."
+  - q: "What if my teen is not sure about counseling?"
+    a: "Uncertainty is common. The first conversation can focus on fit and on what would make therapy feel useful and workable for the teen and family."
+  - q: "Where do in-person sessions take place?"
+    a: "S.A.G.E. Therapy Center is based on Avenida Encinas in Carlsbad. The location section on this page provides the full address and directions."
+  - q: "What should we know about arriving at the office?"
+    a: "The site provides the office address and directions. Specific parking, building-access, and arrival details can be confirmed when scheduling."
 faq:
   - q: "Where do Carlsbad teen counseling sessions take place?"
-    a: "At the S.A.G.E. Therapy Center office, 5055 Avenida Encinas, Suite 100, in Carlsbad."
+    a: "In-person sessions take place at S.A.G.E. Therapy Center's Avenida Encinas office in Carlsbad. The full address and directions are provided in the location section."
   - q: "How involved are parents in Carlsbad teen sessions?"
-    a: "This varies by family and is discussed directly with you and your teen — confidentiality and parent involvement are part of that conversation."
+    a: "This varies by family and should be discussed directly with Kristin. Parent involvement, communication, and confidentiality boundaries are part of that conversation."
 ---
-
-Teen counseling in Carlsbad is offered at S.A.G.E. Therapy Center, 5055 Avenida Encinas, Suite 100, with Kristin Moorehead-Malley, LMFT, working with teens navigating anxiety, life transitions, or family conflict.
-
-Carlsbad families — from La Costa to Olde Carlsbad, Bressi Ranch, Aviara, and Calavera Hills — bring teens in for a range of reasons: school stress, a hard transition like a move or a family change, friction at home, or a teen who seems more anxious or withdrawn than usual. There isn't one single reason families reach out.
-
-Sessions can draw on CBT, psychodynamic, and attachment-based approaches, adapted to what fits your teen specifically rather than a fixed program. Because Carlsbad is home to the practice's only office, scheduling around school and after-school activities tends to be more workable than commuting to a therapist elsewhere in San Diego County.
-
-Teen counseling is closely related to family therapy, also offered at the Carlsbad office, for situations where the family system as a whole — not just the teen individually — is part of what's being worked through. Many families end up drawing on both at different points.
-
-Some parents reach out because a teen has said directly that they want support; others reach out because they've noticed a change and aren't sure how to bring it up. Either path is a reasonable way to start — teen counseling doesn't require a teen to have already identified exactly what they want to work on.
-
-Common reasons Carlsbad families reach out include school-related stress, social difficulties, a teen who seems more withdrawn or irritable than usual, or ongoing conflict between a teen and one or both parents. None of these needs to be severe to be worth addressing — earlier support is often easier than waiting until a pattern feels entrenched.
-
-How a first session goes, and how much parents are part of ongoing sessions, is something discussed directly with you and your teen rather than assumed in advance. That conversation is part of what request a session is for.
-
-Request a session to discuss fit and availability for Carlsbad teen counseling.

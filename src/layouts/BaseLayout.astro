@@ -9,27 +9,18 @@ import '@fontsource/inter/700.css';
 import { site } from '../data/site';
 import Header from '../components/sections/Header.astro';
 import Footer from '../components/sections/Footer.astro';
+import MobileConversionBar from '../components/sections/MobileConversionBar.astro';
 import defaultOgImageSource from '../assets/images/kristin-moorehead-malley.webp';
 
 interface Props {
   title: string;
   description: string;
-  // Per-page override arrives later (Wave 10 doc: "a real default now is
-  // the priority") — every page falls back to Kristin's headshot until
-  // then.
   image?: ImageMetadata;
 }
 
 const { title, description, image } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, site.canonicalOrigin);
 
-// A real, properly sized static OG asset (not the raw source file),
-// cover-cropped to the 1200x630 og:image aspect ratio (1200/630). Capped
-// to the source's native width rather than the full 1200px so Astro's
-// image service never has to upscale — Kristin's headshot is 400px wide,
-// so this renders a real (if modest) 400x210 crop instead of silently
-// returning the untouched original at the wrong aspect ratio, which is
-// what asking for 1200x630 outright against a 400px-wide source does.
 const OG_ASPECT_RATIO = 1200 / 630;
 const ogSource = image ?? defaultOgImageSource;
 const ogWidth = Math.min(1200, ogSource.width);
@@ -60,11 +51,18 @@ const ogImageURL = new URL(ogImage.src, site.canonicalOrigin).toString();
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
   </head>
-  <body class="font-sans text-foreground bg-background">
+  <body class="bg-background font-sans text-foreground">
+    <a
+      href="#main-content"
+      class="fixed left-4 top-3 z-[70] -translate-y-24 rounded-full bg-primary px-5 py-3 font-sans text-sm font-semibold text-primary-foreground shadow-lg transition-transform focus:translate-y-0"
+    >
+      Skip to content
+    </a>
     <Header />
-    <main>
+    <main id="main-content" tabindex="-1">
       <slot />
     </main>
     <Footer />
+    <MobileConversionBar />
   </body>
 </html>

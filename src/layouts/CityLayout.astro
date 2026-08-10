@@ -1,6 +1,5 @@
 ---
 import InteriorPageLayout from './InteriorPageLayout.astro';
-import ReassuranceGrid from '../components/sections/ReassuranceGrid.astro';
 import MeetKristin from '../components/sections/MeetKristin.astro';
 import ProcessSteps from '../components/sections/ProcessSteps.astro';
 import ReviewsSection from '../components/sections/ReviewsSection.astro';
@@ -8,8 +7,10 @@ import FAQAccordion from '../components/sections/FAQAccordion.astro';
 import VisitUs from '../components/sections/VisitUs.astro';
 import AreasServed from '../components/sections/AreasServed.astro';
 import InquiryFormSection from '../components/sections/InquiryFormSection.astro';
-import { cityBreadcrumbs } from '../lib/breadcrumbs';
+import SchemaOrg from '../components/seo/SchemaOrg.astro';
+import { absoluteBreadcrumbs, cityBreadcrumbs } from '../lib/breadcrumbs';
 import { withFallbackFaqs } from '../lib/faq';
+import { canonicalUrl, cityUrl } from '../lib/routes';
 import { AREAS_WE_SERVE_URL } from '../data/nav';
 import { practitioner } from '../data/practitioner';
 import { getCityHero } from '../data/pageImages';
@@ -52,43 +53,36 @@ const {
   lastUpdated,
   nearbyCities = [],
 } = Astro.props;
-const { name, hasOffice, primaryTarget, slug, faq, neighborhoods } = entry.data;
+const { name, hasOffice, slug, faq, neighborhoods } = entry.data;
 const breadcrumbItems = cityBreadcrumbs(name, slug);
+const schemaBreadcrumbs = absoluteBreadcrumbs(breadcrumbItems);
+const pageUrl = canonicalUrl(cityUrl(slug));
 const faqItems = await withFallbackFaqs(faq);
 const heroImage = getCityHero(slug);
+const heroTitle = hasOffice ? `Therapist in ${name}, CA` : `Therapist serving ${name}, CA`;
 const heroDescription = hasOffice
   ? `Individualized therapy with Kristin Moorehead-Malley, LMFT, with in-person sessions at the ${name} office and telehealth across California.`
   : `Individualized therapy for ${name} residents with Kristin Moorehead-Malley, LMFT, from the Carlsbad office or by telehealth across California.`;
-
-const reassuranceItems = [
-  {
-    title: 'Individualized support',
-    body: 'Therapy is shaped around the person, relationship, or family rather than a one-size-fits-all protocol.',
-    icon: 'lucide:sparkles',
-  },
-  {
-    title: hasOffice ? 'A real local practice' : 'Clear location options',
-    body: hasOffice
-      ? 'S.A.G.E. is based here in Carlsbad, with in-person sessions available at the Avenida Encinas office.'
-      : `The practice is based in Carlsbad, with telehealth available to ${name} residents across California.`,
-    icon: 'lucide:map-pin',
-  },
-  {
-    title: 'Multiple therapeutic approaches',
-    body: 'Kristin may draw from several therapeutic approaches depending on the person, relationship, and goals.',
-    icon: 'lucide:layers-3',
-  },
-];
+const metaTitle = hasOffice
+  ? `Therapist in ${name}, CA | S.A.G.E. Therapy Center`
+  : `Therapist Serving ${name}, CA | S.A.G.E. Therapy Center`;
+const metaDescription = hasOffice
+  ? `Therapy in ${name}, CA with Kristin Moorehead-Malley, LMFT. In-person sessions at S.A.G.E. Therapy Center plus telehealth across California.`
+  : `Therapy for ${name}, CA residents with Kristin Moorehead-Malley, LMFT, from the Carlsbad office or by telehealth across California.`;
 ---
 
 <InteriorPageLayout
-  title={name}
-  description={primaryTarget}
-  eyebrow={hasOffice ? 'Carlsbad Therapy Practice' : 'Areas We Serve'}
-  heroTitle={`Therapist in ${name}, CA`}
+  title={metaTitle}
+  description={metaDescription}
+  eyebrow={hasOffice ? 'Carlsbad Therapy Practice' : `Serving ${name}`}
+  heroTitle={heroTitle}
   heroDescription={heroDescription}
   heroImage={heroImage}
-  heroImageAlt={`Quiet North County San Diego landscape for the ${name} therapy service area`}
+  heroImageAlt={
+    hasOffice
+      ? `Quiet Southern California coastal landscape for S.A.G.E. Therapy Center in ${name}`
+      : `Quiet North County San Diego landscape for the ${name} therapy service area`
+  }
   heroCtaHref="#request-session"
   breadcrumbItems={breadcrumbItems}
   ctaHeading={`Ready to explore therapy as a ${name} client?`}
@@ -96,10 +90,10 @@ const reassuranceItems = [
 >
   <slot name="overview" />
 
-  <ReassuranceGrid heading={`Therapy tailored for ${name} clients`} items={reassuranceItems} columns={3} />
-
-  <!-- The route supplies the approved local service grid here. -->
+  <!-- The route supplies the city's approved service directory here. -->
   <slot />
+
+  {hasOffice && <VisitUs cityName={name} neighborhoods={neighborhoods} />}
 
   <MeetKristin
     name={practitioner.name}
@@ -123,8 +117,6 @@ const reassuranceItems = [
       { title: 'Ongoing sessions', body: 'Continue with an approach and pace that can evolve with your needs and goals.' },
     ]}
   />
-
-  {hasOffice && <VisitUs cityName={name} neighborhoods={neighborhoods} />}
 
   {
     showReviews && (
@@ -157,4 +149,11 @@ const reassuranceItems = [
       />
     )
   }
+
+  <SchemaOrg
+    type="city"
+    city={{ name, url: pageUrl, areaServed: name }}
+    breadcrumb={schemaBreadcrumbs}
+  />
+  {faqItems.length > 0 && <SchemaOrg type="faqPage" faqItems={faqItems} />}
 </InteriorPageLayout>

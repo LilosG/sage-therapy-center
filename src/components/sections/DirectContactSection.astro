@@ -1,0 +1,56 @@
+---
+import { Icon } from 'astro-icon/components';
+import { site } from '../../data/site';
+---
+
+<section class="bg-background">
+  <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20 lg:py-24">
+    <div class="grid gap-10 lg:grid-cols-[0.62fr_1.38fr] lg:gap-16">
+      <div class="max-w-md">
+        <p class="eyebrow-label">Direct Contact</p>
+        <h2 class="mt-4 font-serif text-3xl leading-tight text-ink sm:text-4xl">Prefer to reach out directly?</h2>
+        <p class="mt-5 font-sans text-base leading-7 text-muted-foreground">
+          Use the phone or email below for scheduling and general practice questions. The online request form is also available further down the page.
+        </p>
+      </div>
+
+      <div class="grid overflow-hidden rounded-3xl border border-border bg-surface sm:grid-cols-2">
+        <a
+          href={`tel:${site.phone.tel}`}
+          class="group flex min-h-44 flex-col justify-between gap-8 p-7 transition-colors hover:bg-lavender-soft/40 sm:p-8"
+        >
+          <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-sage/15 text-sage-deep" aria-hidden="true">
+            <Icon name="lucide:phone" width={19} height={19} />
+          </span>
+          <span>
+            <span class="block font-sans text-xs font-semibold uppercase tracking-[0.16em] text-sage-deep">Phone</span>
+            <span class="mt-2 flex items-center justify-between gap-3 font-serif text-2xl text-ink">
+              {site.phone.display}
+              <span class="text-sage-deep transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+            </span>
+          </span>
+        </a>
+
+        <a
+          href={`mailto:${site.email}`}
+          class="group flex min-h-44 flex-col justify-between gap-8 border-t border-border p-7 transition-colors hover:bg-lavender-soft/40 sm:border-l sm:border-t-0 sm:p-8"
+        >
+          <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-lavender-soft text-sage-deep" aria-hidden="true">
+            <Icon name="lucide:mail" width={19} height={19} />
+          </span>
+          <span>
+            <span class="block font-sans text-xs font-semibold uppercase tracking-[0.16em] text-sage-deep">Email</span>
+            <span class="mt-2 flex items-center justify-between gap-3 break-all font-serif text-lg text-ink sm:text-xl">
+              {site.email}
+              <span class="shrink-0 text-sage-deep transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+            </span>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <p class="mt-7 max-w-2xl font-sans text-xs leading-5 text-muted-foreground">
+      These contact methods are for scheduling and general practice communication and are not monitored as emergency or crisis services.
+    </p>
+  </div>
+</section>

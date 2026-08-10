@@ -1,35 +1,92 @@
 ---
 import InteriorPageLayout from './InteriorPageLayout.astro';
 import ReassuranceGrid from '../components/sections/ReassuranceGrid.astro';
+import RecognitionBand from '../components/sections/RecognitionBand.astro';
+import OverviewFeature from '../components/sections/OverviewFeature.astro';
+import TopicMatrix from '../components/sections/TopicMatrix.astro';
+import TherapistApproachSection from '../components/sections/TherapistApproachSection.astro';
+import DecisionSection from '../components/sections/DecisionSection.astro';
+import RelatedSupportStrip from '../components/sections/RelatedSupportStrip.astro';
 import MeetKristin from '../components/sections/MeetKristin.astro';
 import ProcessSteps from '../components/sections/ProcessSteps.astro';
 import ReviewsSection from '../components/sections/ReviewsSection.astro';
 import FAQAccordion from '../components/sections/FAQAccordion.astro';
 import AreasServed from '../components/sections/AreasServed.astro';
-import ModalityBadges from '../components/sections/ModalityBadges.astro';
 import InquiryFormSection from '../components/sections/InquiryFormSection.astro';
-import { serviceBreadcrumbs } from '../lib/breadcrumbs';
+import SchemaOrg from '../components/seo/SchemaOrg.astro';
+import { absoluteBreadcrumbs, serviceBreadcrumbs } from '../lib/breadcrumbs';
 import { withFallbackFaqs } from '../lib/faq';
 import { getCollection } from 'astro:content';
-import { cityUrl } from '../lib/routes';
+import { canonicalUrl, cityUrl, serviceUrl } from '../lib/routes';
 import { AREAS_WE_SERVE_URL } from '../data/nav';
 import { practitioner } from '../data/practitioner';
 import { getServiceHero } from '../data/pageImages';
+import { site } from '../data/site';
 import kristinPhoto from '../assets/images/kristin-moorehead-malley.webp';
 import googleReviews from '../data/google-reviews.json';
 import type { CollectionEntry } from 'astro:content';
 
-interface Props {
-  entry: CollectionEntry<'services'>;
+interface RelatedLink {
+  title: string;
+  href: string;
 }
 
-const { entry } = Astro.props;
-const { title, description, slug, category, faq } = entry.data;
+interface Props {
+  entry: CollectionEntry<'services'>;
+  relatedLinks?: RelatedLink[];
+}
+
+const { entry, relatedLinks = [] } = Astro.props;
+const {
+  title,
+  description,
+  slug,
+  category,
+  pageKind,
+  primaryTarget,
+  faq,
+  recognition,
+  overview,
+  topics,
+  approach,
+  decisionItems,
+} = entry.data;
 const breadcrumbItems = serviceBreadcrumbs(title, slug);
+const schemaBreadcrumbs = absoluteBreadcrumbs(breadcrumbItems);
+const pageUrl = canonicalUrl(serviceUrl(slug));
 const faqItems = await withFallbackFaqs(faq);
 const cities = await getCollection('cities');
 const cityLinks = cities.map((c) => ({ name: c.data.name, href: cityUrl(c.data.slug) }));
 const heroImage = getServiceHero(slug);
+const metaTitle = `${title} | S.A.G.E. Therapy Center, Carlsbad CA`;
+const metaDescription = `${description} Work with Kristin Moorehead-Malley, LMFT, in Carlsbad or by telehealth across California.`;
+const hasStructuredContent = Boolean(recognition?.length && overview && topics);
+
+const heroEyebrow =
+  pageKind === 'modality'
+    ? 'Therapeutic Approach'
+    : pageKind === 'relationship'
+      ? 'Relationship Therapy'
+      : pageKind === 'family'
+        ? 'Family Therapy'
+        : pageKind === 'adolescent'
+          ? 'Teen Therapy'
+          : category === 'concern-led'
+            ? 'Area of Support'
+            : 'Therapy Service';
+
+const recognitionHeading =
+  pageKind === 'modality'
+    ? `${title} may be worth exploring if...`
+    : pageKind === 'relationship'
+      ? `Couples consider ${title.toLowerCase()} for different reasons`
+      : pageKind === 'family'
+        ? `Families may look for support when...`
+        : pageKind === 'adolescent'
+          ? `Teen counseling may be helpful when...`
+          : category === 'concern-led'
+            ? `You may be looking for support if...`
+            : `People consider ${title.toLowerCase()} for different reasons`;
 
 const reassuranceItems = [
   {
@@ -51,9 +108,9 @@ const reassuranceItems = [
 ---
 
 <InteriorPageLayout
-  title={title}
-  description={description}
-  eyebrow={category === 'core' ? 'Therapy Service' : 'Area of Support'}
+  title={metaTitle}
+  description={metaDescription}
+  eyebrow={heroEyebrow}
   heroTitle={title}
   heroDescription={description}
   heroImage={heroImage}
@@ -63,30 +120,89 @@ const reassuranceItems = [
   ctaHeading={`Ready to talk about ${title.toLowerCase()}?`}
   showFinalCta={false}
 >
-  <ReassuranceGrid heading="A supportive place to begin" items={reassuranceItems} columns={3} />
-  <slot />
+  {
+    hasStructuredContent ? (
+      <Fragment>
+        <RecognitionBand
+          eyebrow="A Supportive Place To Begin"
+          heading={recognitionHeading}
+          items={recognition!}
+        />
+        <OverviewFeature
+          eyebrow={overview!.eyebrow}
+          heading={overview!.heading}
+          paragraphs={overview!.paragraphs}
+          detailEyebrow="Session Options"
+          detailTitle="Carlsbad office + telehealth"
+          detailItems={[
+            'In-person sessions in Carlsbad, California',
+            'Telehealth available across California',
+            'Start with a conversation about fit and availability',
+          ]}
+        />
+        <TopicMatrix
+          eyebrow={topics!.eyebrow}
+          heading={topics!.heading}
+          intro={topics!.intro}
+          items={topics!.items}
+        />
+      </Fragment>
+    ) : (
+      <Fragment>
+        <ReassuranceGrid heading="A supportive place to begin" items={reassuranceItems} columns={3} />
+        <slot />
+      </Fragment>
+    )
+  }
 
-  <MeetKristin
-    name={practitioner.name}
-    credential={practitioner.credential}
-    bio={practitioner.bio}
-    modalities={[]}
-    ctaLabel={practitioner.ctaLabel}
-    ctaHref={practitioner.ctaHref}
-    image={kristinPhoto}
-  />
-
-  <ModalityBadges modalities={practitioner.modalities} heading="Therapeutic approaches that may inform the work" />
+  {
+    approach ? (
+      <TherapistApproachSection
+        name={practitioner.name}
+        credential={practitioner.credential}
+        bio={practitioner.bio}
+        ctaLabel={practitioner.ctaLabel}
+        ctaHref={practitioner.ctaHref}
+        image={kristinPhoto}
+        approachEyebrow={approach.eyebrow}
+        approachHeading={approach.heading}
+        approachBody={approach.body}
+        modalities={approach.modalities}
+      />
+    ) : (
+      <MeetKristin
+        name={practitioner.name}
+        credential={practitioner.credential}
+        bio={practitioner.bio}
+        modalities={[]}
+        ctaLabel={practitioner.ctaLabel}
+        ctaHref={practitioner.ctaHref}
+        image={kristinPhoto}
+      />
+    )
+  }
 
   <ProcessSteps
     eyebrow="What To Expect"
-    heading={`What ${title.toLowerCase()} may look like`}
+    heading={pageKind === 'modality' ? `How ${title} may fit into therapy` : `What ${title.toLowerCase()} may look like`}
     steps={[
       { title: 'Reach out', body: 'Request a session to discuss fit, availability, and what is bringing you in.' },
       { title: 'First session', body: 'Begin with the concerns, questions, or patterns that feel most important to understand.' },
       { title: 'Ongoing work', body: 'Continue with an approach and pace shaped around your needs and goals.' },
     ]}
   />
+
+  {
+    hasStructuredContent && decisionItems?.length && (
+      <DecisionSection
+        eyebrow="Considering Therapy?"
+        heading={`What to know before starting ${title.toLowerCase()}`}
+        items={decisionItems}
+      />
+    )
+  }
+
+  {hasStructuredContent && relatedLinks.length > 0 && <RelatedSupportStrip links={relatedLinks} />}
 
   <ReviewsSection
     rating={googleReviews.rating}
@@ -106,4 +222,17 @@ const reassuranceItems = [
   />
 
   <AreasServed heading="Therapy for Carlsbad and North County" cities={cityLinks} viewAllHref={AREAS_WE_SERVE_URL} variant="compact" />
+
+  <SchemaOrg
+    type="service"
+    breadcrumb={schemaBreadcrumbs}
+    service={{
+      name: title,
+      description,
+      serviceType: primaryTarget,
+      url: pageUrl,
+      areaServed: site.address.city,
+    }}
+  />
+  {faqItems.length > 0 && <SchemaOrg type="faqPage" faqItems={faqItems} />}
 </InteriorPageLayout>

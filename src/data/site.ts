@@ -2,17 +2,15 @@
 // everywhere a phone/email/address/name is needed — never hardcode these
 // values in a component, layout, or page.
 //
-// Values sourced from SAGE_Local_SEO_Site_Architecture_Complete.pdf,
-// Section E ("Developer Handoff JSON" -> site object) and the NAP/GBP
-// Alignment Checklist.
+// Core values come from the S.A.G.E. SEO/build source material. Address,
+// phone, rating context and primary GBP category were rechecked against the
+// client-provided Google Business Profile screenshot on 2026-08-10.
 
 export const site = {
   name: 'S.A.G.E. Therapy Center',
   locale: 'en-US',
   canonicalOrigin: 'https://sagetherapycenter.com',
 
-  // Doc requires the phone displayed consistently as (760) 703-2188 while
-  // schema.org markup uses the E.164-ish +1-760-703-2188 form.
   phone: {
     display: '(760) 703-2188',
     tel: '+1-760-703-2188',
@@ -21,17 +19,30 @@ export const site = {
   email: 'sagetherapycenter@gmail.com',
 
   address: {
-    street: '5055 Avenida Encinas, Suite 100',
+    // Match the current GBP presentation while keeping punctuation readable
+    // on-page. Components construct the complete address from these fields.
+    street: '5055 Avenida Encinas, Ste 100',
     city: 'Carlsbad',
     region: 'CA',
     postalCode: '92008',
     country: 'US',
   },
 
-  // CONFIRM: no hours were provided in either source document. The SEO
-  // doc's NAP checklist only says "Hours match GBP, rechecked immediately
-  // before launch" — populate from the live Google Business Profile before
-  // this goes into any schema or on-page display.
+  office: {
+    // Keep this deliberately broad until real parking/building-access details
+    // and office photography are supplied. Components may display this note,
+    // but should never invent parking, entrance, elevator, or suite logistics.
+    arrivalNote: 'Specific parking, building-access, and arrival details can be confirmed when scheduling.',
+  },
+
+  googleBusinessProfile: {
+    primaryCategory: 'Marriage or relationship counselor',
+  },
+
+  // The supplied GBP screenshot confirms the business was open and closing
+  // at 8 PM at that moment, but it does not expose the full weekly schedule.
+  // Keep structured/on-page hours gated until the complete schedule is
+  // verified rather than extrapolating a seven-day schedule from one day.
   hours: null as null | { day: string; open: string; close: string }[],
 
   social: {
@@ -42,23 +53,21 @@ export const site = {
   practitioner: {
     name: 'Kristin Moorehead-Malley',
     credential: 'LMFT',
-    // CONFIRM: sourced from Kristin's own existing bio copy per the SEO doc.
-    // Needs final confirmation from Kristin (or CA BBS license lookup)
-    // before this goes live in schema — see SEO doc Section F, blocker 7.
+    // CONFIRM: sourced from Kristin's existing bio copy. Keep the license
+    // identifier gated until it is directly confirmed or rechecked with BBS.
     licenseNumber: 'MFC 39586',
     licenseConfirmRequired: true,
   },
 
-  // Confirmed: telehealth is offered alongside in-person sessions, available
-  // to clients anywhere in California (V4 source doc, Areas Served section).
-  // Single source for TrustStrip and the FAQ so they can't drift out of sync.
   telehealth: {
-    coverageArea: 'All of California',
+    // Sentence-ready geographic value for copy such as "across California",
+    // plus a compact display label for trust strips and summary UI.
+    coverageArea: 'California',
+    display: 'Statewide in California',
   },
 
   primaryConversionPath: '/schedule-a-session/',
 
-  // Gates the `offers` schema in SchemaOrg.astro. Do not flip to true until
-  // payment/insurance policy is confirmed (SEO doc Wave 0 blocker).
+  // Do not emit fees/offers until payment and insurance policy are confirmed.
   offersConfirmed: false,
 } as const;

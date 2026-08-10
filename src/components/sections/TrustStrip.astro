@@ -11,8 +11,8 @@ const stats = [
     icon: 'lucide:shield-check',
   },
   { label: 'Practicing', value: '15+ years', icon: 'lucide:calendar-check' },
-  { label: 'Telehealth', value: site.telehealth.coverageArea, icon: 'lucide:map-pin' },
-  { label: 'Insurance', value: 'Out-of-network, superbills provided', icon: 'lucide:file-check' },
+  { label: 'In Person', value: `${site.address.city}, ${site.address.region}`, icon: 'lucide:building-2' },
+  { label: 'Telehealth', value: site.telehealth.display, icon: 'lucide:monitor' },
 ];
 ---
 
@@ -22,7 +22,7 @@ const stats = [
       stats.map((stat, index) => (
         <div
           class:list={[
-            'flex min-h-28 items-center gap-4 py-5 sm:py-6 lg:min-h-32 lg:px-7',
+            'flex min-h-24 items-center gap-3 py-4 sm:gap-4 lg:min-h-28 lg:px-6',
             index % 2 === 0 ? 'pr-4 sm:pr-6' : 'border-l border-border pl-4 sm:pl-6',
             index >= 2 && 'border-t border-border lg:border-t-0',
             index > 0 && 'lg:border-l lg:border-border',
@@ -30,12 +30,12 @@ const stats = [
             index === stats.length - 1 && 'lg:pr-0',
           ]}
         >
-          <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-sage/12 text-sage-deep ring-1 ring-sage/15 sm:h-12 sm:w-12">
-            <Icon name={stat.icon} width={20} height={20} aria-hidden="true" />
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sage/10 text-sage-deep ring-1 ring-sage/15 sm:h-11 sm:w-11">
+            <Icon name={stat.icon} width={18} height={18} aria-hidden="true" />
           </span>
           <div class="min-w-0">
-            <p class="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-sage-deep sm:text-xs">{stat.label}</p>
-            <p class="mt-1 font-serif text-sm leading-snug text-ink sm:text-base lg:text-[1.05rem]">{stat.value}</p>
+            <p class="font-sans text-[0.66rem] font-semibold uppercase tracking-[0.16em] text-sage-deep sm:text-[0.7rem]">{stat.label}</p>
+            <p class="mt-1 font-serif text-sm leading-snug text-ink sm:text-[0.98rem]">{stat.value}</p>
           </div>
         </div>
       ))

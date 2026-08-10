@@ -1,19 +1,27 @@
-// Centralized image assignments for interior-page heroes.
-// These URLs intentionally point at the exact, pre-optimized WebP files already
-// committed to this repository. Using stable direct image URLs keeps the hero
-// system deterministic across Vercel deployments while preserving one central
-// source of truth for service, city, and money-page image selection.
+// Centralized image assignments for interior-page heroes and top-level hubs.
+// Keep first-party editorial images as ESM-imported Astro assets so they are
+// emitted, fingerprinted, and optimized by the build rather than fetched at
+// runtime from an external source.
+import homeCoastalPath from '../assets/images/home/hero-coastal-path.webp';
+import courtyardRetreat from '../assets/images/editorial/serene-courtyard-retreat.webp';
+import eucalyptusTrail from '../assets/images/editorial/misty-eucalyptus-coastal-trail.webp';
+import meadowTree from '../assets/images/editorial/misty-meadow-spreading-tree.webp';
+import windowNook from '../assets/images/editorial/serene-sunlit-window-nook.webp';
 
-const RAW_BASE = 'https://raw.githubusercontent.com/LilosG/sage-therapy-center/main/src/assets/images';
+// Top-level hub assignments belong here rather than inside route files. That
+// keeps visual direction centralized and avoids one-off hero choices.
+export const hubHeroImages = {
+  services: courtyardRetreat,
+  areas: eucalyptusTrail,
+  telehealth: meadowTree,
+  schedule: meadowTree,
+} as const;
 
-const homeCoastalPath = `${RAW_BASE}/home/hero-coastal-path.webp`;
-const courtyardRetreat = `${RAW_BASE}/editorial/serene-courtyard-retreat.webp`;
-const eucalyptusTrail = `${RAW_BASE}/editorial/misty-eucalyptus-coastal-trail.webp`;
-const meadowTree = `${RAW_BASE}/editorial/misty-meadow-spreading-tree.webp`;
-const windowNook = `${RAW_BASE}/editorial/serene-sunlit-window-nook.webp`;
-
+// Hero imagery needs enough visual structure to read immediately at card size.
+// Keep the very low-contrast window-nook asset available for editorial use,
+// but do not use it as a hero where it can read like an empty placeholder.
 const serviceHeroOverrides = {
-  'individual-therapy': windowNook,
+  'individual-therapy': meadowTree,
   'couples-counseling': meadowTree,
   'family-therapy': courtyardRetreat,
   'teen-counseling': eucalyptusTrail,
@@ -24,19 +32,36 @@ const serviceHeroOverrides = {
 } as const;
 
 const cityHeroOverrides = {
-  carlsbad: eucalyptusTrail,
-  encinitas: homeCoastalPath,
+  // Carlsbad is the actual practice location, so use the strongest coastal
+  // image rather than the softer eucalyptus image that read too much like a
+  // placeholder in the hero card.
+  carlsbad: homeCoastalPath,
+  encinitas: eucalyptusTrail,
   oceanside: homeCoastalPath,
   'san-marcos': meadowTree,
   vista: meadowTree,
   'del-mar': homeCoastalPath,
-  'solana-beach': homeCoastalPath,
+  'solana-beach': eucalyptusTrail,
   'rancho-santa-fe': meadowTree,
 } as const;
 
-const servicePool = [windowNook, courtyardRetreat, eucalyptusTrail, meadowTree, homeCoastalPath] as const;
+// City/service money pages should not feel like a random image lottery.
+// Use a complementary image by service intent first, then a deterministic
+// fallback only for services that have not received a deliberate assignment.
+const moneyServiceOverrides = {
+  'individual-therapy': eucalyptusTrail,
+  'couples-counseling': courtyardRetreat,
+  'family-therapy': meadowTree,
+  'teen-counseling': homeCoastalPath,
+  'premarital-marriage-counseling': meadowTree,
+  'emdr-therapy': courtyardRetreat,
+  'anxiety-therapy': eucalyptusTrail,
+  'trauma-ptsd-therapy': meadowTree,
+} as const;
+
+const servicePool = [courtyardRetreat, eucalyptusTrail, meadowTree, homeCoastalPath] as const;
 const cityPool = [eucalyptusTrail, meadowTree, homeCoastalPath] as const;
-const moneyPool = [eucalyptusTrail, meadowTree, windowNook, courtyardRetreat, homeCoastalPath] as const;
+const moneyPool = [eucalyptusTrail, meadowTree, courtyardRetreat, homeCoastalPath] as const;
 
 function stableIndex(key: string, length: number) {
   let hash = 0;
@@ -53,7 +78,10 @@ export function getCityHero(slug: string) {
 }
 
 export function getCityServiceHero(citySlug: string, serviceSlug: string) {
-  return moneyPool[stableIndex(`${citySlug}:${serviceSlug}`, moneyPool.length)];
+  return (
+    moneyServiceOverrides[serviceSlug as keyof typeof moneyServiceOverrides] ??
+    moneyPool[stableIndex(`${citySlug}:${serviceSlug}`, moneyPool.length)]
+  );
 }
 
 export const editorialImages = {

@@ -8,10 +8,10 @@ interface Props {
 const { href, variant = 'primary', class: className = '' } = Astro.props;
 
 const base =
-  'inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-sans text-sm font-medium transition-colors duration-150';
+  'inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-6 py-3 font-sans text-sm font-semibold transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-deep focus-visible:ring-offset-2';
 const variants = {
-  primary: 'bg-sage text-accent-foreground hover:bg-sage-deep',
-  secondary: 'border border-primary bg-transparent text-primary hover:bg-lavender-soft',
+  primary: 'bg-sage text-accent-foreground shadow-sm hover:-translate-y-0.5 hover:bg-primary hover:text-primary-foreground hover:shadow-md',
+  secondary: 'border border-primary/35 bg-transparent text-primary hover:-translate-y-0.5 hover:border-sage-deep hover:bg-lavender-soft',
 };
 const classes = [base, variants[variant], className].filter(Boolean).join(' ');
 ---

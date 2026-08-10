@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import Breadcrumbs from './Breadcrumbs.astro';
 import Button from '../ui/Button.astro';
 
@@ -17,7 +18,7 @@ interface Props {
   phoneDisplay?: string;
   phoneHref?: string;
   trustBadges?: string[];
-  image?: string;
+  image?: ImageMetadata;
   imageAlt?: string;
   imagePosition?: string;
 }
@@ -42,12 +43,12 @@ const {
   <div class="pointer-events-none absolute -left-32 bottom-[-14rem] h-[30rem] w-[30rem] rounded-full bg-sage/10 blur-3xl" aria-hidden="true" />
   <div class="pointer-events-none absolute -right-24 top-[-10rem] h-[32rem] w-[32rem] rounded-full bg-surface/60 blur-3xl" aria-hidden="true" />
 
-  <div class="relative mx-auto max-w-6xl px-6">
-    <Breadcrumbs items={breadcrumbItems} variant="muted" />
+  <div class="relative mx-auto max-w-7xl px-6 lg:px-8">
+    <Breadcrumbs items={breadcrumbItems} variant="muted" contained={false} />
 
     <div class:list={[
-      'grid items-center gap-10 pb-14 pt-5 sm:pb-16 lg:min-h-[31rem] lg:gap-16 lg:pb-16 lg:pt-8',
-      image ? 'lg:grid-cols-[1.02fr_0.98fr]' : 'mx-auto max-w-3xl text-center',
+      'grid items-center gap-10 pb-14 pt-4 sm:pb-16 lg:min-h-[29rem] lg:gap-14 lg:pb-14 lg:pt-6',
+      image ? 'lg:grid-cols-[1.08fr_0.92fr]' : 'mx-auto max-w-3xl text-center',
     ]}>
       <div class:list={[image ? 'text-center lg:text-left' : 'text-center']}>
         {
@@ -59,7 +60,9 @@ const {
           )
         }
 
-        <h1 class="mt-5 font-serif text-4xl leading-[1.08] tracking-tight text-ink sm:text-5xl lg:text-[3.5rem]">{title}</h1>
+        <h1 class="mt-5 max-w-3xl font-serif text-4xl leading-[1.06] tracking-tight text-ink sm:text-5xl lg:text-[3.25rem] xl:text-[3.55rem]">
+          {title}
+        </h1>
         {description && <p class:list={['mt-5 max-w-2xl font-sans text-lg leading-8 text-foreground', !image && 'mx-auto']}>{description}</p>}
 
         {
@@ -94,20 +97,17 @@ const {
 
       {
         image && (
-          <figure class="relative mx-auto w-full max-w-xl overflow-hidden rounded-[2rem] border border-surface/70 bg-secondary shadow-[0_30px_75px_-48px_rgba(42,40,51,0.6)] lg:max-w-none">
-            <img
+          <figure class="relative mx-auto w-full max-w-xl overflow-hidden rounded-[1.75rem] border border-surface/80 bg-secondary shadow-[0_30px_75px_-48px_rgba(42,40,51,0.6)] lg:max-w-none">
+            <Image
               src={image}
               alt={imageAlt}
-              width="1200"
-              height="900"
-              class="aspect-[4/3] w-full object-cover"
+              widths={[480, 720, 960, 1200]}
+              sizes="(min-width: 1024px) 44vw, calc(100vw - 3rem)"
+              class="aspect-[16/11] w-full object-cover"
               style={`object-position: ${imagePosition};`}
-              loading="eager"
-              fetchpriority="high"
-              decoding="async"
-              referrerpolicy="no-referrer"
+              priority
             />
-            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-primary/15 via-transparent to-surface/5" aria-hidden="true" />
+            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-primary/10 via-transparent to-surface/5" aria-hidden="true" />
           </figure>
         )
       }

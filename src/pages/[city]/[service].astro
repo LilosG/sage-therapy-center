@@ -1,15 +1,11 @@
 ---
-// Critical guardrail (Build Spec Section 5): getStaticPaths() sources
-// ONLY from existing `city-services` content entries, never from a
-// cross-product of all cities x all services. A research-gated
-// city/service combination gets a live route only when someone adds a
-// content entry for it — never by editing this file.
+// Critical guardrail: generate only city/service combinations that have an
+// explicit content entry. Never create a Cartesian city x service grid.
 import { getCollection, getEntries, getEntry, render } from 'astro:content';
 import CityServiceLayout from '../../layouts/CityServiceLayout.astro';
+import ServiceEditorialSection from '../../components/sections/ServiceEditorialSection.astro';
 import StructuredProse from '../../components/sections/StructuredProse.astro';
-import SchemaOrg from '../../components/seo/SchemaOrg.astro';
-import { site } from '../../data/site';
-import { canonicalUrl, cityServiceUrl, serviceUrl } from '../../lib/routes';
+import { cityServiceUrl, serviceUrl } from '../../lib/routes';
 
 export async function getStaticPaths() {
   const entries = await getCollection('city-services');
@@ -29,81 +25,50 @@ const { entry } = Astro.props;
 const city = await getEntry(entry.data.city);
 const service = await getEntry(entry.data.service);
 const { Content } = await render(entry);
-const routeSlug = entry.data.slugOverride ?? service.data.slug;
-const pageUrl = canonicalUrl(cityServiceUrl(city.data.slug, routeSlug));
 
-// Sibling services offered in the same city, excluding this one — same
-// "local combo page over generic pillar" preference as [city]/index.astro,
-// since a local combo page is a better link target when one exists.
-//
-// Prefer the entry's own curated lateralLinks (SEO doc's Same-City
-// Lateral Links table) when present — real editorial order/rationale.
-// Every entry without curation yet falls back to the generic
-// approvedCityServices filter, capped at 3 per the doc's Internal Link
-// Plan rule 7 / Link Quotas table ("2-3 siblings" for this page type).
+const cityServiceEntries = await getCollection('city-services');
+const localCombosForCity = new Map(
+  cityServiceEntries.filter((cs) => cs.data.city.id === city.id).map((cs) => [cs.data.service.id, cs])
+);
+
 const otherApprovedServices = entry.data.lateralLinks?.length
   ? await getEntries(entry.data.lateralLinks)
   : (city.data.approvedCityServices.length ? await getEntries(city.data.approvedCityServices) : [])
       .filter((s) => s.id !== service.id)
       .slice(0, 3);
 
-const cityServiceEntries = await getCollection('city-services');
-// Maps service id -> its local combo entry (for slugOverride), not just a
-// membership Set, since a sibling's route slug may differ from its own
-// service slug (Wave 11 trauma-therapy case).
-const localCombosForCity = new Map(
-  cityServiceEntries.filter((cs) => cs.data.city.id === city.id).map((cs) => [cs.data.service.id, cs])
-);
+const relatedLinks = otherApprovedServices.map((s) => {
+  const localEntry = localCombosForCity.get(s.id);
+  return {
+    title: s.data.title,
+    href: localEntry
+      ? cityServiceUrl(city.data.slug, localEntry.data.slugOverride ?? s.data.slug)
+      : serviceUrl(s.data.slug),
+  };
+});
+const hasStructuredContent = Boolean(entry.data.recognition?.length && entry.data.overview && entry.data.topics);
+const hasStructuredServiceShell = Boolean(service.data.recognition?.length && service.data.topics);
 ---
 
-<CityServiceLayout entry={entry}>
-  <div class="mx-auto max-w-3xl px-6 pb-4 pt-8">
-    <StructuredProse class="mt-6">
-      <Content />
-    </StructuredProse>
-
-    <div class="mt-10 border-t border-border pt-6">
-      <a
-        href={serviceUrl(service.data.slug)}
-        class="font-sans text-sm font-medium text-sage-deep hover:text-primary"
+<CityServiceLayout entry={entry} relatedLinks={relatedLinks}>
+  {
+    !hasStructuredContent && (
+      <ServiceEditorialSection
+        cityName={city.data.name}
+        hasOffice={city.data.hasOffice}
+        detailsEyebrow={`${service.data.title} in ${city.data.name}`}
+        related={hasStructuredServiceShell ? [] : relatedLinks}
       >
-        &larr; {service.data.title} overview
-      </a>
-    </div>
+        <StructuredProse class="max-w-2xl prose-p:leading-7 prose-li:leading-7">
+          <Content />
+        </StructuredProse>
 
-    {
-      otherApprovedServices.length > 0 && (
-        <div class="mt-6 border-t border-border pt-6">
-          <p class="font-sans text-sm font-semibold text-ink">Other ways we can help in {city.data.name}</p>
-          <ul class="mt-3 flex flex-wrap gap-2">
-            {otherApprovedServices.map((s) => (
-              <li>
-                <a
-                  href={
-                    localCombosForCity.has(s.id)
-                      ? cityServiceUrl(city.data.slug, localCombosForCity.get(s.id).data.slugOverride ?? s.data.slug)
-                      : serviceUrl(s.data.slug)
-                  }
-                  class="rounded-full border border-border bg-surface px-4 py-2 font-sans text-sm text-foreground hover:border-sage-deep hover:text-sage-deep"
-                >
-                  {s.data.title}
-                </a>
-              </li>
-            ))}
-          </ul>
+        <div class="mt-10 border-t border-border pt-6">
+          <a href={serviceUrl(service.data.slug)} class="font-sans text-sm font-medium text-sage-deep hover:text-primary">
+            &larr; {service.data.title} overview
+          </a>
         </div>
-      )
-    }
-  </div>
+      </ServiceEditorialSection>
+    )
+  }
 </CityServiceLayout>
-
-<SchemaOrg
-  type="service"
-  service={{
-    name: `${service.data.title} in ${city.data.name}`,
-    description: service.data.description,
-    serviceType: service.data.primaryTarget,
-    url: pageUrl,
-    areaServed: city.data.name,
-  }}
-/>

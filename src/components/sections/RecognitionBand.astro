@@ -1,0 +1,55 @@
+---
+interface RecognitionItem {
+  title: string;
+  body: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  items: RecognitionItem[];
+  tone?: 'background' | 'lavender';
+}
+
+const { eyebrow, heading, items, tone = 'background' } = Astro.props;
+const backgroundClass = tone === 'lavender' ? 'bg-lavender-soft/55' : 'bg-background';
+const isFour = items.length === 4;
+---
+
+<section class:list={['border-y border-border/70', backgroundClass]}>
+  <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20 lg:py-24">
+    <div class="grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-16">
+      <div class="max-w-md">
+        {eyebrow && <p class="eyebrow-label">{eyebrow}</p>}
+        <h2 class="mt-4 font-serif text-3xl leading-tight text-ink sm:text-4xl">{heading}</h2>
+        <div class="mt-6 h-px w-20 bg-sage/70" aria-hidden="true" />
+      </div>
+
+      <ol class:list={['grid', isFour ? 'sm:grid-cols-2' : 'md:grid-cols-3']}>
+        {
+          items.map((item, index) => (
+            <li
+              class:list={[
+                'relative border-border',
+                !isFour && index === 0 && 'pb-7 md:pb-0 md:pr-7',
+                !isFour && index > 0 && 'border-t py-7 md:border-l md:border-t-0 md:py-0 md:pl-7',
+                !isFour && index > 0 && index < items.length - 1 && 'md:pr-7',
+                isFour && index === 0 && 'pb-7 sm:pb-7 sm:pr-7',
+                isFour && index === 1 && 'border-t py-7 sm:border-l sm:border-t-0 sm:py-0 sm:pl-7 sm:pb-7',
+                isFour && index === 2 && 'border-t py-7 sm:pr-7',
+                isFour && index === 3 && 'border-t pt-7 sm:border-l sm:pl-7',
+              ]}
+            >
+              <div class="flex items-center gap-3">
+                <span class="font-serif text-sm text-lavender">{String(index + 1).padStart(2, '0')}</span>
+                <span class="h-px flex-1 bg-border" aria-hidden="true" />
+              </div>
+              <h3 class="mt-5 font-serif text-xl leading-snug text-ink">{item.title}</h3>
+              <p class="mt-3 font-sans text-sm leading-6 text-muted-foreground">{item.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>

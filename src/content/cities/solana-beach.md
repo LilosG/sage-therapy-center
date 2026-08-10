@@ -15,15 +15,9 @@ nearbyCities:
 neighborhoods: []
 faq:
   - q: "Do you have an office in Solana Beach?"
-    a: "No. S.A.G.E. Therapy Center's office is in Carlsbad, at 5055 Avenida Encinas, Suite 100. Solana Beach clients are welcome at the Carlsbad office."
+    a: "No. S.A.G.E. Therapy Center's only physical office is in Carlsbad. Solana Beach clients can meet there in person or use telehealth across California."
 ---
 
-S.A.G.E. Therapy Center is based in Carlsbad, at 5055 Avenida Encinas, Suite 100. There is no Solana Beach office — clients coming from Solana Beach meet with Kristin Moorehead-Malley, LMFT, at the Carlsbad location, the practice's only office.
+S.A.G.E. Therapy Center is based in Carlsbad and serves clients from Solana Beach through in-person sessions at the Carlsbad office and telehealth across California. There is no separate Solana Beach office; the location information on this page refers to S.A.G.E.'s Carlsbad practice.
 
-<!-- CONFIRM: no specific service pages are approved for Solana Beach yet
-     — the SEO doc's research-gated list flags Solana Beach couples
-     counseling as pending demand/uniqueness verification. This hub
-     intentionally has no service grid until that's resolved and a real
-     combo page can be built (see Build Spec Section 5 gating rule). -->
-
-If you're in Solana Beach and considering therapy, reach out to talk through what you're looking for and whether the Carlsbad office works for your schedule.
+Specific Solana Beach service pages are intentionally not generated unless they have enough distinct, useful content to justify their own page. If you are in Solana Beach and considering therapy, use the inquiry form to discuss what you are looking for, current availability, and whether in-person or telehealth sessions make the most sense.

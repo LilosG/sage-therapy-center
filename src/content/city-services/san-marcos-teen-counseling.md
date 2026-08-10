@@ -6,23 +6,42 @@ city: san-marcos
 service: teen-counseling
 minWordCount: 400
 uniqueContentPercent: 35
+recognition:
+  - title: "Your teen seems more stressed, withdrawn, or reactive"
+    body: "A noticeable shift in mood, confidence, behavior, or coping can be enough reason to start a conversation."
+  - title: "School, friendships, or family changes are adding pressure"
+    body: "Teen concerns often overlap across home, school, relationships, identity, and transitions rather than staying in one category."
+  - title: "Your family needs options that can fit real schedules"
+    body: "San Marcos families can use S.A.G.E.'s Carlsbad office for in-person sessions or telehealth across California."
+overview:
+  eyebrow: "Teen Counseling for San Marcos"
+  heading: "Support that starts with the teen in front of us"
+  paragraphs:
+    - "S.A.G.E. Therapy Center serves San Marcos teens and families through counseling with Kristin Moorehead-Malley, LMFT. The practice's only physical office is in Carlsbad, with telehealth available across California, giving families clear options without implying that S.A.G.E. operates a separate San Marcos office."
+    - "Teen counseling can begin with anxiety, stress, family conflict, a transition, social concerns, changes in mood or behavior, or a teen's own request for support. Sessions are individualized rather than run as one standard program, and the focus can evolve as trust develops and the teen becomes clearer about what feels most important."
+topics:
+  eyebrow: "What Teen Counseling May Explore"
+  heading: "Common areas of support for San Marcos teens"
+  intro: "The work can involve emotional, social, school, and family concerns at the same time."
+  items:
+    - "Anxiety, stress, and feeling overwhelmed"
+    - "School pressure and transitions"
+    - "Family conflict and communication"
+    - "Friendships, dating, and social stress"
+    - "Self-esteem, identity, and confidence"
+    - "Changes in mood, behavior, or coping"
+decisionItems:
+  - q: "Is there an S.A.G.E. teen counseling office in San Marcos?"
+    a: "No. S.A.G.E.'s only physical office is in Carlsbad. San Marcos families can use that office or telehealth across California."
+  - q: "How involved are parents in sessions?"
+    a: "Parent involvement and confidentiality are discussed directly with the teen and family so expectations are clear rather than assumed."
+  - q: "Does my teen need to know what they want from therapy?"
+    a: "No. Some teens begin with a specific concern while others need time and conversation to understand what they want support with."
+  - q: "How do we start?"
+    a: "Request a session to discuss fit, availability, session format, and what is prompting your family to reach out."
 faq:
-  - q: "Do you offer teen counseling in San Marcos itself?"
-    a: "Not at a San Marcos location — teens from San Marcos are seen at the Carlsbad office, a short drive inland-to-coast from San Marcos."
-  - q: "How does a first session work for a San Marcos teen?"
-    a: "The first session is a chance for Kristin to meet your teen, talk through what's bringing them in, and figure out together how sessions should go from there."
+  - q: "Where do San Marcos teens attend counseling?"
+    a: "In-person sessions take place at S.A.G.E. Therapy Center's Carlsbad office. Telehealth is also available to San Marcos clients across California."
+  - q: "What if my teen is hesitant to talk?"
+    a: "A teen does not need to arrive ready to explain everything. Building enough comfort to identify what feels useful can be part of the early work."
 ---
-
-San Marcos is a family-oriented, inland North County city — home to Cal State San Marcos and neighborhoods like San Elijo Hills — and a fair number of the teens Kristin Moorehead-Malley, LMFT, works with at the Carlsbad office come from right here. There's no San Marcos office; sessions take place at 5055 Avenida Encinas in Carlsbad, a drive most San Marcos families find manageable for a weekly or biweekly commitment.
-
-Teens come in for a wide range of reasons: pressure from school or a university-adjacent academic culture that can filter down even to younger students, friction at home, social difficulties, or a shift in mood that parents notice before the teen can articulate what's wrong. None of these needs to be severe before it's worth a conversation — plenty of families reach out well before things feel like a crisis.
-
-Sessions draw on CBT, psychodynamic, and attachment-based approaches, matched to the individual teen rather than run as a set program. Because San Marcos has a different day-to-day rhythm than the coastal cities S.A.G.E. Therapy Center also serves — more family-oriented, less beach-town — what's shaping a given teen's stress often looks different too, and that context shapes how sessions unfold.
-
-Parent involvement is worked out case by case: some families want regular updates, others want their teen to have a mostly private space with check-ins only as needed. That balance is discussed directly with you and your teen rather than assumed from the outset, and it can shift over time as trust builds.
-
-Teen counseling pairs naturally with family therapy when it's less about the teen alone and more about patterns in the household — though family therapy isn't currently offered as its own San Marcos page. San Marcos clients also have access to individual therapy and couples counseling at the same Carlsbad office, which some parents use alongside their teen's sessions.
-
-If your teen has said outright that they want to talk to someone, or you've simply noticed a change you can't quite name, either is a reasonable enough reason to reach out — the specifics can get sorted out together once you do.
-
-Request a session to discuss fit and availability for teen counseling as a San Marcos family.

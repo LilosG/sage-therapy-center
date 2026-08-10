@@ -35,21 +35,12 @@ neighborhoods:
   - name: Calavera Hills
     blurb: "One of the Carlsbad neighborhoods we serve, a short drive from our Avenida Encinas office."
 faq:
-  # CONFIRM: parking/suite-access specifics (visitor parking location,
-  # suite entrance) are pending — see the CONFIRM note in the body below.
-  # Once confirmed, fold those details into this answer.
-  - q: "Is your office easy to find?"
-    a: "The office is at 5055 Avenida Encinas, Suite 100, in Carlsbad."
+  - q: "Where is the Carlsbad office?"
+    a: "S.A.G.E. Therapy Center is located on Avenida Encinas in Carlsbad. The full address and directions are provided in the office section on this page."
   - q: "Do you see clients from outside Carlsbad?"
-    a: "Yes — the Carlsbad office also welcomes clients from nearby North County San Diego communities. See Areas We Serve for the full list."
+    a: "Yes — the Carlsbad office also welcomes clients from nearby North County San Diego communities, and telehealth is available across California."
 ---
 
-S.A.G.E. Therapy Center's office is in Carlsbad, at 5055 Avenida Encinas, Suite 100 — the practice's home base and the only location with an in-person office. If you live or work in Carlsbad, you're in the right place: individual therapy and couples counseling are both offered here, with Kristin Moorehead-Malley, LMFT, drawing on a range of approaches including EMDR, Lifespan Integration, CBT, IMAGO, psychodynamic, and attachment-based work depending on what fits.
+S.A.G.E. Therapy Center's office is in Carlsbad on Avenida Encinas — the practice's home base and the only location with an in-person office. Individual therapy, couples counseling, and other therapy services are offered here with Kristin Moorehead-Malley, LMFT, with the approach shaped around the person, relationship, and goals rather than one fixed method.
 
-Carlsbad clients come from across the city, including La Costa, Olde Carlsbad, Bressi Ranch, Aviara, and Calavera Hills. Wherever you're coming from in Carlsbad, the Avenida Encinas office is a short drive from most neighborhoods.
-
-<!-- CONFIRM: parking/suite-access details (e.g. visitor parking location,
-     suite entrance) are not yet documented anywhere in project sources —
-     add real, verified details here before this page is considered launch-
-     ready, per the SEO doc's City Uniqueness Gate. -->
-
+Carlsbad clients come from across the city, including La Costa, Olde Carlsbad, Bressi Ranch, Aviara, and Calavera Hills. The dedicated office section below provides the current address and directions; specific arrival or access instructions can be confirmed when scheduling.

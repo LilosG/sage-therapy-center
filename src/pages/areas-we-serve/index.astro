@@ -1,67 +1,61 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Breadcrumbs from '../../components/sections/Breadcrumbs.astro';
-import Card from '../../components/ui/Card.astro';
+import PageHero from '../../components/sections/PageHero.astro';
+import TrustStrip from '../../components/sections/TrustStrip.astro';
+import AreasServed from '../../components/sections/AreasServed.astro';
+import PracticeSection from '../../components/sections/PracticeSection.astro';
 import CTASection from '../../components/sections/CTASection.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
-import { AREAS_WE_SERVE_URL, CONTACT_URL } from '../../data/nav';
+import { hubHeroImages } from '../../data/pageImages';
+import { AREAS_WE_SERVE_URL, SCHEDULE_URL } from '../../data/nav';
 import { cityUrl } from '../../lib/routes';
 import { staticBreadcrumbs } from '../../lib/breadcrumbs';
 
-// Data-driven: only shows cities that exist as real content entries.
-// Full 8-city coverage (SEO doc launch architecture) arrives in Wave 3 —
-// see Wave 1 report.
 const cities = await getCollection('cities');
+const breadcrumbItems = staticBreadcrumbs('Areas We Serve', AREAS_WE_SERVE_URL);
 ---
 
 <BaseLayout
-  title="Areas We Serve | S.A.G.E. Therapy Center"
-  description="S.A.G.E. Therapy Center is based in Carlsbad, CA and serves clients throughout North County San Diego."
+  title="Therapy in Carlsbad & North County San Diego | S.A.G.E. Therapy Center"
+  description="S.A.G.E. Therapy Center is based in Carlsbad, CA and serves clients from North County San Diego, with telehealth available across California."
+  image={hubHeroImages.areas}
 >
-  <Breadcrumbs items={staticBreadcrumbs('Areas We Serve', AREAS_WE_SERVE_URL)} />
+  <PageHero
+    eyebrow="Areas We Serve"
+    title="Therapy for Carlsbad and North County San Diego"
+    description="S.A.G.E.'s only physical office is in Carlsbad. Clients from nearby North County communities can meet there in person, while telehealth is available across California."
+    breadcrumbItems={breadcrumbItems}
+    ctaLabel="Explore Areas"
+    ctaHref="#service-areas"
+    phoneDisplay={site.phone.display}
+    phoneHref={`tel:${site.phone.tel}`}
+    image={hubHeroImages.areas}
+    imageAlt="Soft Southern California eucalyptus landscape representing the North County communities served by S.A.G.E. Therapy Center"
+  />
 
-  <div class="mx-auto max-w-3xl px-6 pb-4 pt-8 text-center">
-    <p class="eyebrow-label">Areas We Serve</p>
-    <h1 class="mt-4 font-serif text-4xl text-ink sm:text-5xl">North County San Diego</h1>
-    <p class="mx-auto mt-4 max-w-2xl font-sans text-lg text-foreground">
-      S.A.G.E. Therapy Center's office is in Carlsbad, CA. Clients from the following areas are welcome at the
-      Carlsbad office.
-    </p>
+  <TrustStrip />
+
+  <div id="service-areas" class="scroll-mt-24">
+    <AreasServed
+      eyebrow="North County Communities"
+      heading="Choose your community"
+      cities={cities.map((c) => ({ name: c.data.name, href: cityUrl(c.data.slug) }))}
+      variant="compact"
+    />
   </div>
 
-  <section class="bg-secondary">
-    <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {
-          cities.map((c) => (
-            <Card>
-              <p class="font-serif text-lg text-ink">{c.data.name}</p>
-              <p class="mt-2 font-sans text-sm text-muted-foreground">
-                {c.data.hasOffice ? 'Our office is located here.' : 'Sessions are held at our Carlsbad office.'}
-              </p>
-              <a
-                href={cityUrl(c.data.slug)}
-                class="mt-4 inline-block font-sans text-sm font-medium text-sage-deep hover:text-primary"
-              >
-                Learn more &rarr;
-              </a>
-            </Card>
-          ))
-        }
-      </div>
-    </div>
-  </section>
+  <PracticeSection />
 
   <CTASection
-    heading="Don't see your area listed?"
-    subhead="Reach out — we may still be able to help."
-    ctaLabel="Contact Us"
-    ctaHref={CONTACT_URL}
+    heading="Not sure whether your location works?"
+    subhead="Reach out to discuss in-person availability at the Carlsbad office or telehealth anywhere in California."
+    ctaLabel="Schedule a Session"
+    ctaHref={SCHEDULE_URL}
     phoneDisplay={site.phone.display}
     phoneHref={`tel:${site.phone.tel}`}
   />
-</BaseLayout>
 
-<SchemaOrg type="localBusiness" />
+  <SchemaOrg type="localBusiness" />
+</BaseLayout>

@@ -1,0 +1,40 @@
+---
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  intro?: string;
+  items: string[];
+}
+
+const { eyebrow = 'What Therapy May Explore', heading, intro, items } = Astro.props;
+---
+
+<section class="bg-secondary">
+  <div class="mx-auto grid max-w-6xl gap-10 px-6 py-16 sm:py-20 lg:grid-cols-[0.72fr_1.28fr] lg:gap-16 lg:py-24">
+    <div class="max-w-md">
+      <p class="eyebrow-label">{eyebrow}</p>
+      <h2 class="mt-4 font-serif text-3xl leading-tight text-ink sm:text-4xl">{heading}</h2>
+      {intro && <p class="mt-5 font-sans text-base leading-7 text-foreground">{intro}</p>}
+    </div>
+
+    <ul class="grid overflow-hidden rounded-3xl border border-border bg-background sm:grid-cols-2">
+      {
+        items.map((item, index) => (
+          <li
+            class:list={[
+              'flex min-h-20 items-center gap-4 border-border px-5 py-5 font-sans text-sm font-medium leading-6 text-foreground sm:px-6',
+              index > 0 && 'border-t',
+              index === 1 && 'sm:border-t-0',
+              index % 2 === 1 && 'sm:border-l',
+            ]}
+          >
+            <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-sage/15 font-serif text-xs text-sage-deep" aria-hidden="true">
+              {String(index + 1).padStart(2, '0')}
+            </span>
+            <span>{item}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

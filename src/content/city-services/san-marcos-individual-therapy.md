@@ -6,25 +6,42 @@ city: san-marcos
 service: individual-therapy
 minWordCount: 400
 uniqueContentPercent: 35
+recognition:
+  - title: "You feel stretched thin, stuck, or unsure where to begin"
+    body: "Individual therapy can start with what feels hardest now without requiring a diagnosis or a perfectly defined goal."
+  - title: "Several parts of life are overlapping"
+    body: "Stress, relationships, grief, transitions, and recurring emotional patterns often show up together rather than one at a time."
+  - title: "You want both in-person and telehealth options"
+    body: "San Marcos clients can meet Kristin at S.A.G.E.'s Carlsbad office or use telehealth anywhere in California."
+overview:
+  eyebrow: "Individual Therapy for San Marcos"
+  heading: "One-on-one therapy connected to S.A.G.E.'s Carlsbad practice"
+  paragraphs:
+    - "S.A.G.E. Therapy Center serves San Marcos clients through individual therapy with Kristin Moorehead-Malley, LMFT. The practice's only physical office is in Carlsbad, while telehealth is available across California. That distinction stays clear throughout the site so San Marcos clients know exactly where in-person sessions take place."
+    - "Sessions are shaped around the person rather than a rigid program. Work may begin with anxiety, grief, stress, a difficult life transition, relationship or boundary concerns, trauma-related experiences, recurring patterns, or a broader desire for personal growth. The focus can change over time as new priorities or connections become clearer."
+topics:
+  eyebrow: "What Therapy May Explore"
+  heading: "Common reasons San Marcos clients seek individual therapy"
+  intro: "You can start with one concern or several overlapping areas that you want to understand more clearly."
+  items:
+    - "Anxiety, overwhelm, and chronic stress"
+    - "Grief, loss, and life transitions"
+    - "Relationship patterns and boundaries"
+    - "Self-esteem and recurring emotional patterns"
+    - "Trauma-related concerns and difficult experiences"
+    - "Personal growth and greater self-understanding"
+decisionItems:
+  - q: "Is there an S.A.G.E. office in San Marcos?"
+    a: "No. S.A.G.E.'s only physical office is in Carlsbad. San Marcos clients can meet there in person or use telehealth across California."
+  - q: "Do I need a diagnosis or referral?"
+    a: "You do not need a formal diagnosis to begin a conversation about therapy and fit."
+  - q: "Can the focus of therapy change over time?"
+    a: "Yes. Sessions can move between current stressors, relationships, past experiences, emotions, and goals as the work develops."
+  - q: "How do I start?"
+    a: "Request a session to discuss fit, current availability, and whether in-person or telehealth sessions make sense for you."
 faq:
-  - q: "Is there an S.A.G.E. Therapy Center office in San Marcos?"
-    a: "No. Individual therapy for San Marcos clients is held at the Carlsbad office, 5055 Avenida Encinas, Suite 100 — a short drive inland."
-  - q: "How far is the drive from San Marcos to the Carlsbad office?"
-    a: "The Carlsbad office is a short drive inland from San Marcos. Exact routing depends on where in San Marcos you're coming from."
+  - q: "Where do San Marcos clients attend individual therapy?"
+    a: "In-person sessions take place at S.A.G.E. Therapy Center's Carlsbad office. Telehealth is also available to San Marcos clients across California."
+  - q: "What can I bring to individual therapy?"
+    a: "Clients may bring anxiety, grief, transitions, relationship concerns, recurring patterns, trauma-related concerns, stress, or personal growth goals. You do not need to narrow everything to one issue before reaching out."
 ---
-
-San Marcos residents looking for individual therapy work with S.A.G.E. Therapy Center at the Carlsbad office — 5055 Avenida Encinas, Suite 100 — a short drive inland. There's no separate San Marcos location; every individual therapy session takes place at the Carlsbad address.
-
-Kristin Moorehead-Malley, LMFT, works one on one with adults navigating anxiety, grief, life transitions, and other personal challenges. Sessions can draw on EMDR, Lifespan Integration, CBT, IMAGO, psychodynamic, and attachment-based approaches, chosen based on what fits your situation rather than a single fixed method.
-
-Some San Marcos clients come to S.A.G.E. Therapy Center after comparing options closer to home and deciding the range of approaches on offer — six or more, depending on the situation — was worth the drive to Carlsbad. Others are referred directly and simply need to know the logistics before their first session.
-
-Because there's no San Marcos office, it's worth being upfront: sessions are in person, at the Carlsbad address, not remote and not at a location closer to San Marcos. That's a real consideration for some clients and not for others, depending on your schedule and how far you're coming from within San Marcos.
-
-Individual therapy can help with a wide range of concerns: feeling overwhelmed or stuck, anxiety, depression, anger, or chronic stress, low self-worth or self-sabotaging patterns, relationship or boundary struggles, trauma, abuse, or PTSD, and issues like sleep, addiction, or disordered eating. Whatever brought you to this page is a reasonable starting point — and if you're in crisis right now, individual therapy is not an emergency service; please contact 911 or a crisis line first.
-
-San Marcos itself has a genuinely different feel than the coastal cities S.A.G.E. Therapy Center also serves. It's an inland university town — home to California State University San Marcos, with around 17,000 students — and known for being family-oriented, with residential areas like San Elijo Hills. There's no pretending it's a beach town; it's its own kind of North County community, and the drive to the Carlsbad office reflects that inland-to-coast trip.
-
-Individual therapy is one of two services currently available to San Marcos clients, alongside couples counseling — both held at the same Carlsbad office.
-
-Request a session to discuss fit and availability for individual therapy as a San Marcos client.

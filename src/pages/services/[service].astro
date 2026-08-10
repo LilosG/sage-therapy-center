@@ -3,9 +3,7 @@ import { getCollection, getEntries, render } from 'astro:content';
 import ServiceLayout from '../../layouts/ServiceLayout.astro';
 import ServiceEditorialSection from '../../components/sections/ServiceEditorialSection.astro';
 import StructuredProse from '../../components/sections/StructuredProse.astro';
-import SchemaOrg from '../../components/seo/SchemaOrg.astro';
-import { site } from '../../data/site';
-import { canonicalUrl, serviceUrl } from '../../lib/routes';
+import { serviceUrl } from '../../lib/routes';
 
 export async function getStaticPaths() {
   const entries = await getCollection('services');
@@ -18,26 +16,18 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const related = entry.data.relatedServices.length ? await getEntries(entry.data.relatedServices) : [];
-const pageUrl = canonicalUrl(serviceUrl(entry.data.slug));
+const relatedLinks = related.map((r) => ({ title: r.data.title, href: serviceUrl(r.data.slug) }));
+const hasStructuredContent = Boolean(entry.data.recognition?.length && entry.data.overview && entry.data.topics);
 ---
 
-<ServiceLayout entry={entry}>
-  <ServiceEditorialSection
-    related={related.map((r) => ({ title: r.data.title, href: serviceUrl(r.data.slug) }))}
-  >
-    <StructuredProse class="max-w-2xl prose-p:leading-7 prose-li:leading-7">
-      <Content />
-    </StructuredProse>
-  </ServiceEditorialSection>
+<ServiceLayout entry={entry} relatedLinks={relatedLinks}>
+  {
+    !hasStructuredContent && (
+      <ServiceEditorialSection related={relatedLinks}>
+        <StructuredProse class="max-w-2xl prose-p:leading-7 prose-li:leading-7">
+          <Content />
+        </StructuredProse>
+      </ServiceEditorialSection>
+    )
+  }
 </ServiceLayout>
-
-<SchemaOrg
-  type="service"
-  service={{
-    name: entry.data.title,
-    description: entry.data.description,
-    serviceType: entry.data.primaryTarget,
-    url: pageUrl,
-    areaServed: site.address.city,
-  }}
-/>

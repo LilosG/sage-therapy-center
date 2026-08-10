@@ -1,11 +1,10 @@
 ---
-// JSON-LD emitter per Build Spec Section 7. Every node that represents the
-// business reuses the same @id (site.canonicalOrigin + "/#business") —
-// never a new node per page — per the SEO doc's schema plan ("Do not
-// duplicate competing business nodes with different @id values").
+// Central JSON-LD emitter. Business entities always reuse the same @id so
+// Organization/LocalBusiness/Person/Service references resolve to one entity
+// graph instead of creating competing business nodes on individual pages.
 import { site } from '../../data/site';
 
-type SchemaType = 'organization' | 'localBusiness' | 'service' | 'city' | 'faqPage' | 'person';
+type SchemaType = 'website' | 'organization' | 'localBusiness' | 'service' | 'city' | 'faqPage' | 'person';
 
 interface ServiceProps {
   name: string;
@@ -14,10 +13,6 @@ interface ServiceProps {
   url: string;
   areaServed?: string;
   audience?: string;
-  // Only rendered once site.offersConfirmed is true AND an offer is
-  // supplied. Do not populate until payment/insurance policy is confirmed
-  // (SEO doc Wave 0 blocker) — this keeps `offers` a one-line flip later
-  // rather than a re-implementation.
   offer?: { price?: string; priceCurrency?: string };
 }
 
@@ -37,41 +32,19 @@ interface BreadcrumbItem {
   url: string;
 }
 
-interface ReviewData {
-  authorName: string;
-  rating: number | null;
-  text: string;
-  publishTime: string | null;
-}
-
-interface ReviewsProps {
-  rating: number;
-  reviewCount: number;
-  // Optional: buildCity()'s LocalBusiness reference node only ever wants
-  // aggregateRating (no per-review data on a city page), so this prop is
-  // shared between type="organization" (full review array) and
-  // type="city" (rating/reviewCount only) rather than duplicating the
-  // interface.
-  reviews?: ReviewData[];
-}
-
 interface Props {
   type: SchemaType;
   service?: ServiceProps;
   city?: CityProps;
   faqItems?: FaqItem[];
   breadcrumb?: BreadcrumbItem[];
-  // Populated from the same live Places API data as ReviewsSection (Wave
-  // 9 — docs/WAVE_9_LIVE_REVIEWS.md) — only ever passed when every
-  // underlying review is genuine and currently live, per the SEO doc's
-  // review-schema condition.
-  reviewsData?: ReviewsProps;
 }
 
-const { type, service, city, faqItems, breadcrumb, reviewsData } = Astro.props;
+const { type, service, city, faqItems, breadcrumb } = Astro.props;
 
 const businessId = `${site.canonicalOrigin}/#business`;
 const personId = `${site.canonicalOrigin}/#kristin`;
+const websiteId = `${site.canonicalOrigin}/#website`;
 
 function businessRef() {
   return { '@id': businessId };
@@ -89,12 +62,25 @@ function breadcrumbList(items: BreadcrumbItem[]) {
   };
 }
 
+function buildWebsite() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': websiteId,
+    url: `${site.canonicalOrigin}/`,
+    name: site.name,
+    alternateName: ['S.A.G.E. Therapy Center', 'SAGE Therapy Center'],
+    publisher: businessRef(),
+  };
+}
+
 function buildOrganization() {
   return {
     '@context': 'https://schema.org',
-    // CONFIRM: LocalBusiness vs MedicalBusiness (or a more specific medical
-    // subtype) needs a legal-appropriateness confirmation per the SEO doc's
-    // schema plan before this is treated as final.
+    // Keep the broad LocalBusiness type until a more specific medical
+    // subtype has been explicitly validated for this practice. The verified
+    // GBP primary category remains centralized in site data but is not forced
+    // into JSON-LD as a non-domain `category` property on LocalBusiness.
     '@type': ['Organization', 'LocalBusiness'],
     '@id': businessId,
     name: site.name,
@@ -120,33 +106,10 @@ function buildOrganization() {
           })),
         }
       : {}),
-    ...(reviewsData
-      ? {
-          aggregateRating: {
-            '@type': 'AggregateRating',
-            ratingValue: reviewsData.rating,
-            reviewCount: reviewsData.reviewCount,
-          },
-          ...(reviewsData.reviews
-            ? {
-                review: reviewsData.reviews.map((r) => ({
-                  '@type': 'Review',
-                  author: { '@type': 'Person', name: r.authorName },
-                  reviewRating: { '@type': 'Rating', ratingValue: r.rating },
-                  reviewBody: r.text,
-                  ...(r.publishTime ? { datePublished: r.publishTime } : {}),
-                })),
-              }
-            : {}),
-        }
-      : {}),
   };
 }
 
 function buildLocalBusinessReference() {
-  // A reference node only — reuses the business @id, does not redeclare
-  // the full Organization/LocalBusiness node. For use on pages other than
-  // the homepage (e.g. city pages), per Build Spec Section 7.
   return {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
@@ -162,11 +125,6 @@ function buildPerson() {
     name: site.practitioner.name,
     honorificSuffix: site.practitioner.credential,
     jobTitle: 'Licensed Marriage and Family Therapist',
-    // Gated the same way `offers` is gated behind offersConfirmed: the SEO
-    // doc's Wave 0 blocker list says the license number needs Kristin's
-    // direct confirmation before it "goes live in schema," despite being
-    // sourced from her own existing bio copy. Do not emit it here until
-    // site.practitioner.licenseConfirmRequired is flipped to false.
     ...(site.practitioner.licenseConfirmRequired
       ? {}
       : { identifier: `CA LIC# ${site.practitioner.licenseNumber}` }),
@@ -176,36 +134,52 @@ function buildPerson() {
 
 function buildService() {
   if (!service) return null;
+  const serviceId = `${service.url}#service`;
+  const pageId = `${service.url}#webpage`;
+  const breadcrumbId = `${service.url}#breadcrumb`;
+
   return {
     '@context': 'https://schema.org',
-    '@type': 'Service',
-    '@id': `${service.url}#service`,
-    name: service.name,
-    description: service.description,
-    serviceType: service.serviceType,
-    url: service.url,
-    provider: businessRef(),
-    ...(service.areaServed ? { areaServed: service.areaServed } : {}),
-    ...(service.audience
-      ? { audience: { '@type': 'Audience', audienceType: service.audience } }
-      : {}),
-    ...(site.offersConfirmed && service.offer
-      ? {
-          offers: {
-            '@type': 'Offer',
-            price: service.offer.price,
-            priceCurrency: service.offer.priceCurrency,
-          },
-        }
-      : {}),
+    '@graph': [
+      {
+        '@type': 'Service',
+        '@id': serviceId,
+        name: service.name,
+        description: service.description,
+        serviceType: service.serviceType,
+        url: service.url,
+        provider: businessRef(),
+        ...(service.areaServed ? { areaServed: service.areaServed } : {}),
+        ...(service.audience
+          ? { audience: { '@type': 'Audience', audienceType: service.audience } }
+          : {}),
+        ...(site.offersConfirmed && service.offer
+          ? {
+              offers: {
+                '@type': 'Offer',
+                price: service.offer.price,
+                priceCurrency: service.offer.priceCurrency,
+              },
+            }
+          : {}),
+      },
+      {
+        '@type': 'WebPage',
+        '@id': pageId,
+        url: service.url,
+        name: service.name,
+        description: service.description,
+        isPartOf: { '@id': websiteId },
+        about: { '@id': serviceId },
+        ...(breadcrumb ? { breadcrumb: { '@id': breadcrumbId } } : {}),
+      },
+      ...(breadcrumb ? [{ '@id': breadcrumbId, ...breadcrumbList(breadcrumb) }] : []),
+    ],
   };
 }
 
 function buildCity() {
   if (!city) return null;
-  // Doc requirement: never fabricate a branch address for a city without
-  // an office — this node intentionally carries no PostalAddress of its
-  // own, only a reference to the single business node.
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -214,23 +188,22 @@ function buildCity() {
         '@id': `${city.url}#webpage`,
         name: city.name,
         url: city.url,
+        isPartOf: { '@id': websiteId },
         about: businessRef(),
-        ...(breadcrumb ? { breadcrumb: breadcrumbList(breadcrumb) } : {}),
+        ...(breadcrumb ? { breadcrumb: { '@id': `${city.url}#breadcrumb` } } : {}),
       },
-      ...(breadcrumb ? [{ '@id': `${city.url}#breadcrumb`, ...breadcrumbList(breadcrumb) }] : []),
+      ...(breadcrumb
+        ? [
+            {
+              '@id': `${city.url}#breadcrumb`,
+              ...breadcrumbList(breadcrumb),
+            },
+          ]
+        : []),
       {
         '@type': 'LocalBusiness',
         ...businessRef(),
         areaServed: { '@type': 'City', name: city.areaServed },
-        ...(reviewsData
-          ? {
-              aggregateRating: {
-                '@type': 'AggregateRating',
-                ratingValue: reviewsData.rating,
-                reviewCount: reviewsData.reviewCount,
-              },
-            }
-          : {}),
       },
     ],
   };
@@ -253,6 +226,7 @@ function buildFaqPage() {
 }
 
 const schema = {
+  website: buildWebsite,
   organization: buildOrganization,
   localBusiness: buildLocalBusinessReference,
   service: buildService,

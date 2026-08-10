@@ -23,7 +23,7 @@ interface Props {
   heroTitle: string;
   heroDescription?: string;
   heroTrustBadges?: string[];
-  heroImage?: string;
+  heroImage?: ImageMetadata;
   heroImageAlt?: string;
   heroImagePosition?: string;
   heroCtaHref?: string;
@@ -51,7 +51,7 @@ const {
 } = Astro.props;
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} image={heroImage}>
   <PageHero
     eyebrow={eyebrow}
     title={heroTitle}
@@ -83,6 +83,6 @@ const {
       />
     )
   }
-</BaseLayout>
 
-<SchemaOrg type="localBusiness" />
+  <SchemaOrg type="localBusiness" />
+</BaseLayout>

@@ -6,21 +6,52 @@ city: carlsbad
 service: premarital-marriage-counseling
 minWordCount: 400
 uniqueContentPercent: 35
+recognition:
+  - title: "You want to prepare intentionally for marriage"
+    body: "Counseling can create dedicated space to talk through expectations, communication, values, and patterns before marriage rather than waiting for conflict to force the conversation."
+  - title: "A stage of marriage feels harder than expected"
+    body: "Committed relationships change over time, and a transition, recurring friction point, or loss of connection may be affecting how the relationship feels now."
+  - title: "You want stronger ways to communicate and repair"
+    body: "Partners may want help understanding how disagreements unfold and how to stay more connected while navigating difficult conversations."
+overview:
+  eyebrow: "Premarital & Marriage Counseling in Carlsbad"
+  heading: "Stage-specific relationship support from a Carlsbad-based practice"
+  paragraphs:
+    - "Premarital and marriage counseling in Carlsbad is available through S.A.G.E. Therapy Center's Avenida Encinas office with Kristin Moorehead-Malley, LMFT. Couples may seek support while preparing for marriage or while navigating a specific stage, transition, or recurring concern within marriage."
+    - "Carlsbad couples from neighborhoods including La Costa, Olde Carlsbad, Bressi Ranch, Aviara, and Calavera Hills have an in-person option within the city, with telehealth also available across California. The work is more stage-specific than the broader couples counseling service and can be shaped around the concerns most relevant to the partnership now."
+topics:
+  eyebrow: "What Sessions May Explore"
+  heading: "Premarital and marriage counseling can address practical and relational patterns together"
+  intro: "The emphasis depends on the couple and the stage of commitment you are navigating."
+  items:
+    - "Communication and conflict patterns"
+    - "Expectations about marriage and partnership"
+    - "Trust, connection, and repair"
+    - "Roles, boundaries, and shared responsibilities"
+    - "Transitions affecting the relationship"
+    - "Patterns that may become harder under stress"
+approach:
+  eyebrow: "Relationship-Focused Work"
+  heading: "An approach shaped around the couple rather than one premarital checklist"
+  body: "Kristin may draw from IMAGO, attachment-based, psychodynamic, cognitive, experiential, and other approaches depending on what is most relevant to the relationship. The goal is to understand the couple's actual dynamics, expectations, and concerns rather than forcing every partnership through one standardized model."
+  modalities:
+    - "IMAGO"
+    - "Attachment-Based"
+    - "Psychodynamic"
+    - "CBT"
+    - "Experiential"
+decisionItems:
+  - q: "Do we need to be engaged to ask about premarital counseling?"
+    a: "No specific milestone is required to ask about fit. Couples moving toward marriage or long-term commitment can discuss whether this service makes sense for them."
+  - q: "How is this different from general couples counseling?"
+    a: "This service centers the stage-specific work of preparing for or navigating marriage, while general couples counseling addresses relationship concerns more broadly."
+  - q: "Where do in-person sessions take place?"
+    a: "S.A.G.E. Therapy Center is based on Avenida Encinas in Carlsbad. The location section on this page provides the full address and directions."
+  - q: "What should we know about arriving at the office?"
+    a: "The site provides the office address and directions. Specific parking, building-access, and arrival details can be confirmed when scheduling."
 faq:
   - q: "Where do Carlsbad premarital and marriage counseling sessions take place?"
-    a: "At the S.A.G.E. Therapy Center office, 5055 Avenida Encinas, Suite 100, in Carlsbad."
+    a: "In-person sessions take place at S.A.G.E. Therapy Center's Avenida Encinas office in Carlsbad. The full address and directions are provided in the location section."
   - q: "Is this different from general couples counseling in Carlsbad?"
-    a: "Yes — premarital and marriage counseling focuses on the stage-specific work of preparing for or navigating marriage, rather than general relationship concerns."
+    a: "Yes. Premarital and marriage counseling focuses on the stage-specific work of preparing for or navigating marriage, while general couples counseling addresses relationship concerns more broadly."
 ---
-
-Premarital and marriage counseling in Carlsbad is offered at S.A.G.E. Therapy Center, 5055 Avenida Encinas, Suite 100, with Kristin Moorehead-Malley, LMFT, working with couples preparing for marriage or navigating a specific stage of a committed partnership.
-
-Engaged couples across Carlsbad — La Costa, Olde Carlsbad, Bressi Ranch, Aviara, Calavera Hills — often come in wanting to build a strong foundation before the wedding: talking through expectations, communication habits, and how to handle disagreement before it becomes a pattern. Married couples come in at a specific stage — a transition, a rough patch, a desire to reconnect — rather than a general or ongoing concern.
-
-Sessions can draw on IMAGO, psychodynamic, and attachment-based approaches, chosen based on what fits the relationship. Because the office is local to Carlsbad, sessions can fit around wedding planning, work schedules, or family logistics without adding a long commute on top of everything else.
-
-Premarital and marriage counseling is closely related to general couples counseling, also offered at the Carlsbad office, for relationship work that isn't tied to marriage specifically. If you're not sure which one describes where you are, that's a reasonable thing to bring up when you reach out — it doesn't need to be sorted out in advance.
-
-Engaged couples and married couples tend to arrive with different starting points, and sessions reflect that difference. Couples preparing for a wedding often want structured conversations — about finances, family, expectations — before those topics become sources of friction later on. Couples already married are more often responding to something specific: less connection than there used to be, a recurring friction point, or a transition like a move or a new child that shifted the relationship's rhythm. Neither path requires waiting for things to get worse before reaching out.
-
-Every couple starts from a different place, whether that's early engagement, a wedding a few months out, or several years into a marriage. Request a session to discuss fit and availability for Carlsbad premarital and marriage counseling.

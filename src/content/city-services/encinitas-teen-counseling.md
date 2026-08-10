@@ -6,23 +6,42 @@ city: encinitas
 service: teen-counseling
 minWordCount: 400
 uniqueContentPercent: 35
-faq:
+recognition:
+  - title: "Your teen seems more anxious, withdrawn, or overwhelmed"
+    body: "A change in mood, stress level, confidence, or day-to-day functioning can be enough reason to start a conversation."
+  - title: "Family tension or a transition is affecting everyone"
+    body: "School changes, relationship stress, family transitions, and conflict at home can all become part of what a teen is carrying."
+  - title: "You want a flexible option for an Encinitas family"
+    body: "Encinitas families can use the Carlsbad office for in-person sessions or telehealth across California."
+overview:
+  eyebrow: "Teen Counseling for Encinitas"
+  heading: "A place for teens to begin without having every answer first"
+  paragraphs:
+    - "S.A.G.E. Therapy Center serves Encinitas teens and families through counseling with Kristin Moorehead-Malley, LMFT. The practice's only physical office is in Carlsbad, and telehealth is available across California, giving families more than one way to make sessions work around school, activities, and family schedules."
+    - "Teen counseling can begin with anxiety, stress, a difficult transition, conflict at home, changes in mood or behavior, social concerns, or simply a sense that a teen would benefit from a private place to talk. A teen does not need to have already identified exactly what is wrong or what they want from therapy before starting."
+topics:
+  eyebrow: "What Teen Counseling May Explore"
+  heading: "Common areas of support for Encinitas teens"
+  intro: "The focus is shaped around the individual teen and can change as trust develops and priorities become clearer."
+  items:
+    - "Anxiety, stress, and feeling overwhelmed"
+    - "School pressure and difficult transitions"
+    - "Family conflict and communication"
+    - "Friendships, relationships, and social stress"
+    - "Self-esteem, identity, and confidence"
+    - "Patterns in mood, behavior, or coping"
+decisionItems:
   - q: "Is there a teen counseling office in Encinitas?"
-    a: "No. Encinitas teens are seen at the Carlsbad office, 5055 Avenida Encinas, Suite 100 — a short drive up the coast from Encinitas."
-  - q: "Will my teen's sessions stay private from us as parents?"
-    a: "Confidentiality and how much parents hear about specific sessions is discussed directly with you and your teen at the start, rather than assumed either way."
+    a: "No. S.A.G.E.'s only physical office is in Carlsbad. Encinitas families can use that office or telehealth across California."
+  - q: "How involved are parents?"
+    a: "Parent involvement and confidentiality are discussed directly with the teen and family rather than assumed in advance."
+  - q: "Does my teen need to ask for therapy first?"
+    a: "No. Some teens request support themselves, while other families begin because a parent has noticed a change or concern."
+  - q: "What is the first step?"
+    a: "Request a session to discuss fit, availability, session format, and what is prompting you to reach out."
+faq:
+  - q: "Where do Encinitas teens attend counseling?"
+    a: "In-person sessions take place at S.A.G.E. Therapy Center's Carlsbad office. Telehealth is also available to Encinitas clients across California."
+  - q: "Will my teen's sessions be private from parents?"
+    a: "Confidentiality and parent involvement are discussed directly with you and your teen so expectations are clear at the beginning and can be revisited as needed."
 ---
-
-Encinitas parents bringing a teen in for counseling make the short drive north to the Carlsbad office, where Kristin Moorehead-Malley, LMFT, works with teens on anxiety, school pressure, family friction, and the general weight of adolescence. There's no separate Encinitas location — every session happens at the Avenida Encinas address.
-
-Families from Old Encinitas, Leucadia, Cardiff-by-the-Sea, and Olivenhain end up here for different reasons. Some come because a teen is visibly more withdrawn or on edge than they used to be. Others come because the teen themselves asked for support, which is often a sign they're more ready for it than parents expect. A few come after a specific event — a breakup, a falling-out with friends, a rough transition between schools — knocked things off balance.
-
-Sessions draw on CBT, psychodynamic, and attachment-based approaches, chosen based on what actually fits the teen in front of Kristin rather than a fixed script every family goes through. Encinitas's mix of a laid-back beach-town pace and real academic pressure at the local schools means teen stress here doesn't always look the way it does elsewhere in North County — that context matters when figuring out what's actually going on.
-
-How much parents are looped into ongoing sessions varies by family, by age, and by what the teen is comfortable with — that balance gets worked out directly with you rather than set by a blanket policy. Teens don't need to have already named what's wrong to start; sometimes that's exactly what the first few sessions help with.
-
-Teen counseling connects closely to family therapy for households where the whole family system, not just the teen, is part of what's shifting — though family therapy isn't yet offered as its own Encinitas page. Individual therapy and couples counseling are also available to Encinitas clients at the same Carlsbad office, for parents who find they want their own support alongside their teen's.
-
-The drive to Carlsbad is a real factor worth planning around for a recurring weekly commitment, and many Encinitas families weigh it against wanting a therapist who already knows their teen rather than starting over somewhere closer.
-
-Request a session to talk through what's going on with your teen and whether counseling at the Carlsbad office is the right next step.

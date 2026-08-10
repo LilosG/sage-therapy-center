@@ -6,8 +6,8 @@ import ImagePlaceholder from '../ui/ImagePlaceholder.astro';
 interface Props {
   name: string;
   credential: string;
-  bio: string[];
-  modalities: string[];
+  bio: readonly string[] | string[];
+  modalities: readonly string[] | string[];
   ctaLabel: string;
   ctaHref: string;
   image?: ImageMetadata;
@@ -17,49 +17,59 @@ const { name, credential, bio, modalities, ctaLabel, ctaHref, image } = Astro.pr
 ---
 
 <section class="bg-surface">
-  <div class="mx-auto grid max-w-6xl gap-10 px-6 py-16 sm:py-20 lg:grid-cols-2 lg:items-center">
-    {
-      image ? (
-        <Image
-          src={image}
-          alt={`Professional headshot of ${name}, ${credential}`}
-          widths={[400, 600, 800]}
-          sizes="(min-width: 1024px) 500px, 90vw"
-          class="aspect-[4/5] w-full rounded-3xl object-cover shadow-sm"
-        />
-      ) : (
-        // PLACEHOLDER: headshot arriving when photography is confirmed for
-        // this page — see the `image` prop on this component.
-        <ImagePlaceholder
-          alt={`Headshot of ${name}, ${credential} — placeholder, real photography pending`}
-          icon="lucide:user-round"
-          class="aspect-[4/5] w-full shadow-sm"
-        />
-      )
-    }
-
-    <div>
-      <p class="eyebrow-label">Meet Your Therapist</p>
-      <h2 class="mt-4 font-serif text-3xl text-ink sm:text-4xl">
-        {name}, {credential}
-      </h2>
-      <div class="mt-4 space-y-4 font-sans text-foreground">
-        {bio.map((paragraph) => <p>{paragraph}</p>)}
+  <div class="mx-auto grid max-w-6xl gap-12 px-6 py-16 sm:py-20 lg:grid-cols-[0.72fr_1.28fr] lg:items-center lg:gap-20 lg:py-24">
+    <div class="relative mx-auto w-full max-w-sm lg:mx-0">
+      <div class="absolute -left-7 -top-7 h-32 w-32 rounded-full border border-sage/25" aria-hidden="true"></div>
+      <div class="absolute -bottom-8 -right-8 h-36 w-36 rounded-full bg-lavender-soft blur-2xl" aria-hidden="true"></div>
+      {
+        image ? (
+          <Image
+            src={image}
+            alt={`Professional headshot of ${name}, ${credential}`}
+            widths={[400, 600, 800]}
+            sizes="(min-width: 1024px) 360px, 84vw"
+            class="relative aspect-[4/5] w-full rounded-[2rem] object-cover shadow-[0_28px_70px_-44px_rgba(42,40,51,0.55)]"
+            loading="lazy"
+          />
+        ) : (
+          <ImagePlaceholder
+            alt={`Headshot of ${name}, ${credential} — photography pending`}
+            icon="lucide:user-round"
+            class="relative aspect-[4/5] w-full shadow-sm"
+          />
+        )
+      }
+      <div class="relative mx-5 -mt-9 rounded-2xl border border-border bg-background px-5 py-4 shadow-lg">
+        <p class="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.17em] text-sage-deep">Meet Your Therapist</p>
+        <p class="mt-1 font-serif text-xl leading-snug text-ink">{name}, {credential}</p>
       </div>
-      <Button href={ctaHref} class="mt-6">
+    </div>
+
+    <div class="max-w-2xl">
+      <p class="eyebrow-label">About Kristin</p>
+      <h2 class="mt-4 font-serif text-3xl leading-tight text-ink sm:text-4xl lg:text-[2.7rem]">
+        Therapy grounded in the person, relationship, and circumstances in front of her.
+      </h2>
+      <div class="mt-6 space-y-4 border-t border-border pt-6">
+        {bio.map((paragraph) => <p class="font-sans text-base leading-8 text-foreground">{paragraph}</p>)}
+      </div>
+
+      {
+        modalities.length > 0 && (
+          <div class="mt-7">
+            <p class="font-sans text-xs font-semibold uppercase tracking-[0.16em] text-sage-deep">Approaches Kristin draws on</p>
+            <ul class="mt-4 flex flex-wrap gap-x-5 gap-y-2">
+              {modalities.map((modality) => (
+                <li class="font-sans text-sm font-medium text-foreground">{modality}</li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+
+      <Button href={ctaHref} class="mt-8">
         {ctaLabel}
       </Button>
-
-      <p class="mt-8 font-sans text-sm font-semibold text-ink">Approaches Kristin draws on</p>
-      <ul class="mt-4 flex flex-wrap gap-2">
-        {
-          modalities.map((modality) => (
-            <li class="rounded-full border border-border bg-surface px-4 py-2 font-sans text-sm text-foreground">
-              {modality}
-            </li>
-          ))
-        }
-      </ul>
     </div>
   </div>
 </section>

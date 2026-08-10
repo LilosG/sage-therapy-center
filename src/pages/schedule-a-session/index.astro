@@ -1,50 +1,66 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/sections/PageHero.astro';
-import Card from '../../components/ui/Card.astro';
-import Button from '../../components/ui/Button.astro';
+import TrustStrip from '../../components/sections/TrustStrip.astro';
+import DecisionSection from '../../components/sections/DecisionSection.astro';
+import InquiryFormSection from '../../components/sections/InquiryFormSection.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
-import { CONTACT_URL, FAQ_URL, SCHEDULE_URL } from '../../data/nav';
+import { hubHeroImages } from '../../data/pageImages';
+import { SCHEDULE_URL } from '../../data/nav';
 import { staticBreadcrumbs } from '../../lib/breadcrumbs';
+
+const decisionItems = [
+  {
+    q: 'What happens after I reach out?',
+    a: 'Your request is used to discuss fit, current availability, and the session option that makes the most sense before anything is scheduled.',
+  },
+  {
+    q: 'Where are sessions available?',
+    a: 'In-person sessions are based at the Carlsbad office, with telehealth available to clients across California.',
+  },
+  {
+    q: 'How much do I need to explain in the form?',
+    a: 'Only enough for scheduling and fit. The form is intentionally brief and asks you not to include sensitive clinical or medical details.',
+  },
+  {
+    q: 'Can I call instead?',
+    a: `Yes. You can call S.A.G.E. directly at ${site.phone.display} if you would rather start by phone.`,
+  },
+];
 ---
 
 <BaseLayout
   title="Schedule a Session | S.A.G.E. Therapy Center"
-  description="Request a session with S.A.G.E. Therapy Center in Carlsbad, CA — reach out by phone or email to discuss fit and availability."
+  description="Request a therapy session with S.A.G.E. Therapy Center in Carlsbad, CA. Discuss fit, availability, in-person sessions, or telehealth across California."
+  image={hubHeroImages.schedule}
 >
   <PageHero
     eyebrow="Schedule a Session"
-    title="Request a session"
-    description={`Reach out by phone or email to discuss fit and availability. ${site.practitioner.name}, ${site.practitioner.credential} will follow up to schedule your first session.`}
+    title="Start with a simple request"
+    description={`Reach out to discuss fit and availability with ${site.practitioner.name}, ${site.practitioner.credential}. You do not need to explain your full story before getting started.`}
     breadcrumbItems={staticBreadcrumbs('Schedule a Session', SCHEDULE_URL)}
+    ctaLabel="Go to Request Form"
+    ctaHref="#request-session"
+    phoneDisplay={site.phone.display}
+    phoneHref={`tel:${site.phone.tel}`}
+    image={hubHeroImages.schedule}
+    imageAlt="Quiet Southern California landscape supporting the first step of requesting a session with S.A.G.E. Therapy Center"
   />
 
-  <div class="mx-auto max-w-2xl px-6 py-12 text-center">
-    <div class="grid gap-6 sm:grid-cols-2">
-      <Card>
-        <p class="font-sans text-sm font-semibold text-ink">Call or text</p>
-        <a href={`tel:${site.phone.tel}`} class="mt-2 block font-serif text-2xl text-primary hover:text-sage-deep">
-          {site.phone.display}
-        </a>
-      </Card>
-      <Card>
-        <p class="font-sans text-sm font-semibold text-ink">Email</p>
-        <a href={`mailto:${site.email}`} class="mt-2 block font-serif text-xl text-primary hover:text-sage-deep">
-          {site.email}
-        </a>
-      </Card>
-    </div>
+  <TrustStrip />
 
-    <div class="mt-10">
-      <Button href={`tel:${site.phone.tel}`}>Call {site.phone.display}</Button>
-    </div>
+  <DecisionSection
+    eyebrow="Before You Reach Out"
+    heading="A few things to know about getting started"
+    items={decisionItems}
+  />
 
-    <p class="mt-10 font-sans text-sm text-muted-foreground">
-      Have questions first? Visit the <a href={FAQ_URL} class="text-sage-deep hover:text-primary">FAQ</a> or
-      <a href={CONTACT_URL} class="text-sage-deep hover:text-primary">contact page</a>.
-    </p>
-  </div>
+  <InquiryFormSection
+    context="Schedule a Session"
+    heading="Request a follow-up about fit and availability"
+    subhead="Choose the best way to reach you, the kind of support you are looking for, and whether you prefer in-person or telehealth sessions."
+  />
+
+  <SchemaOrg type="localBusiness" />
 </BaseLayout>
-
-<SchemaOrg type="localBusiness" />

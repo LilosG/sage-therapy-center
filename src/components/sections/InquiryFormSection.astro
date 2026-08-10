@@ -9,6 +9,7 @@ interface Props {
   subhead?: string;
   context?: string;
   selectedService?: string;
+  selectedSession?: string;
 }
 
 const {
@@ -17,6 +18,7 @@ const {
   subhead = 'Share the best way to reach you. You do not need to explain everything before getting started.',
   context = 'General inquiry',
   selectedService = '',
+  selectedSession = '',
 } = Astro.props;
 
 const endpoint = (import.meta.env.PUBLIC_INQUIRY_ENDPOINT ?? '').trim();
@@ -130,7 +132,7 @@ const sourcePath = Astro.url.pathname;
             Session preference
             <select name="sessionPreference" class="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 font-sans text-base font-normal text-foreground outline-none transition focus:border-sage-deep focus:ring-2 focus:ring-sage/25">
               <option value="">Select an option</option>
-              {inquirySessionOptions.map((option) => <option value={option}>{option}</option>)}
+              {inquirySessionOptions.map((option) => <option value={option} selected={selectedSession === option}>{option}</option>)}
             </select>
           </label>
         </div>

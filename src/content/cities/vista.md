@@ -16,11 +16,11 @@ nearbyCities:
 neighborhoods: []
 faq:
   - q: "Do you have an office in Vista?"
-    a: "No. S.A.G.E. Therapy Center's only office is in Carlsbad, at 5055 Avenida Encinas, Suite 100 — a short drive from Vista."
-  - q: "What can Vista clients expect?"
-    a: "The same individual therapy and couples counseling offered to Carlsbad clients, held at the Carlsbad office."
+    a: "No. S.A.G.E. Therapy Center's only physical office is in Carlsbad. Vista clients can meet there in person or use telehealth across California."
+  - q: "What therapy options are available for Vista clients?"
+    a: "Individual therapy and couples counseling are among the services available to Vista clients through the Carlsbad practice, with telehealth also available across California."
 ---
 
-S.A.G.E. Therapy Center is based in Carlsbad, and Vista residents are welcome at the Avenida Encinas office. Vista is an inland North County community, a short drive from the coast to the Carlsbad office. Individual therapy and couples counseling are both offered there, with Kristin Moorehead-Malley, LMFT, drawing on a range of approaches including EMDR, Lifespan Integration, CBT, IMAGO, psychodynamic, and attachment-based work depending on what fits.
+S.A.G.E. Therapy Center is based in Carlsbad and serves clients from Vista through in-person sessions at the Carlsbad office and telehealth across California. Vista is an inland North County community, while S.A.G.E.'s physical practice remains in Carlsbad. Kristin Moorehead-Malley, LMFT, provides individualized therapy that can draw from several approaches depending on the person, relationship, and goals.
 
-There is no separate Vista office. Every session, whether you're coming from Vista or elsewhere in North County San Diego, takes place at the Carlsbad location.
+There is no separate Vista office. The physical-location information on this page refers to the Carlsbad practice. Vista clients can explore the available service options below and use the inquiry form to discuss fit, availability, and whether in-person or telehealth sessions make the most sense.

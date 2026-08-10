@@ -2,36 +2,49 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/sections/PageHero.astro';
+import TrustStrip from '../../components/sections/TrustStrip.astro';
 import FAQAccordion from '../../components/sections/FAQAccordion.astro';
 import CTASection from '../../components/sections/CTASection.astro';
+import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
+import { editorialImages } from '../../data/pageImages';
 import { CONTACT_URL, FAQ_URL } from '../../data/nav';
 import { staticBreadcrumbs } from '../../lib/breadcrumbs';
 
-// Fee/insurance questions are intentionally not included: the SEO doc's
-// Wave 0 blockers say payment/insurance policy must be confirmed before
-// any fee-related FAQ content is published.
 const faqs = await getCollection('faq');
+const faqItems = faqs.map((f) => ({ q: f.data.q, a: f.data.a }));
 ---
 
 <BaseLayout
-  title="FAQ | S.A.G.E. Therapy Center"
-  description="Answers to common questions about starting therapy with S.A.G.E. Therapy Center in Carlsbad, CA."
+  title="Therapy FAQ | S.A.G.E. Therapy Center, Carlsbad CA"
+  description="Answers to common questions about starting therapy with S.A.G.E. Therapy Center in Carlsbad, CA, including session options, fit, and getting started."
+  image={editorialImages.meadowTree}
 >
   <PageHero
-    eyebrow="FAQ"
-    title="Frequently asked questions"
+    eyebrow="Frequently Asked Questions"
+    title="Questions before starting therapy"
+    description="Find practical information about getting started with S.A.G.E., then reach out directly if your question is not covered here."
     breadcrumbItems={staticBreadcrumbs('FAQ', FAQ_URL)}
+    ctaLabel="Ask a Question"
+    ctaHref={CONTACT_URL}
+    phoneDisplay={site.phone.display}
+    phoneHref={`tel:${site.phone.tel}`}
+    image={editorialImages.meadowTree}
+    imageAlt="Quiet Southern California meadow reflecting the calm, supportive setting of S.A.G.E. Therapy Center"
   />
 
-  <FAQAccordion heading="Common questions" items={faqs.map((f) => ({ q: f.data.q, a: f.data.a }))} />
+  <TrustStrip />
+
+  <FAQAccordion heading="Common questions about S.A.G.E. Therapy Center" items={faqItems} />
 
   <CTASection
-    heading="Still have questions?"
-    subhead="Reach out — we're happy to help."
-    ctaLabel="Contact Us"
+    heading="Still have a question?"
+    subhead="Reach out about fit, availability, or session options without needing to share sensitive clinical details."
+    ctaLabel="Contact S.A.G.E."
     ctaHref={CONTACT_URL}
     phoneDisplay={site.phone.display}
     phoneHref={`tel:${site.phone.tel}`}
   />
+
+  {faqItems.length > 0 && <SchemaOrg type="faqPage" faqItems={faqItems} />}
 </BaseLayout>
