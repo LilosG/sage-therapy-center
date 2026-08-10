@@ -17,7 +17,7 @@ const { name, credential, bio, modalities, ctaLabel, ctaHref, image } = Astro.pr
 ---
 
 <section class="bg-surface">
-  <div class="mx-auto grid max-w-6xl gap-10 px-6 py-16 sm:py-20 lg:grid-cols-2 lg:items-center">
+  <div class="mx-auto grid max-w-6xl gap-10 px-6 py-16 sm:py-20 lg:grid-cols-2 lg:items-center lg:gap-14 lg:py-24">
     {
       image ? (
         <Image
@@ -26,10 +26,9 @@ const { name, credential, bio, modalities, ctaLabel, ctaHref, image } = Astro.pr
           widths={[400, 600, 800]}
           sizes="(min-width: 1024px) 500px, 90vw"
           class="aspect-[4/5] w-full rounded-3xl object-cover shadow-sm"
+          loading="lazy"
         />
       ) : (
-        // PLACEHOLDER: headshot arriving when photography is confirmed for
-        // this page — see the `image` prop on this component.
         <ImagePlaceholder
           alt={`Headshot of ${name}, ${credential} — placeholder, real photography pending`}
           icon="lucide:user-round"
@@ -43,23 +42,27 @@ const { name, credential, bio, modalities, ctaLabel, ctaHref, image } = Astro.pr
       <h2 class="mt-4 font-serif text-3xl text-ink sm:text-4xl">
         {name}, {credential}
       </h2>
-      <div class="mt-4 space-y-4 font-sans text-foreground">
+      <div class="mt-5 space-y-4 font-sans leading-7 text-foreground">
         {bio.map((paragraph) => <p>{paragraph}</p>)}
       </div>
-      <Button href={ctaHref} class="mt-6">
+      <Button href={ctaHref} class="mt-7">
         {ctaLabel}
       </Button>
 
-      <p class="mt-8 font-sans text-sm font-semibold text-ink">Approaches Kristin draws on</p>
-      <ul class="mt-4 flex flex-wrap gap-2">
-        {
-          modalities.map((modality) => (
-            <li class="rounded-full border border-border bg-surface px-4 py-2 font-sans text-sm text-foreground">
-              {modality}
-            </li>
-          ))
-        }
-      </ul>
+      {
+        modalities.length > 0 && (
+          <div class="mt-8 border-t border-border pt-6">
+            <p class="font-sans text-sm font-semibold text-ink">Approaches Kristin draws on</p>
+            <ul class="mt-4 flex flex-wrap gap-2">
+              {modalities.map((modality) => (
+                <li class="rounded-full border border-border bg-surface px-4 py-2 font-sans text-sm text-foreground">
+                  {modality}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
     </div>
   </div>
 </section>
