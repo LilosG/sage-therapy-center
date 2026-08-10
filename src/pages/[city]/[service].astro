@@ -5,9 +5,7 @@ import { getCollection, getEntries, getEntry, render } from 'astro:content';
 import CityServiceLayout from '../../layouts/CityServiceLayout.astro';
 import ServiceEditorialSection from '../../components/sections/ServiceEditorialSection.astro';
 import StructuredProse from '../../components/sections/StructuredProse.astro';
-import SchemaOrg from '../../components/seo/SchemaOrg.astro';
-import { absoluteBreadcrumbs, cityServiceBreadcrumbs } from '../../lib/breadcrumbs';
-import { canonicalUrl, cityServiceUrl, serviceUrl } from '../../lib/routes';
+import { cityServiceUrl, serviceUrl } from '../../lib/routes';
 
 export async function getStaticPaths() {
   const entries = await getCollection('city-services');
@@ -27,11 +25,6 @@ const { entry } = Astro.props;
 const city = await getEntry(entry.data.city);
 const service = await getEntry(entry.data.service);
 const { Content } = await render(entry);
-const routeSlug = entry.data.slugOverride ?? service.data.slug;
-const pageUrl = canonicalUrl(cityServiceUrl(city.data.slug, routeSlug));
-const schemaBreadcrumbs = absoluteBreadcrumbs(
-  cityServiceBreadcrumbs(city.data.name, city.data.slug, service.data.title, routeSlug)
-);
 
 const cityServiceEntries = await getCollection('city-services');
 const localCombosForCity = new Map(
@@ -79,15 +72,3 @@ const hasStructuredServiceShell = Boolean(service.data.recognition?.length && se
     )
   }
 </CityServiceLayout>
-
-<SchemaOrg
-  type="service"
-  breadcrumb={schemaBreadcrumbs}
-  service={{
-    name: `${service.data.title} in ${city.data.name}`,
-    description: service.data.description,
-    serviceType: service.data.primaryTarget,
-    url: pageUrl,
-    areaServed: city.data.name,
-  }}
-/>
