@@ -14,13 +14,14 @@ import FAQAccordion from '../components/sections/FAQAccordion.astro';
 import AreasServed from '../components/sections/AreasServed.astro';
 import InquiryFormSection from '../components/sections/InquiryFormSection.astro';
 import SchemaOrg from '../components/seo/SchemaOrg.astro';
-import { serviceBreadcrumbs } from '../lib/breadcrumbs';
+import { absoluteBreadcrumbs, serviceBreadcrumbs } from '../lib/breadcrumbs';
 import { withFallbackFaqs } from '../lib/faq';
 import { getCollection } from 'astro:content';
-import { cityUrl } from '../lib/routes';
+import { canonicalUrl, cityUrl, serviceUrl } from '../lib/routes';
 import { AREAS_WE_SERVE_URL } from '../data/nav';
 import { practitioner } from '../data/practitioner';
 import { getServiceHero } from '../data/pageImages';
+import { site } from '../data/site';
 import kristinPhoto from '../assets/images/kristin-moorehead-malley.webp';
 import googleReviews from '../data/google-reviews.json';
 import type { CollectionEntry } from 'astro:content';
@@ -42,6 +43,7 @@ const {
   slug,
   category,
   pageKind,
+  primaryTarget,
   faq,
   recognition,
   overview,
@@ -50,6 +52,8 @@ const {
   decisionItems,
 } = entry.data;
 const breadcrumbItems = serviceBreadcrumbs(title, slug);
+const schemaBreadcrumbs = absoluteBreadcrumbs(breadcrumbItems);
+const pageUrl = canonicalUrl(serviceUrl(slug));
 const faqItems = await withFallbackFaqs(faq);
 const cities = await getCollection('cities');
 const cityLinks = cities.map((c) => ({ name: c.data.name, href: cityUrl(c.data.slug) }));
@@ -219,5 +223,16 @@ const reassuranceItems = [
 
   <AreasServed heading="Therapy for Carlsbad and North County" cities={cityLinks} viewAllHref={AREAS_WE_SERVE_URL} variant="compact" />
 
+  <SchemaOrg
+    type="service"
+    breadcrumb={schemaBreadcrumbs}
+    service={{
+      name: title,
+      description,
+      serviceType: primaryTarget,
+      url: pageUrl,
+      areaServed: site.address.city,
+    }}
+  />
   {faqItems.length > 0 && <SchemaOrg type="faqPage" faqItems={faqItems} />}
 </InteriorPageLayout>
