@@ -46,8 +46,17 @@ const metaDescription = city.data.hasOffice
 const heroDescription = city.data.hasOffice
   ? `${service.data.title} with Kristin Moorehead-Malley, LMFT, with in-person sessions at S.A.G.E.'s Carlsbad office and telehealth across California.`
   : `${service.data.title} for ${city.data.name} clients with Kristin Moorehead-Malley, LMFT, from the Carlsbad office or by telehealth across California.`;
-const { recognition, overview, topics, approach, decisionItems } = entry.data;
-const hasStructuredContent = Boolean(recognition?.length && overview && topics);
+
+// A city/service entry owns the strongest local uniqueness. When a legacy
+// entry has not yet been migrated to the typed blocks, reuse the canonical
+// service's structured recognition/topics/approach around that entry's unique
+// local Markdown instead of falling all the way back to the old generic page.
+const entryHasStructuredContent = Boolean(entry.data.recognition?.length && entry.data.overview && entry.data.topics);
+const recognition = entry.data.recognition ?? service.data.recognition;
+const topics = entry.data.topics ?? service.data.topics;
+const approach = entry.data.approach ?? service.data.approach;
+const decisionItems = entry.data.decisionItems ?? service.data.decisionItems;
+const hasStructuredShell = Boolean(recognition?.length && topics);
 
 const reassuranceItems = [
   {
@@ -84,7 +93,7 @@ const reassuranceItems = [
   showFinalCta={false}
 >
   {
-    hasStructuredContent ? (
+    entryHasStructuredContent ? (
       <Fragment>
         <RecognitionBand
           eyebrow="A Clear Place To Start"
@@ -92,9 +101,9 @@ const reassuranceItems = [
           items={recognition!}
         />
         <OverviewFeature
-          eyebrow={overview!.eyebrow}
-          heading={overview!.heading}
-          paragraphs={overview!.paragraphs}
+          eyebrow={entry.data.overview!.eyebrow}
+          heading={entry.data.overview!.heading}
+          paragraphs={entry.data.overview!.paragraphs}
           detailEyebrow={city.data.hasOffice ? 'Local Practice' : 'Session Access'}
           detailTitle={city.data.hasOffice ? `Based here in ${city.data.name}` : `Serving ${city.data.name} from Carlsbad`}
           detailItems={
@@ -103,6 +112,21 @@ const reassuranceItems = [
               : ['In-person sessions at the Carlsbad office', `Serving clients from ${city.data.name}`, 'Telehealth available across California']
           }
         />
+        <TopicMatrix
+          eyebrow={topics!.eyebrow}
+          heading={topics!.heading}
+          intro={topics!.intro}
+          items={topics!.items}
+        />
+      </Fragment>
+    ) : hasStructuredShell ? (
+      <Fragment>
+        <RecognitionBand
+          eyebrow="A Clear Place To Start"
+          heading={`You may be considering ${service.data.title.toLowerCase()} if...`}
+          items={recognition!}
+        />
+        <slot />
         <TopicMatrix
           eyebrow={topics!.eyebrow}
           heading={topics!.heading}
@@ -129,7 +153,7 @@ const reassuranceItems = [
   />
 
   {
-    hasStructuredContent && approach && (
+    approach && (
       <ApproachFeature
         eyebrow={approach.eyebrow}
         heading={approach.heading}
@@ -155,7 +179,7 @@ const reassuranceItems = [
   <LocationContext cityName={city.data.name} hasOffice={city.data.hasOffice} neighborhoods={city.data.neighborhoods} />
 
   {
-    hasStructuredContent && decisionItems?.length && (
+    decisionItems?.length && (
       <DecisionSection
         eyebrow="Planning Your First Step"
         heading={`Considering ${service.data.title.toLowerCase()} in ${city.data.name}?`}
@@ -165,7 +189,7 @@ const reassuranceItems = [
   }
 
   {
-    hasStructuredContent && relatedLinks.length > 0 && (
+    relatedLinks.length > 0 && (
       <RelatedSupportStrip
         eyebrow={`${city.data.name} Therapy`}
         heading={`Other therapy services available to ${city.data.name} clients`}
