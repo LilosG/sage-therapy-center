@@ -6,7 +6,6 @@ import ProcessSteps from '../components/sections/ProcessSteps.astro';
 import ReviewsSection from '../components/sections/ReviewsSection.astro';
 import FAQAccordion from '../components/sections/FAQAccordion.astro';
 import AreasServed from '../components/sections/AreasServed.astro';
-import ModalityBadges from '../components/sections/ModalityBadges.astro';
 import InquiryFormSection from '../components/sections/InquiryFormSection.astro';
 import { serviceBreadcrumbs } from '../lib/breadcrumbs';
 import { withFallbackFaqs } from '../lib/faq';
@@ -77,8 +76,6 @@ const reassuranceItems = [
     ctaHref={practitioner.ctaHref}
     image={kristinPhoto}
   />
-
-  <ModalityBadges modalities={practitioner.modalities} heading="Therapeutic approaches that may inform the work" />
 
   <ProcessSteps
     eyebrow="What To Expect"
