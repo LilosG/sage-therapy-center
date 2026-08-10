@@ -1,7 +1,7 @@
 ---
-// Purely presentational — the calling page queries the services
-// collection and passes plain data, per the "section components don't
-// reach into content collections directly" rule (Build Spec Section 6).
+// Purely presentational — callers query content and pass plain service data.
+// A single component owns both the homepage card treatment and the denser
+// city-hub directory treatment so service presentation remains centralized.
 import { Icon } from 'astro-icon/components';
 import Card from '../ui/Card.astro';
 import IconCircle from '../ui/IconCircle.astro';
@@ -10,8 +10,6 @@ interface ServiceItem {
   title: string;
   description: string;
   href: string;
-  // Lucide icon name (e.g. "lucide:heart") — callers look this up from
-  // src/data/serviceIcons.ts by slug, keeping icon choice centralized.
   icon: string;
 }
 
@@ -21,9 +19,8 @@ interface Props {
   services: ServiceItem[];
   viewAllHref?: string;
   viewAllLabel?: string;
-  // Section-rhythm control (Wave 6, item 7) — lets callers alternate
-  // backgrounds against whatever section sits above this one.
   background?: 'background' | 'secondary';
+  variant?: 'cards' | 'directory';
 }
 
 const {
@@ -33,40 +30,90 @@ const {
   viewAllHref,
   viewAllLabel = 'View all services',
   background = 'background',
+  variant = 'cards',
 } = Astro.props;
 ---
 
 <section class={background === 'secondary' ? 'bg-secondary' : 'bg-background'}>
-  <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
-    <div class="mx-auto max-w-2xl text-center">
-      {eyebrow && <p class="eyebrow-label">{eyebrow}</p>}
-      <h2 class="mt-4 font-serif text-3xl text-ink sm:text-4xl">{heading}</h2>
-    </div>
-    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {
-        services.map((service) => (
-          <Card class="flex flex-col">
-            <IconCircle>
-              <Icon name={service.icon} width={22} height={22} />
-            </IconCircle>
-            <p class="mt-4 font-serif text-lg text-ink">{service.title}</p>
-            <p class="mt-2 flex-1 font-sans text-sm text-muted-foreground">{service.description}</p>
-            <a href={service.href} class="mt-4 font-sans text-sm font-medium text-sage-deep hover:text-primary">
-              Learn more &rarr;
-            </a>
-          </Card>
-        ))
-      }
-    </div>
-    {viewAllHref && (
-      <p class="mt-10 text-center">
-        <a
-          href={viewAllHref}
-          class="font-sans text-sm font-medium text-sage-deep hover:text-primary"
-        >
-          {viewAllLabel} &rarr;
-        </a>
-      </p>
-    )}
+  <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20 lg:py-24">
+    {
+      variant === 'directory' ? (
+        <div class="grid gap-10 lg:grid-cols-[0.58fr_1.42fr] lg:gap-16">
+          <div class="max-w-md lg:pt-3">
+            {eyebrow && <p class="eyebrow-label">{eyebrow}</p>}
+            <h2 class="mt-4 font-serif text-3xl leading-tight text-ink sm:text-4xl">{heading}</h2>
+            <p class="mt-5 font-sans text-sm leading-7 text-muted-foreground">
+              Explore the therapy services available through S.A.G.E. and choose the page that best matches what you are looking for.
+            </p>
+            {
+              viewAllHref && (
+                <a href={viewAllHref} class="mt-7 inline-flex items-center gap-2 font-sans text-sm font-semibold text-sage-deep hover:text-primary">
+                  {viewAllLabel} <span aria-hidden="true">→</span>
+                </a>
+              )
+            }
+          </div>
+
+          <ul class="grid overflow-hidden rounded-3xl border border-border bg-surface sm:grid-cols-2">
+            {services.map((service, index) => (
+              <li
+                class:list={[
+                  'border-border',
+                  index > 0 && 'border-t',
+                  index === 1 && 'sm:border-t-0',
+                  index % 2 === 1 && 'sm:border-l',
+                ]}
+              >
+                <a
+                  href={service.href}
+                  class="group flex h-full min-h-40 gap-4 px-5 py-6 transition-colors hover:bg-lavender-soft/40 sm:px-6"
+                >
+                  <span class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sage/12 text-sage-deep ring-1 ring-sage/15" aria-hidden="true">
+                    <Icon name={service.icon} width={18} height={18} />
+                  </span>
+                  <span class="min-w-0 flex-1">
+                    <span class="flex items-start justify-between gap-4">
+                      <span class="font-serif text-lg leading-snug text-ink">{service.title}</span>
+                      <span class="shrink-0 text-sage-deep transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+                    </span>
+                    <span class="mt-2 block font-sans text-sm leading-6 text-muted-foreground">{service.description}</span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <Fragment>
+          <div class="mx-auto max-w-2xl text-center">
+            {eyebrow && <p class="eyebrow-label">{eyebrow}</p>}
+            <h2 class="mt-4 font-serif text-3xl text-ink sm:text-4xl">{heading}</h2>
+          </div>
+          <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {services.map((service) => (
+              <Card class="flex flex-col">
+                <IconCircle>
+                  <Icon name={service.icon} width={22} height={22} />
+                </IconCircle>
+                <p class="mt-4 font-serif text-lg text-ink">{service.title}</p>
+                <p class="mt-2 flex-1 font-sans text-sm leading-6 text-muted-foreground">{service.description}</p>
+                <a href={service.href} class="mt-4 font-sans text-sm font-medium text-sage-deep hover:text-primary">
+                  Learn more &rarr;
+                </a>
+              </Card>
+            ))}
+          </div>
+          {
+            viewAllHref && (
+              <p class="mt-10 text-center">
+                <a href={viewAllHref} class="font-sans text-sm font-medium text-sage-deep hover:text-primary">
+                  {viewAllLabel} &rarr;
+                </a>
+              </p>
+            )
+          }
+        </Fragment>
+      )
+    }
   </div>
 </section>
