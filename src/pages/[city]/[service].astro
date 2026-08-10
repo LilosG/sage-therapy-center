@@ -34,8 +34,6 @@ const localCombosForCity = new Map(
   cityServiceEntries.filter((cs) => cs.data.city.id === city.id).map((cs) => [cs.data.service.id, cs])
 );
 
-// Curated sibling services take precedence; entries without explicit curation
-// fall back to the city's approved services, capped to three.
 const otherApprovedServices = entry.data.lateralLinks?.length
   ? await getEntries(entry.data.lateralLinks)
   : (city.data.approvedCityServices.length ? await getEntries(city.data.approvedCityServices) : [])
@@ -51,25 +49,30 @@ const relatedLinks = otherApprovedServices.map((s) => {
       : serviceUrl(s.data.slug),
   };
 });
+const hasStructuredContent = Boolean(entry.data.recognition?.length && entry.data.overview && entry.data.topics);
 ---
 
-<CityServiceLayout entry={entry}>
-  <ServiceEditorialSection
-    cityName={city.data.name}
-    hasOffice={city.data.hasOffice}
-    detailsEyebrow={`${service.data.title} in ${city.data.name}`}
-    related={relatedLinks}
-  >
-    <StructuredProse class="max-w-2xl prose-p:leading-7 prose-li:leading-7">
-      <Content />
-    </StructuredProse>
+<CityServiceLayout entry={entry} relatedLinks={relatedLinks}>
+  {
+    !hasStructuredContent && (
+      <ServiceEditorialSection
+        cityName={city.data.name}
+        hasOffice={city.data.hasOffice}
+        detailsEyebrow={`${service.data.title} in ${city.data.name}`}
+        related={relatedLinks}
+      >
+        <StructuredProse class="max-w-2xl prose-p:leading-7 prose-li:leading-7">
+          <Content />
+        </StructuredProse>
 
-    <div class="mt-10 border-t border-border pt-6">
-      <a href={serviceUrl(service.data.slug)} class="font-sans text-sm font-medium text-sage-deep hover:text-primary">
-        &larr; {service.data.title} overview
-      </a>
-    </div>
-  </ServiceEditorialSection>
+        <div class="mt-10 border-t border-border pt-6">
+          <a href={serviceUrl(service.data.slug)} class="font-sans text-sm font-medium text-sage-deep hover:text-primary">
+            &larr; {service.data.title} overview
+          </a>
+        </div>
+      </ServiceEditorialSection>
+    )
+  }
 </CityServiceLayout>
 
 <SchemaOrg
