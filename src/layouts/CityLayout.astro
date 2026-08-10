@@ -1,6 +1,5 @@
 ---
 import InteriorPageLayout from './InteriorPageLayout.astro';
-import RecognitionBand from '../components/sections/RecognitionBand.astro';
 import MeetKristin from '../components/sections/MeetKristin.astro';
 import ProcessSteps from '../components/sections/ProcessSteps.astro';
 import ReviewsSection from '../components/sections/ReviewsSection.astro';
@@ -67,23 +66,6 @@ const metaTitle = `Therapist in ${name}, CA | S.A.G.E. Therapy Center`;
 const metaDescription = hasOffice
   ? `Therapy in ${name}, CA with Kristin Moorehead-Malley, LMFT. In-person sessions at S.A.G.E. Therapy Center plus telehealth across California.`
   : `Therapy for ${name}, CA residents with Kristin Moorehead-Malley, LMFT, from the Carlsbad office or by telehealth across California.`;
-
-const recognitionItems = [
-  {
-    title: 'Individualized support',
-    body: 'Therapy is shaped around the person, relationship, or family rather than a one-size-fits-all protocol.',
-  },
-  {
-    title: hasOffice ? 'A real local practice' : 'Clear location options',
-    body: hasOffice
-      ? 'S.A.G.E. is based here in Carlsbad, with in-person sessions available at the Avenida Encinas office.'
-      : `The practice is based in Carlsbad, with telehealth available to ${name} residents across California.`,
-  },
-  {
-    title: 'Multiple therapeutic approaches',
-    body: 'Kristin may draw from several therapeutic approaches depending on the person, relationship, and goals.',
-  },
-];
 ---
 
 <InteriorPageLayout
@@ -101,14 +83,10 @@ const recognitionItems = [
 >
   <slot name="overview" />
 
-  <RecognitionBand
-    eyebrow="Therapy That Fits"
-    heading={`Therapy tailored for ${name} clients`}
-    items={recognitionItems}
-    tone="lavender"
-  />
-
+  <!-- The route supplies the city's approved service directory here. -->
   <slot />
+
+  {hasOffice && <VisitUs cityName={name} neighborhoods={neighborhoods} />}
 
   <MeetKristin
     name={practitioner.name}
@@ -132,8 +110,6 @@ const recognitionItems = [
       { title: 'Ongoing sessions', body: 'Continue with an approach and pace that can evolve with your needs and goals.' },
     ]}
   />
-
-  {hasOffice && <VisitUs cityName={name} neighborhoods={neighborhoods} />}
 
   {
     showReviews && (
