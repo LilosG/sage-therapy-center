@@ -21,9 +21,9 @@ const fullAddress = `${site.address.street}, ${site.address.city}, ${site.addres
 <section class="bg-lavender-soft">
   <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
     <div class="mx-auto max-w-2xl text-center">
-      <p class="eyebrow-label">Convenient to {cityName}</p>
+      <p class="eyebrow-label">{hasOffice ? 'Carlsbad Office' : `Session Access for ${cityName}`}</p>
       <h2 class="mt-4 font-serif text-3xl text-ink sm:text-4xl">
-        {hasOffice ? `Visit our ${site.address.city} office` : `Getting here from ${cityName}`}
+        {hasOffice ? `Visit our ${site.address.city} office` : `In-person in Carlsbad or telehealth from ${cityName}`}
       </h2>
     </div>
     <div class="mt-10 grid gap-8 rounded-3xl border border-border bg-background p-8 shadow-sm lg:grid-cols-2 lg:items-start lg:p-12">
@@ -39,14 +39,14 @@ const fullAddress = `${site.address.street}, ${site.address.city}, ${site.addres
           {
             hasOffice
               ? `In-person sessions at our ${site.address.city} office, plus telehealth available to clients across ${site.telehealth.coverageArea}.`
-              : `S.A.G.E. Therapy Center's only office is in ${site.address.city}, with telehealth available to clients across ${site.telehealth.coverageArea}.`
+              : `S.A.G.E. Therapy Center's only physical office is in ${site.address.city}. ${cityName} clients may choose in-person sessions there or telehealth across ${site.telehealth.coverageArea}.`
           }
         </p>
         <p class="mt-3 max-w-lg font-sans text-xs leading-5 text-muted-foreground">{site.office.arrivalNote}</p>
         {
           neighborhoods.length > 0 && (
             <div class="mt-6 border-t border-border pt-6">
-              <p class="font-sans text-sm font-semibold text-ink">Also seeing clients from</p>
+              <p class="font-sans text-sm font-semibold text-ink">Communities represented on this service-area page</p>
               <ul class="mt-4 flex flex-wrap gap-2">
                 {neighborhoods.map((n) => (
                   <li
