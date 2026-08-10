@@ -4,7 +4,7 @@ import ReassuranceGrid from '../components/sections/ReassuranceGrid.astro';
 import RecognitionBand from '../components/sections/RecognitionBand.astro';
 import OverviewFeature from '../components/sections/OverviewFeature.astro';
 import TopicMatrix from '../components/sections/TopicMatrix.astro';
-import ApproachFeature from '../components/sections/ApproachFeature.astro';
+import TherapistApproachSection from '../components/sections/TherapistApproachSection.astro';
 import DecisionSection from '../components/sections/DecisionSection.astro';
 import RelatedSupportStrip from '../components/sections/RelatedSupportStrip.astro';
 import MeetKristin from '../components/sections/MeetKristin.astro';
@@ -13,6 +13,7 @@ import ReviewsSection from '../components/sections/ReviewsSection.astro';
 import FAQAccordion from '../components/sections/FAQAccordion.astro';
 import LocationContext from '../components/sections/LocationContext.astro';
 import InquiryFormSection from '../components/sections/InquiryFormSection.astro';
+import SchemaOrg from '../components/seo/SchemaOrg.astro';
 import { cityServiceBreadcrumbs } from '../lib/breadcrumbs';
 import { withFallbackFaqs } from '../lib/faq';
 import { practitioner } from '../data/practitioner';
@@ -142,23 +143,29 @@ const reassuranceItems = [
     )
   }
 
-  <MeetKristin
-    name={practitioner.name}
-    credential={practitioner.credential}
-    bio={practitioner.bio}
-    modalities={[]}
-    ctaLabel={practitioner.ctaLabel}
-    ctaHref={practitioner.ctaHref}
-    image={kristinPhoto}
-  />
-
   {
-    approach && (
-      <ApproachFeature
-        eyebrow={approach.eyebrow}
-        heading={approach.heading}
-        body={approach.body}
+    approach ? (
+      <TherapistApproachSection
+        name={practitioner.name}
+        credential={practitioner.credential}
+        bio={practitioner.bio}
+        ctaLabel={practitioner.ctaLabel}
+        ctaHref={practitioner.ctaHref}
+        image={kristinPhoto}
+        approachEyebrow={approach.eyebrow}
+        approachHeading={approach.heading}
+        approachBody={approach.body}
         modalities={approach.modalities}
+      />
+    ) : (
+      <MeetKristin
+        name={practitioner.name}
+        credential={practitioner.credential}
+        bio={practitioner.bio}
+        modalities={[]}
+        ctaLabel={practitioner.ctaLabel}
+        ctaHref={practitioner.ctaHref}
+        image={kristinPhoto}
       />
     )
   }
@@ -189,7 +196,7 @@ const reassuranceItems = [
   }
 
   {
-    hasStructuredShell && relatedLinks.length > 0 && (
+    relatedLinks.length > 0 && (
       <RelatedSupportStrip
         eyebrow={`${city.data.name} Therapy`}
         heading={`Other therapy services available to ${city.data.name} clients`}
@@ -214,4 +221,6 @@ const reassuranceItems = [
     heading={`Ready to explore ${service.data.title.toLowerCase()} in ${city.data.name}?`}
     subhead="Request a follow-up about fit, availability, and session options without having to share your full story in a web form."
   />
+
+  {faqItems.length > 0 && <SchemaOrg type="faqPage" faqItems={faqItems} />}
 </InteriorPageLayout>
