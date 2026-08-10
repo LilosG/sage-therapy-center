@@ -13,6 +13,7 @@ interface Props {
 
 const { eyebrow, heading, items, tone = 'background' } = Astro.props;
 const backgroundClass = tone === 'lavender' ? 'bg-lavender-soft/55' : 'bg-background';
+const isFour = items.length === 4;
 ---
 
 <section class:list={['border-y border-border/70', backgroundClass]}>
@@ -24,15 +25,19 @@ const backgroundClass = tone === 'lavender' ? 'bg-lavender-soft/55' : 'bg-backgr
         <div class="mt-6 h-px w-20 bg-sage/70" aria-hidden="true" />
       </div>
 
-      <ol class:list={['grid', items.length === 4 ? 'sm:grid-cols-2' : 'md:grid-cols-3']}>
+      <ol class:list={['grid', isFour ? 'sm:grid-cols-2' : 'md:grid-cols-3']}>
         {
           items.map((item, index) => (
             <li
               class:list={[
-                'relative border-border py-7 first:pt-0 last:pb-0 md:py-0',
-                index > 0 && 'border-t md:border-t-0 md:border-l md:pl-7',
-                index < items.length - 1 && 'md:pr-7',
-                items.length === 4 && index > 1 && 'sm:border-t sm:pt-7 md:border-t-0 md:pt-0',
+                'relative border-border',
+                !isFour && index === 0 && 'pb-7 md:pb-0 md:pr-7',
+                !isFour && index > 0 && 'border-t py-7 md:border-l md:border-t-0 md:py-0 md:pl-7',
+                !isFour && index > 0 && index < items.length - 1 && 'md:pr-7',
+                isFour && index === 0 && 'pb-7 sm:pb-7 sm:pr-7',
+                isFour && index === 1 && 'border-t py-7 sm:border-l sm:border-t-0 sm:py-0 sm:pl-7 sm:pb-7',
+                isFour && index === 2 && 'border-t py-7 sm:pr-7',
+                isFour && index === 3 && 'border-t pt-7 sm:border-l sm:pl-7',
               ]}
             >
               <div class="flex items-center gap-3">
