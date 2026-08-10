@@ -1,6 +1,6 @@
 ---
 import InteriorPageLayout from './InteriorPageLayout.astro';
-import ReassuranceGrid from '../components/sections/ReassuranceGrid.astro';
+import RecognitionBand from '../components/sections/RecognitionBand.astro';
 import MeetKristin from '../components/sections/MeetKristin.astro';
 import ProcessSteps from '../components/sections/ProcessSteps.astro';
 import ReviewsSection from '../components/sections/ReviewsSection.astro';
@@ -64,23 +64,20 @@ const metaDescription = hasOffice
   ? `Therapy in ${name}, CA with Kristin Moorehead-Malley, LMFT. In-person sessions at S.A.G.E. Therapy Center plus telehealth across California.`
   : `Therapy for ${name}, CA residents with Kristin Moorehead-Malley, LMFT, from the Carlsbad office or by telehealth across California.`;
 
-const reassuranceItems = [
+const recognitionItems = [
   {
     title: 'Individualized support',
     body: 'Therapy is shaped around the person, relationship, or family rather than a one-size-fits-all protocol.',
-    icon: 'lucide:sparkles',
   },
   {
     title: hasOffice ? 'A real local practice' : 'Clear location options',
     body: hasOffice
       ? 'S.A.G.E. is based here in Carlsbad, with in-person sessions available at the Avenida Encinas office.'
       : `The practice is based in Carlsbad, with telehealth available to ${name} residents across California.`,
-    icon: 'lucide:map-pin',
   },
   {
     title: 'Multiple therapeutic approaches',
     body: 'Kristin may draw from several therapeutic approaches depending on the person, relationship, and goals.',
-    icon: 'lucide:layers-3',
   },
 ];
 ---
@@ -100,7 +97,12 @@ const reassuranceItems = [
 >
   <slot name="overview" />
 
-  <ReassuranceGrid heading={`Therapy tailored for ${name} clients`} items={reassuranceItems} columns={3} />
+  <RecognitionBand
+    eyebrow="Therapy That Fits"
+    heading={`Therapy tailored for ${name} clients`}
+    items={recognitionItems}
+    tone="lavender"
+  />
 
   <!-- The route supplies the approved local service grid here. -->
   <slot />
