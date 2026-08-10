@@ -1,0 +1,56 @@
+---
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  paragraphs: string[];
+  detailEyebrow?: string;
+  detailTitle?: string;
+  detailItems?: string[];
+}
+
+const {
+  eyebrow = 'Therapy Overview',
+  heading,
+  paragraphs,
+  detailEyebrow,
+  detailTitle,
+  detailItems = [],
+} = Astro.props;
+---
+
+<section class="bg-background">
+  <div class="mx-auto grid max-w-6xl gap-10 px-6 py-16 sm:py-20 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16 lg:py-24">
+    <div>
+      <p class="eyebrow-label">{eyebrow}</p>
+      <h2 class="mt-4 max-w-lg font-serif text-3xl leading-tight text-ink sm:text-4xl">{heading}</h2>
+      <div class="mt-6 h-px w-20 bg-sage/70" aria-hidden="true" />
+
+      {
+        detailTitle && (
+          <div class="mt-10 border-l-2 border-sage/40 pl-5">
+            {detailEyebrow && <p class="font-sans text-xs font-semibold uppercase tracking-[0.16em] text-sage-deep">{detailEyebrow}</p>}
+            <p class="mt-2 font-serif text-xl leading-snug text-ink">{detailTitle}</p>
+            {detailItems.length > 0 && (
+              <ul class="mt-4 space-y-2">
+                {detailItems.map((item) => (
+                  <li class="flex gap-3 font-sans text-sm leading-6 text-muted-foreground">
+                    <span class="mt-[0.65rem] h-1.5 w-1.5 shrink-0 rounded-full bg-sage-deep" aria-hidden="true" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        )
+      }
+    </div>
+
+    <div class="max-w-2xl border-t border-border pt-7 lg:border-l lg:border-t-0 lg:pl-12 lg:pt-0">
+      {paragraphs.map((paragraph, index) => (
+        <p class:list={['font-sans text-base leading-8 text-foreground sm:text-[1.05rem]', index > 0 && 'mt-6']}>
+          {paragraph}
+        </p>
+      ))}
+    </div>
+  </div>
+</section>
