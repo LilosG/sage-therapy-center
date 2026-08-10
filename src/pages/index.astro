@@ -37,6 +37,7 @@ if (cities.length === 0) {
 <BaseLayout
   title="S.A.G.E. Therapy Center | Therapist in Carlsbad, CA"
   description="Individual and couples therapy in Carlsbad, CA with Kristin Moorehead-Malley, LMFT. Request a session to discuss fit and availability."
+  image={homeImages.hero}
 >
   <Hero
     badge="Now Accepting New Clients"
@@ -148,15 +149,5 @@ if (cities.length === 0) {
   />
 </BaseLayout>
 
-<SchemaOrg
-  type="organization"
-  reviewsData={
-    typeof googleReviews.rating === 'number' && typeof googleReviews.userRatingCount === 'number'
-      ? {
-          rating: googleReviews.rating,
-          reviewCount: googleReviews.userRatingCount,
-          reviews: googleReviews.reviews,
-        }
-      : undefined
-  }
-/>
+<SchemaOrg type="organization" />
+<SchemaOrg type="person" />
