@@ -78,14 +78,15 @@ function buildOrganization() {
   return {
     '@context': 'https://schema.org',
     // Keep the broad LocalBusiness type until a more specific medical
-    // subtype has been explicitly validated for this practice.
+    // subtype has been explicitly validated for this practice. The verified
+    // GBP primary category remains centralized in site data but is not forced
+    // into JSON-LD as a non-domain `category` property on LocalBusiness.
     '@type': ['Organization', 'LocalBusiness'],
     '@id': businessId,
     name: site.name,
     url: site.canonicalOrigin,
     telephone: site.phone.tel,
     email: site.email,
-    category: site.googleBusinessProfile.primaryCategory,
     address: {
       '@type': 'PostalAddress',
       streetAddress: site.address.street,
