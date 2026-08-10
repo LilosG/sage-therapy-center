@@ -28,6 +28,10 @@ const routeSlug = entry.data.slugOverride ?? service.data.slug;
 const breadcrumbItems = cityServiceBreadcrumbs(city.data.name, city.data.slug, service.data.title, routeSlug);
 const faqItems = await withFallbackFaqs(entry.data.faq);
 const heroImage = getCityServiceHero(city.data.slug, service.data.slug);
+const metaTitle = `${service.data.title} in ${city.data.name}, CA | S.A.G.E. Therapy Center`;
+const metaDescription = city.data.hasOffice
+  ? `${service.data.title} in ${city.data.name}, CA with Kristin Moorehead-Malley, LMFT, at S.A.G.E. Therapy Center. Request a session to discuss fit and availability.`
+  : `${service.data.title} for ${city.data.name}, CA clients with Kristin Moorehead-Malley, LMFT, from the Carlsbad office or by telehealth across California.`;
 
 const reassuranceItems = [
   {
@@ -51,8 +55,8 @@ const reassuranceItems = [
 ---
 
 <InteriorPageLayout
-  title={`${service.data.title} in ${city.data.name}`}
-  description={service.data.description}
+  title={metaTitle}
+  description={metaDescription}
   eyebrow={`${city.data.name} Therapy`}
   heroTitle={`${service.data.title} in ${city.data.name}, CA`}
   heroDescription={service.data.description}
