@@ -8,21 +8,42 @@ minWordCount: 400
 uniqueContentPercent: 35
 lateralLinks:
   - individual-therapy
+recognition:
+  - title: "You keep returning to the same disagreement"
+    body: "A recurring conflict can become a pattern of reactions that neither partner intends but both have difficulty interrupting."
+  - title: "The relationship feels more distant or strained"
+    body: "Stress, trust concerns, transitions, or accumulated tension can affect connection even when both partners still care about the relationship."
+  - title: "You want clear session options as a Vista couple"
+    body: "Vista couples can meet at S.A.G.E.'s Carlsbad office or use telehealth across California."
+overview:
+  eyebrow: "Couples Counseling for Vista"
+  heading: "Relationship support connected to S.A.G.E.'s Carlsbad practice"
+  paragraphs:
+    - "S.A.G.E. Therapy Center serves Vista couples through counseling with Kristin Moorehead-Malley, LMFT. The practice's only physical office is in Carlsbad, and telehealth is available across California. Vista is presented as a service area rather than a separate office so couples can make decisions with accurate location information."
+    - "Couples counseling may begin with communication, recurring conflict, emotional distance, trust concerns, a shared transition, or a broader sense that the relationship has fallen into patterns neither partner wants to keep repeating. Sessions focus on understanding those patterns and the needs underneath them rather than assigning blame."
+topics:
+  eyebrow: "What Sessions May Explore"
+  heading: "Common areas Vista couples bring into counseling"
+  intro: "The work can move between communication, connection, repair, and the practical pressures affecting the relationship."
+  items:
+    - "Recurring communication patterns"
+    - "Conflict and repair"
+    - "Emotional connection and distance"
+    - "Trust concerns and relationship strain"
+    - "Transitions affecting the relationship"
+    - "Patterns both partners want to change together"
+decisionItems:
+  - q: "Is there an S.A.G.E. office in Vista?"
+    a: "No. S.A.G.E.'s only physical office is in Carlsbad. Vista couples can meet there in person or use telehealth across California."
+  - q: "What if one partner is less certain about counseling?"
+    a: "Different levels of readiness are common and can be part of the first conversation rather than a reason to postpone reaching out."
+  - q: "Do we need to be in a major crisis?"
+    a: "No. Couples may begin because of a specific concern, a slower pattern of distance or conflict, or a desire to strengthen the relationship proactively."
+  - q: "How do we start?"
+    a: "Request a session to discuss fit, current availability, and whether in-person or telehealth sessions make sense for both partners."
 faq:
-  - q: "Is there an S.A.G.E. Therapy Center office in Vista?"
-    a: "No. Couples counseling for Vista clients is held at the Carlsbad office, 5055 Avenida Encinas, Suite 100 — a short drive from Vista."
-  - q: "Can we start with just one session to see if it's a fit?"
-    a: "Yes — the first session is a chance to talk through what brought you in and discuss fit and availability together."
+  - q: "Where do Vista couples attend counseling?"
+    a: "In-person sessions take place at S.A.G.E. Therapy Center's Carlsbad office. Telehealth is also available to Vista couples across California."
+  - q: "What if we do not agree on what needs to change?"
+    a: "You do not need one shared explanation before starting. Understanding each partner's perspective can be part of the early counseling process."
 ---
-
-Couples in Vista working with S.A.G.E. Therapy Center meet at the Carlsbad office — 5055 Avenida Encinas, Suite 100. Vista is an inland North County community; there's no separate Vista location, so every couples counseling session takes place at the Carlsbad address.
-
-Kristin Moorehead-Malley, LMFT, works with partners on communication, connection, and relationship challenges, drawing on EMDR, IMAGO, psychodynamic, and attachment-based approaches depending on what fits.
-
-Some Vista couples come in after a specific disagreement made a pattern hard to ignore; others have felt a slower drift toward distance and want support addressing it before it settles in further. Some come in during a good stretch, wanting to strengthen the relationship proactively.
-
-Because there's no Vista office, the drive out to the Carlsbad coast is a real consideration — one that's worth weighing against the range of approaches available there. If one partner is more hesitant than the other about starting, that's common enough to bring up directly rather than something to resolve on your own first.
-
-Couples counseling is closely related to premarital and marriage counseling, which isn't yet offered specifically to Vista clients as its own local page — Vista currently has access to individual therapy and couples counseling, both at the Carlsbad office.
-
-Request a session to discuss fit and availability for couples counseling as a Vista client.
