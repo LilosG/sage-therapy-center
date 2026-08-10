@@ -4,10 +4,8 @@ import CityLayout from '../../layouts/CityLayout.astro';
 import CityOverviewSection from '../../components/sections/CityOverviewSection.astro';
 import ServiceGrid from '../../components/sections/ServiceGrid.astro';
 import StructuredProse from '../../components/sections/StructuredProse.astro';
-import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { serviceIcons, defaultServiceIcon } from '../../data/serviceIcons';
-import { canonicalUrl, cityServiceUrl, cityUrl, serviceUrl } from '../../lib/routes';
-import { citySchemaBreadcrumbs } from '../../lib/breadcrumbs';
+import { cityServiceUrl, cityUrl, serviceUrl } from '../../lib/routes';
 import googleReviews from '../../data/google-reviews.json';
 
 export async function getStaticPaths() {
@@ -29,9 +27,6 @@ const cityServiceEntries = await getCollection('city-services');
 const localCombosForCity = new Map(
   cityServiceEntries.filter((cs) => cs.data.city.id === entry.id).map((cs) => [cs.data.service.id, cs])
 );
-
-const pageUrl = canonicalUrl(cityUrl(entry.data.slug));
-const breadcrumbItems = citySchemaBreadcrumbs(entry.data.name, pageUrl);
 ---
 
 <CityLayout
@@ -71,9 +66,3 @@ const breadcrumbItems = citySchemaBreadcrumbs(entry.data.name, pageUrl);
     )
   }
 </CityLayout>
-
-<SchemaOrg
-  type="city"
-  city={{ name: entry.data.name, url: pageUrl, areaServed: entry.data.name }}
-  breadcrumb={breadcrumbItems}
-/>
