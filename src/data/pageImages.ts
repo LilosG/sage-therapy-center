@@ -1,4 +1,4 @@
-// Centralized image assignments for interior-page heroes.
+// Centralized image assignments for interior-page heroes and top-level hubs.
 // Keep first-party editorial images as ESM-imported Astro assets so they are
 // emitted, fingerprinted, and optimized by the build rather than fetched at
 // runtime from an external source.
@@ -7,6 +7,13 @@ import courtyardRetreat from '../assets/images/editorial/serene-courtyard-retrea
 import eucalyptusTrail from '../assets/images/editorial/misty-eucalyptus-coastal-trail.webp';
 import meadowTree from '../assets/images/editorial/misty-meadow-spreading-tree.webp';
 import windowNook from '../assets/images/editorial/serene-sunlit-window-nook.webp';
+
+// Top-level hub assignments belong here rather than inside route files. That
+// keeps visual direction centralized and avoids one-off hero choices.
+export const hubHeroImages = {
+  services: courtyardRetreat,
+  areas: eucalyptusTrail,
+} as const;
 
 // Hero imagery needs enough visual structure to read immediately at card size.
 // Keep the very low-contrast window-nook asset available for editorial use,
