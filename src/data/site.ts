@@ -60,7 +60,10 @@ export const site = {
   },
 
   telehealth: {
-    coverageArea: 'All of California',
+    // Sentence-ready geographic value for copy such as "across California",
+    // plus a compact display label for trust strips and summary UI.
+    coverageArea: 'California',
+    display: 'Statewide in California',
   },
 
   primaryConversionPath: '/schedule-a-session/',
