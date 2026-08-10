@@ -85,6 +85,7 @@ function buildOrganization() {
     url: site.canonicalOrigin,
     telephone: site.phone.tel,
     email: site.email,
+    category: site.googleBusinessProfile.primaryCategory,
     address: {
       '@type': 'PostalAddress',
       streetAddress: site.address.street,
