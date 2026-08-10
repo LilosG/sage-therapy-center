@@ -28,6 +28,13 @@ export const site = {
     country: 'US',
   },
 
+  office: {
+    // Keep this deliberately broad until real parking/building-access details
+    // and office photography are supplied. Components may display this note,
+    // but should never invent parking, entrance, elevator, or suite logistics.
+    arrivalNote: 'Specific parking, building-access, and arrival details can be confirmed when scheduling.',
+  },
+
   googleBusinessProfile: {
     primaryCategory: 'Marriage or relationship counselor',
   },
