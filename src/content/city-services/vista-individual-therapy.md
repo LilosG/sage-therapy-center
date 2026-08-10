@@ -6,21 +6,42 @@ city: vista
 service: individual-therapy
 minWordCount: 400
 uniqueContentPercent: 35
+recognition:
+  - title: "You feel stuck, overloaded, or pulled in too many directions"
+    body: "Individual therapy can create focused space to understand what is happening without requiring a formal diagnosis first."
+  - title: "A concern keeps resurfacing in different parts of life"
+    body: "Stress, relationships, grief, transitions, self-worth, and past experiences can overlap and reinforce one another."
+  - title: "You want clear options as a Vista client"
+    body: "Vista clients can meet Kristin at S.A.G.E.'s Carlsbad office or use telehealth anywhere in California."
+overview:
+  eyebrow: "Individual Therapy for Vista"
+  heading: "One-on-one therapy through S.A.G.E.'s Carlsbad practice"
+  paragraphs:
+    - "S.A.G.E. Therapy Center serves Vista clients through individual therapy with Kristin Moorehead-Malley, LMFT. The practice's only physical office is in Carlsbad, while telehealth is available across California. Vista is treated as a service area rather than a second office location so the logistics remain clear from the start."
+    - "Sessions are individualized around what is most relevant to you. Work may include anxiety, grief, stress, a life transition, relationship or boundary concerns, trauma-related experiences, recurring emotional patterns, or personal growth. Therapy does not have to stay focused on one label if the concerns you bring in are connected."
+topics:
+  eyebrow: "What Therapy May Explore"
+  heading: "Common reasons Vista clients seek individual therapy"
+  intro: "You can start with one concern or several overlapping areas that you want to better understand."
+  items:
+    - "Anxiety, overwhelm, and ongoing stress"
+    - "Grief, loss, and life transitions"
+    - "Relationship patterns and boundaries"
+    - "Self-worth and recurring emotional patterns"
+    - "Trauma-related concerns and difficult experiences"
+    - "Personal growth and self-understanding"
+decisionItems:
+  - q: "Is there an S.A.G.E. office in Vista?"
+    a: "No. S.A.G.E.'s only physical office is in Carlsbad. Vista clients can meet there in person or use telehealth across California."
+  - q: "Do I need to know exactly what I want to work on?"
+    a: "No. The first conversations can help clarify priorities and goals rather than requiring you to define them before reaching out."
+  - q: "Can I choose telehealth?"
+    a: "Yes. Telehealth is available across California, alongside in-person sessions at the Carlsbad office."
+  - q: "What is the next step?"
+    a: "Request a session to discuss fit, current availability, and which session format makes sense for you."
 faq:
-  - q: "Is there an S.A.G.E. Therapy Center office in Vista?"
-    a: "No. Individual therapy for Vista clients is held at the Carlsbad office, 5055 Avenida Encinas, Suite 100 — a short drive from Vista."
-  - q: "What does individual therapy involve for Vista clients?"
-    a: "The same one-on-one sessions offered to Carlsbad clients, with Kristin Moorehead-Malley, LMFT, working with adults on a wide range of concerns."
+  - q: "Where do Vista clients attend individual therapy?"
+    a: "In-person sessions take place at S.A.G.E. Therapy Center's Carlsbad office. Telehealth is also available to Vista clients across California."
+  - q: "What can individual therapy address?"
+    a: "The work may include anxiety, grief, transitions, stress, relationship or boundary concerns, recurring patterns, trauma-related concerns, or personal growth goals."
 ---
-
-Vista residents looking for individual therapy work with S.A.G.E. Therapy Center at the Carlsbad office — 5055 Avenida Encinas, Suite 100. Vista is an inland North County community; there's no separate Vista location, so every individual therapy session takes place at the Carlsbad address.
-
-Kristin Moorehead-Malley, LMFT, works one on one with adults, drawing on EMDR, Lifespan Integration, CBT, IMAGO, psychodynamic, and attachment-based approaches, chosen based on what fits your situation.
-
-People come to individual therapy for a wide range of reasons: feeling overwhelmed or stuck, anxiety, depression, anger, or ongoing stress, low self-worth or self-sabotaging patterns, relationship or boundary difficulties, trauma, abuse, or PTSD, or issues like sleep, addiction, or disordered eating. Whatever is bringing you to this page is a reasonable enough reason to reach out — and if it's a crisis, please contact 911 or a crisis line first rather than waiting for a scheduled session.
-
-Because there's no Vista office, sessions are in person at the Carlsbad address — a drive from inland Vista out to the coast. That's a real logistical factor worth weighing against the range of approaches available.
-
-Individual therapy is one of two services currently available to Vista clients, alongside couples counseling — both held at the same Carlsbad office.
-
-Request a session to discuss fit and availability for individual therapy as a Vista client.
