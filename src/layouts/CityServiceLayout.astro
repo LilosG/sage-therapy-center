@@ -5,7 +5,6 @@ import MeetKristin from '../components/sections/MeetKristin.astro';
 import ProcessSteps from '../components/sections/ProcessSteps.astro';
 import ReviewsSection from '../components/sections/ReviewsSection.astro';
 import FAQAccordion from '../components/sections/FAQAccordion.astro';
-import ModalityBadges from '../components/sections/ModalityBadges.astro';
 import LocationContext from '../components/sections/LocationContext.astro';
 import InquiryFormSection from '../components/sections/InquiryFormSection.astro';
 import { cityServiceBreadcrumbs } from '../lib/breadcrumbs';
@@ -81,8 +80,6 @@ const reassuranceItems = [
     ctaHref={practitioner.ctaHref}
     image={kristinPhoto}
   />
-
-  <ModalityBadges modalities={practitioner.modalities} heading="Approaches Kristin may draw on" />
 
   <ProcessSteps
     eyebrow="What To Expect"
