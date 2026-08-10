@@ -6,23 +6,42 @@ city: san-marcos
 service: couples-counseling
 minWordCount: 400
 uniqueContentPercent: 35
+recognition:
+  - title: "Communication keeps turning into the same pattern"
+    body: "Even when both partners want a better conversation, familiar reactions can make it difficult to get somewhere different."
+  - title: "Stress or a transition is changing the relationship"
+    body: "Work, family responsibilities, trust concerns, or a major change can affect connection and how partners respond to one another."
+  - title: "You want flexible session options as a San Marcos couple"
+    body: "Couples can meet at S.A.G.E.'s Carlsbad office or use telehealth across California."
+overview:
+  eyebrow: "Couples Counseling for San Marcos"
+  heading: "Relationship support without forcing one fixed model"
+  paragraphs:
+    - "S.A.G.E. Therapy Center serves San Marcos couples through counseling with Kristin Moorehead-Malley, LMFT. The practice's only physical office is in Carlsbad, and telehealth is available across California, so the page distinguishes clearly between the community being served and the location of in-person sessions."
+    - "Couples may reach out because communication has become difficult, conflict keeps recurring, connection feels less accessible, trust has been strained, or a transition has changed the relationship. Sessions focus on understanding what is happening between partners and what each person wants to work toward rather than deciding who is right or wrong."
+topics:
+  eyebrow: "What Sessions May Explore"
+  heading: "Common areas San Marcos couples bring into counseling"
+  intro: "The work can move between communication, connection, conflict, and the practical pressures affecting the relationship."
+  items:
+    - "Recurring communication patterns"
+    - "Conflict and repair"
+    - "Emotional connection and distance"
+    - "Trust concerns and relationship strain"
+    - "Family, work, or life transitions"
+    - "Patterns that feel difficult to change together"
+decisionItems:
+  - q: "Is there an S.A.G.E. office in San Marcos?"
+    a: "No. S.A.G.E.'s only physical office is in Carlsbad. San Marcos couples can meet there in person or use telehealth across California."
+  - q: "Can we begin if one partner is less certain?"
+    a: "Yes. Different levels of readiness can be part of the first conversation instead of something you must solve before reaching out."
+  - q: "Do we need to be in crisis?"
+    a: "No. Couples can seek support during a difficult period, after a specific event, or before recurring patterns become more established."
+  - q: "What is the first step?"
+    a: "Request a session to discuss fit, availability, and whether in-person or telehealth sessions make sense for both partners."
 faq:
-  - q: "Is there an S.A.G.E. Therapy Center office in San Marcos?"
-    a: "No. Couples counseling for San Marcos clients is held at the Carlsbad office, 5055 Avenida Encinas, Suite 100 — a short drive inland."
-  - q: "Can we start with just one session to see if it's a fit?"
-    a: "Yes — the first session is a chance to talk through what brought you in and discuss fit and availability together."
+  - q: "Where do San Marcos couples attend counseling?"
+    a: "In-person sessions take place at S.A.G.E. Therapy Center's Carlsbad office. Telehealth is also available to San Marcos couples across California."
+  - q: "What if we are not sure what the main issue is?"
+    a: "You do not need a single agreed-upon problem before starting. The first conversations can help clarify the patterns, concerns, and goals each partner is bringing in."
 ---
-
-Couples in San Marcos working with S.A.G.E. Therapy Center meet at the Carlsbad office — 5055 Avenida Encinas, Suite 100 — a short drive inland. There's no separate San Marcos location; every couples counseling session takes place at the Carlsbad address.
-
-Kristin Moorehead-Malley, LMFT, works with partners on communication, connection, and relationship challenges, drawing on EMDR, IMAGO, psychodynamic, and attachment-based approaches depending on what fits the relationship. Some San Marcos couples come in feeling stuck in recurring patterns; others are navigating a shared transition or want to strengthen how they already communicate.
-
-For San Marcos couples weighing a local option against a short drive to Carlsbad, the range of approaches available — six or more, depending on what's needed — is often part of the decision. It's worth knowing upfront that sessions are in person at the Carlsbad address; there isn't a closer satellite option for San Marcos clients right now.
-
-San Marcos is an inland North County city — home to California State University San Marcos and its roughly 17,000 students, and known for being family-oriented, with residential communities like San Elijo Hills. It has a genuinely different pace than the coastal cities S.A.G.E. Therapy Center also serves; this isn't a beach town, and the drive to the Carlsbad office is a real inland-to-coast trip worth planning around.
-
-If one partner is more hesitant than the other about starting, that's a common enough starting point that it doesn't need to be resolved before you reach out — it's something sessions can address directly, at a pace that works for both of you.
-
-Couples counseling is closely related to premarital and marriage counseling, which isn't yet offered specifically to San Marcos clients as its own local page — San Marcos currently has access to individual therapy and couples counseling, both at the Carlsbad office.
-
-Request a session to discuss fit and availability for couples counseling as a San Marcos client.
