@@ -19,20 +19,20 @@ nearbyCities:
   - rancho-santa-fe
 neighborhoods:
   - name: Old Encinitas
-    blurb: "The historic heart of Encinitas, along Highway 101 near the pier and Moonlight Beach — walkable, downtown, and close to the coast."
+    blurb: "A central coastal part of Encinitas near downtown and Highway 101."
   - name: Leucadia
-    blurb: "Known for its laid-back, bohemian surf-town character, with eclectic shops and cafes along Highway 101."
+    blurb: "A coastal Encinitas community north of downtown."
   - name: Cardiff-by-the-Sea
-    blurb: "A coastal community just south of downtown Encinitas, known for its beaches and relaxed pace."
+    blurb: "A coastal community in southern Encinitas."
   - name: Olivenhain
-    blurb: "A quieter, more inland pocket of Encinitas, set back from the immediate coast."
+    blurb: "An inland residential part of Encinitas."
 faq:
   - q: "Do you have an office in Encinitas?"
-    a: "No. S.A.G.E. Therapy Center's only office is in Carlsbad, at 5055 Avenida Encinas, Suite 100 — a short drive from Encinitas."
-  - q: "What can Encinitas clients expect?"
-    a: "The same individual therapy and couples counseling offered to Carlsbad clients, held at the Carlsbad office."
+    a: "No. S.A.G.E. Therapy Center's only physical office is in Carlsbad. Encinitas clients can meet there in person or use telehealth across California."
+  - q: "What therapy options are available for Encinitas clients?"
+    a: "Individual therapy, couples counseling, and teen counseling are among the services available to Encinitas clients through the Carlsbad practice, with telehealth also available across California."
 ---
 
-Encinitas is a coastal surf town — Highway 101 runs along the coast as the community's main corridor, with Moonlight Beach as one of its best-known landmarks and a laid-back, beach-town pace to daily life. S.A.G.E. Therapy Center is based just up the coast in Carlsbad, and Encinitas residents are welcome at the Avenida Encinas office. Individual therapy and couples counseling are both offered there, with Kristin Moorehead-Malley, LMFT, drawing on a range of approaches including EMDR, Lifespan Integration, CBT, IMAGO, psychodynamic, and attachment-based work depending on what fits.
+S.A.G.E. Therapy Center is based in Carlsbad and serves clients from Encinitas through in-person sessions at the Carlsbad office and telehealth across California. Kristin Moorehead-Malley, LMFT, provides individualized therapy that can draw from several approaches depending on the person, relationship, and goals.
 
-Encinitas clients come from all across the community — Old Encinitas, Leucadia, Cardiff-by-the-Sea, and Olivenhain are all part of the practice's regular client base. There is no separate Encinitas office — every session, whether you're coming from the coast or from Olivenhain further inland, takes place at the Carlsbad location.
+Encinitas includes distinct coastal and inland communities such as Old Encinitas, Leucadia, Cardiff-by-the-Sea, and Olivenhain. There is no separate Encinitas office; the location information on this page refers to S.A.G.E.'s Carlsbad practice. Encinitas clients can explore the service options below and use the inquiry form to discuss fit, availability, and whether in-person or telehealth sessions make the most sense.
