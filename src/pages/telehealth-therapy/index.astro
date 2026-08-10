@@ -1,0 +1,138 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/sections/PageHero.astro';
+import TrustStrip from '../../components/sections/TrustStrip.astro';
+import OverviewFeature from '../../components/sections/OverviewFeature.astro';
+import ServiceGrid from '../../components/sections/ServiceGrid.astro';
+import ProcessSteps from '../../components/sections/ProcessSteps.astro';
+import DecisionSection from '../../components/sections/DecisionSection.astro';
+import InquiryFormSection from '../../components/sections/InquiryFormSection.astro';
+import SchemaOrg from '../../components/seo/SchemaOrg.astro';
+import { site } from '../../data/site';
+import { telehealthOption } from '../../data/sessionOptions';
+import { hubHeroImages } from '../../data/pageImages';
+import { serviceIcons, defaultServiceIcon } from '../../data/serviceIcons';
+import { TELEHEALTH_URL } from '../../data/nav';
+import { serviceUrl, canonicalUrl } from '../../lib/routes';
+import { absoluteBreadcrumbs, staticBreadcrumbs } from '../../lib/breadcrumbs';
+
+const services = await getCollection('services');
+const coreServices = services.filter((s) => s.data.category === 'core');
+const breadcrumbItems = staticBreadcrumbs('Telehealth Therapy', TELEHEALTH_URL);
+const schemaBreadcrumbs = absoluteBreadcrumbs(breadcrumbItems);
+const pageUrl = canonicalUrl(TELEHEALTH_URL);
+
+const decisionItems = [
+  {
+    q: 'Is telehealth a different kind of therapy?',
+    a: 'No. Telehealth describes how the session is delivered. The therapeutic focus can still be individual, couples, family, teen, EMDR, anxiety, trauma-focused, or another service that fits your needs.',
+  },
+  {
+    q: 'Where is telehealth available?',
+    a: `S.A.G.E. offers telehealth to clients across ${site.telehealth.coverageArea}.`,
+  },
+  {
+    q: 'Can I choose between in-person and online sessions?',
+    a: 'S.A.G.E. is based in Carlsbad for in-person sessions, while telehealth provides a remote option. The inquiry process can be used to discuss which format makes the most sense for you.',
+  },
+  {
+    q: 'Do I need to choose a therapy service before reaching out?',
+    a: 'No. You can start by describing the general kind of support you are looking for and whether you prefer telehealth, in-person sessions, or want to discuss both options.',
+  },
+];
+---
+
+<BaseLayout
+  title="Online Therapy & Telehealth in California | S.A.G.E. Therapy Center"
+  description="Online therapy and telehealth with Kristin Moorehead-Malley, LMFT, available across California through S.A.G.E. Therapy Center. Explore remote individual, couples, family, teen, EMDR, anxiety, and trauma-focused therapy options."
+  image={hubHeroImages.telehealth}
+>
+  <PageHero
+    eyebrow="Telehealth Therapy"
+    title="Online therapy across California"
+    description="Meet with Kristin Moorehead-Malley, LMFT, remotely from anywhere in California. Telehealth is a flexible session format that can support the same broader therapy goals addressed throughout S.A.G.E.'s services."
+    breadcrumbItems={breadcrumbItems}
+    ctaLabel="Request a Telehealth Session"
+    ctaHref="#request-session"
+    phoneDisplay={site.phone.display}
+    phoneHref={`tel:${site.phone.tel}`}
+    trustBadges={[telehealthOption.coverageLabel, 'In-person option in Carlsbad']}
+    image={hubHeroImages.telehealth}
+    imageAlt="Calm Southern California landscape representing online therapy and telehealth access across California"
+  />
+
+  <TrustStrip />
+
+  <OverviewFeature
+    eyebrow="How Telehealth Fits"
+    heading="A session format that works across therapy services"
+    paragraphs={[
+      'Telehealth is best understood as a way to meet with your therapist rather than a separate treatment category. Instead of creating a second version of every service on the site, S.A.G.E. keeps the clinical focus and the session format separate: you can look for the kind of therapy that fits what you are working through, then discuss whether meeting online is the right format.',
+      'For clients across California, this can make therapy accessible without traveling to the Carlsbad office. Individual therapy, couples counseling, family therapy, teen counseling, EMDR, anxiety therapy, trauma-focused therapy, and other areas of support can all be discussed as telehealth options when appropriate for the work.',
+    ]}
+    detailEyebrow="Session Options"
+    detailTitle="Carlsbad in person + California telehealth"
+    detailItems={[
+      'Online therapy available statewide in California',
+      'In-person sessions remain available at the Carlsbad office',
+      'Discuss service fit and session format in the same inquiry',
+    ]}
+  />
+
+  <ServiceGrid
+    eyebrow="Therapy by Telehealth"
+    heading="Start with the kind of support you are looking for"
+    services={coreServices.map((s) => ({
+      title: s.data.title,
+      description: s.data.description,
+      href: serviceUrl(s.data.slug),
+      icon: serviceIcons[s.data.slug] ?? defaultServiceIcon,
+    }))}
+    variant="directory"
+    background="secondary"
+  />
+
+  <ProcessSteps
+    eyebrow="Getting Started"
+    heading="How online therapy begins"
+    steps={[
+      {
+        title: 'Choose telehealth',
+        body: 'Use the inquiry form to indicate that you prefer online sessions or want to compare telehealth with in-person care.',
+      },
+      {
+        title: 'Discuss fit',
+        body: 'Talk through what is bringing you in, current availability, and whether telehealth is an appropriate format for the work.',
+      },
+      {
+        title: 'Meet online',
+        body: 'Continue therapy remotely from California with the service focus and approach shaped around your needs and goals.',
+      },
+    ]}
+  />
+
+  <DecisionSection
+    eyebrow="Telehealth Questions"
+    heading="What to know about online sessions"
+    items={decisionItems}
+  />
+
+  <InquiryFormSection
+    context="Telehealth Therapy"
+    heading="Interested in telehealth? Start with a simple request."
+    subhead="Share the kind of support you are looking for and select telehealth as your preferred session format. You do not need to include sensitive clinical details in the form."
+  />
+
+  <SchemaOrg
+    type="service"
+    breadcrumb={schemaBreadcrumbs}
+    service={{
+      name: 'Online Therapy & Telehealth in California',
+      description: telehealthOption.description,
+      serviceType: 'Online therapy and telehealth',
+      url: pageUrl,
+      areaServed: site.telehealth.coverageArea,
+    }}
+  />
+</BaseLayout>
