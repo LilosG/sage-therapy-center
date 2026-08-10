@@ -7,7 +7,7 @@ import ServiceGrid from '../../components/sections/ServiceGrid.astro';
 import CTASection from '../../components/sections/CTASection.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
-import { editorialImages } from '../../data/pageImages';
+import { hubHeroImages } from '../../data/pageImages';
 import { serviceIcons, defaultServiceIcon } from '../../data/serviceIcons';
 import { SCHEDULE_URL, SERVICES_URL } from '../../data/nav';
 import { serviceUrl } from '../../lib/routes';
@@ -22,7 +22,7 @@ const breadcrumbItems = staticBreadcrumbs('Services', SERVICES_URL);
 <BaseLayout
   title="Therapy Services in Carlsbad, CA | S.A.G.E. Therapy Center"
   description="Explore individual, couples, family, teen, EMDR, anxiety, and trauma-focused therapy options through S.A.G.E. Therapy Center in Carlsbad, CA."
-  image={editorialImages.courtyardRetreat}
+  image={hubHeroImages.services}
 >
   <PageHero
     eyebrow="Therapy Services"
@@ -33,7 +33,7 @@ const breadcrumbItems = staticBreadcrumbs('Services', SERVICES_URL);
     ctaHref="#services-directory"
     phoneDisplay={site.phone.display}
     phoneHref={`tel:${site.phone.tel}`}
-    image={editorialImages.courtyardRetreat}
+    image={hubHeroImages.services}
     imageAlt="Quiet, refined courtyard setting representing the calm and private atmosphere of therapy at S.A.G.E. Therapy Center"
   />
 
