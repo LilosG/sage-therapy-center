@@ -1,0 +1,68 @@
+---
+import { site } from '../../data/site';
+import { SCHEDULE_URL } from '../../data/nav';
+---
+
+<nav
+  data-mobile-conversion-bar
+  aria-label="Quick contact options"
+  class="pointer-events-none fixed inset-x-0 bottom-0 z-50 translate-y-full border-t border-border bg-surface/95 px-4 pt-3 opacity-0 shadow-[0_-14px_36px_-28px_rgba(42,40,51,0.55)] backdrop-blur-md transition duration-300 [padding-bottom:max(0.75rem,env(safe-area-inset-bottom))] md:hidden"
+>
+  <div class="mx-auto grid max-w-lg grid-cols-[1.25fr_0.75fr] gap-2">
+    <a
+      data-mobile-schedule-link
+      href={SCHEDULE_URL}
+      class="pointer-events-auto inline-flex min-h-12 items-center justify-center rounded-full bg-sage px-4 font-sans text-sm font-semibold text-primary shadow-sm focus:outline-none focus:ring-2 focus:ring-sage-deep focus:ring-offset-2"
+    >
+      Schedule a Session
+    </a>
+    <a
+      href={`tel:${site.phone.tel}`}
+      class="pointer-events-auto inline-flex min-h-12 items-center justify-center rounded-full border border-border bg-background px-4 font-sans text-sm font-semibold text-ink focus:outline-none focus:ring-2 focus:ring-sage focus:ring-offset-2"
+    >
+      Call
+    </a>
+  </div>
+</nav>
+
+<script>
+  const bar = document.querySelector('[data-mobile-conversion-bar]');
+
+  if (bar instanceof HTMLElement) {
+    const scheduleLink = bar.querySelector('[data-mobile-schedule-link]');
+    const requestSection = document.getElementById('request-session');
+    const footer = document.querySelector('footer');
+
+    if (scheduleLink instanceof HTMLAnchorElement && requestSection) {
+      scheduleLink.href = '#request-session';
+    }
+
+    let requestVisible = false;
+    let footerVisible = false;
+
+    const sync = () => {
+      const shouldShow = window.scrollY > 360 && !requestVisible && !footerVisible;
+      bar.classList.toggle('translate-y-full', !shouldShow);
+      bar.classList.toggle('opacity-0', !shouldShow);
+      bar.classList.toggle('pointer-events-none', !shouldShow);
+      bar.classList.toggle('translate-y-0', shouldShow);
+      bar.classList.toggle('opacity-100', shouldShow);
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.target === requestSection) requestVisible = entry.isIntersecting;
+          if (entry.target === footer) footerVisible = entry.isIntersecting;
+        }
+        sync();
+      },
+      { threshold: 0.08 }
+    );
+
+    if (requestSection) observer.observe(requestSection);
+    if (footer) observer.observe(footer);
+    window.addEventListener('scroll', sync, { passive: true });
+    sync();
+  }
+</script>
