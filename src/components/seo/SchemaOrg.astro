@@ -4,7 +4,7 @@
 // graph instead of creating competing business nodes on individual pages.
 import { site } from '../../data/site';
 
-type SchemaType = 'organization' | 'localBusiness' | 'service' | 'city' | 'faqPage' | 'person';
+type SchemaType = 'website' | 'organization' | 'localBusiness' | 'service' | 'city' | 'faqPage' | 'person';
 
 interface ServiceProps {
   name: string;
@@ -44,6 +44,7 @@ const { type, service, city, faqItems, breadcrumb } = Astro.props;
 
 const businessId = `${site.canonicalOrigin}/#business`;
 const personId = `${site.canonicalOrigin}/#kristin`;
+const websiteId = `${site.canonicalOrigin}/#website`;
 
 function businessRef() {
   return { '@id': businessId };
@@ -58,6 +59,18 @@ function breadcrumbList(items: BreadcrumbItem[]) {
       name: item.name,
       item: item.url,
     })),
+  };
+}
+
+function buildWebsite() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': websiteId,
+    url: `${site.canonicalOrigin}/`,
+    name: site.name,
+    alternateName: ['S.A.G.E. Therapy Center', 'SAGE Therapy Center'],
+    publisher: businessRef(),
   };
 }
 
@@ -192,6 +205,7 @@ function buildFaqPage() {
 }
 
 const schema = {
+  website: buildWebsite,
   organization: buildOrganization,
   localBusiness: buildLocalBusinessReference,
   service: buildService,
