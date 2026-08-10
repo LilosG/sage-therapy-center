@@ -18,17 +18,21 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const related = entry.data.relatedServices.length ? await getEntries(entry.data.relatedServices) : [];
+const relatedLinks = related.map((r) => ({ title: r.data.title, href: serviceUrl(r.data.slug) }));
 const pageUrl = canonicalUrl(serviceUrl(entry.data.slug));
+const hasStructuredContent = Boolean(entry.data.recognition?.length && entry.data.overview && entry.data.topics);
 ---
 
-<ServiceLayout entry={entry}>
-  <ServiceEditorialSection
-    related={related.map((r) => ({ title: r.data.title, href: serviceUrl(r.data.slug) }))}
-  >
-    <StructuredProse class="max-w-2xl prose-p:leading-7 prose-li:leading-7">
-      <Content />
-    </StructuredProse>
-  </ServiceEditorialSection>
+<ServiceLayout entry={entry} relatedLinks={relatedLinks}>
+  {
+    !hasStructuredContent && (
+      <ServiceEditorialSection related={relatedLinks}>
+        <StructuredProse class="max-w-2xl prose-p:leading-7 prose-li:leading-7">
+          <Content />
+        </StructuredProse>
+      </ServiceEditorialSection>
+    )
+  }
 </ServiceLayout>
 
 <SchemaOrg
