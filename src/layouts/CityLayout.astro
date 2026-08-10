@@ -13,6 +13,7 @@ import { withFallbackFaqs } from '../lib/faq';
 import { canonicalUrl, cityUrl } from '../lib/routes';
 import { AREAS_WE_SERVE_URL } from '../data/nav';
 import { practitioner } from '../data/practitioner';
+import { getCityHero } from '../data/pageImages';
 import kristinPhoto from '../assets/images/kristin-moorehead-malley.webp';
 import type { CollectionEntry } from 'astro:content';
 
@@ -57,6 +58,7 @@ const breadcrumbItems = cityBreadcrumbs(name, slug);
 const schemaBreadcrumbs = absoluteBreadcrumbs(breadcrumbItems);
 const pageUrl = canonicalUrl(cityUrl(slug));
 const faqItems = await withFallbackFaqs(faq);
+const heroImage = getCityHero(slug);
 const heroDescription = hasOffice
   ? `Individualized therapy with Kristin Moorehead-Malley, LMFT, with in-person sessions at the ${name} office and telehealth across California.`
   : `Individualized therapy for ${name} residents with Kristin Moorehead-Malley, LMFT, from the Carlsbad office or by telehealth across California.`;
@@ -72,6 +74,12 @@ const metaDescription = hasOffice
   eyebrow={hasOffice ? 'Carlsbad Therapy Practice' : 'Areas We Serve'}
   heroTitle={`Therapist in ${name}, CA`}
   heroDescription={heroDescription}
+  heroImage={heroImage}
+  heroImageAlt={
+    hasOffice
+      ? `Quiet Southern California coastal landscape for S.A.G.E. Therapy Center in ${name}`
+      : `Quiet North County San Diego landscape for the ${name} therapy service area`
+  }
   heroCtaHref="#request-session"
   breadcrumbItems={breadcrumbItems}
   ctaHeading={`Ready to explore therapy as a ${name} client?`}
