@@ -59,10 +59,13 @@ const schemaBreadcrumbs = absoluteBreadcrumbs(breadcrumbItems);
 const pageUrl = canonicalUrl(cityUrl(slug));
 const faqItems = await withFallbackFaqs(faq);
 const heroImage = getCityHero(slug);
+const heroTitle = hasOffice ? `Therapist in ${name}, CA` : `Therapist serving ${name}, CA`;
 const heroDescription = hasOffice
   ? `Individualized therapy with Kristin Moorehead-Malley, LMFT, with in-person sessions at the ${name} office and telehealth across California.`
   : `Individualized therapy for ${name} residents with Kristin Moorehead-Malley, LMFT, from the Carlsbad office or by telehealth across California.`;
-const metaTitle = `Therapist in ${name}, CA | S.A.G.E. Therapy Center`;
+const metaTitle = hasOffice
+  ? `Therapist in ${name}, CA | S.A.G.E. Therapy Center`
+  : `Therapist Serving ${name}, CA | S.A.G.E. Therapy Center`;
 const metaDescription = hasOffice
   ? `Therapy in ${name}, CA with Kristin Moorehead-Malley, LMFT. In-person sessions at S.A.G.E. Therapy Center plus telehealth across California.`
   : `Therapy for ${name}, CA residents with Kristin Moorehead-Malley, LMFT, from the Carlsbad office or by telehealth across California.`;
@@ -71,8 +74,8 @@ const metaDescription = hasOffice
 <InteriorPageLayout
   title={metaTitle}
   description={metaDescription}
-  eyebrow={hasOffice ? 'Carlsbad Therapy Practice' : 'Areas We Serve'}
-  heroTitle={`Therapist in ${name}, CA`}
+  eyebrow={hasOffice ? 'Carlsbad Therapy Practice' : `Serving ${name}`}
+  heroTitle={heroTitle}
   heroDescription={heroDescription}
   heroImage={heroImage}
   heroImageAlt={
