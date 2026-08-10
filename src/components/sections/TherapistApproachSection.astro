@@ -1,0 +1,78 @@
+---
+import { Image } from 'astro:assets';
+import Button from '../ui/Button.astro';
+
+interface Props {
+  name: string;
+  credential: string;
+  bio: readonly string[] | string[];
+  ctaLabel: string;
+  ctaHref: string;
+  image: ImageMetadata;
+  approachEyebrow?: string;
+  approachHeading: string;
+  approachBody: string;
+  modalities?: readonly string[] | string[];
+}
+
+const {
+  name,
+  credential,
+  bio,
+  ctaLabel,
+  ctaHref,
+  image,
+  approachEyebrow = 'Therapeutic Approach',
+  approachHeading,
+  approachBody,
+  modalities = [],
+} = Astro.props;
+---
+
+<section class="overflow-hidden bg-primary text-primary-foreground">
+  <div class="mx-auto grid max-w-6xl gap-12 px-6 py-16 sm:py-20 lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:gap-20 lg:py-24">
+    <div class="relative mx-auto w-full max-w-md lg:mx-0">
+      <div class="absolute -left-10 -top-10 h-40 w-40 rounded-full border border-sage/25" aria-hidden="true"></div>
+      <div class="absolute -bottom-8 -right-8 h-32 w-32 rounded-full bg-lavender/10 blur-2xl" aria-hidden="true"></div>
+      <Image
+        src={image}
+        alt={`Professional headshot of ${name}, ${credential}`}
+        widths={[400, 600, 800]}
+        sizes="(min-width: 1024px) 400px, 90vw"
+        class="relative aspect-[4/5] w-full rounded-[2rem] object-cover shadow-[0_28px_70px_-40px_rgba(0,0,0,0.65)]"
+        loading="lazy"
+      />
+      <div class="relative mx-5 -mt-10 rounded-2xl border border-primary-foreground/10 bg-surface px-5 py-4 text-ink shadow-xl sm:mx-7 sm:px-6">
+        <p class="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-sage-deep">Meet Your Therapist</p>
+        <p class="mt-1 font-serif text-xl leading-snug">{name}, {credential}</p>
+      </div>
+    </div>
+
+    <div>
+      <p class="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-sage">{approachEyebrow}</p>
+      <h2 class="mt-4 max-w-2xl font-serif text-3xl leading-tight sm:text-4xl lg:text-[2.7rem]">{approachHeading}</h2>
+      <p class="mt-6 max-w-2xl font-sans text-base leading-8 text-primary-foreground/78">{approachBody}</p>
+
+      {
+        modalities.length > 0 && (
+          <ul class="mt-7 flex flex-wrap gap-2.5">
+            {modalities.map((modality) => (
+              <li class="rounded-full border border-primary-foreground/20 bg-primary-foreground/8 px-4 py-2 font-sans text-xs font-semibold tracking-wide text-primary-foreground/90">
+                {modality}
+              </li>
+            ))}
+          </ul>
+        )
+      }
+
+      <div class="mt-9 border-t border-primary-foreground/15 pt-7">
+        <div class="max-w-2xl space-y-3">
+          {bio.map((paragraph) => <p class="font-sans text-sm leading-6 text-primary-foreground/68">{paragraph}</p>)}
+        </div>
+        <Button href={ctaHref} variant="secondary" class="mt-6 border-primary-foreground/20 bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/15">
+          {ctaLabel}
+        </Button>
+      </div>
+    </div>
+  </div>
+</section>
