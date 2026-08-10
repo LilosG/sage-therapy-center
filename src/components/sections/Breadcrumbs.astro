@@ -6,18 +6,21 @@ interface BreadcrumbItem {
 
 interface Props {
   items: BreadcrumbItem[];
-  // "light" is for use over a dark scrim (PageHero's gradient+overlay);
-  // default "muted" is for plain white/cream backgrounds.
+  // "light" is for use over a dark scrim; default "muted" is for light backgrounds.
   variant?: 'muted' | 'light';
+  // PageHero already owns its max-width and horizontal padding. Standalone
+  // breadcrumb rows keep their own container by default.
+  contained?: boolean;
 }
 
-const { items, variant = 'muted' } = Astro.props;
+const { items, variant = 'muted', contained = true } = Astro.props;
 const trail = variant === 'light' ? 'text-surface/80' : 'text-muted-foreground';
 const current = variant === 'light' ? 'text-surface' : 'text-ink';
 const link = variant === 'light' ? 'hover:text-surface' : 'hover:text-sage-deep';
+const navClass = contained ? 'mx-auto max-w-6xl px-6 py-4' : 'py-4';
 ---
 
-<nav aria-label="Breadcrumb" class="mx-auto max-w-6xl px-6 py-4">
+<nav aria-label="Breadcrumb" class={navClass}>
   <ol class={`flex flex-wrap items-center gap-2 font-sans text-sm ${trail}`}>
     {
       items.map((item, i) => (
