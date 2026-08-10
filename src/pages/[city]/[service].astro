@@ -6,6 +6,7 @@ import CityServiceLayout from '../../layouts/CityServiceLayout.astro';
 import ServiceEditorialSection from '../../components/sections/ServiceEditorialSection.astro';
 import StructuredProse from '../../components/sections/StructuredProse.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
+import { absoluteBreadcrumbs, cityServiceBreadcrumbs } from '../../lib/breadcrumbs';
 import { canonicalUrl, cityServiceUrl, serviceUrl } from '../../lib/routes';
 
 export async function getStaticPaths() {
@@ -28,6 +29,9 @@ const service = await getEntry(entry.data.service);
 const { Content } = await render(entry);
 const routeSlug = entry.data.slugOverride ?? service.data.slug;
 const pageUrl = canonicalUrl(cityServiceUrl(city.data.slug, routeSlug));
+const schemaBreadcrumbs = absoluteBreadcrumbs(
+  cityServiceBreadcrumbs(city.data.name, city.data.slug, service.data.title, routeSlug)
+);
 
 const cityServiceEntries = await getCollection('city-services');
 const localCombosForCity = new Map(
@@ -77,6 +81,7 @@ const hasStructuredContent = Boolean(entry.data.recognition?.length && entry.dat
 
 <SchemaOrg
   type="service"
+  breadcrumb={schemaBreadcrumbs}
   service={{
     name: `${service.data.title} in ${city.data.name}`,
     description: service.data.description,
