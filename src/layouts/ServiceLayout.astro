@@ -30,6 +30,8 @@ const faqItems = await withFallbackFaqs(faq);
 const cities = await getCollection('cities');
 const cityLinks = cities.map((c) => ({ name: c.data.name, href: cityUrl(c.data.slug) }));
 const heroImage = getServiceHero(slug);
+const metaTitle = `${title} | S.A.G.E. Therapy Center, Carlsbad CA`;
+const metaDescription = `${description} Work with Kristin Moorehead-Malley, LMFT, in Carlsbad or by telehealth across California.`;
 
 const reassuranceItems = [
   {
@@ -51,8 +53,8 @@ const reassuranceItems = [
 ---
 
 <InteriorPageLayout
-  title={title}
-  description={description}
+  title={metaTitle}
+  description={metaDescription}
   eyebrow={category === 'core' ? 'Therapy Service' : 'Area of Support'}
   heroTitle={title}
   heroDescription={description}
