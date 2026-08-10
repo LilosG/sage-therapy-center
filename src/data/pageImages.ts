@@ -30,6 +30,20 @@ const cityHeroOverrides = {
   'rancho-santa-fe': meadowTree,
 } as const;
 
+// City/service money pages should not feel like a random image lottery.
+// Use a complementary image by service intent first, then a deterministic
+// fallback only for services that have not received a deliberate assignment.
+const moneyServiceOverrides = {
+  'individual-therapy': eucalyptusTrail,
+  'couples-counseling': courtyardRetreat,
+  'family-therapy': meadowTree,
+  'teen-counseling': homeCoastalPath,
+  'premarital-marriage-counseling': meadowTree,
+  'emdr-therapy': windowNook,
+  'anxiety-therapy': eucalyptusTrail,
+  'trauma-ptsd-therapy': windowNook,
+} as const;
+
 const servicePool = [windowNook, courtyardRetreat, eucalyptusTrail, meadowTree, homeCoastalPath] as const;
 const cityPool = [eucalyptusTrail, meadowTree, homeCoastalPath] as const;
 const moneyPool = [eucalyptusTrail, meadowTree, windowNook, courtyardRetreat, homeCoastalPath] as const;
@@ -49,7 +63,10 @@ export function getCityHero(slug: string) {
 }
 
 export function getCityServiceHero(citySlug: string, serviceSlug: string) {
-  return moneyPool[stableIndex(`${citySlug}:${serviceSlug}`, moneyPool.length)];
+  return (
+    moneyServiceOverrides[serviceSlug as keyof typeof moneyServiceOverrides] ??
+    moneyPool[stableIndex(`${citySlug}:${serviceSlug}`, moneyPool.length)]
+  );
 }
 
 export const editorialImages = {
