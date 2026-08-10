@@ -1,10 +1,62 @@
 import { defineCollection, reference, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-// Field lists below mirror SAGE_Technical_Build_Spec.md Section 4 exactly.
-// `body` in the spec's shorthand refers to the markdown/MDX content itself
-// (accessed via `render(entry)`), not a frontmatter field — Astro's content
-// layer does not model page body as part of the schema.
+const faqItems = z
+  .array(
+    z.object({
+      q: z.string(),
+      a: z.string(),
+    })
+  )
+  .optional();
+
+const recognitionItems = z
+  .array(
+    z.object({
+      title: z.string(),
+      body: z.string(),
+    })
+  )
+  .min(2)
+  .max(4)
+  .optional();
+
+const overviewBlock = z
+  .object({
+    eyebrow: z.string().optional(),
+    heading: z.string(),
+    paragraphs: z.array(z.string()).min(1).max(4),
+  })
+  .optional();
+
+const topicBlock = z
+  .object({
+    eyebrow: z.string().optional(),
+    heading: z.string(),
+    intro: z.string().optional(),
+    items: z.array(z.string()).min(3).max(12),
+  })
+  .optional();
+
+const approachBlock = z
+  .object({
+    eyebrow: z.string().optional(),
+    heading: z.string(),
+    body: z.string(),
+    modalities: z.array(z.string()).max(7).optional(),
+  })
+  .optional();
+
+const decisionItems = z
+  .array(
+    z.object({
+      q: z.string(),
+      a: z.string(),
+    })
+  )
+  .min(2)
+  .max(6)
+  .optional();
 
 const services = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/services' }),
@@ -14,22 +66,19 @@ const services = defineCollection({
     category: z.enum(['core', 'concern-led']),
     primaryTarget: z.string(),
     mustNotCompeteFor: z.string(),
-    // Build Spec: "2-4 slugs, enforces internal link plan." Left as
-    // documentation rather than a hard min/max here — enforcing it at the
-    // schema level would require 3+ real content entries to avoid
-    // self-reference, which is a content-authoring concern outside this
-    // scaffolding phase (one placeholder entry per collection is the goal
-    // right now). Enforce the 2-4 count at content-QA/CI time instead.
     relatedServices: z.array(reference('services')),
     description: z.string(),
-    faq: z
-      .array(
-        z.object({
-          q: z.string(),
-          a: z.string(),
-        })
-      )
-      .optional(),
+
+    // Structured conversion-page fields. These are optional so existing
+    // service entries keep rendering while we migrate each pillar deliberately.
+    // When populated, the service layout owns presentation rather than asking
+    // an arbitrary Markdown body to determine the page composition.
+    recognition: recognitionItems,
+    overview: overviewBlock,
+    topics: topicBlock,
+    approach: approachBlock,
+    decisionItems,
+    faq: faqItems,
   }),
 });
 
@@ -49,50 +98,31 @@ const cities = defineCollection({
         blurb: z.string(),
       })
     ),
-    faq: z
-      .array(
-        z.object({
-          q: z.string(),
-          a: z.string(),
-        })
-      )
-      .optional(),
+    faq: faqItems,
   }),
 });
 
-// Launch-matrix entries only. Do not add an entry here for any
-// research-gated city/service combination (see SEO doc Section A,
-// "Research-gated" list) — a missing entry is what keeps that route
-// from being generated at all (see Build Spec Section 5).
+// Launch-matrix entries only. A missing city-service content entry is the
+// intentional guardrail that prevents unapproved city x service routes.
 const cityServices = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/city-services' }),
   schema: z.object({
     city: reference('cities'),
     service: reference('services'),
-    // Wave 11: the launch matrix names some city/service pages with a
-    // different URL slug than the referenced service pillar's own slug
-    // (e.g. matrix says "trauma-therapy", pillar slug is
-    // "trauma-ptsd-therapy"). When present, getStaticPaths() in
-    // [city]/[service].astro uses this instead of service.data.slug for
-    // the route — the doc's URL is the source of truth, not the pillar's.
     slugOverride: z.string().optional(),
-    // Revised from 600 after Wave 2 (see Build Spec Section 4) — 350-450
-    // words is the realistic ceiling for genuine, non-overlapping
-    // per-page content on a solo-practitioner site. Not a padding target.
     minWordCount: z.number().default(400),
     uniqueContentPercent: z.number().default(35),
-    faq: z
-      .array(
-        z.object({
-          q: z.string(),
-          a: z.string(),
-        })
-      )
-      .optional(),
-    // Curated Same-City Lateral Links (SEO doc). Array order is display
-    // order. Only populated for the entries the doc's table actually
-    // names — every other city-services entry falls back to
-    // [city]/[service].astro's generic approvedCityServices filter+cap.
+
+    // Money pages need the strongest structured uniqueness. These fields
+    // allow a city-service entry to control its own recognition, local/service
+    // overview, concerns, relevant approaches and decision-stage content while
+    // the shared layout keeps the visual system and funnel centralized.
+    recognition: recognitionItems,
+    overview: overviewBlock,
+    topics: topicBlock,
+    approach: approachBlock,
+    decisionItems,
+    faq: faqItems,
     lateralLinks: z.array(reference('services')).optional(),
   }),
 });
@@ -107,11 +137,6 @@ const testimonials = defineCollection({
   }),
 });
 
-// The Build Spec describes this collection in prose only ("global FAQ pool
-// ... referenced by /faq/ and pulled selectively into service/city pages")
-// without an explicit field list. The q/a shape is reused from the inline
-// faq arrays on `services`, `cities`, and `cityServices` since that's the
-// only FAQ field vocabulary either source document defines.
 const faq = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/faq' }),
   schema: z.object({
