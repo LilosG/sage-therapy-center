@@ -52,13 +52,17 @@ const {
   lastUpdated,
   nearbyCities = [],
 } = Astro.props;
-const { name, hasOffice, primaryTarget, slug, faq, neighborhoods } = entry.data;
+const { name, hasOffice, slug, faq, neighborhoods } = entry.data;
 const breadcrumbItems = cityBreadcrumbs(name, slug);
 const faqItems = await withFallbackFaqs(faq);
 const heroImage = getCityHero(slug);
 const heroDescription = hasOffice
   ? `Individualized therapy with Kristin Moorehead-Malley, LMFT, with in-person sessions at the ${name} office and telehealth across California.`
   : `Individualized therapy for ${name} residents with Kristin Moorehead-Malley, LMFT, from the Carlsbad office or by telehealth across California.`;
+const metaTitle = `Therapist in ${name}, CA | S.A.G.E. Therapy Center`;
+const metaDescription = hasOffice
+  ? `Therapy in ${name}, CA with Kristin Moorehead-Malley, LMFT. In-person sessions at S.A.G.E. Therapy Center plus telehealth across California.`
+  : `Therapy for ${name}, CA residents with Kristin Moorehead-Malley, LMFT, from the Carlsbad office or by telehealth across California.`;
 
 const reassuranceItems = [
   {
@@ -82,8 +86,8 @@ const reassuranceItems = [
 ---
 
 <InteriorPageLayout
-  title={name}
-  description={primaryTarget}
+  title={metaTitle}
+  description={metaDescription}
   eyebrow={hasOffice ? 'Carlsbad Therapy Practice' : 'Areas We Serve'}
   heroTitle={`Therapist in ${name}, CA`}
   heroDescription={heroDescription}
