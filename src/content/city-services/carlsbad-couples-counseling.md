@@ -10,23 +10,54 @@ lateralLinks:
   - premarital-marriage-counseling
   - individual-therapy
   - family-therapy
+recognition:
+  - title: "The same conflict keeps returning"
+    body: "You may be having versions of the same disagreement without feeling that either partner is being fully understood."
+  - title: "You feel more distant than you want to"
+    body: "Connection may have changed gradually or after a stressful period, transition, or event that affected the relationship."
+  - title: "You want support before things become a crisis"
+    body: "Couples counseling can also be a place to understand patterns and strengthen communication before a relationship reaches a breaking point."
+overview:
+  eyebrow: "Couples Counseling in Carlsbad"
+  heading: "Relationship support from a practice based here in Carlsbad"
+  paragraphs:
+    - "Couples counseling in Carlsbad is available through S.A.G.E. Therapy Center's Avenida Encinas office with Kristin Moorehead-Malley, LMFT. The work can focus on communication, connection, conflict, trust, transitions, and the recurring patterns that shape how partners respond to one another."
+    - "Because Carlsbad is the practice's home base, couples from neighborhoods including La Costa, Olde Carlsbad, Bressi Ranch, Aviara, and Calavera Hills have an in-person option within the city. Telehealth is also available across California when that is the better fit."
+topics:
+  eyebrow: "What Sessions May Explore"
+  heading: "Couples counseling can focus on both immediate strain and longer-standing patterns"
+  intro: "The emphasis depends on the relationship and what each partner is experiencing now."
+  items:
+    - "Recurring communication patterns"
+    - "Conflict, escalation, and repair"
+    - "Emotional connection and distance"
+    - "Trust and relationship strain"
+    - "Transitions affecting the partnership"
+    - "Patterns each partner wants to understand"
+approach:
+  eyebrow: "Relationship-Focused Work"
+  heading: "An approach shaped around the couple rather than one fixed method"
+  body: "Kristin may draw from IMAGO, attachment-based, psychodynamic, cognitive, experiential, or EMDR-informed approaches depending on what is relevant to the relationship and within the scope of the work. The first conversations can help clarify what each partner is experiencing, what keeps happening between you, and what you would like to understand or change together."
+  modalities:
+    - "IMAGO"
+    - "Attachment-Based"
+    - "Psychodynamic"
+    - "CBT"
+    - "EMDR-Informed"
+decisionItems:
+  - q: "What if only one of us is ready to start?"
+    a: "That difference in readiness is common and can be part of the first conversation. You do not need to resolve it completely before reaching out."
+  - q: "Do we need to be in crisis?"
+    a: "No. Couples may seek support during significant strain, while navigating a transition, or simply because they want to understand and change recurring patterns earlier."
+  - q: "Where do in-person sessions take place?"
+    a: "S.A.G.E. Therapy Center is based on Avenida Encinas in Carlsbad. The location section on this page provides the full address and directions."
+  - q: "What should we know about arriving at the office?"
+    a: "The site provides the office address and directions. Specific parking, building-access, and arrival details can be confirmed when scheduling."
+  - q: "How is this different from premarital or marriage counseling?"
+    a: "Couples counseling addresses relationship concerns broadly, while the premarital and marriage page focuses more specifically on preparing for or navigating marriage."
 faq:
   - q: "Where do Carlsbad couples counseling sessions take place?"
-    a: "At the S.A.G.E. Therapy Center office, 5055 Avenida Encinas, Suite 100, in Carlsbad."
+    a: "In-person sessions take place at S.A.G.E. Therapy Center's Avenida Encinas office in Carlsbad. The full address and directions are provided in the location section."
   - q: "What if only one of us is ready to start?"
-    a: "That's a common starting point. Sessions may explore what's making one or both of you unsure, at a pace that works for the relationship — reach out to talk it through."
+    a: "That is a common starting point. Differences in readiness can be discussed as part of the first conversation rather than needing to be resolved before you reach out."
 ---
-
-Couples counseling in Carlsbad is offered at S.A.G.E. Therapy Center's Avenida Encinas office, with Kristin Moorehead-Malley, LMFT, working with partners on communication, connection, and the specific challenges a couple is navigating together.
-
-Carlsbad is home base for the practice, so local couples — whether you're in La Costa, Olde Carlsbad, Bressi Ranch, Aviara, or Calavera Hills — are working with a therapist who's actually in the community, not commuting in from elsewhere. That local footing shows up in small ways: familiarity with the area, straightforward scheduling, an office that's easy to find.
-
-Sessions can draw on EMDR, IMAGO, psychodynamic, and attachment-based approaches, chosen based on what fits the relationship rather than a single fixed method. Some Carlsbad couples come in feeling stuck in recurring patterns; others are navigating a specific transition together — a move, a new baby, a career change — and want support adjusting as a team. Some simply want to strengthen how they already communicate.
-
-One thing that comes up often: one partner is more ready than the other to start counseling. That's not unusual, and it doesn't need to be resolved before you reach out — it's something sessions can work through directly, at whatever pace makes sense for both of you.
-
-Not every couple arrives at the same starting point. Some come in after a specific disagreement made a pattern impossible to keep ignoring. Others have felt a slower drift toward distance or miscommunication without one clear triggering event. And some come in during a genuinely good stretch, wanting to build a stronger foundation ahead of a big change rather than waiting until something breaks. None of these needs to look like a crisis to be worth bringing to a first session — the goal isn't to assign blame or determine who's "right," but to understand what's happening between you and where you'd both like things to go.
-
-Couples counseling is closely related to premarital and marriage counseling, also offered at the Carlsbad office, for couples specifically preparing for marriage or navigating a marriage-specific stage. If you're not sure which one fits, that's worth mentioning when you request a session.
-
-Request a session to discuss fit and availability for Carlsbad couples counseling.
