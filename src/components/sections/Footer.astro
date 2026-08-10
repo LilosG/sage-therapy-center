@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import { Icon } from 'astro-icon/components';
 import { site } from '../../data/site';
-import { ABOUT_URL, CONTACT_URL, FAQ_URL, SCHEDULE_URL, SERVICES_URL } from '../../data/nav';
+import { ABOUT_URL, CONTACT_URL, FAQ_URL, SCHEDULE_URL, SERVICES_URL, TELEHEALTH_URL } from '../../data/nav';
 import { cityUrl, serviceUrl } from '../../lib/routes';
 
 const cities = await getCollection('cities');
@@ -53,6 +53,12 @@ const coreServices = (await getCollection('services')).filter((s) => s.data.cate
       <div>
         <p class="font-sans text-xs font-semibold uppercase tracking-[0.16em] text-sage-deep">Therapy Services</p>
         <ul class="mt-4 space-y-3">
+          <li>
+            <a href={TELEHEALTH_URL} class="inline-flex items-center gap-2 font-sans text-sm font-semibold text-sage-deep hover:text-primary">
+              <Icon name="lucide:monitor-video" width={15} height={15} aria-hidden="true" />
+              Telehealth Therapy
+            </a>
+          </li>
           {coreServices.slice(0, 6).map((s) => (
             <li>
               <a href={serviceUrl(s.data.slug)} class="font-sans text-sm text-foreground hover:text-sage-deep">{s.data.title}</a>
