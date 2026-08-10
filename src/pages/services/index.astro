@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/sections/PageHero.astro';
 import TrustStrip from '../../components/sections/TrustStrip.astro';
+import TelehealthHighlight from '../../components/sections/TelehealthHighlight.astro';
 import ServiceGrid from '../../components/sections/ServiceGrid.astro';
 import CTASection from '../../components/sections/CTASection.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
@@ -21,13 +22,13 @@ const breadcrumbItems = staticBreadcrumbs('Services', SERVICES_URL);
 
 <BaseLayout
   title="Therapy Services in Carlsbad, CA | S.A.G.E. Therapy Center"
-  description="Explore individual, couples, family, teen, EMDR, anxiety, and trauma-focused therapy options through S.A.G.E. Therapy Center in Carlsbad, CA."
+  description="Explore individual, couples, family, teen, EMDR, anxiety, trauma-focused, and telehealth therapy options through S.A.G.E. Therapy Center in Carlsbad, CA."
   image={hubHeroImages.services}
 >
   <PageHero
     eyebrow="Therapy Services"
     title="Therapy services in Carlsbad, CA"
-    description="Explore individual, relationship, family, teen, and concern-focused therapy options with Kristin Moorehead-Malley, LMFT. In-person sessions are based in Carlsbad, with telehealth available across California."
+    description="Explore individual, relationship, family, teen, and concern-focused therapy options with Kristin Moorehead-Malley, LMFT. Meet in person in Carlsbad or explore telehealth across California."
     breadcrumbItems={breadcrumbItems}
     ctaLabel="Explore Services"
     ctaHref="#services-directory"
@@ -38,6 +39,8 @@ const breadcrumbItems = staticBreadcrumbs('Services', SERVICES_URL);
   />
 
   <TrustStrip />
+
+  <TelehealthHighlight />
 
   <div id="services-directory" class="scroll-mt-24">
     <ServiceGrid
@@ -73,7 +76,7 @@ const breadcrumbItems = staticBreadcrumbs('Services', SERVICES_URL);
 
   <CTASection
     heading="Not sure which service fits?"
-    subhead="You do not need to choose the perfect page before reaching out. Start with a conversation about what is bringing you in, fit, and current availability."
+    subhead="You do not need to choose the perfect page before reaching out. Start with a conversation about what is bringing you in, fit, current availability, and whether you prefer in-person or telehealth sessions."
     ctaLabel="Schedule a Session"
     ctaHref={SCHEDULE_URL}
     phoneDisplay={site.phone.display}
