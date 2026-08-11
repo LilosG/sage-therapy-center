@@ -56,6 +56,7 @@ const businessId = `${site.canonicalOrigin}/#business`;
 const personId = `${site.canonicalOrigin}/#kristin`;
 const websiteId = `${site.canonicalOrigin}/#website`;
 const currentPageUrl = new URL(Astro.url.pathname, site.canonicalOrigin).toString();
+const currentPageId = `${currentPageUrl}#webpage`;
 
 function businessRef() {
   return { '@id': businessId };
@@ -230,18 +231,25 @@ function buildCity() {
 
 function buildFaqPage() {
   if (!faqItems || faqItems.length === 0) return null;
+
   return {
     '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    '@id': `${currentPageUrl}#faq`,
+    // Reuse the canonical WebPage @id used by service/city schema. JSON-LD
+    // processors can merge these declarations into one page entity instead of
+    // treating the FAQ section as a competing standalone page.
+    '@type': ['WebPage', 'FAQPage'],
+    '@id': currentPageId,
     url: currentPageUrl,
+    inLanguage: site.locale,
     isPartOf: { '@id': websiteId },
-    about: businessRef(),
-    mainEntity: faqItems.map((item) => ({
+    publisher: businessRef(),
+    mainEntity: faqItems.map((item, index) => ({
       '@type': 'Question',
+      '@id': `${currentPageUrl}#faq-question-${index + 1}`,
       name: item.q,
       acceptedAnswer: {
         '@type': 'Answer',
+        '@id': `${currentPageUrl}#faq-answer-${index + 1}`,
         text: item.a,
       },
     })),

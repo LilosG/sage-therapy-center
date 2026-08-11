@@ -33,14 +33,16 @@ This document is the search-intent and technical-SEO contract for the Astro site
 
 ## Landing-page FAQ contract
 
-- Every indexable commercial, service, service-area, city, city-service, practitioner, contact, scheduling, and telehealth landing page must render at least **five** page-specific FAQs; the current target is six.
-- Service FAQs are generated from that service's own FAQ content, topic matrix, therapeutic approach, provider, Carlsbad office, telehealth availability, and start process.
-- City FAQs are generated from that city's actual office/service-area relationship, available core services, provider, telehealth coverage, and start process.
-- City-service FAQs combine the exact service + city intent with that entry's own topics and approach data.
+- Every indexable commercial, service, service-area, city, city-service, practitioner, contact, scheduling, and telehealth landing page must render at least **six** page-specific FAQs. Up to two additional authored FAQs may be preserved when they add genuinely unique value.
+- Service FAQs must cover the actual service intent, provider, service-specific concerns/topics, relevant therapeutic approaches, Carlsbad office access, telehealth availability, and the start process without mechanically repeating the same keyword phrase.
+- City FAQs must cover the true office/service-area relationship, core services, named local neighborhoods when present in the city data, provider, telehealth coverage, and the start process.
+- City-service FAQs must combine the exact service + city intent with that entry's own topics and approach data while clearly stating that Carlsbad is the only physical office for secondary cities.
 - Static landing pages use dedicated FAQ sets written for that page's intent rather than a global generic fallback.
+- Required semantic FAQ questions are generated first; authored page-specific questions are appended only when they add distinct information. This prevents sparse or generic authored content from displacing required local/service coverage.
 - `PageFaqs.astro` is the only landing-page FAQ renderer. It fails the build below the minimum and passes the exact same item array to the visible accordion and `FAQPage` JSON-LD.
 - FAQ structured data must never contain questions or answers that are not visibly rendered on the same page.
-- Blog/editorial pages are excluded from the five-FAQ landing-page rule unless the article itself has genuine FAQ intent.
+- Blog/editorial pages are excluded from the six-FAQ landing-page rule unless the article itself has genuine FAQ intent.
+- FAQ markup is semantic structured data, not a promised ranking boost. Google currently limits regular FAQ rich-result visibility primarily to well-known authoritative health and government sites, so FAQ content must stand on its own as useful on-page content even when no FAQ rich result is shown.
 
 ## Astro technical SEO
 
@@ -58,7 +60,8 @@ This document is the search-intent and technical-SEO contract for the Astro site
 - One stable person `@id` represents Kristin Moorehead-Malley.
 - Service pages emit `Service` + `WebPage` + breadcrumb data and resolve the real business/provider entity.
 - City pages describe geographic coverage with `spatialCoverage`; they do not create fake business locations for secondary cities.
-- FAQ sections emit a page-specific `FAQPage` entity with a stable page URL/`@id`, `WebSite` relationship, business relationship, and the exact visible `Question`/`Answer` entities.
+- FAQ structured data reuses the canonical page `@id` as a `WebPage` + `FAQPage` entity rather than inventing a second competing page entity for the FAQ section.
+- FAQ schema includes the canonical URL, language, WebSite relationship, publisher/business relationship, and stable `Question` / `acceptedAnswer` `Answer` entities generated from the exact visible FAQ array.
 - Blog posts use `Article` data with the real practitioner/business entities.
 - Do not emit self-serving `Review` or `AggregateRating` markup for S.A.G.E.'s own Google reviews.
 - Do not emit unverified hours, fees, insurance/superbill claims, or license identifiers.
@@ -78,6 +81,7 @@ Before merging an SEO/site-architecture change to `main`:
 2. Inspect representative rendered pages from every route family: home, service hub, service, area hub, city, city-service, telehealth, about/contact, scheduling, FAQ, and blog.
 3. Verify one H1, unique title/description, canonical URL, crawlable internal links, and expected structured data.
 4. Verify that all intended hero cards visibly contain an image and that no directory/grid leaves accidental empty cells.
-5. Verify every commercial/local landing page renders at least five page-specific FAQs and that the visible FAQ array exactly matches `FAQPage` JSON-LD.
-6. Verify that the sitemap contains only canonical indexable routes and that retired Carlsbad service URLs redirect to their `/services/` canonical.
-7. Push one coherent checkpoint commit so Vercel produces one reviewable preview deployment rather than a build for every file edit.
+5. Verify every commercial/local landing page renders at least six page-specific FAQs and that the visible FAQ array exactly matches `FAQPage` JSON-LD.
+6. Verify FAQ questions are useful to a visitor, locally/service specific where appropriate, and do not read like keyword-stuffed search-engine copy.
+7. Verify that the sitemap contains only canonical indexable routes and that retired Carlsbad service URLs redirect to their `/services/` canonical.
+8. Push one coherent checkpoint commit so Vercel produces one reviewable preview deployment rather than a build for every file edit.

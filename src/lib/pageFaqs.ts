@@ -5,8 +5,11 @@ export interface PageFaqItem {
   a: string;
 }
 
-export const MIN_LANDING_PAGE_FAQS = 5;
-export const TARGET_LANDING_PAGE_FAQS = 6;
+// Commercial/local landing pages must carry a complete FAQ set. Six is the
+// enforced minimum; up to two additional authored FAQs may be preserved when
+// they add genuinely page-specific value.
+export const MIN_LANDING_PAGE_FAQS = 6;
+export const MAX_LANDING_PAGE_FAQS = 8;
 
 interface TopicBlock {
   items: string[];
@@ -30,10 +33,12 @@ function dedupeFaqs(items: PageFaqItem[]) {
   });
 }
 
-function takeLandingFaqs(items: PageFaqItem[]) {
-  const faqs = dedupeFaqs(items).slice(0, TARGET_LANDING_PAGE_FAQS);
+function finalizeLandingFaqs(required: PageFaqItem[], authored: PageFaqItem[] = []) {
+  const faqs = dedupeFaqs([...required, ...authored]).slice(0, MAX_LANDING_PAGE_FAQS);
   if (faqs.length < MIN_LANDING_PAGE_FAQS) {
-    throw new Error(`Landing page resolved to ${faqs.length} FAQs; minimum is ${MIN_LANDING_PAGE_FAQS}.`);
+    throw new Error(
+      `Landing page resolved to ${faqs.length} FAQs; minimum is ${MIN_LANDING_PAGE_FAQS}.`
+    );
   }
   return faqs;
 }
@@ -47,12 +52,16 @@ function naturalList(items: string[]) {
 
 function topicSummary(topics?: TopicBlock) {
   const items = topics?.items?.slice(0, 6) ?? [];
-  return items.length ? naturalList(items) : 'stress, transitions, relationships, recurring patterns, and personal growth goals';
+  return items.length
+    ? naturalList(items)
+    : 'stress, transitions, relationships, recurring patterns, and personal growth goals';
 }
 
 function modalitySummary(approach?: ApproachBlock) {
   const modalities = approach?.modalities?.slice(0, 5) ?? [];
-  return modalities.length ? naturalList(modalities) : 'more than one therapeutic approach depending on the client and goals';
+  return modalities.length
+    ? naturalList(modalities)
+    : 'more than one therapeutic approach depending on the client, concerns, and goals';
 }
 
 export function buildServiceFaqs(input: {
@@ -63,34 +72,37 @@ export function buildServiceFaqs(input: {
 }) {
   const { title, existing = [], topics, approach } = input;
   const lowerTitle = title.toLowerCase();
+  const city = site.address.city;
 
-  return takeLandingFaqs([
-    ...existing,
-    {
-      q: `Who provides ${lowerTitle} at S.A.G.E. Therapy Center?`,
-      a: `${site.practitioner.name}, ${site.practitioner.credential}, provides ${lowerTitle} through S.A.G.E. Therapy Center in ${site.address.city}.`,
-    },
-    {
-      q: `What concerns can ${lowerTitle} in ${site.address.city} help address?`,
-      a: `${title} may make room for concerns such as ${topicSummary(topics)}. The focus is individualized rather than limited to a single diagnosis or fixed program.`,
-    },
-    {
-      q: `Is telehealth available for ${lowerTitle}?`,
-      a: `Telehealth is available across ${site.telehealth.coverageArea}. You can discuss whether online or in-person sessions are the better fit when you request a session.`,
-    },
-    {
-      q: `What therapy approaches may be used in ${lowerTitle}?`,
-      a: `Kristin may draw from ${modalitySummary(approach)}. The approach can change as the work develops and as different concerns become more relevant.`,
-    },
-    {
-      q: `Where do in-person ${lowerTitle} sessions take place?`,
-      a: `In-person sessions take place at S.A.G.E. Therapy Center's office at ${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}.`,
-    },
-    {
-      q: `How do I start ${lowerTitle} in ${site.address.city}?`,
-      a: `Start by requesting a session to discuss fit, current availability, what you are looking for, and whether you prefer the Carlsbad office or telehealth.`,
-    },
-  ]);
+  return finalizeLandingFaqs(
+    [
+      {
+        q: `Who provides ${lowerTitle} in ${city}, CA?`,
+        a: `${site.practitioner.name}, ${site.practitioner.credential}, provides ${lowerTitle} through S.A.G.E. Therapy Center's ${city} practice.`,
+      },
+      {
+        q: `What concerns do people bring to ${lowerTitle} in ${city}?`,
+        a: `${title} may make room for concerns such as ${topicSummary(topics)}. The focus is individualized rather than limited to a single diagnosis or fixed program.`,
+      },
+      {
+        q: `What therapy approaches may be used in ${lowerTitle}?`,
+        a: `Kristin may draw from ${modalitySummary(approach)} depending on what is most relevant to the work. The approach can evolve as priorities and goals become clearer.`,
+      },
+      {
+        q: `Where are in-person ${lowerTitle} sessions held in ${city}?`,
+        a: `In-person sessions are held at S.A.G.E. Therapy Center, ${site.address.street}, ${city}, ${site.address.region} ${site.address.postalCode}.`,
+      },
+      {
+        q: `Is ${lowerTitle} available by telehealth in California?`,
+        a: `Yes. Telehealth is available across ${site.telehealth.coverageArea}. You can discuss whether online or in-person sessions are the better fit when you request a session.`,
+      },
+      {
+        q: `How do I start ${lowerTitle} at S.A.G.E. Therapy Center?`,
+        a: `Request a session to discuss fit, current availability, what you are looking for, and whether you prefer the ${city} office or telehealth.`,
+      },
+    ],
+    existing
+  );
 }
 
 export function buildCityFaqs(input: {
@@ -98,42 +110,54 @@ export function buildCityFaqs(input: {
   hasOffice: boolean;
   existing?: PageFaqItem[];
   serviceTitles: string[];
+  neighborhoodNames?: string[];
 }) {
-  const { cityName, hasOffice, existing = [], serviceTitles } = input;
+  const { cityName, hasOffice, existing = [], serviceTitles, neighborhoodNames = [] } = input;
   const services = naturalList(serviceTitles);
+  const neighborhoods = naturalList(neighborhoodNames.slice(0, 6));
 
-  // City content already carries the most locally specific questions first.
-  // Supplements prioritize distinct access/provider/start questions so a city
-  // with two authored FAQs does not get near-duplicate location/service FAQs.
-  return takeLandingFaqs([
-    ...existing,
-    {
-      q: `Can ${cityName} clients use telehealth?`,
-      a: `Yes. Telehealth is available across ${site.telehealth.coverageArea}, including for clients in ${cityName}.`,
-    },
-    {
-      q: `Who provides therapy for ${cityName} clients?`,
-      a: `${site.practitioner.name}, ${site.practitioner.credential}, provides therapy through S.A.G.E. Therapy Center's Carlsbad practice and by telehealth across California.`,
-    },
-    {
-      q: `Where do ${cityName} clients attend in-person therapy?`,
-      a: `In-person sessions are held at S.A.G.E. Therapy Center's Carlsbad office at ${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}.`,
-    },
-    {
-      q: `How can a ${cityName} client get started with S.A.G.E.?`,
-      a: `Request a session to discuss fit, current availability, the kind of therapy you are looking for, and whether in-person or telehealth sessions make sense.`,
-    },
-    {
-      q: hasOffice ? `Where is S.A.G.E. Therapy Center located in ${cityName}?` : `How is S.A.G.E. Therapy Center connected to ${cityName}?`,
-      a: hasOffice
-        ? `S.A.G.E. Therapy Center's physical office is at ${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}.`
-        : `S.A.G.E. serves ${cityName} clients from its only physical office in ${site.address.city}, with telehealth available across ${site.telehealth.coverageArea}.`,
-    },
-    {
-      q: `Which core therapy services can ${cityName} clients explore?`,
-      a: `Core therapy options available through S.A.G.E. include ${services}. Dedicated ${cityName} service pages are used only where locally differentiated content exists.`,
-    },
-  ]);
+  const localCoverageFaq: PageFaqItem = neighborhoods
+    ? {
+        q: `Does S.A.G.E. serve clients from neighborhoods throughout ${cityName}?`,
+        a: hasOffice
+          ? `Yes. S.A.G.E.'s Carlsbad practice serves clients from neighborhoods throughout ${cityName}, including ${neighborhoods}, with in-person sessions at the Carlsbad office and telehealth across California.`
+          : `Yes. S.A.G.E. serves clients from neighborhoods throughout ${cityName}, including ${neighborhoods}. In-person sessions are based at the Carlsbad office, with telehealth available across California.`,
+      }
+    : {
+        q: `Where do ${cityName} clients attend in-person therapy?`,
+        a: `In-person sessions are held at S.A.G.E. Therapy Center's Carlsbad office at ${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}.`,
+      };
+
+  return finalizeLandingFaqs(
+    [
+      {
+        q: hasOffice
+          ? `Where is S.A.G.E. Therapy Center located in ${cityName}?`
+          : `Does S.A.G.E. Therapy Center have an office in ${cityName}?`,
+        a: hasOffice
+          ? `S.A.G.E. Therapy Center's physical office is at ${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}.`
+          : `No. S.A.G.E.'s only physical office is in ${site.address.city} at ${site.address.street}. The ${cityName} page describes the community served, not a separate office location.`,
+      },
+      {
+        q: `What therapy services are available to ${cityName} clients?`,
+        a: `Core therapy options available through S.A.G.E. include ${services}. Individual service pages explain the therapy focus, relevant approaches, and available in-person or telehealth session options.`,
+      },
+      localCoverageFaq,
+      {
+        q: `Can ${cityName} clients use telehealth?`,
+        a: `Yes. Telehealth is available across ${site.telehealth.coverageArea}, including for clients in ${cityName}.`,
+      },
+      {
+        q: `Who provides therapy for ${cityName} clients?`,
+        a: `${site.practitioner.name}, ${site.practitioner.credential}, provides therapy through S.A.G.E. Therapy Center's Carlsbad practice and by telehealth across California.`,
+      },
+      {
+        q: `How can a ${cityName} client get started with S.A.G.E.?`,
+        a: `Request a session to discuss fit, current availability, the kind of therapy you are looking for, and whether in-person or telehealth sessions make sense.`,
+      },
+    ],
+    existing
+  );
 }
 
 export function buildCityServiceFaqs(input: {
@@ -147,45 +171,49 @@ export function buildCityServiceFaqs(input: {
   const { cityName, serviceTitle, hasOffice, existing = [], topics, approach } = input;
   const lowerTitle = serviceTitle.toLowerCase();
 
-  return takeLandingFaqs([
-    ...existing,
-    {
-      q: `Who provides ${lowerTitle} for ${cityName} clients?`,
-      a: `${site.practitioner.name}, ${site.practitioner.credential}, provides ${lowerTitle} through S.A.G.E. Therapy Center.`,
-    },
-    {
-      q: `Is telehealth available for ${lowerTitle} if I live in ${cityName}?`,
-      a: `Yes. Telehealth is available across ${site.telehealth.coverageArea}. ${cityName} clients can also discuss in-person sessions at the Carlsbad office.`,
-    },
-    {
-      q: `What approaches may be part of ${lowerTitle} for ${cityName} clients?`,
-      a: `Kristin may draw from ${modalitySummary(approach)} depending on what is most relevant to the work.`,
-    },
-    {
-      q: `How do I start ${lowerTitle} as a ${cityName} client?`,
-      a: `Request a session to discuss fit, availability, what you want support with, and whether you prefer in-person sessions in Carlsbad or telehealth.`,
-    },
-    {
-      q: `What concerns can ${lowerTitle} for ${cityName} clients address?`,
-      a: `${serviceTitle} may explore concerns such as ${topicSummary(topics)}. The focus can evolve as priorities and goals become clearer.`,
-    },
-    {
-      q: hasOffice
-        ? `Where do ${lowerTitle} sessions take place in ${cityName}?`
-        : `Where do ${cityName} clients attend in-person ${lowerTitle}?`,
-      a: `In-person sessions take place at S.A.G.E. Therapy Center's Carlsbad office at ${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}.`,
-    },
-  ]);
+  return finalizeLandingFaqs(
+    [
+      {
+        q: hasOffice
+          ? `Where is ${lowerTitle} offered in ${cityName}?`
+          : `Does S.A.G.E. have a ${cityName} office for ${lowerTitle}?`,
+        a: hasOffice
+          ? `In-person ${lowerTitle} is offered at S.A.G.E. Therapy Center, ${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}.`
+          : `No. S.A.G.E.'s only physical office is in Carlsbad. ${cityName} clients can explore ${lowerTitle} through the Carlsbad practice or by telehealth across California.`,
+      },
+      {
+        q: `What concerns might ${cityName} clients bring to ${lowerTitle}?`,
+        a: `${serviceTitle} may explore concerns such as ${topicSummary(topics)}. The focus can evolve as priorities and goals become clearer.`,
+      },
+      {
+        q: `What approaches may be part of ${lowerTitle} for ${cityName} clients?`,
+        a: `Kristin may draw from ${modalitySummary(approach)} depending on what is most relevant to the work.`,
+      },
+      {
+        q: `Who provides ${lowerTitle} for ${cityName} clients?`,
+        a: `${site.practitioner.name}, ${site.practitioner.credential}, provides ${lowerTitle} through S.A.G.E. Therapy Center.`,
+      },
+      {
+        q: `Is telehealth available for ${lowerTitle} if I live in ${cityName}?`,
+        a: `Yes. Telehealth is available across ${site.telehealth.coverageArea}. ${cityName} clients can also discuss in-person sessions at the Carlsbad office.`,
+      },
+      {
+        q: `How do I start ${lowerTitle} as a ${cityName} client?`,
+        a: `Request a session to discuss fit, availability, what you want support with, and whether you prefer in-person sessions in Carlsbad or telehealth.`,
+      },
+    ],
+    existing
+  );
 }
 
 export function buildHomeFaqs(serviceTitles: string[]) {
-  return takeLandingFaqs([
+  return finalizeLandingFaqs([
     {
-      q: 'Where is S.A.G.E. Therapy Center located?',
+      q: 'Where is S.A.G.E. Therapy Center located in Carlsbad?',
       a: `S.A.G.E. Therapy Center's physical office is at ${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}.`,
     },
     {
-      q: 'What types of therapy does S.A.G.E. Therapy Center offer?',
+      q: 'What types of therapy does S.A.G.E. Therapy Center offer in Carlsbad?',
       a: `Core therapy services include ${naturalList(serviceTitles)}, with additional concern-focused pages for anxiety and trauma-related support.`,
     },
     {
@@ -201,14 +229,14 @@ export function buildHomeFaqs(serviceTitles: string[]) {
       a: 'No. You can begin with what is bringing you in and use the first conversation to discuss fit, priorities, and which service or session format makes the most sense.',
     },
     {
-      q: 'How do I start therapy with S.A.G.E.?',
+      q: 'How do I start therapy with S.A.G.E. in Carlsbad?',
       a: `Request a session online or call ${site.phone.display} to discuss fit, current availability, and whether you prefer in-person or telehealth sessions.`,
     },
   ]);
 }
 
 export function buildServicesHubFaqs(serviceTitles: string[]) {
-  return takeLandingFaqs([
+  return finalizeLandingFaqs([
     {
       q: 'What therapy services are available at S.A.G.E. Therapy Center in Carlsbad?',
       a: `Core services include ${naturalList(serviceTitles)}. S.A.G.E. also has dedicated pages for anxiety and trauma-related concerns.`,
@@ -222,12 +250,12 @@ export function buildServicesHubFaqs(serviceTitles: string[]) {
       a: 'No. Telehealth is a session-delivery format. The clinical focus can still be individual, couples, family, teen, EMDR, or another therapy service.',
     },
     {
-      q: 'Where are in-person therapy sessions held?',
-      a: `In-person sessions are held at S.A.G.E. Therapy Center's office at ${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}.`,
+      q: 'Where are in-person therapy sessions held in Carlsbad?',
+      a: `In-person sessions are held at S.A.G.E. Therapy Center, ${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}.`,
     },
     {
       q: 'Are S.A.G.E. therapy services available by telehealth?',
-      a: `Telehealth is available across ${site.telehealth.coverageArea}. Whether telehealth is the right format for the work can be discussed when you request a session.`,
+      a: `Yes. Telehealth is available across ${site.telehealth.coverageArea}. Whether telehealth is the right format for the work can be discussed when you request a session.`,
     },
     {
       q: 'How do I request a therapy session in Carlsbad?',
@@ -237,7 +265,7 @@ export function buildServicesHubFaqs(serviceTitles: string[]) {
 }
 
 export function buildAreasHubFaqs(cityNames: string[], serviceTitles: string[]) {
-  return takeLandingFaqs([
+  return finalizeLandingFaqs([
     {
       q: 'Where is S.A.G.E. Therapy Center physically located?',
       a: `S.A.G.E.'s only physical office is at ${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}.`,
@@ -256,7 +284,7 @@ export function buildAreasHubFaqs(cityNames: string[], serviceTitles: string[]) 
     },
     {
       q: 'What therapy services are available to North County clients?',
-      a: `Core options include ${naturalList(serviceTitles)}. Dedicated city-service pages are used only where the site has locally differentiated content.`,
+      a: `Core options include ${naturalList(serviceTitles)}. Individual service pages explain each therapy focus and available session options.`,
     },
     {
       q: 'How do I find the right location or session option?',
@@ -265,14 +293,14 @@ export function buildAreasHubFaqs(cityNames: string[], serviceTitles: string[]) 
   ]);
 }
 
-export const aboutPageFaqs = takeLandingFaqs([
+export const aboutPageFaqs = finalizeLandingFaqs([
   {
     q: `Who is ${site.practitioner.name}?`,
     a: `${site.practitioner.name}, ${site.practitioner.credential}, is the therapist behind S.A.G.E. Therapy Center in Carlsbad, California.`,
   },
   {
     q: 'Where does Kristin see clients in person?',
-    a: `In-person sessions are based at S.A.G.E. Therapy Center's office at ${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}.`,
+    a: `In-person sessions are based at S.A.G.E. Therapy Center, ${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}.`,
   },
   {
     q: 'What therapeutic approaches does Kristin draw from?',
@@ -292,13 +320,13 @@ export const aboutPageFaqs = takeLandingFaqs([
   },
 ]);
 
-export const contactPageFaqs = takeLandingFaqs([
+export const contactPageFaqs = finalizeLandingFaqs([
   {
     q: 'How can I contact S.A.G.E. Therapy Center?',
     a: `You can use the online request form, call ${site.phone.display}, or email ${site.email}.`,
   },
   {
-    q: 'Where is the S.A.G.E. Therapy Center office?',
+    q: 'Where is the S.A.G.E. Therapy Center office in Carlsbad?',
     a: `The office is at ${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}.`,
   },
   {
@@ -319,7 +347,7 @@ export const contactPageFaqs = takeLandingFaqs([
   },
 ]);
 
-export const schedulePageFaqs = takeLandingFaqs([
+export const schedulePageFaqs = finalizeLandingFaqs([
   {
     q: 'What happens after I request a therapy session?',
     a: 'Your request is used to discuss fit, current availability, and the session option that makes the most sense before anything is scheduled.',
@@ -346,7 +374,7 @@ export const schedulePageFaqs = takeLandingFaqs([
   },
 ]);
 
-export const telehealthPageFaqs = takeLandingFaqs([
+export const telehealthPageFaqs = finalizeLandingFaqs([
   {
     q: 'Is telehealth a different kind of therapy?',
     a: 'No. Telehealth describes how the session is delivered. The therapeutic focus can still be individual, couples, family, teen, EMDR, anxiety, trauma-focused, or another service that fits your needs.',

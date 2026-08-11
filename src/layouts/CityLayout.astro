@@ -66,6 +66,7 @@ const faqItems = buildCityFaqs({
   hasOffice,
   existing: faq,
   serviceTitles: coreServices.map((service) => service.data.title),
+  neighborhoodNames: neighborhoods.map((neighborhood) => neighborhood.name),
 });
 const heroImage = getCityHero(slug);
 const heroTitle = hasOffice ? `Therapist in ${name}, CA` : `Therapist serving ${name}, CA`;
