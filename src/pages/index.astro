@@ -11,12 +11,15 @@ import PracticeSection from '../components/sections/PracticeSection.astro';
 import ServiceGrid from '../components/sections/ServiceGrid.astro';
 import ReviewsSection from '../components/sections/ReviewsSection.astro';
 import AreasServed from '../components/sections/AreasServed.astro';
+import PageFaqs from '../components/sections/PageFaqs.astro';
 import InquiryFormSection from '../components/sections/InquiryFormSection.astro';
 import SchemaOrg from '../components/seo/SchemaOrg.astro';
 import { site } from '../data/site';
 import { practitioner } from '../data/practitioner';
 import { homeImages } from '../data/homeImages';
 import { serviceIcons, defaultServiceIcon } from '../data/serviceIcons';
+import { sortCoreServices } from '../data/serviceOrder';
+import { buildHomeFaqs } from '../lib/pageFaqs';
 import { ABOUT_URL, AREAS_WE_SERVE_URL, SERVICES_URL } from '../data/nav';
 import { cityUrl, serviceUrl } from '../lib/routes';
 import kristinPhoto from '../assets/images/kristin-moorehead-malley.webp';
@@ -24,7 +27,8 @@ import googleReviews from '../data/google-reviews.json';
 
 const services = await getCollection('services');
 const cities = await getCollection('cities');
-const coreServices = services.filter((s) => s.data.category === 'core');
+const coreServices = sortCoreServices(services.filter((service) => service.data.category === 'core'));
+const faqItems = buildHomeFaqs(coreServices.map((service) => service.data.title));
 
 if (coreServices.length === 0) {
   throw new Error('Homepage core services resolved to zero entries — check category filter/schema.');
@@ -77,11 +81,11 @@ if (cities.length === 0) {
   <ServiceGrid
     eyebrow="Therapy Services in Carlsbad"
     heading="Therapy services available through S.A.G.E. Therapy Center"
-    services={coreServices.map((s) => ({
-      title: `${s.data.title} in Carlsbad`,
-      description: s.data.description,
-      href: serviceUrl(s.data.slug),
-      icon: serviceIcons[s.data.slug] ?? defaultServiceIcon,
+    services={coreServices.map((service) => ({
+      title: `${service.data.title} in Carlsbad`,
+      description: service.data.description,
+      href: serviceUrl(service.data.slug),
+      icon: serviceIcons[service.data.slug] ?? defaultServiceIcon,
     }))}
     viewAllHref={SERVICES_URL}
     viewAllLabel="View all therapy services"
@@ -133,10 +137,12 @@ if (cities.length === 0) {
   <AreasServed
     eyebrow="North County Service Areas"
     heading="Therapy for Carlsbad and nearby North County communities"
-    cities={cities.map((c) => ({ name: c.data.name, href: cityUrl(c.data.slug) }))}
+    cities={cities.map((city) => ({ name: city.data.name, href: cityUrl(city.data.slug) }))}
     viewAllHref={AREAS_WE_SERVE_URL}
     variant="compact"
   />
+
+  <PageFaqs heading="S.A.G.E. Therapy Center in Carlsbad: common questions" items={faqItems} background="surface" />
 
   <InquiryFormSection
     context="Homepage — Carlsbad Therapy"

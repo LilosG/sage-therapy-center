@@ -10,12 +10,12 @@ import RelatedSupportStrip from '../components/sections/RelatedSupportStrip.astr
 import MeetKristin from '../components/sections/MeetKristin.astro';
 import ProcessSteps from '../components/sections/ProcessSteps.astro';
 import ReviewsSection from '../components/sections/ReviewsSection.astro';
-import FAQAccordion from '../components/sections/FAQAccordion.astro';
+import PageFaqs from '../components/sections/PageFaqs.astro';
 import AreasServed from '../components/sections/AreasServed.astro';
 import InquiryFormSection from '../components/sections/InquiryFormSection.astro';
 import SchemaOrg from '../components/seo/SchemaOrg.astro';
 import { absoluteBreadcrumbs, serviceBreadcrumbs } from '../lib/breadcrumbs';
-import { withFallbackFaqs } from '../lib/faq';
+import { buildServiceFaqs } from '../lib/pageFaqs';
 import { getCollection } from 'astro:content';
 import { canonicalUrl, cityUrl, serviceUrl } from '../lib/routes';
 import { AREAS_WE_SERVE_URL } from '../data/nav';
@@ -54,7 +54,7 @@ const {
 const breadcrumbItems = serviceBreadcrumbs(title, slug);
 const schemaBreadcrumbs = absoluteBreadcrumbs(breadcrumbItems);
 const pageUrl = canonicalUrl(serviceUrl(slug));
-const faqItems = await withFallbackFaqs(faq);
+const faqItems = buildServiceFaqs({ title, existing: faq, topics, approach });
 const cities = await getCollection('cities');
 const cityLinks = cities.map((c) => ({ name: c.data.name, href: cityUrl(c.data.slug) }));
 const heroImage = getServiceHero(slug);
@@ -242,7 +242,7 @@ const reassuranceItems = [
     lastUpdated={googleReviews.fetchedAt}
   />
 
-  {faqItems.length > 0 && <FAQAccordion heading={faqHeading} items={faqItems} background="surface" />}
+  <PageFaqs heading={faqHeading} items={faqItems} background="surface" />
 
   <InquiryFormSection
     context={`${title} in ${site.address.city}`}
@@ -270,5 +270,4 @@ const reassuranceItems = [
       areaServed: site.address.city,
     }}
   />
-  {faqItems.length > 0 && <SchemaOrg type="faqPage" faqItems={faqItems} />}
 </InteriorPageLayout>

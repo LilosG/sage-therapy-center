@@ -5,11 +5,13 @@ import TrustStrip from '../../components/sections/TrustStrip.astro';
 import MeetKristin from '../../components/sections/MeetKristin.astro';
 import PhilosophySection from '../../components/sections/PhilosophySection.astro';
 import ProcessSteps from '../../components/sections/ProcessSteps.astro';
+import PageFaqs from '../../components/sections/PageFaqs.astro';
 import CTASection from '../../components/sections/CTASection.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
 import { practitioner } from '../../data/practitioner';
 import { editorialImages, getHeroImageAlt } from '../../data/pageImages';
+import { aboutPageFaqs } from '../../lib/pageFaqs';
 import { ABOUT_URL, SCHEDULE_URL } from '../../data/nav';
 import { staticBreadcrumbs } from '../../lib/breadcrumbs';
 import kristinPhoto from '../../assets/images/kristin-moorehead-malley.webp';
@@ -64,6 +66,8 @@ const heroImage = editorialImages.meadowTree;
       { title: 'Ongoing work', body: 'Continue with an approach and pace that can evolve as the work becomes clearer.' },
     ]}
   />
+
+  <PageFaqs heading={`About ${site.practitioner.name}: common questions`} items={aboutPageFaqs} background="surface" />
 
   <CTASection
     heading="Ready to see if working with Kristin may be a fit?"

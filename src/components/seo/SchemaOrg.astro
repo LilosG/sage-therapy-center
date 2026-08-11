@@ -55,6 +55,7 @@ const { type, service, city, article, faqItems, breadcrumb } = Astro.props;
 const businessId = `${site.canonicalOrigin}/#business`;
 const personId = `${site.canonicalOrigin}/#kristin`;
 const websiteId = `${site.canonicalOrigin}/#website`;
+const currentPageUrl = new URL(Astro.url.pathname, site.canonicalOrigin).toString();
 
 function businessRef() {
   return { '@id': businessId };
@@ -232,6 +233,10 @@ function buildFaqPage() {
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
+    '@id': `${currentPageUrl}#faq`,
+    url: currentPageUrl,
+    isPartOf: { '@id': websiteId },
+    about: businessRef(),
     mainEntity: faqItems.map((item) => ({
       '@type': 'Question',
       name: item.q,

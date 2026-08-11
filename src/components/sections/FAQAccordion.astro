@@ -1,6 +1,7 @@
 ---
+// Purely presentational accordion. Landing-page schema ownership belongs to
+// PageFaqs.astro so visible FAQ content and FAQPage JSON-LD cannot diverge.
 import Accordion from '../ui/Accordion.astro';
-import SchemaOrg from '../seo/SchemaOrg.astro';
 
 interface FaqItem {
   q: string;
@@ -11,8 +12,6 @@ interface Props {
   eyebrow?: string;
   heading: string;
   items: FaqItem[];
-  // Section-rhythm control (Wave 6, item 7) — lets callers alternate
-  // backgrounds against whatever section sits above this one.
   background?: 'background' | 'secondary' | 'surface';
 }
 
@@ -31,4 +30,3 @@ const bgClass = { background: 'bg-background', secondary: 'bg-secondary', surfac
     </div>
   </div>
 </section>
-<SchemaOrg type="faqPage" faqItems={items} />

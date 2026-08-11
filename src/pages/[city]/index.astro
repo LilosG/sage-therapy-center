@@ -5,6 +5,7 @@ import CityOverviewSection from '../../components/sections/CityOverviewSection.a
 import ServiceGrid from '../../components/sections/ServiceGrid.astro';
 import StructuredProse from '../../components/sections/StructuredProse.astro';
 import { serviceIcons, defaultServiceIcon } from '../../data/serviceIcons';
+import { sortCoreServices } from '../../data/serviceOrder';
 import { cityServiceUrl, cityUrl, serviceUrl } from '../../lib/routes';
 import googleReviews from '../../data/google-reviews.json';
 
@@ -18,9 +19,8 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const approvedServices = entry.data.approvedCityServices.length
-  ? await getEntries(entry.data.approvedCityServices)
-  : [];
+const allServices = await getCollection('services');
+const coreServices = sortCoreServices(allServices.filter((service) => service.data.category === 'core'));
 const nearbyCities = entry.data.nearbyCities.length ? await getEntries(entry.data.nearbyCities) : [];
 
 const cityServiceEntries = await getCollection('city-services');
@@ -28,9 +28,15 @@ const localCombosForCity = new Map(
   cityServiceEntries.filter((cs) => cs.data.city.id === entry.id).map((cs) => [cs.data.service.id, cs])
 );
 
+if (coreServices.length < 4 || coreServices.length % 2 !== 0) {
+  throw new Error(
+    `City service directory for ${entry.data.name} resolved to ${coreServices.length} core services. Expected an even, complete core-service set.`
+  );
+}
+
 const serviceDirectoryIntro = entry.data.hasOffice
-  ? `Explore therapy services available through S.A.G.E.'s physical office in ${entry.data.name}. Each service page is the canonical local page for that therapy focus, with telehealth also available across California.`
-  : `Explore therapy options available to ${entry.data.name} clients. When a dedicated ${entry.data.name} service page is available, the link goes directly to that local resource; in-person sessions remain based at the Carlsbad office.`;
+  ? `Explore the core therapy services available through S.A.G.E.'s physical office in ${entry.data.name}. Each card links directly to the canonical service page, with telehealth also available across California.`
+  : `Explore the core therapy services available to ${entry.data.name} clients. Dedicated ${entry.data.name} service pages are used where locally differentiated content exists; other services link directly to the canonical Carlsbad service page.`;
 ---
 
 <CityLayout
@@ -51,35 +57,29 @@ const serviceDirectoryIntro = entry.data.hasOffice
     </CityOverviewSection>
   </Fragment>
 
-  {
-    approvedServices.length > 0 && (
-      <ServiceGrid
-        eyebrow={entry.data.hasOffice ? `Therapy Services in ${entry.data.name}` : `Therapy Services for ${entry.data.name}`}
-        heading={entry.data.hasOffice ? `Therapy services available in ${entry.data.name}, CA` : `Therapy services available to ${entry.data.name} clients`}
-        intro={serviceDirectoryIntro}
-        services={approvedServices.map((s) => {
-          const localEntry = localCombosForCity.get(s.id);
-          const hasDedicatedLocalPage = !entry.data.hasOffice && Boolean(localEntry);
-          return {
-            title: entry.data.hasOffice
-              ? `${s.data.title} in ${entry.data.name}`
-              : hasDedicatedLocalPage
-                ? `${s.data.title} for ${entry.data.name}`
-                : s.data.title,
-            description: s.data.description,
-            // The physical-office city must link straight to the canonical
-            // /services/ page. Never send internal authority through a redirect.
-            href: entry.data.hasOffice
-              ? serviceUrl(s.data.slug)
-              : localEntry
-                ? cityServiceUrl(entry.data.slug, localEntry.data.slugOverride ?? s.data.slug)
-                : serviceUrl(s.data.slug),
-            icon: serviceIcons[s.data.slug] ?? defaultServiceIcon,
-          };
-        })}
-        background="secondary"
-        variant="directory"
-      />
-    )
-  }
+  <ServiceGrid
+    eyebrow={entry.data.hasOffice ? `Therapy Services in ${entry.data.name}` : `Therapy Services for ${entry.data.name}`}
+    heading={entry.data.hasOffice ? `Therapy services available in ${entry.data.name}, CA` : `Therapy services available to ${entry.data.name} clients`}
+    intro={serviceDirectoryIntro}
+    services={coreServices.map((service) => {
+      const localEntry = localCombosForCity.get(service.id);
+      const hasDedicatedLocalPage = !entry.data.hasOffice && Boolean(localEntry);
+      return {
+        title: entry.data.hasOffice
+          ? `${service.data.title} in ${entry.data.name}`
+          : hasDedicatedLocalPage
+            ? `${service.data.title} for ${entry.data.name}`
+            : `${service.data.title} in Carlsbad`,
+        description: service.data.description,
+        href: entry.data.hasOffice
+          ? serviceUrl(service.data.slug)
+          : localEntry
+            ? cityServiceUrl(entry.data.slug, localEntry.data.slugOverride ?? service.data.slug)
+            : serviceUrl(service.data.slug),
+        icon: serviceIcons[service.data.slug] ?? defaultServiceIcon,
+      };
+    })}
+    background="secondary"
+    variant="directory"
+  />
 </CityLayout>
