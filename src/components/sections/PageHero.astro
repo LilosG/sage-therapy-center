@@ -97,15 +97,19 @@ const {
 
       {
         image && (
-          <figure class="relative mx-auto w-full max-w-xl overflow-hidden rounded-[1.75rem] border border-surface/80 bg-secondary shadow-[0_30px_75px_-48px_rgba(42,40,51,0.6)] lg:max-w-none">
+          <figure
+            class="relative mx-auto aspect-[16/11] w-full max-w-xl overflow-hidden rounded-[1.75rem] border border-surface/80 bg-secondary bg-cover bg-center shadow-[0_30px_75px_-48px_rgba(42,40,51,0.6)] lg:max-w-none"
+            style={`background-image: url('${image.src}'); background-position: ${imagePosition};`}
+          >
             <Image
               src={image}
               alt={imageAlt}
               widths={[480, 720, 960, 1200]}
               sizes="(min-width: 1024px) 44vw, calc(100vw - 3rem)"
-              class="aspect-[16/11] w-full object-cover"
+              class="absolute inset-0 h-full w-full object-cover"
               style={`object-position: ${imagePosition};`}
-              priority
+              loading="eager"
+              fetchpriority="high"
             />
             <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-primary/10 via-transparent to-surface/5" aria-hidden="true" />
           </figure>
