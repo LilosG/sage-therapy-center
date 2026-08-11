@@ -81,7 +81,7 @@ export function buildServiceFaqs(input: {
         a: `${site.practitioner.name}, ${site.practitioner.credential}, provides ${lowerTitle} through S.A.G.E. Therapy Center's ${city} practice.`,
       },
       {
-        q: `What concerns can ${lowerTitle} in ${city} help address?`,
+        q: `What concerns do people bring to ${lowerTitle} in ${city}?`,
         a: `${title} may make room for concerns such as ${topicSummary(topics)}. The focus is individualized rather than limited to a single diagnosis or fixed program.`,
       },
       {
@@ -119,7 +119,9 @@ export function buildCityFaqs(input: {
   const localCoverageFaq: PageFaqItem = neighborhoods
     ? {
         q: `Does S.A.G.E. serve clients from neighborhoods throughout ${cityName}?`,
-        a: `Yes. The ${cityName} service-area information includes communities such as ${neighborhoods}. In-person sessions remain based at the Carlsbad office unless ${cityName} is the physical-office city.`,
+        a: hasOffice
+          ? `Yes. S.A.G.E.'s Carlsbad practice serves clients from neighborhoods throughout ${cityName}, including ${neighborhoods}, with in-person sessions at the Carlsbad office and telehealth across California.`
+          : `Yes. S.A.G.E. serves clients from neighborhoods throughout ${cityName}, including ${neighborhoods}. In-person sessions are based at the Carlsbad office, with telehealth available across California.`,
       }
     : {
         q: `Where do ${cityName} clients attend in-person therapy?`,
@@ -138,7 +140,7 @@ export function buildCityFaqs(input: {
       },
       {
         q: `What therapy services are available to ${cityName} clients?`,
-        a: `Core therapy options available through S.A.G.E. include ${services}. Dedicated ${cityName} service pages are used where the site has locally differentiated content; other services link to the canonical Carlsbad service page.`,
+        a: `Core therapy options available through S.A.G.E. include ${services}. Individual service pages explain the therapy focus, relevant approaches, and available in-person or telehealth session options.`,
       },
       localCoverageFaq,
       {
@@ -180,7 +182,7 @@ export function buildCityServiceFaqs(input: {
           : `No. S.A.G.E.'s only physical office is in Carlsbad. ${cityName} clients can explore ${lowerTitle} through the Carlsbad practice or by telehealth across California.`,
       },
       {
-        q: `What concerns can ${lowerTitle} for ${cityName} clients address?`,
+        q: `What concerns might ${cityName} clients bring to ${lowerTitle}?`,
         a: `${serviceTitle} may explore concerns such as ${topicSummary(topics)}. The focus can evolve as priorities and goals become clearer.`,
       },
       {
@@ -282,7 +284,7 @@ export function buildAreasHubFaqs(cityNames: string[], serviceTitles: string[]) 
     },
     {
       q: 'What therapy services are available to North County clients?',
-      a: `Core options include ${naturalList(serviceTitles)}. Dedicated city-service pages are used only where the site has locally differentiated content.`,
+      a: `Core options include ${naturalList(serviceTitles)}. Individual service pages explain each therapy focus and available session options.`,
     },
     {
       q: 'How do I find the right location or session option?',
