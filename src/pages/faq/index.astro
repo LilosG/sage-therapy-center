@@ -6,12 +6,20 @@ import TrustStrip from '../../components/sections/TrustStrip.astro';
 import PageFaqs from '../../components/sections/PageFaqs.astro';
 import CTASection from '../../components/sections/CTASection.astro';
 import { site } from '../../data/site';
+import { faqHubSupplemental } from '../../data/faqHubSupplemental';
 import { editorialImages, getHeroImageAlt } from '../../data/pageImages';
 import { CONTACT_URL, FAQ_URL } from '../../data/nav';
 import { staticBreadcrumbs } from '../../lib/breadcrumbs';
 
 const faqs = await getCollection('faq');
-const faqItems = faqs.map((faq) => ({ q: faq.data.q, a: faq.data.a }));
+const authoredFaqs = faqs.map((faq) => ({ q: faq.data.q, a: faq.data.a }));
+const seenQuestions = new Set<string>();
+const faqItems = [...authoredFaqs, ...faqHubSupplemental].filter((item) => {
+  const key = item.q.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  if (seenQuestions.has(key)) return false;
+  seenQuestions.add(key);
+  return true;
+});
 const heroImage = editorialImages.meadowTree;
 ---
 
