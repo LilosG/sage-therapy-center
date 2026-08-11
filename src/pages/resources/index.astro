@@ -1,43 +1,36 @@
 ---
-// No `resources` content collection is defined in Build Spec Section 4 —
-// only services/cities/city-services/testimonials/faq/blog exist there.
-// This page (and 28-days-of-self-love/index.astro) are hand-written
-// static pages, same pattern as /about/, /contact/, /faq/, rather than
-// an unrequested new collection invented to fit the folder listing in
-// Build Spec Section 3. Flagged in the Wave 4 report.
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/sections/Breadcrumbs.astro';
 import Card from '../../components/ui/Card.astro';
-import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { RESOURCES_URL, SELF_LOVE_RESOURCE_URL } from '../../data/nav';
 import { staticBreadcrumbs } from '../../lib/breadcrumbs';
 ---
 
 <BaseLayout
-  title="Resources | S.A.G.E. Therapy Center"
-  description="Resources from S.A.G.E. Therapy Center in Carlsbad, CA."
+  title="Archived Resources | S.A.G.E. Therapy Center"
+  description="Archived practice resources from S.A.G.E. Therapy Center in Carlsbad, CA."
+  noindex={true}
 >
   <Breadcrumbs items={staticBreadcrumbs('Resources', RESOURCES_URL)} />
 
-  <div class="bg-secondary px-6 pb-4 pt-8 text-center">
-    <p class="eyebrow-label">Resources</p>
-    <h1 class="mt-4 font-serif text-4xl text-ink sm:text-5xl">Resources</h1>
+  <div class="bg-secondary px-6 pb-10 pt-10 text-center">
+    <p class="eyebrow-label">Archived Resources</p>
+    <h1 class="mt-4 font-serif text-4xl text-ink sm:text-5xl">S.A.G.E. Therapy Center resource archive</h1>
+    <p class="mx-auto mt-4 max-w-2xl font-sans text-base leading-7 text-muted-foreground">
+      Legacy practice resources remain available while original source material is restored.
+    </p>
   </div>
 
   <section class="bg-background">
     <div class="mx-auto max-w-3xl px-6 py-10">
       <Card>
         <a href={SELF_LOVE_RESOURCE_URL} class="font-serif text-xl text-ink hover:text-sage-deep">
-          28 Days of Self-Love
+          View archived resource
         </a>
-        <p class="mt-2 font-sans text-sm text-muted-foreground">
-          <!-- CONFIRM: placeholder pending real content recovery, see the
-               resource page itself for detail. -->
-          Content pending — see the page for details.
+        <p class="mt-2 font-sans text-sm leading-6 text-muted-foreground">
+          Original material from the previous practice website is being restored before this resource is returned to the search index.
         </p>
       </Card>
     </div>
   </section>
 </BaseLayout>
-
-<SchemaOrg type="localBusiness" />

@@ -18,7 +18,7 @@ import { absoluteBreadcrumbs, cityServiceBreadcrumbs } from '../lib/breadcrumbs'
 import { withFallbackFaqs } from '../lib/faq';
 import { canonicalUrl, cityServiceUrl } from '../lib/routes';
 import { practitioner } from '../data/practitioner';
-import { getCityServiceHero } from '../data/pageImages';
+import { getCityServiceHero, getHeroImageAlt } from '../data/pageImages';
 import { getEntry } from 'astro:content';
 import kristinPhoto from '../assets/images/kristin-moorehead-malley.webp';
 import googleReviews from '../data/google-reviews.json';
@@ -66,6 +66,19 @@ const topics = entry.data.topics ?? service.data.topics;
 const approach = entry.data.approach ?? service.data.approach;
 const decisionItems = entry.data.decisionItems ?? service.data.decisionItems;
 const hasStructuredShell = Boolean(recognition?.length && topics);
+const localServicePhrase = city.data.hasOffice
+  ? `${service.data.title.toLowerCase()} in ${city.data.name}`
+  : `${service.data.title.toLowerCase()} for ${city.data.name} clients`;
+const recognitionHeading = city.data.hasOffice
+  ? `${service.data.title} in ${city.data.name} may be worth exploring if...`
+  : `${service.data.title} for ${city.data.name} clients may be worth exploring if...`;
+const inheritedTopicsHeading = city.data.hasOffice
+  ? `Concerns people bring to ${service.data.title.toLowerCase()} in ${city.data.name}`
+  : `Common reasons ${city.data.name} clients seek ${service.data.title.toLowerCase()}`;
+const topicsHeading = entry.data.topics?.heading ?? inheritedTopicsHeading;
+const approachHeading = entry.data.approach?.heading ?? `How Kristin approaches ${localServicePhrase}`;
+const approachEyebrow = entry.data.approach?.eyebrow ?? (city.data.hasOffice ? `${service.data.title} in ${city.data.name}` : `${service.data.title} for ${city.data.name}`);
+const processHeading = `What to expect from ${localServicePhrase}`;
 
 const reassuranceItems = [
   {
@@ -95,7 +108,7 @@ const reassuranceItems = [
   heroTitle={heroTitle}
   heroDescription={heroDescription}
   heroImage={heroImage}
-  heroImageAlt={`Quiet editorial image for ${service.data.title.toLowerCase()} serving ${city.data.name}`}
+  heroImageAlt={getHeroImageAlt(heroImage)}
   heroCtaHref="#request-session"
   breadcrumbItems={breadcrumbItems}
   ctaHeading={inquiryHeading}
@@ -105,8 +118,8 @@ const reassuranceItems = [
     entryHasStructuredContent ? (
       <Fragment>
         <RecognitionBand
-          eyebrow="A Clear Place To Start"
-          heading={`You may be considering ${service.data.title.toLowerCase()} if...`}
+          eyebrow={city.data.hasOffice ? `${service.data.title} in ${city.data.name}` : `${service.data.title} for ${city.data.name}`}
+          heading={recognitionHeading}
           items={recognition!}
         />
         <OverviewFeature
@@ -123,7 +136,7 @@ const reassuranceItems = [
         />
         <TopicMatrix
           eyebrow={topics!.eyebrow}
-          heading={topics!.heading}
+          heading={topicsHeading}
           intro={topics!.intro}
           items={topics!.items}
         />
@@ -131,21 +144,21 @@ const reassuranceItems = [
     ) : hasStructuredShell ? (
       <Fragment>
         <RecognitionBand
-          eyebrow="A Clear Place To Start"
-          heading={`You may be considering ${service.data.title.toLowerCase()} if...`}
+          eyebrow={city.data.hasOffice ? `${service.data.title} in ${city.data.name}` : `${service.data.title} for ${city.data.name}`}
+          heading={recognitionHeading}
           items={recognition!}
         />
         <slot />
         <TopicMatrix
           eyebrow={topics!.eyebrow}
-          heading={topics!.heading}
+          heading={topicsHeading}
           intro={topics!.intro}
           items={topics!.items}
         />
       </Fragment>
     ) : (
       <Fragment>
-        <ReassuranceGrid heading="A clear, supportive place to start" items={reassuranceItems} columns={3} />
+        <ReassuranceGrid heading={`${heroTitle}: a clear place to start`} items={reassuranceItems} columns={3} />
         <slot />
       </Fragment>
     )
@@ -160,8 +173,8 @@ const reassuranceItems = [
         ctaLabel={practitioner.ctaLabel}
         ctaHref={practitioner.ctaHref}
         image={kristinPhoto}
-        approachEyebrow={approach.eyebrow}
-        approachHeading={approach.heading}
+        approachEyebrow={approachEyebrow}
+        approachHeading={approachHeading}
         approachBody={approach.body}
         modalities={approach.modalities}
       />
@@ -179,8 +192,8 @@ const reassuranceItems = [
   }
 
   <ProcessSteps
-    eyebrow="What To Expect"
-    heading={`What ${service.data.title.toLowerCase()} may look like`}
+    eyebrow={city.data.hasOffice ? `${service.data.title} in ${city.data.name}` : `${service.data.title} for ${city.data.name}`}
+    heading={processHeading}
     steps={[
       { title: 'Reach out', body: 'Request a session to discuss fit, availability, and what is bringing you in.' },
       {
@@ -196,11 +209,11 @@ const reassuranceItems = [
   {
     decisionItems?.length && (
       <DecisionSection
-        eyebrow="Planning Your First Step"
+        eyebrow={city.data.hasOffice ? `${service.data.title} in ${city.data.name}` : `${service.data.title} for ${city.data.name}`}
         heading={
           city.data.hasOffice
-            ? `Considering ${service.data.title.toLowerCase()} in ${city.data.name}?`
-            : `Considering ${service.data.title.toLowerCase()} as a ${city.data.name} client?`
+            ? `Starting ${service.data.title.toLowerCase()} in ${city.data.name}: what to know`
+            : `Starting ${service.data.title.toLowerCase()} as a ${city.data.name} client: what to know`
         }
         items={decisionItems}
       />
@@ -210,8 +223,8 @@ const reassuranceItems = [
   {
     relatedLinks.length > 0 && (
       <RelatedSupportStrip
-        eyebrow={city.data.hasOffice ? `${city.data.name} Therapy` : `Serving ${city.data.name}`}
-        heading={`Other therapy services available to ${city.data.name} clients`}
+        eyebrow={city.data.hasOffice ? `${city.data.name} Therapy Services` : `Therapy Services for ${city.data.name}`}
+        heading={city.data.hasOffice ? `Related therapy services in ${city.data.name}` : `Other therapy services for ${city.data.name} clients`}
         links={relatedLinks}
       />
     )
@@ -231,7 +244,7 @@ const reassuranceItems = [
     context={`${service.data.title} — ${city.data.name}`}
     selectedService={service.data.title}
     heading={inquiryHeading}
-    subhead="Request a follow-up about fit, availability, and session options without having to share your full story in a web form."
+    subhead={`Request a follow-up about fit, availability, and session options for ${city.data.name} clients without having to share your full story in a web form.`}
   />
 
   <SchemaOrg

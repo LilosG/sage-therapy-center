@@ -8,7 +8,7 @@ import PracticeSection from '../../components/sections/PracticeSection.astro';
 import CTASection from '../../components/sections/CTASection.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
-import { hubHeroImages } from '../../data/pageImages';
+import { hubHeroImages, getHeroImageAlt } from '../../data/pageImages';
 import { AREAS_WE_SERVE_URL, SCHEDULE_URL } from '../../data/nav';
 import { cityUrl } from '../../lib/routes';
 import { staticBreadcrumbs } from '../../lib/breadcrumbs';
@@ -23,7 +23,7 @@ const breadcrumbItems = staticBreadcrumbs('Areas We Serve', AREAS_WE_SERVE_URL);
   image={hubHeroImages.areas}
 >
   <PageHero
-    eyebrow="Areas We Serve"
+    eyebrow="North County Therapy Service Areas"
     title="Therapy for Carlsbad and North County San Diego"
     description="S.A.G.E.'s only physical office is in Carlsbad. Clients from nearby North County communities can meet there in person, while telehealth is available across California."
     breadcrumbItems={breadcrumbItems}
@@ -32,15 +32,15 @@ const breadcrumbItems = staticBreadcrumbs('Areas We Serve', AREAS_WE_SERVE_URL);
     phoneDisplay={site.phone.display}
     phoneHref={`tel:${site.phone.tel}`}
     image={hubHeroImages.areas}
-    imageAlt="Soft Southern California eucalyptus landscape representing the North County communities served by S.A.G.E. Therapy Center"
+    imageAlt={getHeroImageAlt(hubHeroImages.areas)}
   />
 
   <TrustStrip />
 
   <div id="service-areas" class="scroll-mt-24">
     <AreasServed
-      eyebrow="North County Communities"
-      heading="Choose your community"
+      eyebrow="North County San Diego"
+      heading="Therapy service areas across North County San Diego"
       cities={cities.map((c) => ({ name: c.data.name, href: cityUrl(c.data.slug) }))}
       variant="compact"
     />

@@ -14,18 +14,21 @@ const posts = (await getCollection('blog')).sort(
 ---
 
 <BaseLayout
-  title="Blog | S.A.G.E. Therapy Center"
-  description="Articles from S.A.G.E. Therapy Center in Carlsbad, CA."
+  title="Therapy Blog | S.A.G.E. Therapy Center, Carlsbad CA"
+  description="Therapy articles and practice insights from S.A.G.E. Therapy Center in Carlsbad, CA, with Kristin Moorehead-Malley, LMFT."
 >
   <Breadcrumbs items={staticBreadcrumbs('Blog', BLOG_URL)} />
 
-  <div class="bg-secondary px-6 pb-4 pt-8 text-center">
-    <p class="eyebrow-label">Blog</p>
-    <h1 class="mt-4 font-serif text-4xl text-ink sm:text-5xl">From the practice</h1>
+  <div class="bg-secondary px-6 pb-10 pt-10 text-center sm:pb-12 sm:pt-12">
+    <p class="eyebrow-label">S.A.G.E. Therapy Center Blog</p>
+    <h1 class="mt-4 font-serif text-4xl text-ink sm:text-5xl">Therapy insights from our Carlsbad practice</h1>
+    <p class="mx-auto mt-4 max-w-2xl font-sans text-base leading-7 text-muted-foreground">
+      Articles related to therapy, relationships, emotional health, and the areas of support offered through S.A.G.E. Therapy Center.
+    </p>
   </div>
 
   <section class="bg-background">
-    <div class="mx-auto max-w-3xl px-6 py-10">
+    <div class="mx-auto max-w-3xl px-6 py-10 sm:py-14">
       <div class="space-y-6">
         {
           posts.map((post) => (
@@ -46,6 +49,6 @@ const posts = (await getCollection('blog')).sort(
       </div>
     </div>
   </section>
-</BaseLayout>
 
-<SchemaOrg type="localBusiness" />
+  <SchemaOrg type="localBusiness" />
+</BaseLayout>

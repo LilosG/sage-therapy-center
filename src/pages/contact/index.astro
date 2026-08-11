@@ -7,27 +7,29 @@ import PracticeSection from '../../components/sections/PracticeSection.astro';
 import InquiryFormSection from '../../components/sections/InquiryFormSection.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
-import { editorialImages } from '../../data/pageImages';
+import { editorialImages, getHeroImageAlt } from '../../data/pageImages';
 import { CONTACT_URL } from '../../data/nav';
 import { staticBreadcrumbs } from '../../lib/breadcrumbs';
+
+const heroImage = editorialImages.coastalPath;
 ---
 
 <BaseLayout
   title="Contact S.A.G.E. Therapy Center | Carlsbad, CA"
   description={`Contact S.A.G.E. Therapy Center in ${site.address.city}, ${site.address.region} by phone, email, or online request form. In-person sessions in Carlsbad and telehealth across California.`}
-  image={editorialImages.courtyardRetreat}
+  image={heroImage}
 >
   <PageHero
-    eyebrow="Contact"
-    title="Get in touch with S.A.G.E."
+    eyebrow="Contact S.A.G.E. in Carlsbad"
+    title="Contact S.A.G.E. Therapy Center in Carlsbad, CA"
     description="Reach out about fit, current availability, in-person sessions at the Carlsbad office, or telehealth across California."
     breadcrumbItems={staticBreadcrumbs('Contact', CONTACT_URL)}
     ctaLabel="Send a Request"
     ctaHref="#request-session"
     phoneDisplay={site.phone.display}
     phoneHref={`tel:${site.phone.tel}`}
-    image={editorialImages.courtyardRetreat}
-    imageAlt="Quiet Southern California courtyard reflecting the calm setting of S.A.G.E. Therapy Center"
+    image={heroImage}
+    imageAlt={getHeroImageAlt(heroImage)}
   />
 
   <TrustStrip />
@@ -37,8 +39,8 @@ import { staticBreadcrumbs } from '../../lib/breadcrumbs';
   <PracticeSection />
 
   <InquiryFormSection
-    context="Contact Page"
-    heading="Send a simple request"
+    context="Contact Page — Carlsbad"
+    heading="Send a simple request to S.A.G.E. Therapy Center"
     subhead="Share the best way to reach you and what kind of support you are looking for. You do not need to include sensitive clinical details."
   />
 

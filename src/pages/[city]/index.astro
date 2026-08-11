@@ -27,6 +27,10 @@ const cityServiceEntries = await getCollection('city-services');
 const localCombosForCity = new Map(
   cityServiceEntries.filter((cs) => cs.data.city.id === entry.id).map((cs) => [cs.data.service.id, cs])
 );
+
+const serviceDirectoryIntro = entry.data.hasOffice
+  ? `Explore therapy services available through S.A.G.E.'s physical office in ${entry.data.name}. Each service page is the canonical local page for that therapy focus, with telehealth also available across California.`
+  : `Explore therapy options available to ${entry.data.name} clients. When a dedicated ${entry.data.name} service page is available, the link goes directly to that local resource; in-person sessions remain based at the Carlsbad office.`;
 ---
 
 <CityLayout
@@ -52,16 +56,27 @@ const localCombosForCity = new Map(
       <ServiceGrid
         eyebrow={entry.data.hasOffice ? `Therapy Services in ${entry.data.name}` : `Therapy Services for ${entry.data.name}`}
         heading={entry.data.hasOffice ? `Therapy services available in ${entry.data.name}, CA` : `Therapy services available to ${entry.data.name} clients`}
-        services={approvedServices.map((s) => ({
-          title: s.data.title,
-          description: s.data.description,
-          href: entry.data.hasOffice
-            ? serviceUrl(s.data.slug)
-            : localCombosForCity.has(s.id)
-              ? cityServiceUrl(entry.data.slug, localCombosForCity.get(s.id).data.slugOverride ?? s.data.slug)
-              : serviceUrl(s.data.slug),
-          icon: serviceIcons[s.data.slug] ?? defaultServiceIcon,
-        }))}
+        intro={serviceDirectoryIntro}
+        services={approvedServices.map((s) => {
+          const localEntry = localCombosForCity.get(s.id);
+          const hasDedicatedLocalPage = !entry.data.hasOffice && Boolean(localEntry);
+          return {
+            title: entry.data.hasOffice
+              ? `${s.data.title} in ${entry.data.name}`
+              : hasDedicatedLocalPage
+                ? `${s.data.title} for ${entry.data.name}`
+                : s.data.title,
+            description: s.data.description,
+            // The physical-office city must link straight to the canonical
+            // /services/ page. Never send internal authority through a redirect.
+            href: entry.data.hasOffice
+              ? serviceUrl(s.data.slug)
+              : localEntry
+                ? cityServiceUrl(entry.data.slug, localEntry.data.slugOverride ?? s.data.slug)
+                : serviceUrl(s.data.slug),
+            icon: serviceIcons[s.data.slug] ?? defaultServiceIcon,
+          };
+        })}
         background="secondary"
         variant="directory"
       />

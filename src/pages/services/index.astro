@@ -8,7 +8,7 @@ import ServiceGrid from '../../components/sections/ServiceGrid.astro';
 import CTASection from '../../components/sections/CTASection.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
-import { hubHeroImages } from '../../data/pageImages';
+import { hubHeroImages, getHeroImageAlt } from '../../data/pageImages';
 import { serviceIcons, defaultServiceIcon } from '../../data/serviceIcons';
 import { SCHEDULE_URL, SERVICES_URL } from '../../data/nav';
 import { serviceUrl } from '../../lib/routes';
@@ -26,7 +26,7 @@ const breadcrumbItems = staticBreadcrumbs('Services', SERVICES_URL);
   image={hubHeroImages.services}
 >
   <PageHero
-    eyebrow="Therapy Services"
+    eyebrow="Therapy Services in Carlsbad"
     title="Therapy services in Carlsbad, CA"
     description="Explore individual, relationship, family, teen, and concern-focused therapy options with Kristin Moorehead-Malley, LMFT. Meet in person in Carlsbad or explore telehealth across California."
     breadcrumbItems={breadcrumbItems}
@@ -35,7 +35,7 @@ const breadcrumbItems = staticBreadcrumbs('Services', SERVICES_URL);
     phoneDisplay={site.phone.display}
     phoneHref={`tel:${site.phone.tel}`}
     image={hubHeroImages.services}
-    imageAlt="Quiet, refined courtyard setting representing the calm and private atmosphere of therapy at S.A.G.E. Therapy Center"
+    imageAlt={getHeroImageAlt(hubHeroImages.services)}
   />
 
   <TrustStrip />
@@ -44,10 +44,11 @@ const breadcrumbItems = staticBreadcrumbs('Services', SERVICES_URL);
 
   <div id="services-directory" class="scroll-mt-24">
     <ServiceGrid
-      eyebrow="Core Services"
-      heading="Choose the kind of support that best matches what you are looking for"
+      eyebrow="Carlsbad Therapy Services"
+      heading="Therapy services available in Carlsbad, CA"
+      intro="Each service below has a dedicated Carlsbad landing page with service-specific information, relevant therapy approaches, practical details, and a direct path to request a session."
       services={coreServices.map((s) => ({
-        title: s.data.title,
+        title: `${s.data.title} in Carlsbad`,
         description: s.data.description,
         href: serviceUrl(s.data.slug),
         icon: serviceIcons[s.data.slug] ?? defaultServiceIcon,
@@ -60,10 +61,11 @@ const breadcrumbItems = staticBreadcrumbs('Services', SERVICES_URL);
   {
     concernLedServices.length > 0 && (
       <ServiceGrid
-        eyebrow="Areas of Support"
-        heading="Therapy can also begin with a specific concern"
+        eyebrow="Concern-Focused Therapy"
+        heading="Concern-focused therapy in Carlsbad, CA"
+        intro="If you are starting with a specific concern rather than a therapy format, these pages explain how S.A.G.E. may approach that area of support."
         services={concernLedServices.map((s) => ({
-          title: s.data.title,
+          title: `${s.data.title} in Carlsbad`,
           description: s.data.description,
           href: serviceUrl(s.data.slug),
           icon: serviceIcons[s.data.slug] ?? defaultServiceIcon,
@@ -75,7 +77,7 @@ const breadcrumbItems = staticBreadcrumbs('Services', SERVICES_URL);
   }
 
   <CTASection
-    heading="Not sure which service fits?"
+    heading="Not sure which therapy service fits?"
     subhead="You do not need to choose the perfect page before reaching out. Start with a conversation about what is bringing you in, fit, current availability, and whether you prefer in-person or telehealth sessions."
     ctaLabel="Schedule a Session"
     ctaHref={SCHEDULE_URL}

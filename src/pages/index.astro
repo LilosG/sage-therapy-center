@@ -35,16 +35,15 @@ if (cities.length === 0) {
 ---
 
 <BaseLayout
-  title="S.A.G.E. Therapy Center | Therapist in Carlsbad, CA"
-  description="Individual and couples therapy in Carlsbad, CA with Kristin Moorehead-Malley, LMFT. Request a session to discuss fit and availability."
+  title="Therapy Center in Carlsbad, CA | S.A.G.E. Therapy Center"
+  description="S.A.G.E. Therapy Center provides individual, couples, family, teen, EMDR, anxiety, and trauma-focused therapy in Carlsbad, CA with telehealth across California."
   image={homeImages.hero}
 >
   <Hero
     badge="Now Accepting New Clients"
-    eyebrow="S.A.G.E. Therapy Center"
-    headline="Support for whatever you're carrying — anxiety, trauma, or life's harder chapters."
-    emphasis="anxiety, trauma"
-    subhead="Individual and couples therapy in Carlsbad, CA, drawing on a range of therapeutic approaches to help you feel more like yourself."
+    eyebrow="S.A.G.E. Therapy Center · Carlsbad, CA"
+    headline="Therapy in Carlsbad, CA for individuals, couples, families, and teens."
+    subhead="Work with Kristin Moorehead-Malley, LMFT, at S.A.G.E.'s Carlsbad office or by telehealth across California. Therapy is individualized around the person, relationship, family, and goals in front of her."
     primaryCta={{ label: 'Schedule a Session', href: '#request-session' }}
     secondaryCta={{ label: 'Meet Kristin', href: ABOUT_URL }}
     image={homeImages.hero}
@@ -54,7 +53,7 @@ if (cities.length === 0) {
 
   <RecognitionBand
     eyebrow="A Place To Begin"
-    heading="You’re in the right place if..."
+    heading="Therapy can start with what is happening in your life right now"
     items={[
       {
         title: 'Feeling anxious or overwhelmed',
@@ -76,16 +75,16 @@ if (cities.length === 0) {
   />
 
   <ServiceGrid
-    eyebrow="Therapy Services"
-    heading="How we can help"
+    eyebrow="Therapy Services in Carlsbad"
+    heading="Therapy services available through S.A.G.E. Therapy Center"
     services={coreServices.map((s) => ({
-      title: s.data.title,
+      title: `${s.data.title} in Carlsbad`,
       description: s.data.description,
       href: serviceUrl(s.data.slug),
       icon: serviceIcons[s.data.slug] ?? defaultServiceIcon,
     }))}
     viewAllHref={SERVICES_URL}
-    viewAllLabel="View all services"
+    viewAllLabel="View all therapy services"
     background="secondary"
   />
 
@@ -109,10 +108,10 @@ if (cities.length === 0) {
   />
 
   <ProcessSteps
-    eyebrow="What To Expect"
-    heading="How therapy works"
+    eyebrow="Starting Therapy in Carlsbad"
+    heading="What getting started at S.A.G.E. Therapy Center looks like"
     steps={[
-      { title: 'Reach out', body: 'Request a session to discuss fit and availability, by phone or email.' },
+      { title: 'Reach out', body: 'Request a session to discuss fit and availability, by phone or online request.' },
       {
         title: 'First session',
         body: 'Meet with Kristin to talk through what brought you in and what you are hoping for.',
@@ -132,20 +131,19 @@ if (cities.length === 0) {
   />
 
   <AreasServed
-    eyebrow="Areas We Serve"
-    heading="Serving Carlsbad and North County San Diego"
+    eyebrow="North County Service Areas"
+    heading="Therapy for Carlsbad and nearby North County communities"
     cities={cities.map((c) => ({ name: c.data.name, href: cityUrl(c.data.slug) }))}
     viewAllHref={AREAS_WE_SERVE_URL}
     variant="compact"
   />
 
   <InquiryFormSection
-    context="Homepage"
-    heading="Ready to see if S.A.G.E. may be a good fit?"
+    context="Homepage — Carlsbad Therapy"
+    heading="Looking for therapy in Carlsbad? Start with a simple request."
     subhead="Request a follow-up about availability, session options, and what kind of therapy you are looking for."
   />
 
   <SchemaOrg type="website" />
-  <SchemaOrg type="organization" />
   <SchemaOrg type="person" />
 </BaseLayout>

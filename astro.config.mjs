@@ -8,25 +8,39 @@ import react from '@astrojs/react';
 import keystatic from '@keystatic/astro';
 import vercel from '@astrojs/vercel';
 import icon from 'astro-icon';
-
 import sitemap from '@astrojs/sitemap';
+
+const nonIndexablePaths = ['/keystatic', '/resources/'];
 
 // https://astro.build/config
 export default defineConfig({
-  // Confirmed production domain (matches site.canonicalOrigin in
-  // src/data/site.ts) — required for the sitemap integration to emit
-  // absolute URLs, and a real fallback for Astro.site elsewhere.
+  // One canonical production origin for canonical URLs, sitemap generation,
+  // Open Graph URLs, and structured data.
   site: 'https://sagetherapycenter.com',
+  trailingSlash: 'always',
 
   vite: {
     plugins: [tailwindcss()]
   },
 
-  // Required because Keystatic's Astro integration injects on-demand admin
-  // routes (/keystatic/**) — Astro needs an adapter present to support
-  // those even though every content page here still prerenders statically.
-  // Vercel is the confirmed hosting target (Build Spec Section 1).
+  // Keystatic injects on-demand admin routes, so the Vercel adapter remains
+  // present even though public content pages are prerendered/static routes.
   adapter: vercel(),
 
-  integrations: [mdx(), react(), keystatic(), icon(), sitemap()]
+  integrations: [
+    mdx(),
+    react(),
+    keystatic(),
+    icon(),
+    sitemap({
+      // Admin/editor routes and the temporarily incomplete legacy resource
+      // section are intentionally excluded from the public search sitemap.
+      filter: (page) => !nonIndexablePaths.some((path) => page.includes(path)),
+      namespaces: {
+        news: false,
+        xhtml: false,
+        video: false,
+      },
+    }),
+  ]
 });

@@ -13,7 +13,7 @@ import { withFallbackFaqs } from '../lib/faq';
 import { canonicalUrl, cityUrl } from '../lib/routes';
 import { AREAS_WE_SERVE_URL } from '../data/nav';
 import { practitioner } from '../data/practitioner';
-import { getCityHero } from '../data/pageImages';
+import { getCityHero, getHeroImageAlt } from '../data/pageImages';
 import kristinPhoto from '../assets/images/kristin-moorehead-malley.webp';
 import type { CollectionEntry } from 'astro:content';
 
@@ -79,11 +79,7 @@ const processHeading = hasOffice ? `What to expect from therapy in ${name}` : `W
   heroTitle={heroTitle}
   heroDescription={heroDescription}
   heroImage={heroImage}
-  heroImageAlt={
-    hasOffice
-      ? `Quiet Southern California coastal landscape for S.A.G.E. Therapy Center in ${name}`
-      : `Quiet North County San Diego landscape for the ${name} therapy service area`
-  }
+  heroImageAlt={getHeroImageAlt(heroImage)}
   heroCtaHref="#request-session"
   breadcrumbItems={breadcrumbItems}
   ctaHeading={`Ready to explore therapy as a ${name} client?`}
@@ -153,7 +149,7 @@ const processHeading = hasOffice ? `What to expect from therapy in ${name}` : `W
 
   <SchemaOrg
     type="city"
-    city={{ name, url: pageUrl, areaServed: name }}
+    city={{ name, pageName: heroTitle, url: pageUrl, areaServed: name }}
     breadcrumb={schemaBreadcrumbs}
   />
   {faqItems.length > 0 && <SchemaOrg type="faqPage" faqItems={faqItems} />}

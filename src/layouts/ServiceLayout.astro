@@ -20,7 +20,7 @@ import { getCollection } from 'astro:content';
 import { canonicalUrl, cityUrl, serviceUrl } from '../lib/routes';
 import { AREAS_WE_SERVE_URL } from '../data/nav';
 import { practitioner } from '../data/practitioner';
-import { getServiceHero } from '../data/pageImages';
+import { getServiceHero, getHeroImageAlt } from '../data/pageImages';
 import { site } from '../data/site';
 import kristinPhoto from '../assets/images/kristin-moorehead-malley.webp';
 import googleReviews from '../data/google-reviews.json';
@@ -140,7 +140,7 @@ const reassuranceItems = [
   heroTitle={localServiceTitle}
   heroDescription={description}
   heroImage={heroImage}
-  heroImageAlt={`Quiet editorial setting for ${title.toLowerCase()} at S.A.G.E. Therapy Center in ${site.address.city}`}
+  heroImageAlt={getHeroImageAlt(heroImage)}
   heroCtaHref="#request-session"
   breadcrumbItems={breadcrumbItems}
   ctaHeading={`Ready to talk about ${title.toLowerCase()} in ${site.address.city}?`}

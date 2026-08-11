@@ -16,10 +16,14 @@ interface Props {
   title: string;
   description: string;
   image?: ImageMetadata;
+  noindex?: boolean;
 }
 
-const { title, description, image } = Astro.props;
+const { title, description, image, noindex = false } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, site.canonicalOrigin);
+// The legacy resources section still contains unrecovered source material and
+// must stay out of search until real content replaces the temporary archive.
+const routeNoindex = noindex || Astro.url.pathname.startsWith('/resources/');
 
 const OG_ASPECT_RATIO = 1200 / 630;
 const ogSource = image ?? defaultOgImageSource;
@@ -27,6 +31,9 @@ const ogWidth = Math.min(1200, ogSource.width);
 const ogHeight = Math.round(ogWidth / OG_ASPECT_RATIO);
 const ogImage = await getImage({ src: ogSource, width: ogWidth, height: ogHeight, format: 'webp' });
 const ogImageURL = new URL(ogImage.src, site.canonicalOrigin).toString();
+const robotsContent = routeNoindex
+  ? 'noindex,follow'
+  : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
 ---
 
 <!doctype html>
@@ -36,9 +43,12 @@ const ogImageURL = new URL(ogImage.src, site.canonicalOrigin).toString();
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content={robotsContent} />
     <link rel="canonical" href={canonicalURL} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
 
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />

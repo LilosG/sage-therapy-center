@@ -1,13 +1,12 @@
 ---
 // Shared structural shell for interior pages. This component owns only
 // universal concerns: metadata/base layout, the image-capable page hero,
-// trust strip, optional final CTA, and the shared business schema node.
-// Service, city, and city/service layouts still own their narrative order.
+// trust strip, and optional final CTA. Service/city layouts own their own
+// page-specific schema so the business is not emitted as duplicate stub data.
 import BaseLayout from './BaseLayout.astro';
 import PageHero from '../components/sections/PageHero.astro';
 import TrustStrip from '../components/sections/TrustStrip.astro';
 import CTASection from '../components/sections/CTASection.astro';
-import SchemaOrg from '../components/seo/SchemaOrg.astro';
 import { site } from '../data/site';
 import { SCHEDULE_URL } from '../data/nav';
 
@@ -83,6 +82,4 @@ const {
       />
     )
   }
-
-  <SchemaOrg type="localBusiness" />
 </BaseLayout>

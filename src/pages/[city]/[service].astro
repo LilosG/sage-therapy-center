@@ -7,6 +7,7 @@ import { getCollection, getEntries, getEntry, render } from 'astro:content';
 import CityServiceLayout from '../../layouts/CityServiceLayout.astro';
 import ServiceEditorialSection from '../../components/sections/ServiceEditorialSection.astro';
 import StructuredProse from '../../components/sections/StructuredProse.astro';
+import { site } from '../../data/site';
 import { cityServiceUrl, serviceUrl } from '../../lib/routes';
 
 export async function getStaticPaths() {
@@ -46,7 +47,7 @@ const otherApprovedServices = entry.data.lateralLinks?.length
 const relatedLinks = otherApprovedServices.map((s) => {
   const localEntry = localCombosForCity.get(s.id);
   return {
-    title: s.data.title,
+    title: localEntry ? `${s.data.title} for ${city.data.name}` : `${s.data.title} in ${site.address.city}`,
     href: localEntry
       ? cityServiceUrl(city.data.slug, localEntry.data.slugOverride ?? s.data.slug)
       : serviceUrl(s.data.slug),
@@ -62,7 +63,7 @@ const hasStructuredServiceShell = Boolean(service.data.recognition?.length && se
       <ServiceEditorialSection
         cityName={city.data.name}
         hasOffice={city.data.hasOffice}
-        detailsEyebrow={`${service.data.title} in ${city.data.name}`}
+        detailsEyebrow={`${service.data.title} for ${city.data.name}`}
         related={hasStructuredServiceShell ? [] : relatedLinks}
       >
         <StructuredProse class="max-w-2xl prose-p:leading-7 prose-li:leading-7">
@@ -71,7 +72,7 @@ const hasStructuredServiceShell = Boolean(service.data.recognition?.length && se
 
         <div class="mt-10 border-t border-border pt-6">
           <a href={serviceUrl(service.data.slug)} class="font-sans text-sm font-medium text-sage-deep hover:text-primary">
-            &larr; {service.data.title} overview
+            &larr; {service.data.title} in {site.address.city}
           </a>
         </div>
       </ServiceEditorialSection>

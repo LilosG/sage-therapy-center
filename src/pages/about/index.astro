@@ -9,19 +9,21 @@ import CTASection from '../../components/sections/CTASection.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
 import { practitioner } from '../../data/practitioner';
-import { editorialImages } from '../../data/pageImages';
+import { editorialImages, getHeroImageAlt } from '../../data/pageImages';
 import { ABOUT_URL, SCHEDULE_URL } from '../../data/nav';
 import { staticBreadcrumbs } from '../../lib/breadcrumbs';
 import kristinPhoto from '../../assets/images/kristin-moorehead-malley.webp';
+
+const heroImage = editorialImages.meadowTree;
 ---
 
 <BaseLayout
-  title={`About ${site.practitioner.name}, ${site.practitioner.credential} | S.A.G.E. Therapy Center`}
-  description={`Meet ${site.practitioner.name}, ${site.practitioner.credential}, and learn about the individualized approach behind S.A.G.E. Therapy Center in Carlsbad, CA.`}
-  image={editorialImages.courtyardRetreat}
+  title={`About ${site.practitioner.name}, ${site.practitioner.credential} | Carlsbad Therapist`}
+  description={`Meet ${site.practitioner.name}, ${site.practitioner.credential}, and learn about the individualized therapy approach behind S.A.G.E. Therapy Center in Carlsbad, CA.`}
+  image={heroImage}
 >
   <PageHero
-    eyebrow="About S.A.G.E."
+    eyebrow="Carlsbad Therapist"
     title={`Meet ${site.practitioner.name}, ${site.practitioner.credential}`}
     description="A Carlsbad-based therapist drawing from multiple approaches so therapy can respond to the person, relationship, family, and circumstances in front of her."
     breadcrumbItems={staticBreadcrumbs('About', ABOUT_URL)}
@@ -29,8 +31,8 @@ import kristinPhoto from '../../assets/images/kristin-moorehead-malley.webp';
     ctaHref={SCHEDULE_URL}
     phoneDisplay={site.phone.display}
     phoneHref={`tel:${site.phone.tel}`}
-    image={editorialImages.courtyardRetreat}
-    imageAlt="Quiet Southern California courtyard reflecting the calm, individualized approach of S.A.G.E. Therapy Center"
+    image={heroImage}
+    imageAlt={getHeroImageAlt(heroImage)}
   />
 
   <TrustStrip />
@@ -54,8 +56,8 @@ import kristinPhoto from '../../assets/images/kristin-moorehead-malley.webp';
   />
 
   <ProcessSteps
-    eyebrow="Working Together"
-    heading="What getting started can look like"
+    eyebrow="Working With Kristin in Carlsbad"
+    heading="What getting started with S.A.G.E. Therapy Center can look like"
     steps={[
       { title: 'Reach out', body: 'Request a session to discuss what you are looking for, fit, and current availability.' },
       { title: 'First session', body: 'Begin with what is bringing you in and what you would like support understanding or changing.' },
@@ -65,7 +67,7 @@ import kristinPhoto from '../../assets/images/kristin-moorehead-malley.webp';
 
   <CTASection
     heading="Ready to see if working with Kristin may be a fit?"
-    subhead="Start with a simple request about availability and session options."
+    subhead="Start with a simple request about availability and session options in Carlsbad or by telehealth."
     ctaLabel="Schedule a Session"
     ctaHref={SCHEDULE_URL}
     phoneDisplay={site.phone.display}

@@ -6,7 +6,7 @@ import DecisionSection from '../../components/sections/DecisionSection.astro';
 import InquiryFormSection from '../../components/sections/InquiryFormSection.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
-import { hubHeroImages } from '../../data/pageImages';
+import { hubHeroImages, getHeroImageAlt } from '../../data/pageImages';
 import { SCHEDULE_URL } from '../../data/nav';
 import { staticBreadcrumbs } from '../../lib/breadcrumbs';
 
@@ -31,33 +31,33 @@ const decisionItems = [
 ---
 
 <BaseLayout
-  title="Schedule a Session | S.A.G.E. Therapy Center"
+  title="Schedule a Therapy Session | S.A.G.E. Therapy Center, Carlsbad CA"
   description="Request a therapy session with S.A.G.E. Therapy Center in Carlsbad, CA. Discuss fit, availability, in-person sessions, or telehealth across California."
   image={hubHeroImages.schedule}
 >
   <PageHero
-    eyebrow="Schedule a Session"
-    title="Start with a simple request"
-    description={`Reach out to discuss fit and availability with ${site.practitioner.name}, ${site.practitioner.credential}. You do not need to explain your full story before getting started.`}
+    eyebrow="Schedule Therapy in Carlsbad"
+    title="Request a therapy session with S.A.G.E."
+    description={`Reach out to discuss fit and availability with ${site.practitioner.name}, ${site.practitioner.credential}. Choose in-person sessions in Carlsbad or ask about telehealth across California.`}
     breadcrumbItems={staticBreadcrumbs('Schedule a Session', SCHEDULE_URL)}
     ctaLabel="Go to Request Form"
     ctaHref="#request-session"
     phoneDisplay={site.phone.display}
     phoneHref={`tel:${site.phone.tel}`}
     image={hubHeroImages.schedule}
-    imageAlt="Quiet Southern California landscape supporting the first step of requesting a session with S.A.G.E. Therapy Center"
+    imageAlt={getHeroImageAlt(hubHeroImages.schedule)}
   />
 
   <TrustStrip />
 
   <DecisionSection
     eyebrow="Before You Reach Out"
-    heading="A few things to know about getting started"
+    heading="What to know before requesting a therapy session"
     items={decisionItems}
   />
 
   <InquiryFormSection
-    context="Schedule a Session"
+    context="Schedule a Session — Carlsbad Therapy"
     heading="Request a follow-up about fit and availability"
     subhead="Choose the best way to reach you, the kind of support you are looking for, and whether you prefer in-person or telehealth sessions."
   />

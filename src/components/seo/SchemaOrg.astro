@@ -1,10 +1,10 @@
 ---
-// Central JSON-LD emitter. Business entities always reuse the same @id so
-// Organization/LocalBusiness/Person/Service references resolve to one entity
-// graph instead of creating competing business nodes on individual pages.
+// Central JSON-LD emitter. All business/provider references reuse stable @ids
+// so page-specific entities resolve to the same S.A.G.E. business and Kristin
+// entities instead of inventing separate local businesses for every city page.
 import { site } from '../../data/site';
 
-type SchemaType = 'website' | 'organization' | 'localBusiness' | 'service' | 'city' | 'faqPage' | 'person';
+type SchemaType = 'website' | 'organization' | 'localBusiness' | 'service' | 'city' | 'faqPage' | 'person' | 'article';
 
 interface ServiceProps {
   name: string;
@@ -18,8 +18,17 @@ interface ServiceProps {
 
 interface CityProps {
   name: string;
+  pageName?: string;
   url: string;
   areaServed: string;
+}
+
+interface ArticleProps {
+  headline: string;
+  description: string;
+  url: string;
+  datePublished: string;
+  dateModified?: string;
 }
 
 interface FaqItem {
@@ -36,11 +45,12 @@ interface Props {
   type: SchemaType;
   service?: ServiceProps;
   city?: CityProps;
+  article?: ArticleProps;
   faqItems?: FaqItem[];
   breadcrumb?: BreadcrumbItem[];
 }
 
-const { type, service, city, faqItems, breadcrumb } = Astro.props;
+const { type, service, city, article, faqItems, breadcrumb } = Astro.props;
 
 const businessId = `${site.canonicalOrigin}/#business`;
 const personId = `${site.canonicalOrigin}/#kristin`;
@@ -50,41 +60,16 @@ function businessRef() {
   return { '@id': businessId };
 }
 
-function breadcrumbList(items: BreadcrumbItem[]) {
-  return {
-    '@type': 'BreadcrumbList',
-    itemListElement: items.map((item, i) => ({
-      '@type': 'ListItem',
-      position: i + 1,
-      name: item.name,
-      item: item.url,
-    })),
-  };
+function personRef() {
+  return { '@id': personId };
 }
 
-function buildWebsite() {
+function businessNode() {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    '@id': websiteId,
-    url: `${site.canonicalOrigin}/`,
-    name: site.name,
-    alternateName: ['S.A.G.E. Therapy Center', 'SAGE Therapy Center'],
-    publisher: businessRef(),
-  };
-}
-
-function buildOrganization() {
-  return {
-    '@context': 'https://schema.org',
-    // Keep the broad LocalBusiness type until a more specific medical
-    // subtype has been explicitly validated for this practice. The verified
-    // GBP primary category remains centralized in site data but is not forced
-    // into JSON-LD as a non-domain `category` property on LocalBusiness.
     '@type': ['Organization', 'LocalBusiness'],
     '@id': businessId,
     name: site.name,
-    url: site.canonicalOrigin,
+    url: `${site.canonicalOrigin}/`,
     telephone: site.phone.tel,
     email: site.email,
     address: {
@@ -109,26 +94,65 @@ function buildOrganization() {
   };
 }
 
-function buildLocalBusinessReference() {
+function personNode() {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
-    ...businessRef(),
-  };
-}
-
-function buildPerson() {
-  return {
-    '@context': 'https://schema.org',
     '@type': 'Person',
     '@id': personId,
     name: site.practitioner.name,
     honorificSuffix: site.practitioner.credential,
     jobTitle: 'Licensed Marriage and Family Therapist',
+    url: `${site.canonicalOrigin}/about/`,
     ...(site.practitioner.licenseConfirmRequired
       ? {}
       : { identifier: `CA LIC# ${site.practitioner.licenseNumber}` }),
     worksFor: businessRef(),
+  };
+}
+
+function breadcrumbList(items: BreadcrumbItem[]) {
+  return {
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  };
+}
+
+function areaEntity(name: string) {
+  if (name === site.telehealth.coverageArea) return { '@type': 'State', name };
+  return { '@type': 'City', name };
+}
+
+function buildWebsite() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': websiteId,
+    url: `${site.canonicalOrigin}/`,
+    name: site.name,
+    alternateName: ['S.A.G.E. Therapy Center', 'SAGE Therapy Center'],
+    publisher: businessRef(),
+  };
+}
+
+function buildOrganization() {
+  return {
+    '@context': 'https://schema.org',
+    ...businessNode(),
+  };
+}
+
+function buildLocalBusiness() {
+  return buildOrganization();
+}
+
+function buildPerson() {
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [businessNode(), personNode()],
   };
 }
 
@@ -141,6 +165,8 @@ function buildService() {
   return {
     '@context': 'https://schema.org',
     '@graph': [
+      businessNode(),
+      personNode(),
       {
         '@type': 'Service',
         '@id': serviceId,
@@ -149,7 +175,7 @@ function buildService() {
         serviceType: service.serviceType,
         url: service.url,
         provider: businessRef(),
-        ...(service.areaServed ? { areaServed: service.areaServed } : {}),
+        ...(service.areaServed ? { areaServed: areaEntity(service.areaServed) } : {}),
         ...(service.audience
           ? { audience: { '@type': 'Audience', audienceType: service.audience } }
           : {}),
@@ -180,31 +206,23 @@ function buildService() {
 
 function buildCity() {
   if (!city) return null;
+  const breadcrumbId = `${city.url}#breadcrumb`;
   return {
     '@context': 'https://schema.org',
     '@graph': [
+      businessNode(),
+      personNode(),
       {
         '@type': 'WebPage',
         '@id': `${city.url}#webpage`,
-        name: city.name,
+        name: city.pageName ?? `Therapy serving ${city.name}`,
         url: city.url,
         isPartOf: { '@id': websiteId },
         about: businessRef(),
-        ...(breadcrumb ? { breadcrumb: { '@id': `${city.url}#breadcrumb` } } : {}),
+        spatialCoverage: { '@type': 'City', name: city.areaServed },
+        ...(breadcrumb ? { breadcrumb: { '@id': breadcrumbId } } : {}),
       },
-      ...(breadcrumb
-        ? [
-            {
-              '@id': `${city.url}#breadcrumb`,
-              ...breadcrumbList(breadcrumb),
-            },
-          ]
-        : []),
-      {
-        '@type': 'LocalBusiness',
-        ...businessRef(),
-        areaServed: { '@type': 'City', name: city.areaServed },
-      },
+      ...(breadcrumb ? [{ '@id': breadcrumbId, ...breadcrumbList(breadcrumb) }] : []),
     ],
   };
 }
@@ -225,14 +243,50 @@ function buildFaqPage() {
   };
 }
 
+function buildArticle() {
+  if (!article) return null;
+  const breadcrumbId = `${article.url}#breadcrumb`;
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      businessNode(),
+      personNode(),
+      {
+        '@type': 'Article',
+        '@id': `${article.url}#article`,
+        headline: article.headline,
+        description: article.description,
+        url: article.url,
+        mainEntityOfPage: { '@id': `${article.url}#webpage` },
+        author: personRef(),
+        publisher: businessRef(),
+        datePublished: article.datePublished,
+        ...(article.dateModified ? { dateModified: article.dateModified } : {}),
+      },
+      {
+        '@type': 'WebPage',
+        '@id': `${article.url}#webpage`,
+        url: article.url,
+        name: article.headline,
+        description: article.description,
+        isPartOf: { '@id': websiteId },
+        about: { '@id': `${article.url}#article` },
+        ...(breadcrumb ? { breadcrumb: { '@id': breadcrumbId } } : {}),
+      },
+      ...(breadcrumb ? [{ '@id': breadcrumbId, ...breadcrumbList(breadcrumb) }] : []),
+    ],
+  };
+}
+
 const schema = {
   website: buildWebsite,
   organization: buildOrganization,
-  localBusiness: buildLocalBusinessReference,
+  localBusiness: buildLocalBusiness,
   service: buildService,
   city: buildCity,
   faqPage: buildFaqPage,
   person: buildPerson,
+  article: buildArticle,
 }[type]();
 ---
 

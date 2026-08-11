@@ -3,6 +3,7 @@ import { getCollection, getEntries, render } from 'astro:content';
 import ServiceLayout from '../../layouts/ServiceLayout.astro';
 import ServiceEditorialSection from '../../components/sections/ServiceEditorialSection.astro';
 import StructuredProse from '../../components/sections/StructuredProse.astro';
+import { site } from '../../data/site';
 import { serviceUrl } from '../../lib/routes';
 
 export async function getStaticPaths() {
@@ -16,7 +17,10 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const related = entry.data.relatedServices.length ? await getEntries(entry.data.relatedServices) : [];
-const relatedLinks = related.map((r) => ({ title: r.data.title, href: serviceUrl(r.data.slug) }));
+const relatedLinks = related.map((r) => ({
+  title: `${r.data.title} in ${site.address.city}`,
+  href: serviceUrl(r.data.slug),
+}));
 const hasStructuredContent = Boolean(entry.data.recognition?.length && entry.data.overview && entry.data.topics);
 ---
 

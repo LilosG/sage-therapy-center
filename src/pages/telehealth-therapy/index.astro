@@ -11,7 +11,7 @@ import InquiryFormSection from '../../components/sections/InquiryFormSection.ast
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
 import { telehealthOption } from '../../data/sessionOptions';
-import { hubHeroImages } from '../../data/pageImages';
+import { hubHeroImages, getHeroImageAlt } from '../../data/pageImages';
 import { serviceIcons, defaultServiceIcon } from '../../data/serviceIcons';
 import { TELEHEALTH_URL } from '../../data/nav';
 import { serviceUrl, canonicalUrl } from '../../lib/routes';
@@ -49,9 +49,9 @@ const decisionItems = [
   image={hubHeroImages.telehealth}
 >
   <PageHero
-    eyebrow="Telehealth Therapy"
-    title="Online therapy across California"
-    description="Meet with Kristin Moorehead-Malley, LMFT, remotely from anywhere in California. Telehealth is a flexible session format that can support the same broader therapy goals addressed throughout S.A.G.E.'s services."
+    eyebrow="California Telehealth Therapy"
+    title="Online therapy and telehealth across California"
+    description="Meet with Kristin Moorehead-Malley, LMFT, remotely from anywhere in California. Telehealth is a session format that can support the same broader therapy goals addressed throughout S.A.G.E.'s services."
     breadcrumbItems={breadcrumbItems}
     ctaLabel="Request a Telehealth Session"
     ctaHref="#request-session"
@@ -59,14 +59,14 @@ const decisionItems = [
     phoneHref={`tel:${site.phone.tel}`}
     trustBadges={[telehealthOption.coverageLabel, 'In-person option in Carlsbad']}
     image={hubHeroImages.telehealth}
-    imageAlt="Calm Southern California landscape representing online therapy and telehealth access across California"
+    imageAlt={getHeroImageAlt(hubHeroImages.telehealth)}
   />
 
   <TrustStrip />
 
   <OverviewFeature
     eyebrow="How Telehealth Fits"
-    heading="A session format that works across therapy services"
+    heading="Telehealth is a session format that works across therapy services"
     paragraphs={[
       'Telehealth is best understood as a way to meet with your therapist rather than a separate treatment category. Instead of creating a second version of every service on the site, S.A.G.E. keeps the clinical focus and the session format separate: you can look for the kind of therapy that fits what you are working through, then discuss whether meeting online is the right format.',
       'For clients across California, this can make therapy accessible without traveling to the Carlsbad office. Individual therapy, couples counseling, family therapy, teen counseling, EMDR, anxiety therapy, trauma-focused therapy, and other areas of support can all be discussed as telehealth options when appropriate for the work.',
@@ -81,8 +81,9 @@ const decisionItems = [
   />
 
   <ServiceGrid
-    eyebrow="Therapy by Telehealth"
-    heading="Start with the kind of support you are looking for"
+    eyebrow="Online Therapy Services"
+    heading="Therapy services available by telehealth in California"
+    intro="Start with the therapy focus that best matches what you are looking for. Each service page explains the clinical focus, while this page explains telehealth as the delivery format."
     services={coreServices.map((s) => ({
       title: s.data.title,
       description: s.data.description,
@@ -94,8 +95,8 @@ const decisionItems = [
   />
 
   <ProcessSteps
-    eyebrow="Getting Started"
-    heading="How online therapy begins"
+    eyebrow="Starting Telehealth Therapy"
+    heading="How online therapy in California begins"
     steps={[
       {
         title: 'Choose telehealth',
@@ -113,15 +114,15 @@ const decisionItems = [
   />
 
   <DecisionSection
-    eyebrow="Telehealth Questions"
-    heading="What to know about online sessions"
+    eyebrow="California Telehealth Questions"
+    heading="What to know about online therapy sessions"
     items={decisionItems}
   />
 
   <InquiryFormSection
-    context="Telehealth Therapy"
+    context="Telehealth Therapy — California"
     selectedSession="Telehealth"
-    heading="Interested in telehealth? Start with a simple request."
+    heading="Interested in telehealth therapy in California? Start with a simple request."
     subhead="Share the kind of support you are looking for and select telehealth as your preferred session format. You do not need to include sensitive clinical details in the form."
   />
 
