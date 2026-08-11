@@ -1,5 +1,5 @@
 // Header navigation and static route constants. The primary conversion CTA
-// is intentionally separate from `headerNav` so desktop does not render
+// remains separate from `headerNav` so desktop does not render
 // "Schedule a Session" twice (once as navigation and again as the real CTA).
 // Dynamic slug-based routes live in ../lib/routes.ts.
 import { site } from './site';
