@@ -50,14 +50,16 @@ const localCombosForCity = new Map(
   {
     approvedServices.length > 0 && (
       <ServiceGrid
-        eyebrow="Therapy Services"
-        heading={`Services available for ${entry.data.name} clients`}
+        eyebrow={entry.data.hasOffice ? `Therapy Services in ${entry.data.name}` : `Therapy Services for ${entry.data.name}`}
+        heading={entry.data.hasOffice ? `Therapy services available in ${entry.data.name}, CA` : `Therapy services available to ${entry.data.name} clients`}
         services={approvedServices.map((s) => ({
           title: s.data.title,
           description: s.data.description,
-          href: localCombosForCity.has(s.id)
-            ? cityServiceUrl(entry.data.slug, localCombosForCity.get(s.id).data.slugOverride ?? s.data.slug)
-            : serviceUrl(s.data.slug),
+          href: entry.data.hasOffice
+            ? serviceUrl(s.data.slug)
+            : localCombosForCity.has(s.id)
+              ? cityServiceUrl(entry.data.slug, localCombosForCity.get(s.id).data.slugOverride ?? s.data.slug)
+              : serviceUrl(s.data.slug),
           icon: serviceIcons[s.data.slug] ?? defaultServiceIcon,
         }))}
         background="secondary"

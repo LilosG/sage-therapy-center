@@ -69,6 +69,7 @@ const metaTitle = hasOffice
 const metaDescription = hasOffice
   ? `Therapy in ${name}, CA with Kristin Moorehead-Malley, LMFT. In-person sessions at S.A.G.E. Therapy Center plus telehealth across California.`
   : `Therapy for ${name}, CA residents with Kristin Moorehead-Malley, LMFT, from the Carlsbad office or by telehealth across California.`;
+const processHeading = hasOffice ? `What to expect from therapy in ${name}` : `What therapy looks like for ${name} clients`;
 ---
 
 <InteriorPageLayout
@@ -106,8 +107,8 @@ const metaDescription = hasOffice
   />
 
   <ProcessSteps
-    eyebrow="What To Expect"
-    heading="How therapy works"
+    eyebrow={hasOffice ? `Therapy in ${name}` : `Therapy for ${name}`}
+    heading={processHeading}
     steps={[
       { title: 'Reach out', body: 'Request a session to discuss fit, availability, and the kind of support you are looking for.' },
       {

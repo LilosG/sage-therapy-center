@@ -1,6 +1,8 @@
 ---
-// Critical guardrail: generate only city/service combinations that have an
-// explicit content entry. Never create a Cartesian city x service grid.
+// Critical guardrail: generate only approved secondary-city/service combinations
+// that have an explicit content entry. The physical-office city uses the
+// canonical /services/{service}/ pages so we do not create two pages targeting
+// the same service + Carlsbad search intent.
 import { getCollection, getEntries, getEntry, render } from 'astro:content';
 import CityServiceLayout from '../../layouts/CityServiceLayout.astro';
 import ServiceEditorialSection from '../../components/sections/ServiceEditorialSection.astro';
@@ -9,16 +11,20 @@ import { cityServiceUrl, serviceUrl } from '../../lib/routes';
 
 export async function getStaticPaths() {
   const entries = await getCollection('city-services');
-  return Promise.all(
-    entries.map(async (entry) => {
-      const city = await getEntry(entry.data.city);
-      const service = await getEntry(entry.data.service);
-      return {
-        params: { city: city.data.slug, service: entry.data.slugOverride ?? service.data.slug },
-        props: { entry },
-      };
-    })
-  );
+  const paths = [];
+
+  for (const entry of entries) {
+    const city = await getEntry(entry.data.city);
+    if (city.data.hasOffice) continue;
+
+    const service = await getEntry(entry.data.service);
+    paths.push({
+      params: { city: city.data.slug, service: entry.data.slugOverride ?? service.data.slug },
+      props: { entry },
+    });
+  }
+
+  return paths;
 }
 
 const { entry } = Astro.props;

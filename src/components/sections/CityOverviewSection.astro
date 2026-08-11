@@ -9,15 +9,16 @@ interface Props {
 
 const { cityName, hasOffice } = Astro.props;
 const fullAddress = `${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}`;
+const heading = hasOffice
+  ? `Therapy in ${cityName} with Kristin Moorehead-Malley, LMFT`
+  : `Therapy for ${cityName} clients from S.A.G.E.'s Carlsbad practice`;
 ---
 
 <section class="bg-background">
   <div class="mx-auto grid max-w-6xl gap-10 px-6 py-16 sm:py-20 lg:grid-cols-[1.08fr_0.62fr] lg:items-start lg:gap-20 lg:py-24">
     <div>
       <p class="eyebrow-label">Therapy in {cityName}</p>
-      <h2 class="mt-4 max-w-2xl font-serif text-3xl leading-tight text-ink sm:text-4xl">
-        {hasOffice ? 'A local practice with flexible ways to connect.' : `Therapy for ${cityName} residents, connected to our Carlsbad practice.`}
-      </h2>
+      <h2 class="mt-4 max-w-2xl font-serif text-3xl leading-tight text-ink sm:text-4xl">{heading}</h2>
       <div class="mt-6 max-w-2xl font-sans text-base leading-7 text-foreground [&_p+p]:mt-4">
         <slot />
       </div>

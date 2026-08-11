@@ -58,35 +58,61 @@ const faqItems = await withFallbackFaqs(faq);
 const cities = await getCollection('cities');
 const cityLinks = cities.map((c) => ({ name: c.data.name, href: cityUrl(c.data.slug) }));
 const heroImage = getServiceHero(slug);
-const metaTitle = `${title} | S.A.G.E. Therapy Center, Carlsbad CA`;
-const metaDescription = `${description} Work with Kristin Moorehead-Malley, LMFT, in Carlsbad or by telehealth across California.`;
+const localServiceTitle = `${title} in ${site.address.city}, ${site.address.region}`;
+const metaTitle = `${localServiceTitle} | S.A.G.E. Therapy Center`;
+const metaDescription = `${description} Work with Kristin Moorehead-Malley, LMFT, in ${site.address.city} or by telehealth across California.`;
 const hasStructuredContent = Boolean(recognition?.length && overview && topics);
 
 const heroEyebrow =
   pageKind === 'modality'
-    ? 'Therapeutic Approach'
+    ? `${site.address.city} Therapeutic Approach`
     : pageKind === 'relationship'
-      ? 'Relationship Therapy'
+      ? `${site.address.city} Relationship Therapy`
       : pageKind === 'family'
-        ? 'Family Therapy'
+        ? `${site.address.city} Family Therapy`
         : pageKind === 'adolescent'
-          ? 'Teen Therapy'
+          ? `${site.address.city} Teen Therapy`
           : category === 'concern-led'
-            ? 'Area of Support'
-            : 'Therapy Service';
+            ? `${site.address.city} Therapy Support`
+            : `${site.address.city} Therapy Service`;
 
 const recognitionHeading =
   pageKind === 'modality'
-    ? `${title} may be worth exploring if...`
+    ? `${title} in ${site.address.city} may be worth exploring if...`
     : pageKind === 'relationship'
-      ? `Couples consider ${title.toLowerCase()} for different reasons`
+      ? `Couples consider ${title.toLowerCase()} in ${site.address.city} for different reasons`
       : pageKind === 'family'
-        ? `Families may look for support when...`
+        ? `Families in ${site.address.city} may look for ${title.toLowerCase()} when...`
         : pageKind === 'adolescent'
-          ? `Teen counseling may be helpful when...`
+          ? `Teen counseling in ${site.address.city} may be helpful when...`
           : category === 'concern-led'
-            ? `You may be looking for support if...`
-            : `People consider ${title.toLowerCase()} for different reasons`;
+            ? `You may be looking for ${title.toLowerCase()} in ${site.address.city} if...`
+            : `Adults consider ${title.toLowerCase()} in ${site.address.city} for different reasons`;
+
+const overviewHeading =
+  pageKind === 'relationship'
+    ? `${title} in ${site.address.city} for communication, connection, and relationship concerns`
+    : pageKind === 'family'
+      ? `${title} in ${site.address.city} for families navigating conflict, change, and connection`
+      : pageKind === 'adolescent'
+        ? `${title} in ${site.address.city} for teens navigating stress, change, and emotional challenges`
+        : pageKind === 'modality'
+          ? `${title} in ${site.address.city} as part of an individualized therapy plan`
+          : category === 'concern-led'
+            ? `${title} in ${site.address.city} with individualized support from Kristin Moorehead-Malley, LMFT`
+            : `${title} in ${site.address.city} for stress, change, relationships, and personal growth`;
+
+const topicsHeading =
+  pageKind === 'modality'
+    ? `When ${title} may be relevant in therapy in ${site.address.city}`
+    : `Concerns people bring to ${title.toLowerCase()} in ${site.address.city}`;
+const approachHeading = `How Kristin approaches ${title.toLowerCase()} at S.A.G.E. Therapy Center in ${site.address.city}`;
+const processHeading = `What to expect from ${title.toLowerCase()} in ${site.address.city}`;
+const decisionHeading = `Starting ${title.toLowerCase()} in ${site.address.city}: what to know`;
+const relatedHeading = `Related therapy services in ${site.address.city}`;
+const faqHeading = `${title} in ${site.address.city}: common questions`;
+const inquiryHeading = `Interested in ${title.toLowerCase()} in ${site.address.city}? Start with a simple request.`;
+const areasHeading = `${title} for ${site.address.city} and nearby North County communities`;
 
 const reassuranceItems = [
   {
@@ -111,45 +137,45 @@ const reassuranceItems = [
   title={metaTitle}
   description={metaDescription}
   eyebrow={heroEyebrow}
-  heroTitle={title}
+  heroTitle={localServiceTitle}
   heroDescription={description}
   heroImage={heroImage}
-  heroImageAlt={`Quiet editorial setting for ${title.toLowerCase()} at S.A.G.E. Therapy Center`}
+  heroImageAlt={`Quiet editorial setting for ${title.toLowerCase()} at S.A.G.E. Therapy Center in ${site.address.city}`}
   heroCtaHref="#request-session"
   breadcrumbItems={breadcrumbItems}
-  ctaHeading={`Ready to talk about ${title.toLowerCase()}?`}
+  ctaHeading={`Ready to talk about ${title.toLowerCase()} in ${site.address.city}?`}
   showFinalCta={false}
 >
   {
     hasStructuredContent ? (
       <Fragment>
         <RecognitionBand
-          eyebrow="A Supportive Place To Begin"
+          eyebrow={`${title} in ${site.address.city}`}
           heading={recognitionHeading}
           items={recognition!}
         />
         <OverviewFeature
           eyebrow={overview!.eyebrow}
-          heading={overview!.heading}
+          heading={overviewHeading}
           paragraphs={overview!.paragraphs}
           detailEyebrow="Session Options"
-          detailTitle="Carlsbad office + telehealth"
+          detailTitle={`${site.address.city} office + telehealth`}
           detailItems={[
-            'In-person sessions in Carlsbad, California',
+            `In-person sessions in ${site.address.city}, California`,
             'Telehealth available across California',
             'Start with a conversation about fit and availability',
           ]}
         />
         <TopicMatrix
           eyebrow={topics!.eyebrow}
-          heading={topics!.heading}
+          heading={topicsHeading}
           intro={topics!.intro}
           items={topics!.items}
         />
       </Fragment>
     ) : (
       <Fragment>
-        <ReassuranceGrid heading="A supportive place to begin" items={reassuranceItems} columns={3} />
+        <ReassuranceGrid heading={`${title} in ${site.address.city}: a supportive place to begin`} items={reassuranceItems} columns={3} />
         <slot />
       </Fragment>
     )
@@ -165,7 +191,7 @@ const reassuranceItems = [
         ctaHref={practitioner.ctaHref}
         image={kristinPhoto}
         approachEyebrow={approach.eyebrow}
-        approachHeading={approach.heading}
+        approachHeading={approachHeading}
         approachBody={approach.body}
         modalities={approach.modalities}
       />
@@ -183,8 +209,8 @@ const reassuranceItems = [
   }
 
   <ProcessSteps
-    eyebrow="What To Expect"
-    heading={pageKind === 'modality' ? `How ${title} may fit into therapy` : `What ${title.toLowerCase()} may look like`}
+    eyebrow={`${title} in ${site.address.city}`}
+    heading={processHeading}
     steps={[
       { title: 'Reach out', body: 'Request a session to discuss fit, availability, and what is bringing you in.' },
       { title: 'First session', body: 'Begin with the concerns, questions, or patterns that feel most important to understand.' },
@@ -195,14 +221,18 @@ const reassuranceItems = [
   {
     hasStructuredContent && decisionItems?.length && (
       <DecisionSection
-        eyebrow="Considering Therapy?"
-        heading={`What to know before starting ${title.toLowerCase()}`}
+        eyebrow={`${title} in ${site.address.city}`}
+        heading={decisionHeading}
         items={decisionItems}
       />
     )
   }
 
-  {hasStructuredContent && relatedLinks.length > 0 && <RelatedSupportStrip links={relatedLinks} />}
+  {
+    hasStructuredContent && relatedLinks.length > 0 && (
+      <RelatedSupportStrip eyebrow={`${site.address.city} Therapy Services`} heading={relatedHeading} links={relatedLinks} />
+    )
+  }
 
   <ReviewsSection
     rating={googleReviews.rating}
@@ -212,23 +242,29 @@ const reassuranceItems = [
     lastUpdated={googleReviews.fetchedAt}
   />
 
-  {faqItems.length > 0 && <FAQAccordion heading="Common questions before getting started" items={faqItems} background="surface" />}
+  {faqItems.length > 0 && <FAQAccordion heading={faqHeading} items={faqItems} background="surface" />}
 
   <InquiryFormSection
-    context={title}
+    context={`${title} in ${site.address.city}`}
     selectedService={title}
-    heading={`Interested in ${title.toLowerCase()}? Start with a simple request.`}
-    subhead="Share how you would like Kristin to reach you about fit, availability, and session options."
+    heading={inquiryHeading}
+    subhead={`Share how you would like Kristin to reach you about fit, availability, and session options at the ${site.address.city} office or by telehealth.`}
   />
 
-  <AreasServed heading="Therapy for Carlsbad and North County" cities={cityLinks} viewAllHref={AREAS_WE_SERVE_URL} variant="compact" />
+  <AreasServed
+    eyebrow={`${title} Service Area`}
+    heading={areasHeading}
+    cities={cityLinks}
+    viewAllHref={AREAS_WE_SERVE_URL}
+    variant="compact"
+  />
 
   <SchemaOrg
     type="service"
     breadcrumb={schemaBreadcrumbs}
     service={{
-      name: title,
-      description,
+      name: localServiceTitle,
+      description: metaDescription,
       serviceType: primaryTarget,
       url: pageUrl,
       areaServed: site.address.city,
