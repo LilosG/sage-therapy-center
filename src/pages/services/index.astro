@@ -5,19 +5,23 @@ import PageHero from '../../components/sections/PageHero.astro';
 import TrustStrip from '../../components/sections/TrustStrip.astro';
 import TelehealthHighlight from '../../components/sections/TelehealthHighlight.astro';
 import ServiceGrid from '../../components/sections/ServiceGrid.astro';
+import PageFaqs from '../../components/sections/PageFaqs.astro';
 import CTASection from '../../components/sections/CTASection.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
 import { hubHeroImages, getHeroImageAlt } from '../../data/pageImages';
 import { serviceIcons, defaultServiceIcon } from '../../data/serviceIcons';
+import { sortCoreServices } from '../../data/serviceOrder';
+import { buildServicesHubFaqs } from '../../lib/pageFaqs';
 import { SCHEDULE_URL, SERVICES_URL } from '../../data/nav';
 import { serviceUrl } from '../../lib/routes';
 import { staticBreadcrumbs } from '../../lib/breadcrumbs';
 
 const services = await getCollection('services');
-const coreServices = services.filter((s) => s.data.category === 'core');
-const concernLedServices = services.filter((s) => s.data.category === 'concern-led');
+const coreServices = sortCoreServices(services.filter((service) => service.data.category === 'core'));
+const concernLedServices = services.filter((service) => service.data.category === 'concern-led');
 const breadcrumbItems = staticBreadcrumbs('Services', SERVICES_URL);
+const faqItems = buildServicesHubFaqs(coreServices.map((service) => service.data.title));
 ---
 
 <BaseLayout
@@ -47,11 +51,11 @@ const breadcrumbItems = staticBreadcrumbs('Services', SERVICES_URL);
       eyebrow="Carlsbad Therapy Services"
       heading="Therapy services available in Carlsbad, CA"
       intro="Each service below has a dedicated Carlsbad landing page with service-specific information, relevant therapy approaches, practical details, and a direct path to request a session."
-      services={coreServices.map((s) => ({
-        title: `${s.data.title} in Carlsbad`,
-        description: s.data.description,
-        href: serviceUrl(s.data.slug),
-        icon: serviceIcons[s.data.slug] ?? defaultServiceIcon,
+      services={coreServices.map((service) => ({
+        title: `${service.data.title} in Carlsbad`,
+        description: service.data.description,
+        href: serviceUrl(service.data.slug),
+        icon: serviceIcons[service.data.slug] ?? defaultServiceIcon,
       }))}
       variant="directory"
       background="background"
@@ -64,17 +68,19 @@ const breadcrumbItems = staticBreadcrumbs('Services', SERVICES_URL);
         eyebrow="Concern-Focused Therapy"
         heading="Concern-focused therapy in Carlsbad, CA"
         intro="If you are starting with a specific concern rather than a therapy format, these pages explain how S.A.G.E. may approach that area of support."
-        services={concernLedServices.map((s) => ({
-          title: `${s.data.title} in Carlsbad`,
-          description: s.data.description,
-          href: serviceUrl(s.data.slug),
-          icon: serviceIcons[s.data.slug] ?? defaultServiceIcon,
+        services={concernLedServices.map((service) => ({
+          title: `${service.data.title} in Carlsbad`,
+          description: service.data.description,
+          href: serviceUrl(service.data.slug),
+          icon: serviceIcons[service.data.slug] ?? defaultServiceIcon,
         }))}
         variant="directory"
         background="secondary"
       />
     )
   }
+
+  <PageFaqs heading="Therapy services in Carlsbad: common questions" items={faqItems} background="surface" />
 
   <CTASection
     heading="Not sure which therapy service fits?"

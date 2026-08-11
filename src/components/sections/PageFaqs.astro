@@ -1,0 +1,25 @@
+---
+// Landing-page FAQ contract: the same exact item array drives both visible
+// accordion content and FAQPage JSON-LD so structured data cannot drift from
+// what visitors can read on the page.
+import FAQAccordion from './FAQAccordion.astro';
+import SchemaOrg from '../seo/SchemaOrg.astro';
+import { MIN_LANDING_PAGE_FAQS, type PageFaqItem } from '../../lib/pageFaqs';
+
+interface Props {
+  heading: string;
+  items: PageFaqItem[];
+  background?: 'background' | 'surface' | 'secondary';
+}
+
+const { heading, items, background = 'surface' } = Astro.props;
+
+if (items.length < MIN_LANDING_PAGE_FAQS) {
+  throw new Error(
+    `PageFaqs received ${items.length} FAQs for "${heading}". Commercial/local landing pages require at least ${MIN_LANDING_PAGE_FAQS}.`
+  );
+}
+---
+
+<FAQAccordion heading={heading} items={items} background={background} />
+<SchemaOrg type="faqPage" faqItems={items} />

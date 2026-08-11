@@ -3,17 +3,19 @@ import InteriorPageLayout from './InteriorPageLayout.astro';
 import MeetKristin from '../components/sections/MeetKristin.astro';
 import ProcessSteps from '../components/sections/ProcessSteps.astro';
 import ReviewsSection from '../components/sections/ReviewsSection.astro';
-import FAQAccordion from '../components/sections/FAQAccordion.astro';
+import PageFaqs from '../components/sections/PageFaqs.astro';
 import VisitUs from '../components/sections/VisitUs.astro';
 import AreasServed from '../components/sections/AreasServed.astro';
 import InquiryFormSection from '../components/sections/InquiryFormSection.astro';
 import SchemaOrg from '../components/seo/SchemaOrg.astro';
 import { absoluteBreadcrumbs, cityBreadcrumbs } from '../lib/breadcrumbs';
-import { withFallbackFaqs } from '../lib/faq';
+import { buildCityFaqs } from '../lib/pageFaqs';
 import { canonicalUrl, cityUrl } from '../lib/routes';
 import { AREAS_WE_SERVE_URL } from '../data/nav';
 import { practitioner } from '../data/practitioner';
 import { getCityHero, getHeroImageAlt } from '../data/pageImages';
+import { sortCoreServices } from '../data/serviceOrder';
+import { getCollection } from 'astro:content';
 import kristinPhoto from '../assets/images/kristin-moorehead-malley.webp';
 import type { CollectionEntry } from 'astro:content';
 
@@ -57,7 +59,14 @@ const { name, hasOffice, slug, faq, neighborhoods } = entry.data;
 const breadcrumbItems = cityBreadcrumbs(name, slug);
 const schemaBreadcrumbs = absoluteBreadcrumbs(breadcrumbItems);
 const pageUrl = canonicalUrl(cityUrl(slug));
-const faqItems = await withFallbackFaqs(faq);
+const allServices = await getCollection('services');
+const coreServices = sortCoreServices(allServices.filter((service) => service.data.category === 'core'));
+const faqItems = buildCityFaqs({
+  cityName: name,
+  hasOffice,
+  existing: faq,
+  serviceTitles: coreServices.map((service) => service.data.title),
+});
 const heroImage = getCityHero(slug);
 const heroTitle = hasOffice ? `Therapist in ${name}, CA` : `Therapist serving ${name}, CA`;
 const heroDescription = hasOffice
@@ -87,7 +96,7 @@ const processHeading = hasOffice ? `What to expect from therapy in ${name}` : `W
 >
   <slot name="overview" />
 
-  <!-- The route supplies the city's approved service directory here. -->
+  <!-- The route supplies the city's complete core-service directory here. -->
   <slot />
 
   {hasOffice && <VisitUs cityName={name} neighborhoods={neighborhoods} />}
@@ -127,7 +136,7 @@ const processHeading = hasOffice ? `What to expect from therapy in ${name}` : `W
     )
   }
 
-  {faqItems.length > 0 && <FAQAccordion heading={`${name} therapy: common questions`} items={faqItems} background="surface" />}
+  <PageFaqs heading={`${name} therapy: common questions`} items={faqItems} background="surface" />
 
   <InquiryFormSection
     context={`Therapy in ${name}`}
@@ -152,5 +161,4 @@ const processHeading = hasOffice ? `What to expect from therapy in ${name}` : `W
     city={{ name, pageName: heroTitle, url: pageUrl, areaServed: name }}
     breadcrumb={schemaBreadcrumbs}
   />
-  {faqItems.length > 0 && <SchemaOrg type="faqPage" faqItems={faqItems} />}
 </InteriorPageLayout>

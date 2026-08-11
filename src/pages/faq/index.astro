@@ -3,16 +3,15 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/sections/PageHero.astro';
 import TrustStrip from '../../components/sections/TrustStrip.astro';
-import FAQAccordion from '../../components/sections/FAQAccordion.astro';
+import PageFaqs from '../../components/sections/PageFaqs.astro';
 import CTASection from '../../components/sections/CTASection.astro';
-import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
 import { editorialImages, getHeroImageAlt } from '../../data/pageImages';
 import { CONTACT_URL, FAQ_URL } from '../../data/nav';
 import { staticBreadcrumbs } from '../../lib/breadcrumbs';
 
 const faqs = await getCollection('faq');
-const faqItems = faqs.map((f) => ({ q: f.data.q, a: f.data.a }));
+const faqItems = faqs.map((faq) => ({ q: faq.data.q, a: faq.data.a }));
 const heroImage = editorialImages.meadowTree;
 ---
 
@@ -36,7 +35,7 @@ const heroImage = editorialImages.meadowTree;
 
   <TrustStrip />
 
-  <FAQAccordion heading="Common questions about therapy at S.A.G.E. Therapy Center" items={faqItems} />
+  <PageFaqs heading="Common questions about therapy at S.A.G.E. Therapy Center" items={faqItems} background="background" />
 
   <CTASection
     heading="Still have a question about therapy in Carlsbad or telehealth?"
@@ -46,6 +45,4 @@ const heroImage = editorialImages.meadowTree;
     phoneDisplay={site.phone.display}
     phoneHref={`tel:${site.phone.tel}`}
   />
-
-  {faqItems.length > 0 && <SchemaOrg type="faqPage" faqItems={faqItems} />}
 </BaseLayout>

@@ -10,12 +10,12 @@ import RelatedSupportStrip from '../components/sections/RelatedSupportStrip.astr
 import MeetKristin from '../components/sections/MeetKristin.astro';
 import ProcessSteps from '../components/sections/ProcessSteps.astro';
 import ReviewsSection from '../components/sections/ReviewsSection.astro';
-import FAQAccordion from '../components/sections/FAQAccordion.astro';
+import PageFaqs from '../components/sections/PageFaqs.astro';
 import LocationContext from '../components/sections/LocationContext.astro';
 import InquiryFormSection from '../components/sections/InquiryFormSection.astro';
 import SchemaOrg from '../components/seo/SchemaOrg.astro';
 import { absoluteBreadcrumbs, cityServiceBreadcrumbs } from '../lib/breadcrumbs';
-import { withFallbackFaqs } from '../lib/faq';
+import { buildCityServiceFaqs } from '../lib/pageFaqs';
 import { canonicalUrl, cityServiceUrl } from '../lib/routes';
 import { practitioner } from '../data/practitioner';
 import { getCityServiceHero, getHeroImageAlt } from '../data/pageImages';
@@ -41,7 +41,6 @@ const routeSlug = entry.data.slugOverride ?? service.data.slug;
 const breadcrumbItems = cityServiceBreadcrumbs(city.data.name, city.data.slug, service.data.title, routeSlug);
 const schemaBreadcrumbs = absoluteBreadcrumbs(breadcrumbItems);
 const pageUrl = canonicalUrl(cityServiceUrl(city.data.slug, routeSlug));
-const faqItems = await withFallbackFaqs(entry.data.faq);
 const heroImage = getCityServiceHero(city.data.slug, service.data.slug);
 const heroTitle = city.data.hasOffice
   ? `${service.data.title} in ${city.data.name}, CA`
@@ -65,6 +64,14 @@ const recognition = entry.data.recognition ?? service.data.recognition;
 const topics = entry.data.topics ?? service.data.topics;
 const approach = entry.data.approach ?? service.data.approach;
 const decisionItems = entry.data.decisionItems ?? service.data.decisionItems;
+const faqItems = buildCityServiceFaqs({
+  cityName: city.data.name,
+  serviceTitle: service.data.title,
+  hasOffice: city.data.hasOffice,
+  existing: entry.data.faq,
+  topics,
+  approach,
+});
 const hasStructuredShell = Boolean(recognition?.length && topics);
 const localServicePhrase = city.data.hasOffice
   ? `${service.data.title.toLowerCase()} in ${city.data.name}`
@@ -238,7 +245,7 @@ const reassuranceItems = [
     lastUpdated={googleReviews.fetchedAt}
   />
 
-  {faqItems.length > 0 && <FAQAccordion heading={faqHeading} items={faqItems} background="surface" />}
+  <PageFaqs heading={faqHeading} items={faqItems} background="surface" />
 
   <InquiryFormSection
     context={`${service.data.title} — ${city.data.name}`}
@@ -258,5 +265,4 @@ const reassuranceItems = [
       areaServed: city.data.name,
     }}
   />
-  {faqItems.length > 0 && <SchemaOrg type="faqPage" faqItems={faqItems} />}
 </InteriorPageLayout>

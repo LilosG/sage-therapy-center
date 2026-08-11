@@ -5,16 +5,25 @@ import PageHero from '../../components/sections/PageHero.astro';
 import TrustStrip from '../../components/sections/TrustStrip.astro';
 import AreasServed from '../../components/sections/AreasServed.astro';
 import PracticeSection from '../../components/sections/PracticeSection.astro';
+import PageFaqs from '../../components/sections/PageFaqs.astro';
 import CTASection from '../../components/sections/CTASection.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
 import { hubHeroImages, getHeroImageAlt } from '../../data/pageImages';
+import { sortCoreServices } from '../../data/serviceOrder';
+import { buildAreasHubFaqs } from '../../lib/pageFaqs';
 import { AREAS_WE_SERVE_URL, SCHEDULE_URL } from '../../data/nav';
 import { cityUrl } from '../../lib/routes';
 import { staticBreadcrumbs } from '../../lib/breadcrumbs';
 
 const cities = await getCollection('cities');
+const services = await getCollection('services');
+const coreServices = sortCoreServices(services.filter((service) => service.data.category === 'core'));
 const breadcrumbItems = staticBreadcrumbs('Areas We Serve', AREAS_WE_SERVE_URL);
+const faqItems = buildAreasHubFaqs(
+  cities.map((city) => city.data.name),
+  coreServices.map((service) => service.data.title)
+);
 ---
 
 <BaseLayout
@@ -41,12 +50,14 @@ const breadcrumbItems = staticBreadcrumbs('Areas We Serve', AREAS_WE_SERVE_URL);
     <AreasServed
       eyebrow="North County San Diego"
       heading="Therapy service areas across North County San Diego"
-      cities={cities.map((c) => ({ name: c.data.name, href: cityUrl(c.data.slug) }))}
+      cities={cities.map((city) => ({ name: city.data.name, href: cityUrl(city.data.slug) }))}
       variant="compact"
     />
   </div>
 
   <PracticeSection />
+
+  <PageFaqs heading="North County therapy service areas: common questions" items={faqItems} background="surface" />
 
   <CTASection
     heading="Not sure whether your location works?"

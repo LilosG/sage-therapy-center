@@ -2,32 +2,14 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/sections/PageHero.astro';
 import TrustStrip from '../../components/sections/TrustStrip.astro';
-import DecisionSection from '../../components/sections/DecisionSection.astro';
+import PageFaqs from '../../components/sections/PageFaqs.astro';
 import InquiryFormSection from '../../components/sections/InquiryFormSection.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
 import { hubHeroImages, getHeroImageAlt } from '../../data/pageImages';
+import { schedulePageFaqs } from '../../lib/pageFaqs';
 import { SCHEDULE_URL } from '../../data/nav';
 import { staticBreadcrumbs } from '../../lib/breadcrumbs';
-
-const decisionItems = [
-  {
-    q: 'What happens after I reach out?',
-    a: 'Your request is used to discuss fit, current availability, and the session option that makes the most sense before anything is scheduled.',
-  },
-  {
-    q: 'Where are sessions available?',
-    a: 'In-person sessions are based at the Carlsbad office, with telehealth available to clients across California.',
-  },
-  {
-    q: 'How much do I need to explain in the form?',
-    a: 'Only enough for scheduling and fit. The form is intentionally brief and asks you not to include sensitive clinical or medical details.',
-  },
-  {
-    q: 'Can I call instead?',
-    a: `Yes. You can call S.A.G.E. directly at ${site.phone.display} if you would rather start by phone.`,
-  },
-];
 ---
 
 <BaseLayout
@@ -50,11 +32,7 @@ const decisionItems = [
 
   <TrustStrip />
 
-  <DecisionSection
-    eyebrow="Before You Reach Out"
-    heading="What to know before requesting a therapy session"
-    items={decisionItems}
-  />
+  <PageFaqs heading="Scheduling therapy with S.A.G.E.: common questions" items={schedulePageFaqs} background="surface" />
 
   <InquiryFormSection
     context="Schedule a Session — Carlsbad Therapy"
