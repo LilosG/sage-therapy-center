@@ -69,8 +69,6 @@ const heroImage = editorialImages.meadowTree;
     ]}
   />
 
-  <PageFaqs heading={`About ${site.practitioner.name}: common questions`} items={aboutPageFaqs} background="surface" />
-
   <ReviewsSection
     rating={googleReviews.rating}
     reviewCount={googleReviews.userRatingCount}
@@ -78,6 +76,8 @@ const heroImage = editorialImages.meadowTree;
     placeUrl={`https://www.google.com/maps/place/?q=place_id:${googleReviews.placeId}`}
     lastUpdated={googleReviews.fetchedAt}
   />
+
+  <PageFaqs heading={`About ${site.practitioner.name}: common questions`} items={aboutPageFaqs} background="surface" />
 
   <InquiryFormSection
     context="About — Meet Kristin"

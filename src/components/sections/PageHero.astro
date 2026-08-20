@@ -53,14 +53,14 @@ const {
       <div class:list={[image ? 'text-center lg:text-left' : 'text-center']}>
         {
           eyebrow && (
-            <span class="inline-flex items-center gap-2 rounded-full border border-surface/90 bg-surface/75 px-4 py-1.5 font-sans text-xs font-semibold uppercase tracking-widest text-foreground shadow-sm backdrop-blur-md">
+            <span class="inline-flex items-center gap-2 rounded-full border border-surface/90 bg-surface/75 px-4 py-1.5 font-sans text-xs font-semibold uppercase tracking-label text-foreground shadow-sm backdrop-blur-md">
               <span class="h-1.5 w-1.5 rounded-full bg-sage-deep" aria-hidden="true" />
               {eyebrow}
             </span>
           )
         }
 
-        <h1 class="mt-5 max-w-3xl font-serif text-4xl leading-[1.06] tracking-tight text-ink sm:text-5xl lg:text-[3.25rem] xl:text-[3.55rem]">
+        <h1 class="mt-5 max-w-3xl font-serif text-4xl leading-tight tracking-tight text-ink sm:text-5xl lg:text-[3.25rem]">
           {title}
         </h1>
         {description && <p class:list={['mt-5 max-w-2xl font-sans text-lg leading-8 text-foreground', !image && 'mx-auto']}>{description}</p>}
@@ -98,7 +98,7 @@ const {
       {
         image && (
           <figure
-            class="relative mx-auto aspect-[16/11] w-full max-w-xl overflow-hidden rounded-[1.75rem] border border-surface/80 bg-secondary bg-cover bg-center shadow-[0_30px_75px_-48px_rgba(42,40,51,0.6)] lg:max-w-none"
+            class="relative mx-auto aspect-[16/11] w-full max-w-xl overflow-hidden rounded-image border border-surface/80 bg-secondary bg-cover bg-center shadow-ink-xl lg:max-w-none"
             style={`background-image: url('${image.src}'); background-position: ${imagePosition};`}
           >
             <Image

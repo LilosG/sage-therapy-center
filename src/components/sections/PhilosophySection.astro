@@ -49,7 +49,7 @@ const {
             alt={imageAlt}
             widths={[600, 900, 1200]}
             sizes="(min-width: 1024px) 52vw, 100vw"
-            class="aspect-[4/3] w-full rounded-[2rem] object-cover shadow-[0_24px_60px_-45px_rgba(42,40,51,0.55)]"
+            class="aspect-[4/3] w-full rounded-image object-cover shadow-ink-lg"
             loading="lazy"
           />
         ) : (
@@ -58,12 +58,13 @@ const {
             <div class="absolute right-12 top-14 h-32 w-32 rounded-full border border-lavender/20" aria-hidden="true" />
             <div class="absolute -bottom-24 -left-12 h-64 w-64 rounded-full bg-lavender/10 blur-2xl" aria-hidden="true" />
             <div class="relative flex min-h-[18rem] flex-col justify-between sm:min-h-[21rem]">
-              <p class="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-sage">Self-Awareness · Growth · Enlightenment</p>
+              <p class="font-sans text-xs font-semibold uppercase tracking-label-inverted text-sage">Self-Awareness · Growth · Enlightenment</p>
               {
                 quote && (
                   <figure class="max-w-md py-8">
                     <blockquote class="font-serif text-3xl italic leading-snug text-primary-foreground sm:text-4xl">“{quote}”</blockquote>
                     {attribution && <figcaption class="mt-6 font-sans text-sm text-primary-foreground/65">— {attribution}</figcaption>}
+
                   </figure>
                 )
               }
@@ -76,7 +77,7 @@ const {
         image && quote && (
           <figure class="relative mx-5 -mt-10 rounded-2xl border border-primary-foreground/10 bg-primary px-6 py-6 text-primary-foreground shadow-lg sm:mx-8 sm:px-8">
             <blockquote class="font-serif text-xl italic leading-relaxed sm:text-2xl">“{quote}”</blockquote>
-            {attribution && <figcaption class="mt-4 font-sans text-xs text-primary-foreground/70">— {attribution}</figcaption>}
+            {attribution && <figcaption class="mt-4 font-sans text-xs text-primary-foreground/65">— {attribution}</figcaption>}
           </figure>
         )
       }

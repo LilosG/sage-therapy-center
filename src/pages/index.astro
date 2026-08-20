@@ -102,6 +102,14 @@ if (cities.length === 0) {
     image={kristinPhoto}
   />
 
+  <ReviewsSection
+    rating={googleReviews.rating}
+    reviewCount={googleReviews.userRatingCount}
+    reviews={googleReviews.reviews}
+    placeUrl={`https://www.google.com/maps/place/?q=place_id:${googleReviews.placeId}`}
+    lastUpdated={googleReviews.fetchedAt}
+  />
+
   <PhilosophySection
     heading="Therapy should fit the person — not force the person into one method."
     body="S.A.G.E. stands for Self-Awareness, Growth, and Enlightenment. Kristin draws from multiple therapeutic approaches so the work can respond to the person, relationship, and circumstances in front of her rather than following one rigid formula."
@@ -125,14 +133,6 @@ if (cities.length === 0) {
   />
 
   <PracticeSection />
-
-  <ReviewsSection
-    rating={googleReviews.rating}
-    reviewCount={googleReviews.userRatingCount}
-    reviews={googleReviews.reviews}
-    placeUrl={`https://www.google.com/maps/place/?q=place_id:${googleReviews.placeId}`}
-    lastUpdated={googleReviews.fetchedAt}
-  />
 
   <AreasServed
     eyebrow="North County Service Areas"

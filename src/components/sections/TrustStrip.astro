@@ -16,7 +16,7 @@ const stats = [
 ];
 ---
 
-<section class="relative z-20 -mt-1 w-full border-y border-border bg-surface shadow-[0_14px_34px_-28px_rgba(42,40,51,0.45)] lg:-mt-2">
+<section class="relative z-20 -mt-1 w-full border-y border-border bg-surface shadow-ink-sm lg:-mt-2">
   <div class="mx-auto grid max-w-7xl grid-cols-2 px-6 lg:grid-cols-4 lg:px-8">
     {
       stats.map((stat, index) => (
@@ -34,8 +34,8 @@ const stats = [
             <Icon name={stat.icon} width={18} height={18} aria-hidden="true" />
           </span>
           <div class="min-w-0">
-            <p class="font-sans text-[0.66rem] font-semibold uppercase tracking-[0.16em] text-sage-deep sm:text-[0.7rem]">{stat.label}</p>
-            <p class="mt-1 font-serif text-sm leading-snug text-ink sm:text-[0.98rem]">{stat.value}</p>
+            <p class="font-sans text-[0.7rem] font-semibold uppercase tracking-label text-sage-deep sm:text-xs">{stat.label}</p>
+            <p class="mt-1 font-serif text-sm leading-snug text-ink sm:text-base">{stat.value}</p>
           </div>
         </div>
       ))

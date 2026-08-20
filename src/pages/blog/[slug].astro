@@ -2,11 +2,14 @@
 import { getCollection, getEntry, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/sections/Breadcrumbs.astro';
-import CTASection from '../../components/sections/CTASection.astro';
+import MeetKristin from '../../components/sections/MeetKristin.astro';
+import InquiryFormSection from '../../components/sections/InquiryFormSection.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
+import { practitioner } from '../../data/practitioner';
 import { canonicalUrl, blogUrl, serviceUrl } from '../../lib/routes';
 import { absoluteBreadcrumbs, blogPostBreadcrumbs } from '../../lib/breadcrumbs';
+import kristinPhoto from '../../assets/images/kristin-moorehead-malley.webp';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -61,13 +64,20 @@ const publishedISO = entry.data.publishDate.toISOString();
     </div>
   </article>
 
-  <CTASection
+  <MeetKristin
+    name={practitioner.name}
+    credential={practitioner.credential}
+    bio={practitioner.bio}
+    modalities={[]}
+    ctaLabel="Request a Session"
+    ctaHref="#request-session"
+    image={kristinPhoto}
+  />
+
+  <InquiryFormSection
+    context={`Blog — ${entry.data.title}`}
     heading="Ready to take the next step with S.A.G.E.?"
     subhead="Request a session to discuss fit and availability in Carlsbad or by telehealth."
-    ctaLabel="Schedule a Session"
-    ctaHref={entry.data.conversionPage}
-    phoneDisplay={site.phone.display}
-    phoneHref={`tel:${site.phone.tel}`}
   />
 
   <SchemaOrg
