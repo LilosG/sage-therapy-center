@@ -6,13 +6,13 @@ import TrustStrip from '../../components/sections/TrustStrip.astro';
 import AreasServed from '../../components/sections/AreasServed.astro';
 import PracticeSection from '../../components/sections/PracticeSection.astro';
 import PageFaqs from '../../components/sections/PageFaqs.astro';
-import CTASection from '../../components/sections/CTASection.astro';
+import InquiryFormSection from '../../components/sections/InquiryFormSection.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
 import { hubHeroImages, getHeroImageAlt } from '../../data/pageImages';
 import { sortCoreServices } from '../../data/serviceOrder';
 import { buildAreasHubFaqs } from '../../lib/pageFaqs';
-import { AREAS_WE_SERVE_URL, SCHEDULE_URL } from '../../data/nav';
+import { AREAS_WE_SERVE_URL } from '../../data/nav';
 import { cityUrl } from '../../lib/routes';
 import { staticBreadcrumbs } from '../../lib/breadcrumbs';
 
@@ -27,7 +27,7 @@ const faqItems = buildAreasHubFaqs(
 ---
 
 <BaseLayout
-  title="Therapy in Carlsbad & North County San Diego | S.A.G.E. Therapy Center"
+  title="Therapy in Carlsbad & North San Diego County | S.A.G.E."
   description="S.A.G.E. Therapy Center is based in Carlsbad, CA and serves clients from North County San Diego, with telehealth available across California."
   image={hubHeroImages.areas}
 >
@@ -59,13 +59,10 @@ const faqItems = buildAreasHubFaqs(
 
   <PageFaqs heading="North County therapy service areas: common questions" items={faqItems} background="surface" />
 
-  <CTASection
+  <InquiryFormSection
+    context="Areas We Serve"
     heading="Not sure whether your location works?"
     subhead="Reach out to discuss in-person availability at the Carlsbad office or telehealth anywhere in California."
-    ctaLabel="Schedule a Session"
-    ctaHref={SCHEDULE_URL}
-    phoneDisplay={site.phone.display}
-    phoneHref={`tel:${site.phone.tel}`}
   />
 
   <SchemaOrg type="localBusiness" />

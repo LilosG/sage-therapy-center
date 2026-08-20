@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import { Icon } from 'astro-icon/components';
 import { site } from '../../data/site';
+import { sortCoreServices } from '../../data/serviceOrder';
 import {
   headerNav,
   HOME_URL,
@@ -18,21 +19,9 @@ const currentPath = Astro.url.pathname;
 const services = await getCollection('services');
 const cities = await getCollection('cities');
 
-const serviceOrder = [
-  'individual-therapy',
-  'couples-counseling',
-  'family-therapy',
-  'teen-counseling',
-  'premarital-marriage-counseling',
-  'emdr-therapy',
-  'anxiety-therapy',
-  'trauma-ptsd-therapy',
-];
 const cityOrder = ['carlsbad', 'encinitas', 'oceanside', 'san-marcos', 'vista', 'del-mar', 'solana-beach', 'rancho-santa-fe'];
 
-const coreServices = services
-  .filter((service) => service.data.category === 'core')
-  .sort((a, b) => serviceOrder.indexOf(a.data.slug) - serviceOrder.indexOf(b.data.slug));
+const coreServices = sortCoreServices(services.filter((service) => service.data.category === 'core'));
 const orderedCities = [...cities].sort((a, b) => cityOrder.indexOf(a.data.slug) - cityOrder.indexOf(b.data.slug));
 const officeCity = orderedCities.find((city) => city.data.hasOffice);
 const serviceAreaCities = orderedCities.filter((city) => !city.data.hasOffice);

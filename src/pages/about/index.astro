@@ -6,8 +6,10 @@ import MeetKristin from '../../components/sections/MeetKristin.astro';
 import PhilosophySection from '../../components/sections/PhilosophySection.astro';
 import ProcessSteps from '../../components/sections/ProcessSteps.astro';
 import PageFaqs from '../../components/sections/PageFaqs.astro';
-import CTASection from '../../components/sections/CTASection.astro';
+import ReviewsSection from '../../components/sections/ReviewsSection.astro';
+import InquiryFormSection from '../../components/sections/InquiryFormSection.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
+import googleReviews from '../../data/google-reviews.json';
 import { site } from '../../data/site';
 import { practitioner } from '../../data/practitioner';
 import { editorialImages, getHeroImageAlt } from '../../data/pageImages';
@@ -69,13 +71,18 @@ const heroImage = editorialImages.meadowTree;
 
   <PageFaqs heading={`About ${site.practitioner.name}: common questions`} items={aboutPageFaqs} background="surface" />
 
-  <CTASection
+  <ReviewsSection
+    rating={googleReviews.rating}
+    reviewCount={googleReviews.userRatingCount}
+    reviews={googleReviews.reviews}
+    placeUrl={`https://www.google.com/maps/place/?q=place_id:${googleReviews.placeId}`}
+    lastUpdated={googleReviews.fetchedAt}
+  />
+
+  <InquiryFormSection
+    context="About — Meet Kristin"
     heading="Ready to see if working with Kristin may be a fit?"
     subhead="Start with a simple request about availability and session options — in person or by telehealth."
-    ctaLabel="Schedule a Session"
-    ctaHref={SCHEDULE_URL}
-    phoneDisplay={site.phone.display}
-    phoneHref={`tel:${site.phone.tel}`}
   />
 
   <SchemaOrg type="person" />

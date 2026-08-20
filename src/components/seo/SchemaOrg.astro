@@ -3,6 +3,7 @@
 // so page-specific entities resolve to the same S.A.G.E. business and Kristin
 // entities instead of inventing separate local businesses for every city page.
 import { site } from '../../data/site';
+import googleReviews from '../../data/google-reviews.json';
 
 type SchemaType = 'website' | 'organization' | 'localBusiness' | 'service' | 'city' | 'faqPage' | 'person' | 'article';
 
@@ -68,7 +69,7 @@ function personRef() {
 
 function businessNode() {
   return {
-    '@type': ['Organization', 'LocalBusiness'],
+    '@type': ['ProfessionalService', 'LocalBusiness'],
     '@id': businessId,
     name: site.name,
     url: `${site.canonicalOrigin}/`,
@@ -81,6 +82,16 @@ function businessNode() {
       addressRegion: site.address.region,
       postalCode: site.address.postalCode,
       addressCountry: site.address.country,
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: site.address.geo.latitude,
+      longitude: site.address.geo.longitude,
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: googleReviews.rating,
+      reviewCount: googleReviews.userRatingCount,
     },
     sameAs: Object.values(site.social),
     ...(site.hours
@@ -177,7 +188,14 @@ function buildService() {
         serviceType: service.serviceType,
         url: service.url,
         provider: businessRef(),
-        ...(service.areaServed ? { areaServed: areaEntity(service.areaServed) } : {}),
+        ...(service.areaServed
+        ? {
+            areaServed:
+              service.areaServed === site.telehealth.coverageArea
+                ? areaEntity(service.areaServed)
+                : [areaEntity(service.areaServed), areaEntity(site.telehealth.coverageArea)],
+          }
+        : {}),
         ...(service.audience
           ? { audience: { '@type': 'Audience', audienceType: service.audience } }
           : {}),

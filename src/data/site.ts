@@ -26,6 +26,7 @@ export const site = {
     region: 'CA',
     postalCode: '92008',
     country: 'US',
+    geo: { latitude: 33.1261, longitude: -117.3089 },
   },
 
   office: {

@@ -41,16 +41,7 @@ const cityHeroOverrides = {
   'rancho-santa-fe': meadowTree,
 } as const;
 
-const moneyServiceOverrides = {
-  'individual-therapy': homeCoastalPath,
-  'couples-counseling': meadowTree,
-  'family-therapy': homeCoastalPath,
-  'teen-counseling': meadowTree,
-  'premarital-marriage-counseling': homeCoastalPath,
-  'emdr-therapy': meadowTree,
-  'anxiety-therapy': homeCoastalPath,
-  'trauma-ptsd-therapy': meadowTree,
-} as const;
+const moneyServiceOverrides = serviceHeroOverrides;
 
 const readableHeroPool = [homeCoastalPath, meadowTree] as const;
 

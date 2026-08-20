@@ -2,18 +2,23 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/sections/PageHero.astro';
 import TrustStrip from '../../components/sections/TrustStrip.astro';
+import MeetKristin from '../../components/sections/MeetKristin.astro';
+import ReviewsSection from '../../components/sections/ReviewsSection.astro';
 import PageFaqs from '../../components/sections/PageFaqs.astro';
 import InquiryFormSection from '../../components/sections/InquiryFormSection.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
+import { practitioner } from '../../data/practitioner';
 import { hubHeroImages, getHeroImageAlt } from '../../data/pageImages';
 import { schedulePageFaqs } from '../../lib/pageFaqs';
 import { SCHEDULE_URL } from '../../data/nav';
 import { staticBreadcrumbs } from '../../lib/breadcrumbs';
+import kristinPhoto from '../../assets/images/kristin-moorehead-malley.webp';
+import googleReviews from '../../data/google-reviews.json';
 ---
 
 <BaseLayout
-  title="Schedule a Therapy Session | S.A.G.E. Therapy Center, Carlsbad CA"
+  title="Schedule Therapy | S.A.G.E. Therapy Center, Carlsbad CA"
   description="Request a therapy session with S.A.G.E. Therapy Center in Carlsbad, CA. Discuss fit, availability, in-person sessions, or telehealth across California."
   image={hubHeroImages.schedule}
 >
@@ -31,6 +36,24 @@ import { staticBreadcrumbs } from '../../lib/breadcrumbs';
   />
 
   <TrustStrip />
+
+  <MeetKristin
+    name={practitioner.name}
+    credential={practitioner.credential}
+    bio={practitioner.bio}
+    modalities={[]}
+    ctaLabel={practitioner.ctaLabel}
+    ctaHref={practitioner.ctaHref}
+    image={kristinPhoto}
+  />
+
+  <ReviewsSection
+    rating={googleReviews.rating}
+    reviewCount={googleReviews.userRatingCount}
+    reviews={googleReviews.reviews}
+    placeUrl={`https://www.google.com/maps/place/?q=place_id:${googleReviews.placeId}`}
+    lastUpdated={googleReviews.fetchedAt}
+  />
 
   <PageFaqs heading="Scheduling therapy with S.A.G.E.: common questions" items={schedulePageFaqs} background="surface" />
 
