@@ -28,7 +28,7 @@ const { name, credential, bio, modalities, ctaLabel, ctaHref, image } = Astro.pr
             alt={`Professional headshot of ${name}, ${credential}`}
             widths={[400, 600, 800]}
             sizes="(min-width: 1024px) 360px, 84vw"
-            class="relative aspect-[4/5] w-full rounded-[2rem] object-cover shadow-[0_28px_70px_-44px_rgba(42,40,51,0.55)]"
+            class="relative aspect-[4/5] w-full rounded-image object-cover shadow-ink-lg"
             loading="lazy"
           />
         ) : (
@@ -40,7 +40,7 @@ const { name, credential, bio, modalities, ctaLabel, ctaHref, image } = Astro.pr
         )
       }
       <div class="relative mx-5 -mt-9 rounded-2xl border border-border bg-background px-5 py-4 shadow-lg">
-        <p class="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.17em] text-sage-deep">Meet Your Therapist</p>
+        <p class="font-sans text-[0.68rem] font-semibold uppercase tracking-label text-sage-deep">Meet Your Therapist</p>
         <p class="mt-1 font-serif text-xl leading-snug text-ink">{name}, {credential}</p>
       </div>
     </div>
@@ -57,10 +57,12 @@ const { name, credential, bio, modalities, ctaLabel, ctaHref, image } = Astro.pr
       {
         modalities.length > 0 && (
           <div class="mt-7">
-            <p class="font-sans text-xs font-semibold uppercase tracking-[0.16em] text-sage-deep">Approaches Kristin draws on</p>
-            <ul class="mt-4 flex flex-wrap gap-x-5 gap-y-2">
-              {modalities.map((modality) => (
-                <li class="font-sans text-sm font-medium text-foreground">{modality}</li>
+            <p class="font-sans text-xs font-semibold uppercase tracking-label text-sage-deep">Approaches Kristin draws on</p>
+            <ul class="mt-4 flex flex-wrap gap-x-1 gap-y-1">
+              {modalities.map((modality, i) => (
+                <li class="font-sans text-sm font-medium text-foreground">
+                  {modality}{i < modalities.length - 1 ? <span class="ml-1 text-sage-deep/50" aria-hidden="true">·</span> : null}
+                </li>
               ))}
             </ul>
           </div>

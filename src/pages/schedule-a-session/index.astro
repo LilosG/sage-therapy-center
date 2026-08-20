@@ -42,8 +42,8 @@ import googleReviews from '../../data/google-reviews.json';
     credential={practitioner.credential}
     bio={practitioner.bio}
     modalities={[]}
-    ctaLabel={practitioner.ctaLabel}
-    ctaHref={practitioner.ctaHref}
+    ctaLabel="Request a Session"
+    ctaHref="#request-session"
     image={kristinPhoto}
   />
 
@@ -55,7 +55,7 @@ import googleReviews from '../../data/google-reviews.json';
     lastUpdated={googleReviews.fetchedAt}
   />
 
-  <PageFaqs heading="Scheduling therapy with S.A.G.E.: common questions" items={schedulePageFaqs} background="surface" />
+  <PageFaqs heading="Scheduling therapy with S.A.G.E.: common questions" items={schedulePageFaqs} background="secondary" />
 
   <InquiryFormSection
     context="Schedule a Session — Carlsbad Therapy"

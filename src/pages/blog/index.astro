@@ -1,35 +1,39 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Breadcrumbs from '../../components/sections/Breadcrumbs.astro';
+import PageHero from '../../components/sections/PageHero.astro';
 import TrustStrip from '../../components/sections/TrustStrip.astro';
 import Card from '../../components/ui/Card.astro';
 import InquiryFormSection from '../../components/sections/InquiryFormSection.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
-import { BLOG_URL } from '../../data/nav';
+import { editorialImages, getHeroImageAlt } from '../../data/pageImages';
+import { BLOG_URL, SCHEDULE_URL } from '../../data/nav';
 import { blogUrl } from '../../lib/routes';
 import { staticBreadcrumbs } from '../../lib/breadcrumbs';
 
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
 );
+
+const heroImage = editorialImages.windowNook;
 ---
 
 <BaseLayout
   title="Therapy Blog | S.A.G.E. Therapy Center, Carlsbad CA"
   description="Therapy articles and practice insights from S.A.G.E. Therapy Center in Carlsbad, CA, with Kristin Moorehead-Malley, LMFT."
 >
-  <Breadcrumbs items={staticBreadcrumbs('Blog', BLOG_URL)} />
+  <PageHero
+    eyebrow="S.A.G.E. Therapy Center"
+    title="Therapy insights and resources"
+    description="Articles on anxiety, relationships, trauma, and the therapy process — written from clinical experience at the Carlsbad practice."
+    breadcrumbItems={staticBreadcrumbs('Blog', BLOG_URL)}
+    ctaLabel="Schedule a Session"
+    ctaHref={SCHEDULE_URL}
+    image={heroImage}
+    imageAlt={getHeroImageAlt(heroImage)}
+  />
 
   <TrustStrip />
-
-  <div class="bg-secondary px-6 pb-10 pt-10 text-center sm:pb-12 sm:pt-12">
-    <p class="eyebrow-label">S.A.G.E. Therapy Center Blog</p>
-    <h1 class="mt-4 font-serif text-4xl text-ink sm:text-5xl">Therapy insights from our Carlsbad practice</h1>
-    <p class="mx-auto mt-4 max-w-2xl font-sans text-base leading-7 text-muted-foreground">
-      Articles related to therapy, relationships, emotional health, and the areas of support offered through S.A.G.E. Therapy Center.
-    </p>
-  </div>
 
   <section class="bg-background">
     <div class="mx-auto max-w-3xl px-6 py-10 sm:py-14">

@@ -37,6 +37,19 @@
      sizing 9–144; Inter 400/500/600/700. */
   --font-serif: "Fraunces", ui-serif, Georgia, serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Letter-spacing — two canonical values replacing 6+ arbitrary tracking-[...] */
+  --tracking-label: 0.16em;          /* eyebrow text on light backgrounds */
+  --tracking-label-inverted: 0.18em; /* eyebrow text on dark/primary backgrounds */
+
+  /* Ink shadows — four semantic levels using --color-ink rgba values */
+  --shadow-ink-sm: 0 14px 34px -28px rgba(42,40,51,0.45);
+  --shadow-ink-md: 0 24px 60px -42px rgba(42,40,51,0.5);
+  --shadow-ink-lg: 0 28px 70px -44px rgba(42,40,51,0.55);
+  --shadow-ink-xl: 0 30px 80px -50px rgba(42,40,51,0.6);
+
+  /* Border radius for editorial images and elevated cards */
+  --radius-image: 2rem;
 }
 
 /*
@@ -46,15 +59,15 @@
  */
 @layer components {
   .eyebrow-label {
-    @apply font-sans text-xs font-semibold uppercase tracking-widest text-sage-deep;
+    @apply font-sans text-xs font-semibold uppercase tracking-label text-sage-deep;
+  }
+
+  .eyebrow-label-inverted {
+    @apply font-sans text-xs font-semibold uppercase tracking-label-inverted text-sage;
   }
 
   .section-card {
     @apply rounded-2xl border border-border bg-surface p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-sage/40 hover:shadow-md lg:p-8;
-  }
-
-  .quote-block {
-    @apply bg-primary text-primary-foreground rounded-3xl px-8 py-14 text-center font-serif text-2xl italic leading-relaxed sm:text-3xl;
   }
 
 }

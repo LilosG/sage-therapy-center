@@ -44,7 +44,7 @@ const coreServices = sortCoreServices((await getCollection('services')).filter((
       </div>
 
       <div>
-        <p class="font-sans text-xs font-semibold uppercase tracking-[0.16em] text-sage-deep">Practice</p>
+        <p class="font-sans text-xs font-semibold uppercase tracking-label text-sage-deep">Practice</p>
         <ul class="mt-4 space-y-3">
           <li><a href={ABOUT_URL} class="font-sans text-sm text-foreground hover:text-sage-deep">About Kristin</a></li>
           <li><a href={FAQ_URL} class="font-sans text-sm text-foreground hover:text-sage-deep">FAQ</a></li>
@@ -55,7 +55,7 @@ const coreServices = sortCoreServices((await getCollection('services')).filter((
       </div>
 
       <div>
-        <p class="font-sans text-xs font-semibold uppercase tracking-[0.16em] text-sage-deep">Therapy Services</p>
+        <p class="font-sans text-xs font-semibold uppercase tracking-label text-sage-deep">Therapy Services</p>
         <ul class="mt-4 space-y-3">
           <li>
             <a href={TELEHEALTH_URL} class="inline-flex items-center gap-2 font-sans text-sm font-semibold text-sage-deep hover:text-primary">
@@ -73,7 +73,7 @@ const coreServices = sortCoreServices((await getCollection('services')).filter((
       </div>
 
       <div>
-        <p class="font-sans text-xs font-semibold uppercase tracking-[0.16em] text-sage-deep">Areas We Serve</p>
+        <p class="font-sans text-xs font-semibold uppercase tracking-label text-sage-deep">Areas We Serve</p>
         <ul class="mt-4 space-y-3">
           {cities.slice(0, 8).map((c) => (
             <li>

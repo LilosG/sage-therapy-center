@@ -29,7 +29,7 @@ const sourcePath = Astro.url.pathname;
 <section id="request-session" class="scroll-mt-24 bg-primary text-primary-foreground">
   <div class="mx-auto grid max-w-6xl gap-10 px-6 py-16 sm:py-20 lg:grid-cols-[0.78fr_1.22fr] lg:items-start lg:gap-16 lg:py-24">
     <div class="lg:sticky lg:top-28">
-      <p class="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-sage">{eyebrow}</p>
+      <p class="font-sans text-xs font-semibold uppercase tracking-label-inverted text-sage">{eyebrow}</p>
       <h2 class="mt-4 max-w-lg font-serif text-3xl leading-tight sm:text-4xl lg:text-[2.65rem]">{heading}</h2>
       <p class="mt-5 max-w-lg font-sans text-base leading-7 text-primary-foreground/75">{subhead}</p>
 
@@ -64,7 +64,7 @@ const sourcePath = Astro.url.pathname;
       </ul>
     </div>
 
-    <div class="rounded-[2rem] bg-surface p-6 text-foreground shadow-[0_30px_80px_-50px_rgba(0,0,0,0.6)] sm:p-8 lg:p-10">
+    <div class="rounded-image bg-surface p-6 text-foreground shadow-ink-xl sm:p-8 lg:p-10">
       <form
         action={transportReady ? endpoint : undefined}
         method="post"

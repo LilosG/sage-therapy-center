@@ -9,7 +9,7 @@ import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { site } from '../../data/site';
 import { faqHubSupplemental } from '../../data/faqHubSupplemental';
 import { editorialImages, getHeroImageAlt } from '../../data/pageImages';
-import { CONTACT_URL, FAQ_URL } from '../../data/nav';
+import { FAQ_URL } from '../../data/nav';
 import { staticBreadcrumbs } from '../../lib/breadcrumbs';
 
 const faqs = await getCollection('faq');
@@ -21,7 +21,7 @@ const faqItems = [...authoredFaqs, ...faqHubSupplemental].filter((item) => {
   seenQuestions.add(key);
   return true;
 });
-const heroImage = editorialImages.meadowTree;
+const heroImage = editorialImages.eucalyptusTrail;
 ---
 
 <BaseLayout
@@ -34,8 +34,8 @@ const heroImage = editorialImages.meadowTree;
     title="Questions about starting therapy with S.A.G.E."
     description="Find practical information about therapy at the Carlsbad office, telehealth across California, and getting started with Kristin Moorehead-Malley, LMFT."
     breadcrumbItems={staticBreadcrumbs('FAQ', FAQ_URL)}
-    ctaLabel="Ask a Question"
-    ctaHref={CONTACT_URL}
+    ctaLabel="Schedule a Session"
+    ctaHref="#request-session"
     phoneDisplay={site.phone.display}
     phoneHref={`tel:${site.phone.tel}`}
     image={heroImage}
