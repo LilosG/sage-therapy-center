@@ -16,10 +16,12 @@ interface Props {
   title: string;
   description: string;
   image?: ImageMetadata;
+  imageAlt?: string;
+  ogType?: string;
   noindex?: boolean;
 }
 
-const { title, description, image, noindex = false } = Astro.props;
+const { title, description, image, imageAlt, ogType = 'website', noindex = false } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, site.canonicalOrigin);
 // The legacy resources section still contains unrecovered source material and
 // must stay out of search until real content replaces the temporary archive.
@@ -47,7 +49,7 @@ const robotsContent = routeNoindex
     <link rel="canonical" href={canonicalURL} />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:locale" content="en_US" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -56,6 +58,7 @@ const robotsContent = routeNoindex
     <meta property="og:image" content={ogImageURL} />
     <meta property="og:image:width" content={ogWidth.toString()} />
     <meta property="og:image:height" content={ogHeight.toString()} />
+    <meta property="og:image:alt" content={imageAlt ?? site.name} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />

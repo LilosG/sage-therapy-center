@@ -2,7 +2,9 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/sections/Breadcrumbs.astro';
+import TrustStrip from '../../components/sections/TrustStrip.astro';
 import Card from '../../components/ui/Card.astro';
+import InquiryFormSection from '../../components/sections/InquiryFormSection.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { BLOG_URL } from '../../data/nav';
 import { blogUrl } from '../../lib/routes';
@@ -18,6 +20,8 @@ const posts = (await getCollection('blog')).sort(
   description="Therapy articles and practice insights from S.A.G.E. Therapy Center in Carlsbad, CA, with Kristin Moorehead-Malley, LMFT."
 >
   <Breadcrumbs items={staticBreadcrumbs('Blog', BLOG_URL)} />
+
+  <TrustStrip />
 
   <div class="bg-secondary px-6 pb-10 pt-10 text-center sm:pb-12 sm:pt-12">
     <p class="eyebrow-label">S.A.G.E. Therapy Center Blog</p>
@@ -49,6 +53,12 @@ const posts = (await getCollection('blog')).sort(
       </div>
     </div>
   </section>
+
+  <InquiryFormSection
+    context="Blog Index"
+    heading="Ready to start therapy? Begin with a simple request."
+    subhead="Request a follow-up about fit and availability at the Carlsbad office or by telehealth across California."
+  />
 
   <SchemaOrg type="localBusiness" />
 </BaseLayout>

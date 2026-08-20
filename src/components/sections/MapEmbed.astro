@@ -1,5 +1,6 @@
 ---
 import { site } from '../../data/site';
+import googleReviews from '../../data/google-reviews.json';
 
 interface Props {
   class?: string;
@@ -8,7 +9,7 @@ interface Props {
 
 const { class: className = '', height = 400 } = Astro.props;
 const fullAddress = `${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}`;
-const src = `https://www.google.com/maps?q=${encodeURIComponent(fullAddress)}&output=embed`;
+const src = `https://maps.google.com/maps?q=place_id:${googleReviews.placeId}&output=embed`;
 const classes = ['overflow-hidden rounded-2xl border border-border shadow-lg', className].filter(Boolean).join(' ');
 ---
 

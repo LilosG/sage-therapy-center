@@ -23,4 +23,5 @@ export const headerNav = [
   { label: 'Home', href: HOME_URL },
   { label: 'About', href: ABOUT_URL },
   { label: 'FAQ', href: FAQ_URL },
+  { label: 'Contact', href: CONTACT_URL },
 ] as const;

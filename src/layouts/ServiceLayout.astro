@@ -60,7 +60,8 @@ const cityLinks = cities.map((c) => ({ name: c.data.name, href: cityUrl(c.data.s
 const heroImage = getServiceHero(slug);
 const localServiceTitle = `${title} in ${site.address.city}, ${site.address.region}`;
 const metaTitle = `${localServiceTitle} | S.A.G.E. Therapy Center`;
-const metaDescription = `${description} Work with Kristin Moorehead-Malley, LMFT, in ${site.address.city} or by telehealth across California.`;
+const rawMetaDescription = `${description} Work with Kristin Moorehead-Malley, LMFT, in ${site.address.city} or by telehealth across California.`;
+const metaDescription = rawMetaDescription.length > 155 ? rawMetaDescription.slice(0, 152) + '...' : rawMetaDescription;
 const hasStructuredContent = Boolean(recognition?.length && overview && topics);
 
 const heroEyebrow =
@@ -270,4 +271,5 @@ const reassuranceItems = [
       areaServed: site.address.city,
     }}
   />
+  <SchemaOrg type="faqPage" faqItems={faqItems} />
 </InteriorPageLayout>

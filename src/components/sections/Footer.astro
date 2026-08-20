@@ -2,11 +2,14 @@
 import { getCollection } from 'astro:content';
 import { Icon } from 'astro-icon/components';
 import { site } from '../../data/site';
-import { ABOUT_URL, CONTACT_URL, FAQ_URL, SCHEDULE_URL, SERVICES_URL, TELEHEALTH_URL } from '../../data/nav';
+import { sortCoreServices } from '../../data/serviceOrder';
+import { ABOUT_URL, BLOG_URL, CONTACT_URL, FAQ_URL, SCHEDULE_URL, SERVICES_URL, TELEHEALTH_URL } from '../../data/nav';
 import { cityUrl, serviceUrl } from '../../lib/routes';
 
-const cities = await getCollection('cities');
-const coreServices = (await getCollection('services')).filter((s) => s.data.category === 'core');
+const cities = (await getCollection('cities')).sort((a, b) =>
+  a.data.name === 'Carlsbad' ? -1 : b.data.name === 'Carlsbad' ? 1 : a.data.name.localeCompare(b.data.name)
+);
+const coreServices = sortCoreServices((await getCollection('services')).filter((s) => s.data.category === 'core'));
 ---
 
 <footer class="border-t border-border bg-secondary">
@@ -46,6 +49,7 @@ const coreServices = (await getCollection('services')).filter((s) => s.data.cate
           <li><a href={ABOUT_URL} class="font-sans text-sm text-foreground hover:text-sage-deep">About Kristin</a></li>
           <li><a href={FAQ_URL} class="font-sans text-sm text-foreground hover:text-sage-deep">FAQ</a></li>
           <li><a href={CONTACT_URL} class="font-sans text-sm text-foreground hover:text-sage-deep">Contact</a></li>
+          <li><a href={BLOG_URL} class="font-sans text-sm text-foreground hover:text-sage-deep">Blog</a></li>
           <li><a href={SCHEDULE_URL} class="font-sans text-sm font-semibold text-sage-deep hover:text-primary">Schedule a Session</a></li>
         </ul>
       </div>
