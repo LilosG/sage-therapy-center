@@ -11,7 +11,7 @@ export const inquiryTherapyOptions = [
 ] as const;
 
 export const inquirySessionOptions = [
-  'In-person in Carlsbad',
+  'In Person',
   'Telehealth',
   'Either works for me',
 ] as const;
