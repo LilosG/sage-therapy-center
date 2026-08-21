@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { getImage } from 'astro:assets';
 import Breadcrumbs from './Breadcrumbs.astro';
 import Button from '../ui/Button.astro';
 
@@ -34,47 +34,61 @@ const {
   phoneHref,
   trustBadges,
   image,
-  imageAlt = 'Quiet Southern California landscape supporting the therapy page',
   imagePosition = 'center',
 } = Astro.props;
+
+const optimizedBg = image
+  ? await getImage({ src: image, format: 'webp', width: 1600, quality: 80 })
+  : null;
 ---
 
-<section class="relative overflow-hidden bg-lavender-soft">
-  <div class="pointer-events-none absolute -left-32 bottom-[-14rem] h-[30rem] w-[30rem] rounded-full bg-sage/10 blur-3xl" aria-hidden="true" />
-  <div class="pointer-events-none absolute -right-24 top-[-10rem] h-[32rem] w-[32rem] rounded-full bg-surface/60 blur-3xl" aria-hidden="true" />
+<section
+  class:list={[
+    'relative overflow-hidden bg-primary',
+    !image && 'bg-gradient-to-br from-primary via-primary to-sage-deep',
+  ]}
+  style={optimizedBg ? `background-image: url('${optimizedBg.src}'); background-size: cover; background-position: ${imagePosition};` : undefined}
+>
+  <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-primary/88 via-primary/65 to-primary/20" aria-hidden="true" />
 
-  <div class="relative mx-auto max-w-7xl px-6 lg:px-8">
-    <Breadcrumbs items={breadcrumbItems} variant="muted" contained={false} />
+  <div class="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
+    <Breadcrumbs items={breadcrumbItems} variant="light" contained={false} />
 
-    <div class:list={[
-      'grid items-center gap-10 pb-14 pt-4 sm:pb-16 lg:min-h-[29rem] lg:gap-14 lg:pb-14 lg:pt-6',
-      image ? 'lg:grid-cols-[1.08fr_0.92fr]' : 'mx-auto max-w-3xl text-center',
-    ]}>
-      <div class:list={[image ? 'text-center lg:text-left' : 'text-center']}>
+    <div class="flex items-center pb-14 pt-4 sm:pb-16 lg:min-h-[34rem] lg:pb-16 lg:pt-6">
+      <div class="max-w-2xl">
         {
           eyebrow && (
-            <span class="inline-flex items-center gap-2 rounded-full border border-surface/90 bg-surface/75 px-4 py-1.5 font-sans text-xs font-semibold uppercase tracking-label text-foreground shadow-sm backdrop-blur-md">
-              <span class="h-1.5 w-1.5 rounded-full bg-sage-deep" aria-hidden="true" />
+            <span class="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-4 py-1.5 font-sans text-xs font-semibold uppercase tracking-label text-primary-foreground/80 backdrop-blur-sm">
+              <span class="h-1.5 w-1.5 rounded-full bg-sage" aria-hidden="true" />
               {eyebrow}
             </span>
           )
         }
 
-        <h1 class="mt-5 max-w-3xl font-serif text-4xl leading-tight tracking-tight text-ink sm:text-5xl lg:text-[3.25rem]">
+        <h1 class="mt-5 font-serif text-4xl leading-tight tracking-tight text-primary-foreground sm:text-5xl lg:text-[3.25rem]">
           {title}
         </h1>
-        {description && <p class:list={['mt-5 max-w-2xl font-sans text-lg leading-8 text-foreground', !image && 'mx-auto']}>{description}</p>}
+
+        {description && (
+          <p class="mt-5 max-w-xl font-sans text-lg leading-8 text-primary-foreground/75">
+            {description}
+          </p>
+        )}
 
         {
           (ctaHref || phoneHref) && (
-            <div class:list={['mt-8 flex flex-wrap gap-3', image ? 'justify-center lg:justify-start' : 'justify-center']}>
+            <div class="mt-8 flex flex-wrap gap-3">
               {ctaHref && ctaLabel && (
                 <Button href={ctaHref} class="shadow-lg shadow-sage-deep/20 hover:shadow-xl hover:shadow-sage-deep/30">
                   {ctaLabel}
                 </Button>
               )}
               {phoneHref && phoneDisplay && (
-                <Button href={phoneHref} variant="secondary" class="border-border bg-surface/75 text-ink backdrop-blur-md hover:bg-surface">
+                <Button
+                  href={phoneHref}
+                  variant="secondary"
+                  class="border-primary-foreground/20 bg-primary-foreground/10 text-primary-foreground backdrop-blur-sm hover:bg-primary-foreground/20"
+                >
                   Call {phoneDisplay}
                 </Button>
               )}
@@ -84,9 +98,9 @@ const {
 
         {
           trustBadges && trustBadges.length > 0 && (
-            <ul class:list={['mt-6 flex flex-wrap gap-2', image ? 'justify-center lg:justify-start' : 'justify-center']}>
+            <ul class="mt-6 flex flex-wrap gap-2">
               {trustBadges.map((badge) => (
-                <li class="rounded-full border border-border bg-surface/70 px-4 py-1.5 font-sans text-xs font-semibold uppercase tracking-wide text-foreground">
+                <li class="rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-4 py-1.5 font-sans text-xs font-semibold uppercase tracking-wide text-primary-foreground/80">
                   {badge}
                 </li>
               ))}
@@ -94,27 +108,6 @@ const {
           )
         }
       </div>
-
-      {
-        image && (
-          <figure
-            class="relative mx-auto aspect-[16/11] w-full max-w-xl overflow-hidden rounded-image border border-surface/80 bg-secondary bg-cover bg-center shadow-ink-xl lg:max-w-none"
-            style={`background-image: url('${image.src}'); background-position: ${imagePosition};`}
-          >
-            <Image
-              src={image}
-              alt={imageAlt}
-              widths={[480, 720, 960, 1200]}
-              sizes="(min-width: 1024px) 44vw, calc(100vw - 3rem)"
-              class="absolute inset-0 h-full w-full object-cover"
-              style={`object-position: ${imagePosition};`}
-              loading="eager"
-              fetchpriority="high"
-            />
-            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-primary/10 via-transparent to-surface/5" aria-hidden="true" />
-          </figure>
-        )
-      }
     </div>
   </div>
 </section>

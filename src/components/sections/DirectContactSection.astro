@@ -17,13 +17,13 @@ import { site } from '../../data/site';
       <div class="grid overflow-hidden rounded-3xl border border-border bg-surface sm:grid-cols-2">
         <a
           href={`tel:${site.phone.tel}`}
-          class="group flex min-h-44 flex-col justify-between gap-8 p-7 transition-colors hover:bg-lavender-soft/40 sm:p-8"
+          class="group flex flex-col gap-5 p-7 transition-colors hover:bg-lavender-soft/40 sm:p-8"
         >
           <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-sage/15 text-sage-deep" aria-hidden="true">
             <Icon name="lucide:phone" width={19} height={19} />
           </span>
           <span>
-            <span class="block font-sans text-xs font-semibold uppercase tracking-[0.16em] text-sage-deep">Phone</span>
+            <span class="block font-sans text-xs font-semibold uppercase tracking-label text-sage-deep">Phone</span>
             <span class="mt-2 flex items-center justify-between gap-3 font-serif text-2xl text-ink">
               {site.phone.display}
               <span class="text-sage-deep transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
@@ -33,13 +33,13 @@ import { site } from '../../data/site';
 
         <a
           href={`mailto:${site.email}`}
-          class="group flex min-h-44 flex-col justify-between gap-8 border-t border-border p-7 transition-colors hover:bg-lavender-soft/40 sm:border-l sm:border-t-0 sm:p-8"
+          class="group flex flex-col gap-5 border-t border-border p-7 transition-colors hover:bg-lavender-soft/40 sm:border-l sm:border-t-0 sm:p-8"
         >
-          <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-lavender-soft text-sage-deep" aria-hidden="true">
+          <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-sage/15 text-sage-deep" aria-hidden="true">
             <Icon name="lucide:mail" width={19} height={19} />
           </span>
           <span>
-            <span class="block font-sans text-xs font-semibold uppercase tracking-[0.16em] text-sage-deep">Email</span>
+            <span class="block font-sans text-xs font-semibold uppercase tracking-label text-sage-deep">Email</span>
             <span class="mt-2 flex items-center justify-between gap-3 break-all font-serif text-lg text-ink sm:text-xl">
               {site.email}
               <span class="shrink-0 text-sage-deep transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
