@@ -1,5 +1,5 @@
 ---
-import { getImage } from 'astro:assets';
+import { Image } from 'astro:assets';
 import Breadcrumbs from './Breadcrumbs.astro';
 import Button from '../ui/Button.astro';
 
@@ -36,41 +36,49 @@ const {
   image,
   imagePosition = 'center',
 } = Astro.props;
-
-const optimizedBg = image
-  ? await getImage({ src: image, format: 'webp', width: 1600, quality: 80 })
-  : null;
 ---
 
-<section
-  class:list={[
-    'relative overflow-hidden bg-primary',
-    !image && 'bg-gradient-to-br from-primary via-primary to-sage-deep',
-  ]}
-  style={optimizedBg ? `background-image: url('${optimizedBg.src}'); background-size: cover; background-position: ${imagePosition};` : undefined}
->
-  <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-primary/88 via-primary/65 to-primary/20" aria-hidden="true" />
+<section class="relative isolate overflow-hidden bg-primary">
+  {
+    image ? (
+      <Image
+        src={image}
+        alt=""
+        widths={[768, 1200, 1600]}
+        sizes="100vw"
+        class="absolute inset-0 h-full w-full object-cover"
+        style={`object-position: ${imagePosition};`}
+        loading="eager"
+        fetchpriority="high"
+      />
+    ) : (
+      <div class="absolute inset-0 bg-gradient-to-br from-lavender via-primary to-sage-deep" aria-hidden="true" />
+    )
+  }
+
+  <div class="absolute inset-0 bg-gradient-to-r from-primary/82 via-primary/50 to-primary/8" aria-hidden="true" />
+  <div class="absolute inset-0 bg-gradient-to-t from-primary/25 via-transparent to-primary/8" aria-hidden="true" />
 
   <div class="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
     <Breadcrumbs items={breadcrumbItems} variant="light" contained={false} />
 
     <div class="flex items-center pb-14 pt-4 sm:pb-16 lg:min-h-[34rem] lg:pb-16 lg:pt-6">
-      <div class="max-w-2xl">
+      <div class="max-w-xl">
         {
           eyebrow && (
-            <span class="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-4 py-1.5 font-sans text-xs font-semibold uppercase tracking-label text-primary-foreground/80 backdrop-blur-sm">
-              <span class="h-1.5 w-1.5 rounded-full bg-sage" aria-hidden="true" />
+            <span class="inline-flex items-center gap-2 rounded-full border border-surface/70 bg-surface/90 px-4 py-1.5 font-sans text-xs font-semibold uppercase tracking-label text-sage-deep shadow-sm backdrop-blur-sm">
+              <span class="h-1.5 w-1.5 rounded-full bg-sage-deep" aria-hidden="true" />
               {eyebrow}
             </span>
           )
         }
 
-        <h1 class="mt-5 font-serif text-4xl leading-tight tracking-tight text-primary-foreground sm:text-5xl lg:text-[3.25rem]">
+        <h1 class="mt-5 font-serif text-4xl leading-tight tracking-tight text-surface drop-shadow-[0_2px_12px_rgba(42,40,51,0.18)] sm:text-5xl lg:text-[3.25rem]">
           {title}
         </h1>
 
         {description && (
-          <p class="mt-5 max-w-xl font-sans text-lg leading-8 text-primary-foreground/75">
+          <p class="mt-5 max-w-lg font-sans text-base leading-7 text-surface/90 sm:text-lg">
             {description}
           </p>
         )}
@@ -87,7 +95,7 @@ const optimizedBg = image
                 <Button
                   href={phoneHref}
                   variant="secondary"
-                  class="border-primary-foreground/20 bg-primary-foreground/10 text-primary-foreground backdrop-blur-sm hover:bg-primary-foreground/20"
+                  class="border-surface/80 bg-primary/25 text-surface backdrop-blur-sm hover:bg-surface/10"
                 >
                   Call {phoneDisplay}
                 </Button>
@@ -100,7 +108,7 @@ const optimizedBg = image
           trustBadges && trustBadges.length > 0 && (
             <ul class="mt-6 flex flex-wrap gap-2">
               {trustBadges.map((badge) => (
-                <li class="rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-4 py-1.5 font-sans text-xs font-semibold uppercase tracking-wide text-primary-foreground/80">
+                <li class="rounded-full border border-surface/40 bg-surface/15 px-4 py-1.5 font-sans text-xs font-semibold uppercase tracking-wide text-surface/85">
                   {badge}
                 </li>
               ))}
