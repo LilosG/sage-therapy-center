@@ -122,23 +122,8 @@ const simpleNavItems = headerNav.filter((item) => item.href !== HOME_URL);
               <a href={AREAS_WE_SERVE_URL} class="font-sans text-xs font-semibold text-muted-foreground hover:text-sage-deep">View all areas →</a>
             </div>
 
-            {officeCity && (
-              <a href={cityUrl(officeCity.data.slug)} class="group/office mt-4 flex items-center justify-between gap-5 rounded-2xl bg-lavender-soft px-5 py-4 transition hover:bg-lavender-soft/75">
-                <div class="flex items-center gap-4">
-                  <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sage text-primary" aria-hidden="true">
-                    <Icon name="lucide:building-2" width={18} height={18} />
-                  </span>
-                  <div>
-                    <p class="font-serif text-lg text-ink">{officeCity.data.name}</p>
-                    <p class="mt-0.5 font-sans text-xs font-medium text-sage-deep">S.A.G.E. physical office location</p>
-                  </div>
-                </div>
-                <span class="text-sage-deep transition-transform group-hover/office:translate-x-1" aria-hidden="true">→</span>
-              </a>
-            )}
-
             <ul class="mt-4 grid grid-cols-2 gap-x-4 gap-y-1">
-              {serviceAreaCities.map((city) => (
+              {orderedCities.map((city) => (
                 <li>
                   <a
                     href={cityUrl(city.data.slug)}
@@ -231,12 +216,9 @@ const simpleNavItems = headerNav.filter((item) => item.href !== HOME_URL);
               {orderedCities.map((city) => (
                 <a
                   href={cityUrl(city.data.slug)}
-                  class:list={[
-                    'mt-0.5 flex items-center justify-between rounded-xl px-3 py-2.5 font-sans text-sm hover:bg-secondary hover:text-sage-deep',
-                    city.data.hasOffice ? 'font-semibold text-ink' : 'text-foreground',
-                  ]}
+                  class="mt-0.5 flex items-center justify-between rounded-xl px-3 py-2.5 font-sans text-sm text-foreground hover:bg-secondary hover:text-sage-deep"
                 >
-                  <span>{city.data.name}{city.data.hasOffice ? ' · Office' : ''}</span>
+                  <span>{city.data.name}</span>
                   <span class="text-muted-foreground" aria-hidden="true">→</span>
                 </a>
               ))}
