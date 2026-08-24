@@ -26,6 +26,7 @@ import { SCHEDULE_URL } from '../../data/nav';
 </nav>
 
 <script>
+  import { track } from '@vercel/analytics';
   const bar = document.querySelector('[data-mobile-conversion-bar]');
 
   if (bar instanceof HTMLElement) {
@@ -36,6 +37,9 @@ import { SCHEDULE_URL } from '../../data/nav';
     if (scheduleLink instanceof HTMLAnchorElement && requestSection) {
       scheduleLink.href = '#request-session';
     }
+
+    scheduleLink?.addEventListener('click', () => track('mobile_cta_click', { variant: 'schedule' }));
+    bar.querySelector(`a[href^="tel:"]`)?.addEventListener('click', () => track('mobile_cta_click', { variant: 'call' }));
 
     let requestVisible = false;
     let footerVisible = false;

@@ -154,7 +154,7 @@ const simpleNavItems = headerNav.filter((item) => item.href !== HOME_URL);
     </nav>
 
     <div class="hidden items-center gap-4 lg:flex">
-      <a href={`tel:${site.phone.tel}`} class="font-sans text-sm font-medium text-primary hover:text-sage-deep">
+      <a href={`tel:${site.phone.tel}`} data-phone-link class="font-sans text-sm font-medium text-primary hover:text-sage-deep">
         {site.phone.display}
       </a>
       <Button href={SCHEDULE_URL}>Schedule a Session</Button>
@@ -242,7 +242,7 @@ const simpleNavItems = headerNav.filter((item) => item.href !== HOME_URL);
 
         <div class="border-t border-border bg-secondary/60 p-4">
           <Button href={SCHEDULE_URL} class="w-full">Schedule a Session</Button>
-          <a href={`tel:${site.phone.tel}`} class="mt-3 flex items-center justify-center gap-2 font-sans text-sm font-semibold text-primary">
+          <a href={`tel:${site.phone.tel}`} data-phone-link class="mt-3 flex items-center justify-center gap-2 font-sans text-sm font-semibold text-primary">
             <Icon name="lucide:phone" width={15} height={15} aria-hidden="true" />
             {site.phone.display}
           </a>
@@ -251,3 +251,10 @@ const simpleNavItems = headerNav.filter((item) => item.href !== HOME_URL);
     </details>
   </div>
 </header>
+
+<script>
+  import { track } from '@vercel/analytics';
+  document.querySelectorAll('[data-phone-link]').forEach((link) => {
+    link.addEventListener('click', () => track('phone_click', { location: 'header' }));
+  });
+</script>

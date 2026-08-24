@@ -1,5 +1,6 @@
 ---
 import { getImage } from 'astro:assets';
+import Analytics from '@vercel/analytics/astro';
 import '../styles/global.css';
 import '@fontsource-variable/fraunces';
 import '@fontsource/inter/400.css';
@@ -33,6 +34,14 @@ const ogWidth = Math.min(1200, ogSource.width);
 const ogHeight = Math.round(ogWidth / OG_ASPECT_RATIO);
 const ogImage = await getImage({ src: ogSource, width: ogWidth, height: ogHeight, format: 'webp' });
 const ogImageURL = new URL(ogImage.src, site.canonicalOrigin).toString();
+
+const heroPreload = image
+  ? await getImage({ src: image, width: Math.min(1280, image.width), format: 'webp', quality: 80 })
+  : null;
+const heroPreload2x = image
+  ? await getImage({ src: image, width: Math.min(640, image.width), format: 'webp', quality: 80 })
+  : null;
+
 const robotsContent = routeNoindex
   ? 'noindex,follow'
   : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
@@ -48,6 +57,15 @@ const robotsContent = routeNoindex
     <meta name="robots" content={robotsContent} />
     <link rel="canonical" href={canonicalURL} />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    {heroPreload && heroPreload2x && (
+      <link
+        rel="preload"
+        as="image"
+        href={heroPreload.src}
+        imagesrcset={`${heroPreload2x.src} 640w, ${heroPreload.src} 1280w`}
+        imagesizes="100vw"
+      />
+    )}
 
     <meta property="og:type" content={ogType} />
     <meta property="og:locale" content="en_US" />
@@ -77,5 +95,6 @@ const robotsContent = routeNoindex
     </main>
     <Footer />
     <MobileConversionBar />
+    <Analytics />
   </body>
 </html>

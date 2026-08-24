@@ -98,7 +98,7 @@ export function buildServiceFaqs(input: {
       },
       {
         q: `How do I start ${lowerTitle} at S.A.G.E. Therapy Center?`,
-        a: `Request a session to discuss fit, current availability, what you are looking for, and whether you prefer the ${city} office or telehealth.`,
+        a: `Submit a session request at sagetherapycenter.com/schedule-a-session/ or call ${site.phone.display}. Kristin follows up to discuss fit, current availability, and whether the ${city} office or telehealth is the better option.`,
       },
     ],
     existing
@@ -199,7 +199,7 @@ export function buildCityServiceFaqs(input: {
       },
       {
         q: `How do I start ${lowerTitle} as a ${cityName} client?`,
-        a: `Request a session to discuss fit, availability, what you want support with, and whether you prefer in-person sessions in Carlsbad or telehealth.`,
+        a: `Submit a session request at sagetherapycenter.com/schedule-a-session/ or call ${site.phone.display}. Kristin follows up to discuss fit, availability, and whether the Carlsbad office or telehealth across ${site.telehealth.coverageArea} is the better option.`,
       },
     ],
     existing
@@ -323,54 +323,54 @@ export const aboutPageFaqs = finalizeLandingFaqs([
 export const contactPageFaqs = finalizeLandingFaqs([
   {
     q: 'How can I contact S.A.G.E. Therapy Center?',
-    a: `You can use the online request form, call ${site.phone.display}, or email ${site.email}.`,
+    a: `You can use the online request form at sagetherapycenter.com/schedule-a-session/, call ${site.phone.display}, or email ${site.email}.`,
   },
   {
     q: 'Where is the S.A.G.E. Therapy Center office in Carlsbad?',
-    a: `The office is at ${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}.`,
+    a: `S.A.G.E. Therapy Center's office is at ${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode} — near the Bressi Ranch area of Carlsbad.`,
   },
   {
     q: 'Can I contact S.A.G.E. about telehealth?',
-    a: `Yes. Telehealth is available across ${site.telehealth.coverageArea}, and you can indicate your session preference in the request form.`,
+    a: `Yes. Telehealth sessions are available to clients across ${site.telehealth.coverageArea}. You can indicate your session preference (in-person or telehealth) in the online request form.`,
   },
   {
     q: 'How much information should I include in the online request form?',
-    a: 'Keep the request focused on contact, scheduling, general service interest, and session preference. You do not need to include sensitive clinical or medical details in the web form.',
+    a: 'Keep it to contact details, a general description of what you are looking for, and your session preference. The form asks you specifically not to include sensitive clinical or medical details — that conversation happens by phone or in session.',
   },
   {
     q: 'What happens after I send a therapy inquiry?',
-    a: 'The request is used to follow up about fit, current availability, the kind of support you are looking for, and possible session options.',
+    a: 'Kristin follows up — typically within one business day — to discuss fit, current availability, the kind of support you are looking for, and whether in-person or telehealth sessions are the better option.',
   },
   {
     q: 'Can I call instead of using the online form?',
-    a: `Yes. You can call S.A.G.E. Therapy Center directly at ${site.phone.display}.`,
+    a: `Yes. Call S.A.G.E. Therapy Center at ${site.phone.display} to discuss fit and availability directly.`,
   },
 ]);
 
 export const schedulePageFaqs = finalizeLandingFaqs([
   {
     q: 'What happens after I request a therapy session?',
-    a: 'Your request is used to discuss fit, current availability, and the session option that makes the most sense before anything is scheduled.',
+    a: 'After you submit a request, Kristin follows up — typically within one business day — to discuss fit, availability, and session options. Nothing is scheduled before that conversation.',
   },
   {
     q: 'Where are S.A.G.E. therapy sessions available?',
-    a: 'In-person sessions are based at the Carlsbad office, with telehealth available to clients across California.',
+    a: `In-person sessions are held at S.A.G.E. Therapy Center, ${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}. Telehealth is available to clients across ${site.telehealth.coverageArea}.`,
   },
   {
     q: 'How much do I need to explain in the request form?',
-    a: 'Only enough for scheduling and fit. The form is intentionally brief and asks you not to include sensitive clinical or medical details.',
+    a: 'Only enough for scheduling and fit — your name, contact information, general interest, and session preference. The form specifically asks you not to include sensitive clinical or medical details.',
   },
   {
     q: 'Can I call S.A.G.E. instead of submitting the form?',
-    a: `Yes. Call ${site.phone.display} if you would rather start by phone.`,
+    a: `Yes. You can call S.A.G.E. Therapy Center directly at ${site.phone.display} to discuss fit and availability by phone.`,
   },
   {
     q: 'Do I need to know which therapy service I want before requesting a session?',
-    a: 'No. You can indicate the general kind of support you are looking for and discuss the most relevant therapy service during follow-up.',
+    a: 'No. You can describe the general kind of support you are looking for — individual therapy, couples counseling, teen counseling, EMDR, etc. — and identify the most relevant service during your follow-up conversation.',
   },
   {
     q: 'Can I choose between in-person therapy and telehealth when I reach out?',
-    a: 'Yes. The request form lets you indicate a session preference, and you can discuss in-person Carlsbad sessions, telehealth, or both during follow-up.',
+    a: `Yes. The request form includes a session-preference field. In-person sessions are available at the Carlsbad office; telehealth is available statewide across ${site.telehealth.coverageArea}.`,
   },
 ]);
 
