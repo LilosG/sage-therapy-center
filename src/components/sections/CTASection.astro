@@ -13,17 +13,18 @@ interface Props {
 const { heading, subhead, ctaLabel, ctaHref, phoneDisplay, phoneHref } = Astro.props;
 ---
 
-<section class="w-full bg-primary">
+<section class="w-full bg-primary" data-cta-section>
   <div class="mx-auto max-w-5xl px-6 py-16 text-center sm:py-20 lg:py-24">
     <p class="font-sans text-xs font-semibold uppercase tracking-label-inverted text-sage">Take the next step</p>
     <h2 class="mx-auto mt-4 max-w-3xl font-serif text-3xl leading-tight text-primary-foreground sm:text-4xl lg:text-5xl">{heading}</h2>
     {subhead && <p class="mx-auto mt-5 max-w-2xl font-sans text-base leading-7 text-primary-foreground/75 sm:text-lg">{subhead}</p>}
     <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-      <Button href={ctaHref}>{ctaLabel}</Button>
+      <Button href={ctaHref} data-cta-primary>{ctaLabel}</Button>
       {
         phoneDisplay && phoneHref && (
           <a
             href={phoneHref}
+            data-cta-phone
             class="font-sans text-sm font-medium text-primary-foreground/90 underline decoration-primary-foreground/40 underline-offset-4 transition-colors hover:text-primary-foreground"
           >
             Or call {phoneDisplay}
@@ -33,3 +34,11 @@ const { heading, subhead, ctaLabel, ctaHref, phoneDisplay, phoneHref } = Astro.p
     </div>
   </div>
 </section>
+
+<script>
+  import { track } from '@vercel/analytics';
+  document.querySelectorAll('[data-cta-section]').forEach((section) => {
+    section.querySelector('[data-cta-primary]')?.addEventListener('click', () => track('cta_click', { variant: 'schedule' }));
+    section.querySelector('[data-cta-phone]')?.addEventListener('click', () => track('cta_click', { variant: 'call' }));
+  });
+</script>
