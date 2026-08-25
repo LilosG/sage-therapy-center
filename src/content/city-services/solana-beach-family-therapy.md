@@ -5,10 +5,10 @@ lateralLinks:
   - teen-counseling
   - couples-counseling
 recognition:
-  - title: "Family communication has become strained or stuck in familiar loops"
-    body: "What looks like a single recurring conflict often reflects something deeper in how family members relate to and understand each other."
-  - title: "A transition has changed how the household functions"
-    body: "Divorce, a new family structure, an adolescent pulling away, or a loss can shift dynamics that once felt manageable."
+  - title: "The family presents as functioning well, but underneath there is significant distance or unspoken tension"
+    body: "Not all family difficulties look chaotic from the outside. Emotional withdrawal, avoidance, or communication that stays at the surface can quietly erode connection over time."
+  - title: "An adolescent's struggles or a parent's stress is affecting the emotional tone of the whole household"
+    body: "Family systems are interconnected. When one member is in distress, others absorb and react to it — even without realizing it. Therapy works at the level of the whole system."
   - title: "You want a family therapist your Solana Beach family can access"
     body: "Solana Beach families can meet Kristin at S.A.G.E.'s Carlsbad office or use telehealth when in-person sessions are not possible."
 overview:

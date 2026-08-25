@@ -5,10 +5,10 @@ lateralLinks:
   - trauma-ptsd-therapy
   - anxiety-therapy
 recognition:
-  - title: "Something from the past keeps surfacing even though you have tried to move on"
-    body: "Memories, emotional patterns, or reactions tied to earlier experiences can continue to affect the present even when time has passed."
-  - title: "Verbal processing alone has not produced the shift you were looking for"
-    body: "Some people find that talking about difficult experiences does not reach what they are carrying in the way they hoped. EMDR works differently."
+  - title: "You are functioning well by most measures, but something old keeps showing up underneath"
+    body: "EMDR is often useful for people who have built a full, successful life but carry unresolved distress from earlier experiences that surfaces in ways they cannot fully account for."
+  - title: "You prefer a structured, evidence-based approach to working through difficult material"
+    body: "EMDR has strong research support and a clear protocol — it is not exploratory or open-ended in the way some therapy is, which appeals to people who want a defined process."
   - title: "You want to explore EMDR with a therapist accessible from Del Mar"
     body: "Del Mar clients can work with Kristin at S.A.G.E.'s Carlsbad office or by telehealth across California."
 overview:

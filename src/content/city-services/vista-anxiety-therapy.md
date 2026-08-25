@@ -5,10 +5,10 @@ lateralLinks:
   - emdr-therapy
   - individual-therapy
 recognition:
-  - title: "Anxiety has been showing up consistently in ways that are hard to dismiss"
-    body: "Persistent worry, physical tension, or difficulty slowing the mind down can make everyday situations feel more difficult than they should."
-  - title: "You want to address what is driving the anxiety, not only manage the symptoms"
-    body: "Therapy can help identify the patterns and underlying experiences that sustain anxiety rather than focusing only on coping strategies."
+  - title: "Anxiety has been affecting how you show up at work, with family, or in daily routines"
+    body: "When anxiety starts interfering with parenting, relationships, or job performance — not just private experience — it is often a signal that coping strategies alone are not enough."
+  - title: "The anxiety shows up as irritability, avoidance, or exhaustion more than outright worry"
+    body: "Anxiety does not always feel like worry. For many people it shows up as short-temperedness, a reluctance to face certain situations, or a fatigue that does not improve with rest."
   - title: "You want a therapist accessible from Vista"
     body: "Vista clients can meet Kristin at S.A.G.E.'s Carlsbad office or use telehealth anywhere in California."
 overview:
@@ -16,18 +16,18 @@ overview:
   heading: "Anxiety treatment with a therapist serving North County communities"
   paragraphs:
     - "S.A.G.E. Therapy Center serves Vista clients seeking support for anxiety through individual sessions with Kristin Moorehead-Malley, LMFT. The practice is based in Carlsbad with telehealth available across California, making anxiety therapy accessible to Vista clients without a long commute."
-    - "Anxiety therapy may address generalized worry, panic, social anxiety, performance concerns, or anxiety tied to past experiences and current stressors. Sessions are structured around what anxiety looks like for the individual — its specific patterns, triggers, and how it affects daily functioning — rather than applying a single approach across all clients."
+    - "Anxiety often does not announce itself clearly. It might look like irritability, chronic tiredness, avoidance of situations that used to feel manageable, or difficulty staying present with family. Therapy works to understand what is driving those patterns — whether rooted in current stressors, relationship dynamics, or older experiences — and build a different relationship with them over time."
 topics:
   eyebrow: "What Therapy May Address"
   heading: "Types of anxiety Vista clients bring into therapy"
-  intro: "Anxiety varies considerably from person to person, and sessions are adapted to what is most present for each individual."
+  intro: "Anxiety takes many forms, and sessions are adapted to what is most present for each individual."
   items:
-    - "Persistent worry and difficulty quieting the mind"
-    - "Panic, physical tension, and somatic anxiety symptoms"
-    - "Social anxiety and self-consciousness in relationships"
-    - "Performance-related anxiety at work or in daily life"
-    - "Anxiety connected to past experiences or trauma"
-    - "Sleep disruption and difficulty resting"
+    - "Anxiety that shows up as irritability, avoidance, or emotional exhaustion"
+    - "Parenting stress and anxiety about children or family dynamics"
+    - "Work-related anxiety and difficulty managing competing demands"
+    - "Social anxiety and self-consciousness in everyday interactions"
+    - "Anxiety connected to past experiences or ongoing life stressors"
+    - "Sleep disruption and physical tension that does not resolve with rest"
 decisionItems:
   - q: "Is there an S.A.G.E. office in Vista?"
     a: "No. S.A.G.E.'s only physical office is in Carlsbad. Vista clients can meet there in person or use telehealth across California."

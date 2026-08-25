@@ -5,10 +5,10 @@ lateralLinks:
   - teen-counseling
   - couples-counseling
 recognition:
-  - title: "Family communication has become strained or stuck in familiar patterns"
-    body: "What seems like one recurring conflict often reflects something deeper in how family members understand and relate to one another."
-  - title: "A transition has shifted how the household is functioning"
-    body: "Divorce, a new family structure, an adolescent pulling away, or a significant loss can disrupt dynamics that once felt manageable."
+  - title: "A teenager's behavior or withdrawal is putting significant stress on the whole household"
+    body: "Adolescent struggles — with school, social relationships, mental health, or identity — often ripple through the family in ways that affect every member. Family therapy addresses the system, not only the teenager."
+  - title: "A blended or stepfamily situation has created tension that is not resolving on its own"
+    body: "Stepparent-stepchild relationships, different parenting expectations, and loyalty conflicts between households require deliberate work — and benefit from a structured space to address them."
   - title: "You want a family therapist your Vista family can access"
     body: "Vista families can meet Kristin at S.A.G.E.'s Carlsbad office or use telehealth when in-person is not an option."
 overview:

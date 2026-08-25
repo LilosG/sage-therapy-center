@@ -25,7 +25,8 @@ const primaryService = await getEntry(entry.data.primaryService);
 const breadcrumbItems = blogPostBreadcrumbs(entry.data.title, entry.data.slug);
 const schemaBreadcrumbs = absoluteBreadcrumbs(breadcrumbItems);
 const pageUrl = canonicalUrl(blogUrl(entry.data.slug));
-const description = `Therapy insights from S.A.G.E. Therapy Center in Carlsbad, CA related to ${primaryService.data.title.toLowerCase()}.`;
+const generatedDescription = `${entry.data.title} — insights from Kristin Moorehead-Malley, LMFT, at S.A.G.E. Therapy Center in Carlsbad, CA.`;
+const description = entry.data.description ?? generatedDescription;
 const publishedISO = entry.data.publishDate.toISOString();
 const heroImage = getServiceHero(primaryService.data.slug);
 const publishLabel = entry.data.publishDate.toLocaleDateString('en-US', {
@@ -54,7 +55,20 @@ const publishLabel = entry.data.publishDate.toLocaleDateString('en-US', {
       <Content />
     </div>
 
-    <div class="mt-10 flex flex-wrap gap-3 border-t border-border pt-6 font-sans text-sm">
+    <div class="mt-10 rounded-2xl border border-sage-deep/20 bg-lavender-soft px-6 py-5">
+      <p class="font-sans text-sm font-semibold text-ink">Ready to talk with someone at S.A.G.E.?</p>
+      <p class="mt-1 font-sans text-sm text-foreground">
+        Request a session to discuss fit, availability, and whether in-person or telehealth sessions make sense for you.
+      </p>
+      <a
+        href={entry.data.conversionPage}
+        class="mt-3 inline-block rounded-full bg-sage-deep px-5 py-2 font-sans text-sm font-medium text-white hover:bg-primary"
+      >
+        Request a session
+      </a>
+    </div>
+
+    <div class="mt-8 flex flex-wrap gap-3 border-t border-border pt-6 font-sans text-sm">
       <a
         href={serviceUrl(primaryService.data.slug)}
         class="rounded-full border border-border bg-surface px-4 py-2 text-foreground hover:border-sage-deep hover:text-sage-deep"
@@ -66,6 +80,12 @@ const publishLabel = entry.data.publishDate.toLocaleDateString('en-US', {
         class="rounded-full border border-border bg-surface px-4 py-2 text-foreground hover:border-sage-deep hover:text-sage-deep"
       >
         Local therapy information
+      </a>
+      <a
+        href={entry.data.conversionPage}
+        class="rounded-full border border-border bg-surface px-4 py-2 text-foreground hover:border-sage-deep hover:text-sage-deep"
+      >
+        Request a session
       </a>
     </div>
   </article>

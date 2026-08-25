@@ -5,10 +5,10 @@ lateralLinks:
   - emdr-therapy
   - individual-therapy
 recognition:
-  - title: "Anxiety is interfering with work, relationships, or daily routines"
-    body: "Persistent worry, overthinking, or physical tension can make ordinary situations feel harder than they should."
-  - title: "You want to understand what is driving it, not just reduce symptoms temporarily"
-    body: "Therapy can help identify the patterns and experiences underneath anxiety rather than only managing how it shows up day to day."
+  - title: "Anxiety has built up during or after a significant life change — a move, a job shift, or a loss"
+    body: "Transitions disrupt the routines and relationships that keep anxiety manageable. When those anchors shift, persistent worry, physical tension, or emotional overwhelm can follow."
+  - title: "You are managing a lot at once — family, work, responsibilities — and anxiety is the cost"
+    body: "Anxiety that emerges from sustained demands, caregiving stress, or juggling multiple roles is real and worth addressing, even when the circumstances seem manageable on paper."
   - title: "You want a therapist accessible from Oceanside"
     body: "Oceanside clients can work with Kristin at S.A.G.E.'s Carlsbad office or use telehealth anywhere in California."
 overview:
@@ -16,18 +16,18 @@ overview:
   heading: "Anxiety treatment with a therapist serving North County"
   paragraphs:
     - "S.A.G.E. Therapy Center serves Oceanside clients seeking support for anxiety through individual sessions with Kristin Moorehead-Malley, LMFT. The practice is based in Carlsbad — a short drive from Oceanside — with telehealth available across California so clients can choose the format that works best for their schedule."
-    - "Anxiety therapy may address generalized worry, panic, social anxiety, performance-related concerns, or anxiety connected to past experiences and ongoing stress. Sessions are built around what anxiety looks like for you — its specific patterns, triggers, and how it affects day-to-day life — rather than applying one fixed approach to every person."
+    - "Anxiety that builds during transitions — relocations, career changes, relationship shifts, or periods of sustained pressure — is common and often underacknowledged. Sessions focus on understanding where the anxiety originates, how it sustains itself through patterns of thinking and behavior, and what a different relationship with uncertainty might look like. The work adapts to each person's situation rather than following a fixed program."
 topics:
   eyebrow: "What Therapy May Address"
   heading: "Types of anxiety Oceanside clients bring into therapy"
-  intro: "Anxiety presents differently across people, and sessions adapt to what is most present for the individual."
+  intro: "Anxiety often intensifies during major transitions or periods of sustained demand — sessions adapt to what is most present for you."
   items:
-    - "Persistent worry and difficulty quieting the mind"
+    - "Anxiety tied to life transitions — moves, career changes, or family shifts"
+    - "Anxiety from sustained demands, caregiving stress, or emotional overload"
+    - "Persistent worry and difficulty quieting the mind at rest"
     - "Panic, physical tension, and somatic anxiety symptoms"
-    - "Social anxiety and self-consciousness in relationships"
-    - "Performance-related anxiety at work or in daily life"
-    - "Anxiety connected to past experiences or trauma"
-    - "Sleep disruption and difficulty resting due to anxiety"
+    - "Social anxiety and self-consciousness in relationships or new environments"
+    - "Anxiety connected to past experiences, loss, or unresolved stress"
 decisionItems:
   - q: "Is there an S.A.G.E. office in Oceanside?"
     a: "No. S.A.G.E.'s only physical office is in Carlsbad. Oceanside clients can meet there in person or use telehealth across California."

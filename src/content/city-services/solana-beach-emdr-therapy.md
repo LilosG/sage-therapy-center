@@ -5,10 +5,10 @@ lateralLinks:
   - trauma-ptsd-therapy
   - anxiety-therapy
 recognition:
-  - title: "Something from the past keeps affecting the present even when you would rather leave it behind"
-    body: "Memories, emotional reactions, or patterns connected to past events can continue to surface long after those events have ended."
-  - title: "Talking about it has not produced the shift you were hoping for"
-    body: "Some people find that verbal processing alone does not reach what they are carrying. EMDR approaches the work differently."
+  - title: "Anxiety, grief, or relationship difficulties seem connected to something earlier that you have not fully processed"
+    body: "EMDR was developed for trauma but also helps with anxiety, complicated grief, and distressing memories that sustain current difficulties — not only diagnosable PTSD."
+  - title: "You want to address the root of the pattern, not only work around it"
+    body: "EMDR aims to change the way a difficult memory or experience is stored in the nervous system — reducing the emotional charge rather than building coping strategies around it."
   - title: "You want to explore EMDR with a therapist accessible from Solana Beach"
     body: "Solana Beach clients can work with Kristin at S.A.G.E.'s Carlsbad office or by telehealth across California."
 overview:

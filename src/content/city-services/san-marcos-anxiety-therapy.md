@@ -5,10 +5,10 @@ lateralLinks:
   - emdr-therapy
   - individual-therapy
 recognition:
-  - title: "Anxiety has been affecting daily life in ways that feel hard to slow down"
-    body: "Persistent worry, tension, or a sense of dread can become the background of everyday experience rather than a passing feeling."
-  - title: "You want to understand what is underneath the anxiety, not just manage it"
-    body: "Therapy can explore the patterns, experiences, and beliefs driving anxiety rather than focusing only on symptom management."
+  - title: "Anxiety is showing up in a period of transition — in school, career, or life direction"
+    body: "Major transitions often surface anxiety that had been manageable before. When the ground shifts, worry, self-doubt, and uncertainty can intensify in ways that are difficult to work through alone."
+  - title: "The anxiety involves comparison, identity questions, or not knowing where you are headed"
+    body: "Anxiety tied to 'am I on the right path' or 'how do I compare to others' has a distinct character — one that responds well to therapy that addresses the self-concept driving it, not just the worry itself."
   - title: "You want a therapist you can reach from San Marcos"
     body: "San Marcos clients can meet Kristin at S.A.G.E.'s Carlsbad office or use telehealth anywhere in California."
 overview:
@@ -16,18 +16,18 @@ overview:
   heading: "Anxiety treatment with a therapist serving inland North County"
   paragraphs:
     - "S.A.G.E. Therapy Center serves San Marcos clients seeking support for anxiety through individual sessions with Kristin Moorehead-Malley, LMFT. The practice is based in Carlsbad with telehealth available across California, so San Marcos clients can access anxiety therapy without a long drive."
-    - "Anxiety therapy may address generalized worry, panic, social anxiety, performance concerns, or anxiety tied to past experiences and ongoing stress. Sessions are built around what anxiety looks like for the individual — its patterns, triggers, and how it shows up in daily life — rather than applying one fixed approach across all clients."
+    - "For many people in major life transitions — graduating, shifting careers, entering or leaving relationships — anxiety becomes louder because the familiar structures that kept it quiet have changed. Therapy in this context is not about eliminating uncertainty but about developing a clearer relationship with it: understanding what drives the anxiety, what it is protecting, and how to move forward without being controlled by it."
 topics:
   eyebrow: "What Therapy May Address"
   heading: "Types of anxiety San Marcos clients bring into therapy"
-  intro: "Anxiety presents differently from person to person, and sessions can be structured around what is most present for you."
+  intro: "Anxiety takes many forms and often intensifies during transitions — sessions are structured around what is most present for you."
   items:
-    - "Persistent worry and difficulty quieting the mind"
-    - "Panic, physical tension, and somatic anxiety symptoms"
-    - "Social anxiety and self-consciousness in relationships"
-    - "Performance-related anxiety at work or school"
-    - "Anxiety connected to past experiences or trauma"
-    - "Sleep disruption and difficulty resting"
+    - "Anxiety tied to major life transitions, decisions, or uncertainty about direction"
+    - "Social anxiety and self-consciousness in new or changing environments"
+    - "Comparison anxiety and pressure around where you should be by now"
+    - "Generalized worry and difficulty quieting an overactive mind"
+    - "Anxiety connected to past experiences or ongoing stress"
+    - "Sleep disruption and difficulty resting during periods of change"
 decisionItems:
   - q: "Is there an S.A.G.E. office in San Marcos?"
     a: "No. S.A.G.E.'s only physical office is in Carlsbad. San Marcos clients can meet there in person or use telehealth across California."

@@ -5,10 +5,10 @@ lateralLinks:
   - emdr-therapy
   - individual-therapy
 recognition:
-  - title: "Anxiety has become a persistent feature of daily life rather than an occasional feeling"
-    body: "Worry, tension, or overthinking that does not resolve on its own can begin to shape how you approach work, relationships, and ordinary situations."
-  - title: "You want to understand what is beneath the anxiety, not only manage it"
-    body: "Therapy can help explore the patterns and experiences sustaining anxiety rather than focusing only on symptom management."
+  - title: "Anxiety lives beneath a high-functioning surface and rarely gets acknowledged directly"
+    body: "When life looks successful from the outside, the inner experience of constant vigilance, worry, or performance pressure can feel invisible — and harder to bring to anyone."
+  - title: "The anxiety intensifies around reputation, decision-making, or being perceived a certain way"
+    body: "Anxiety tied to status, privacy, or the fear of making the wrong high-stakes choice has a specific texture that therapy can address without judgment or exposure."
   - title: "You want an anxiety therapist accessible from Rancho Santa Fe"
     body: "Rancho Santa Fe clients can work with Kristin at S.A.G.E.'s Carlsbad office or use telehealth anywhere in California."
 overview:
@@ -16,18 +16,18 @@ overview:
   heading: "Anxiety treatment with a therapist serving inland San Diego County"
   paragraphs:
     - "S.A.G.E. Therapy Center serves Rancho Santa Fe clients seeking support for anxiety through individual sessions with Kristin Moorehead-Malley, LMFT. The practice is based in Carlsbad with telehealth available across California, making anxiety therapy accessible without a long commute."
-    - "Anxiety therapy may address generalized worry, panic, social anxiety, performance concerns, or anxiety tied to past experiences and ongoing stress. Sessions are structured around what anxiety looks like for the individual — its specific patterns, triggers, and how it affects daily life — rather than applying a single approach to every person."
+    - "Anxiety in high-stakes environments often goes unaddressed because it is mistaken for ambition or because seeking help feels at odds with how one is expected to present. Telehealth sessions make it possible to work through anxiety privately, without commuting to an office. The approach is individualized — shaped by the specific patterns, pressures, and history that sustain the anxiety, not a generic framework."
 topics:
   eyebrow: "What Therapy May Address"
   heading: "Types of anxiety Rancho Santa Fe clients bring into therapy"
-  intro: "Anxiety presents differently across people, and sessions adapt to what is most present for the individual."
+  intro: "Anxiety in high-achieving contexts often takes specific forms — sessions adapt to what is most present for the individual."
   items:
-    - "Persistent worry and difficulty quieting the mind"
-    - "Panic, physical tension, and somatic anxiety symptoms"
-    - "Social anxiety and self-consciousness in relationships"
-    - "Performance-related anxiety at work or in daily life"
-    - "Anxiety connected to past experiences or trauma"
-    - "Sleep disruption and difficulty resting"
+    - "Anxiety tied to performance, reputation, or high-stakes decisions"
+    - "Perfectionism and the pressure of maintaining a certain standard"
+    - "Social anxiety in professional or community contexts"
+    - "Generalized worry that does not rest even when outcomes are good"
+    - "Anxiety connected to past experiences or significant life transitions"
+    - "Sleep disruption and physical tension from sustained pressure"
 decisionItems:
   - q: "Is there an S.A.G.E. office in Rancho Santa Fe?"
     a: "No. S.A.G.E.'s only physical office is in Carlsbad. Rancho Santa Fe clients can meet there in person or use telehealth across California."

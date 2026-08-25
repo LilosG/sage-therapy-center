@@ -5,10 +5,10 @@ lateralLinks:
   - emdr-therapy
   - individual-therapy
 recognition:
-  - title: "Anxiety has become a persistent part of your experience rather than an occasional feeling"
-    body: "Worry, tension, overthinking, or a sense of dread that does not resolve with rest or distraction may be worth exploring in therapy."
-  - title: "You want to understand what is underneath the anxiety, not only manage it"
-    body: "Therapy can explore the patterns and experiences that sustain anxiety rather than focusing only on short-term symptom relief."
+  - title: "You are functioning well on the outside but running on anxiety underneath"
+    body: "High-functioning anxiety can look like productivity and success to others while feeling like constant vigilance, over-preparation, or exhaustion that does not fully rest."
+  - title: "The anxiety shows up as perfectionism, overcontrol, or an inability to switch off"
+    body: "When anxiety organizes itself around performance, reputation, or managing outcomes, it can be harder to recognize — and harder to slow down without help."
   - title: "You want an anxiety therapist accessible from Del Mar"
     body: "Del Mar clients can work with Kristin at S.A.G.E.'s Carlsbad office or use telehealth anywhere in California."
 overview:
@@ -16,18 +16,18 @@ overview:
   heading: "Anxiety treatment with a therapist serving coastal North County"
   paragraphs:
     - "S.A.G.E. Therapy Center serves Del Mar clients seeking support for anxiety through individual sessions with Kristin Moorehead-Malley, LMFT. The practice's physical office is in Carlsbad — a short drive north of Del Mar — with telehealth available across California so clients can choose the format that fits their schedule."
-    - "Anxiety therapy may address generalized worry, panic, social anxiety, performance-related concerns, or anxiety connected to past experiences. Sessions are structured around what anxiety looks like for the individual — its specific patterns, triggers, and how it shows up in daily life — rather than applying one approach to every person."
+    - "Anxiety in high-performing environments often presents differently than clinical descriptions suggest. It may look like drive and diligence from the outside while feeling like an inability to stop, a persistent fear of falling short, or an undercurrent of worry that does not respond to achievement. Sessions are built around the specific patterns, triggers, and history that sustain it — not a fixed protocol."
 topics:
   eyebrow: "What Therapy May Address"
   heading: "Types of anxiety Del Mar clients bring into therapy"
-  intro: "Anxiety presents differently across people, and sessions adapt to what is most present for the individual."
+  intro: "Anxiety presents differently across people and environments, and sessions adapt to what is most present for the individual."
   items:
-    - "Persistent worry and difficulty quieting the mind"
+    - "High-functioning anxiety that coexists with professional success"
+    - "Perfectionism, overcontrol, and fear of making the wrong decision"
+    - "Social anxiety and self-consciousness in high-stakes settings"
     - "Panic, physical tension, and somatic anxiety symptoms"
-    - "Social anxiety and self-consciousness in relationships"
-    - "Performance-related anxiety at work or in public life"
-    - "Anxiety connected to past experiences or trauma"
-    - "Sleep disruption and difficulty resting"
+    - "Anxiety connected to past experiences or difficult life events"
+    - "Sleep disruption and difficulty disengaging from work or worry"
 decisionItems:
   - q: "Is there an S.A.G.E. office in Del Mar?"
     a: "No. S.A.G.E.'s only physical office is in Carlsbad. Del Mar clients can meet there in person or use telehealth across California."
