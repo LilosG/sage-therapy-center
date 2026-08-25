@@ -96,12 +96,9 @@ const coreServices = sortCoreServices((await getCollection('services')).filter((
       </div>
     </div>
 
-    <div class="flex flex-col gap-2 pt-7 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+    <div class="flex flex-col gap-2 pt-7 sm:flex-row sm:items-center sm:justify-between">
       <p class="font-sans text-xs text-muted-foreground">
-        {site.practitioner.name}, {site.practitioner.credential} · CA License {site.practitioner.licenseNumber}
-      </p>
-      <p class="font-sans text-xs text-muted-foreground">
-        © {new Date().getFullYear()} {site.name}. All rights reserved.
+        {site.practitioner.name}, {site.practitioner.credential} · CA License {site.practitioner.licenseNumber} &middot; © {new Date().getFullYear()} {site.name}
       </p>
       <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
         <a href="/privacy-policy/" class="font-sans text-xs text-muted-foreground hover:text-foreground">Privacy Policy</a>
