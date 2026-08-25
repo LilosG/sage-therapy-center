@@ -8,7 +8,15 @@ hasOffice: false
 primaryTarget: "therapist serving Del Mar"
 secondaryTargets:
   - "counseling near Del Mar"
-approvedCityServices: []
+approvedCityServices:
+  - individual-therapy
+  - couples-counseling
+  - anxiety-therapy
+  - emdr-therapy
+  - trauma-ptsd-therapy
+  - teen-counseling
+  - premarital-marriage-counseling
+  - depression-therapy
 nearbyCities:
   - solana-beach
 neighborhoods: []

@@ -13,6 +13,11 @@ approvedCityServices:
   - individual-therapy
   - couples-counseling
   - teen-counseling
+  - anxiety-therapy
+  - emdr-therapy
+  - trauma-ptsd-therapy
+  - family-therapy
+  - depression-therapy
 nearbyCities:
   - carlsbad
   - solana-beach

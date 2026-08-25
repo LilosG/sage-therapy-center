@@ -8,7 +8,14 @@ hasOffice: false
 primaryTarget: "therapist serving Solana Beach"
 secondaryTargets:
   - "counseling near Solana Beach"
-approvedCityServices: []
+approvedCityServices:
+  - individual-therapy
+  - couples-counseling
+  - anxiety-therapy
+  - teen-counseling
+  - emdr-therapy
+  - trauma-ptsd-therapy
+  - family-therapy
 nearbyCities:
   - del-mar
   - encinitas
