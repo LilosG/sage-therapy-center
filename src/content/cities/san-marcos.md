@@ -12,6 +12,11 @@ approvedCityServices:
   - individual-therapy
   - couples-counseling
   - teen-counseling
+  - anxiety-therapy
+  - family-therapy
+  - trauma-ptsd-therapy
+  - emdr-therapy
+  - depression-therapy
 nearbyCities:
   - carlsbad
 neighborhoods: []

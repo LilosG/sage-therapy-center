@@ -38,11 +38,17 @@ const localCombosForCity = new Map(
   cityServiceEntries.filter((cs) => cs.data.city.id === city.id).map((cs) => [cs.data.service.id, cs])
 );
 
-const otherApprovedServices = entry.data.lateralLinks?.length
-  ? await getEntries(entry.data.lateralLinks)
-  : (city.data.approvedCityServices.length ? await getEntries(city.data.approvedCityServices) : [])
-      .filter((s) => s.id !== service.id)
-      .slice(0, 3);
+// Build related links: lateralLinks are prioritized first, then fill remaining
+// slots from approvedCityServices so the strip always shows a meaningful set.
+const MAX_RELATED = 6;
+const allApproved = city.data.approvedCityServices.length
+  ? await getEntries(city.data.approvedCityServices)
+  : [];
+const otherApproved = allApproved.filter((s) => s.id !== service.id);
+const lateralEntries = entry.data.lateralLinks?.length ? await getEntries(entry.data.lateralLinks) : [];
+const lateralIds = new Set(lateralEntries.map((s) => s.id));
+const supplemental = otherApproved.filter((s) => !lateralIds.has(s.id));
+const otherApprovedServices = [...lateralEntries, ...supplemental].slice(0, MAX_RELATED);
 
 const relatedLinks = otherApprovedServices.map((s) => {
   const localEntry = localCombosForCity.get(s.id);

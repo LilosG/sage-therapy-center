@@ -8,7 +8,14 @@ hasOffice: false
 primaryTarget: "therapist serving Rancho Santa Fe"
 secondaryTargets:
   - "counseling near Rancho Santa Fe"
-approvedCityServices: []
+approvedCityServices:
+  - individual-therapy
+  - couples-counseling
+  - anxiety-therapy
+  - premarital-marriage-counseling
+  - emdr-therapy
+  - trauma-ptsd-therapy
+  - teen-counseling
 nearbyCities:
   - encinitas
 neighborhoods: []
