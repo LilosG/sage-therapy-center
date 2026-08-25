@@ -1,12 +1,12 @@
 ---
 import { getCollection, getEntry, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Breadcrumbs from '../../components/sections/Breadcrumbs.astro';
+import PageHero from '../../components/sections/PageHero.astro';
 import MeetKristin from '../../components/sections/MeetKristin.astro';
 import InquiryFormSection from '../../components/sections/InquiryFormSection.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
-import { site } from '../../data/site';
 import { practitioner } from '../../data/practitioner';
+import { getServiceHero, getHeroImageAlt } from '../../data/pageImages';
 import { canonicalUrl, blogUrl, serviceUrl } from '../../lib/routes';
 import { absoluteBreadcrumbs, blogPostBreadcrumbs } from '../../lib/breadcrumbs';
 import kristinPhoto from '../../assets/images/kristin-moorehead-malley.webp';
@@ -27,24 +27,30 @@ const schemaBreadcrumbs = absoluteBreadcrumbs(breadcrumbItems);
 const pageUrl = canonicalUrl(blogUrl(entry.data.slug));
 const description = `Therapy insights from S.A.G.E. Therapy Center in Carlsbad, CA related to ${primaryService.data.title.toLowerCase()}.`;
 const publishedISO = entry.data.publishDate.toISOString();
+const heroImage = getServiceHero(primaryService.data.slug);
+const publishLabel = entry.data.publishDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
 ---
 
-<BaseLayout title={`${entry.data.title} | S.A.G.E. Therapy Center`} description={description} ogType="article">
-  <Breadcrumbs items={breadcrumbItems} />
+<BaseLayout
+  title={`${entry.data.title} | S.A.G.E. Therapy Center`}
+  description={description}
+  ogType="article"
+  image={heroImage}
+>
+  <PageHero
+    eyebrow={`S.A.G.E. Therapy Center · ${publishLabel}`}
+    title={entry.data.title}
+    breadcrumbItems={breadcrumbItems}
+    image={heroImage}
+    imageAlt={getHeroImageAlt(heroImage)}
+  />
 
   <article class="mx-auto max-w-3xl px-6 pb-10 pt-8 sm:pb-14 sm:pt-10">
-    <p class="eyebrow-label">S.A.G.E. Therapy Center · Carlsbad, CA</p>
-    <h1 class="mt-4 font-serif text-4xl leading-tight text-ink sm:text-5xl">{entry.data.title}</h1>
-    <p class="mt-3 font-sans text-sm text-muted-foreground">
-      {
-        entry.data.publishDate.toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-        })
-      }
-    </p>
-    <div class="prose mt-8 max-w-none font-sans text-foreground">
+    <div class="prose mt-0 max-w-none font-sans text-foreground">
       <Content />
     </div>
 
