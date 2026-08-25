@@ -211,8 +211,6 @@ const reassuranceItems = [
     ]}
   />
 
-  <LocationContext cityName={city.data.name} hasOffice={city.data.hasOffice} neighborhoods={city.data.neighborhoods} />
-
   {
     decisionItems?.length && (
       <DecisionSection
@@ -244,6 +242,8 @@ const reassuranceItems = [
     placeUrl={`https://www.google.com/maps/place/?q=place_id:${googleReviews.placeId}`}
     lastUpdated={googleReviews.fetchedAt}
   />
+
+  <LocationContext cityName={city.data.name} hasOffice={city.data.hasOffice} neighborhoods={city.data.neighborhoods} />
 
   <PageFaqs heading={faqHeading} items={faqItems} background="surface" />
 
