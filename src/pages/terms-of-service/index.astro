@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/sections/PageHero.astro';
+import { site } from '../../data/site';
+import { editorialImages, getHeroImageAlt } from '../../data/pageImages';
+import { staticBreadcrumbs } from '../../lib/breadcrumbs';
+
+const heroImage = editorialImages.coastalPath;
+const lastUpdated = 'August 2026';
+---
+
+<BaseLayout
+  title="Terms of Service | S.A.G.E. Therapy Center"
+  description="Terms of service for the S.A.G.E. Therapy Center website — acceptable use and limitations of this informational site."
+>
+  <PageHero
+    eyebrow="S.A.G.E. Therapy Center"
+    title="Terms of Service"
+    breadcrumbItems={staticBreadcrumbs('Terms of Service', '/terms-of-service/')}
+    image={heroImage}
+    imageAlt={getHeroImageAlt(heroImage)}
+  />
+
+  <article class="mx-auto max-w-3xl px-6 pb-14 pt-10">
+    <div class="prose max-w-none font-sans text-foreground">
+      <p class="text-sm text-muted-foreground">Last updated: {lastUpdated}</p>
+
+      <h2>Overview</h2>
+      <p>
+        These Terms of Service govern your use of the {site.name} website located at {site.canonicalOrigin} ("Site"), operated by {site.practitioner.name}, {site.practitioner.credential}. By using this Site, you agree to these terms. If you do not agree, please do not use the Site.
+      </p>
+
+      <h2>Not a Crisis Service</h2>
+      <p>
+        This website is not a crisis intervention service and is not monitored in real time. If you are experiencing a mental health emergency, please call 988 (Suicide & Crisis Lifeline), call 911, or go to your nearest emergency room.
+      </p>
+
+      <h2>No Therapeutic Relationship</h2>
+      <p>
+        Use of this website, including submission of a session request form, does not establish a therapeutic relationship with {site.practitioner.name} or {site.name}. A therapeutic relationship begins only when both parties have entered into a formal agreement and the first session has taken place.
+      </p>
+
+      <h2>Informational Purpose Only</h2>
+      <p>
+        Content on this Site is provided for general informational purposes. It is not intended as, and should not be construed as, professional mental health advice, diagnosis, or treatment. Always seek the guidance of a qualified mental health professional with any questions you may have about your mental health.
+      </p>
+
+      <h2>Intellectual Property</h2>
+      <p>
+        All content on this Site — including text, images, and design — is the property of {site.name} or its content suppliers and is protected by applicable intellectual property law. You may not reproduce, distribute, or create derivative works from Site content without prior written permission.
+      </p>
+
+      <h2>Acceptable Use</h2>
+      <p>You agree not to use this Site to:</p>
+      <ul>
+        <li>Submit false or misleading information</li>
+        <li>Attempt to gain unauthorized access to any portion of the Site or its infrastructure</li>
+        <li>Transmit spam, malware, or any harmful code</li>
+        <li>Violate any applicable laws or regulations</li>
+      </ul>
+
+      <h2>Third-Party Links</h2>
+      <p>
+        The Site may link to third-party websites (scheduling platforms, professional directories, etc.) that are not operated by us. We have no control over those sites and accept no responsibility for their content or practices.
+      </p>
+
+      <h2>Limitation of Liability</h2>
+      <p>
+        To the extent permitted by law, {site.name} and {site.practitioner.name} shall not be liable for any indirect, incidental, or consequential damages arising from your use of, or inability to use, this Site or its content.
+      </p>
+
+      <h2>Changes to These Terms</h2>
+      <p>
+        We may update these Terms from time to time. The "Last updated" date above reflects the most recent revision. Continued use of the Site after changes constitutes acceptance of the revised Terms.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Questions about these Terms can be directed to:<br />
+        {site.practitioner.name}, {site.practitioner.credential}<br />
+        {site.name}<br />
+        <a href={`mailto:${site.email}`}>{site.email}</a><br />
+        {site.phone.display}
+      </p>
+    </div>
+  </article>
+</BaseLayout>
