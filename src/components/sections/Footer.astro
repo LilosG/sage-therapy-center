@@ -89,8 +89,9 @@ const coreServices = sortCoreServices((await getCollection('services')).filter((
         © {new Date().getFullYear()} {site.name}. All rights reserved.
       </p>
       <div class="flex items-center gap-5">
-        <a href={site.social.facebook} class="font-sans text-xs font-semibold text-primary hover:text-sage-deep">Facebook</a>
-        <a href={site.social.instagram} class="font-sans text-xs font-semibold text-primary hover:text-sage-deep">Instagram</a>
+        <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" class="font-sans text-xs font-semibold text-primary hover:text-sage-deep">Facebook</a>
+        <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" class="font-sans text-xs font-semibold text-primary hover:text-sage-deep">Instagram</a>
+        <a href={site.social.linkedin} target="_blank" rel="noopener noreferrer" class="font-sans text-xs font-semibold text-primary hover:text-sage-deep">LinkedIn</a>
       </div>
     </div>
 

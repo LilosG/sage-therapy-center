@@ -47,8 +47,9 @@ export const site = {
   hours: null as null | { day: string; open: string; close: string }[],
 
   social: {
-    facebook: 'https://facebook.com/sagetherapy',
-    instagram: 'https://instagram.com/sagetherapycenter',
+    facebook: 'https://www.facebook.com/sagetherapy/',
+    instagram: 'https://www.instagram.com/sagetherapycenter/',
+    linkedin: 'https://www.linkedin.com/company/sagetherapycenter/',
   },
 
   practitioner: {
