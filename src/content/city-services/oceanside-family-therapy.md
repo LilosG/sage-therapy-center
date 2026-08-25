@@ -5,10 +5,10 @@ lateralLinks:
   - teen-counseling
   - couples-counseling
 recognition:
-  - title: "Communication in the household has broken down or become repetitive"
-    body: "What presents as a recurring argument often reflects deeper patterns in how family members relate to one another."
-  - title: "A transition has shifted how the family is functioning"
-    body: "Divorce, a new household structure, an adolescent pulling away, or a significant loss can all disrupt dynamics that once felt stable."
+  - title: "A deployment, relocation, or other major transition has disrupted how the family functions together"
+    body: "Significant life changes — even ones the family has navigated before — can create lasting strain on communication, roles, and emotional connection within the household."
+  - title: "Extended family dynamics or outside pressures are creating tension at home"
+    body: "Family stress does not always originate inside the household. Pressures from extended family, financial strain, or community transitions can all affect how family members relate to one another."
   - title: "You want a family therapist your Oceanside family can access"
     body: "Oceanside families can meet Kristin at S.A.G.E.'s Carlsbad office or use telehealth when in-person sessions are not possible."
 overview:

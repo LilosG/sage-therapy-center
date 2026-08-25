@@ -1,18 +1,25 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/sections/PageHero.astro';
 import TrustStrip from '../../components/sections/TrustStrip.astro';
-import Card from '../../components/ui/Card.astro';
 import InquiryFormSection from '../../components/sections/InquiryFormSection.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
 import { editorialImages, getHeroImageAlt } from '../../data/pageImages';
 import { BLOG_URL, SCHEDULE_URL } from '../../data/nav';
-import { blogUrl } from '../../lib/routes';
+import { blogUrl, serviceUrl } from '../../lib/routes';
 import { staticBreadcrumbs } from '../../lib/breadcrumbs';
 
-const posts = (await getCollection('blog')).sort(
+const allPosts = await getCollection('blog');
+const posts = allPosts.sort(
   (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+
+const postsWithService = await Promise.all(
+  posts.map(async (post) => {
+    const service = await getEntry(post.data.primaryService);
+    return { post, service };
+  })
 );
 
 const heroImage = editorialImages.coastalPath;
@@ -39,20 +46,44 @@ const heroImage = editorialImages.coastalPath;
     <div class="mx-auto max-w-3xl px-6 py-10 sm:py-14">
       <div class="space-y-6">
         {
-          posts.map((post) => (
-            <Card>
-              <a href={blogUrl(post.data.slug)} class="font-serif text-xl text-ink hover:text-sage-deep">
-                {post.data.title}
-              </a>
-              <p class="mt-2 font-sans text-sm text-muted-foreground">
-                {post.data.publishDate.toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                })}
-              </p>
-            </Card>
-          ))
+          postsWithService.map(({ post, service }) => {
+            const excerpt =
+              post.data.description ??
+              `Insights on ${service.data.title.toLowerCase()} from Kristin Moorehead-Malley, LMFT, at S.A.G.E. Therapy Center.`;
+            return (
+              <article class="rounded-2xl border border-border bg-surface p-6 shadow-sm">
+                <p class="font-sans text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                  {service.data.title} &middot;{' '}
+                  {post.data.publishDate.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </p>
+                <a
+                  href={blogUrl(post.data.slug)}
+                  class="mt-2 block font-serif text-xl text-ink hover:text-sage-deep"
+                >
+                  {post.data.title}
+                </a>
+                <p class="mt-2 font-sans text-sm leading-6 text-muted-foreground">{excerpt}</p>
+                <div class="mt-4 flex items-center gap-4">
+                  <a
+                    href={blogUrl(post.data.slug)}
+                    class="font-sans text-sm font-medium text-sage-deep hover:text-primary"
+                  >
+                    Read article &rarr;
+                  </a>
+                  <a
+                    href={serviceUrl(service.data.slug)}
+                    class="font-sans text-sm text-muted-foreground hover:text-foreground"
+                  >
+                    {service.data.title} in Carlsbad
+                  </a>
+                </div>
+              </article>
+            );
+          })
         }
       </div>
     </div>

@@ -5,10 +5,10 @@ lateralLinks:
   - trauma-ptsd-therapy
   - anxiety-therapy
 recognition:
-  - title: "Something from the past keeps affecting the present even when you do not want it to"
-    body: "Memories, emotional reactions, or patterns tied to past events can continue to surface even when time has passed."
-  - title: "Talking about it has not moved things the way you hoped"
-    body: "Some people find that verbal processing alone does not reach what they are carrying. EMDR approaches the work differently."
+  - title: "A specific event or period left a mark that has not faded the way you expected"
+    body: "Whether it was a single incident or a sustained period of difficulty, EMDR is designed for experiences that continue to affect how you feel, react, or function today."
+  - title: "You have already talked about it — but talking alone has not been enough"
+    body: "When a traumatic or distressing experience does not respond fully to verbal processing, the bilateral stimulation approach in EMDR offers a different pathway through the material."
   - title: "You want to explore EMDR with a therapist you can reach from Oceanside"
     body: "Oceanside clients can work with Kristin at S.A.G.E.'s Carlsbad office or by telehealth across California."
 overview:

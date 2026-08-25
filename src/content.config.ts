@@ -151,6 +151,7 @@ const blog = defineCollection({
   schema: z.object({
     title: z.string(),
     slug: z.string(),
+    description: z.string().optional(),
     publishDate: z.date(),
     primaryService: reference('services'),
     primaryLocalPage: z.string(),

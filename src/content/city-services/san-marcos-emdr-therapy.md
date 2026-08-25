@@ -5,10 +5,10 @@ lateralLinks:
   - trauma-ptsd-therapy
   - anxiety-therapy
 recognition:
-  - title: "Something from the past keeps surfacing even when you would rather leave it behind"
-    body: "Memories, emotional reactions, or patterns tied to earlier experiences can continue affecting daily life long after the events themselves."
-  - title: "Talking through it has not produced the shift you were looking for"
-    body: "Some people find that verbal processing alone does not reach what they are carrying. EMDR approaches the work differently."
+  - title: "A recent or past experience is affecting how you feel now in ways that seem outsized"
+    body: "When a difficult experience — even one that seems minor compared to what others go through — keeps affecting your mood, relationships, or sense of safety, EMDR can help process what is still unresolved."
+  - title: "You are open to trying something different from traditional talk therapy"
+    body: "EMDR does not require you to narrate every detail of what happened. The processing happens through bilateral stimulation, which some people find easier to engage with than extended verbal exploration."
   - title: "You want to explore EMDR with a therapist accessible from San Marcos"
     body: "San Marcos clients can work with Kristin at S.A.G.E.'s Carlsbad office or by telehealth across California."
 overview:

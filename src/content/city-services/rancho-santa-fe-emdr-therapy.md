@@ -5,10 +5,10 @@ lateralLinks:
   - trauma-ptsd-therapy
   - anxiety-therapy
 recognition:
-  - title: "Something from the past keeps affecting the present even when you would rather move on"
-    body: "Memories, emotional patterns, or reactions tied to earlier experiences can continue to surface long after those events have passed."
-  - title: "Talking about it has not produced the shift you were looking for"
-    body: "Some people find that verbal processing alone does not reach what they are carrying. EMDR approaches the work differently."
+  - title: "You want to address unresolved distress privately, without it becoming part of your professional or social identity"
+    body: "EMDR — particularly via telehealth — offers a way to do significant therapeutic work without it being visible to colleagues, peers, or community. The work stays contained."
+  - title: "You have had therapy before, but something has remained stuck that talking did not fully resolve"
+    body: "EMDR is often most useful for people who have done other therapy and found that certain material — specific memories, somatic reactions, or old patterns — did not shift through verbal work alone."
   - title: "You want to explore EMDR with a therapist accessible from Rancho Santa Fe"
     body: "Rancho Santa Fe clients can work with Kristin at S.A.G.E.'s Carlsbad office or by telehealth across California."
 overview:

@@ -5,10 +5,10 @@ lateralLinks:
   - teen-counseling
   - couples-counseling
 recognition:
-  - title: "The same conflicts keep coming up without resolution"
-    body: "Recurring arguments or communication breakdowns often reflect patterns in how family members relate that go beyond the surface-level topic."
-  - title: "A transition has changed how the family is functioning together"
-    body: "A move, divorce, new family structure, or significant loss can shift dynamics that once felt stable and predictable."
+  - title: "Parenting disagreements or co-parenting tensions are creating stress across the household"
+    body: "When parents are not aligned — whether together or separated — children often feel it in ways that affect their behavior and wellbeing. Family therapy can address the systemic pattern, not just individual responses."
+  - title: "Your family structure has changed and the household has not found its footing yet"
+    body: "A new marriage, a blended family, a new sibling, or a separation can create dynamics that require more than time to sort out — especially when children of different ages are involved."
   - title: "You want a family therapist your San Marcos family can reach"
     body: "San Marcos families can meet Kristin at S.A.G.E.'s Carlsbad office or use telehealth when in-person is not possible."
 overview:
